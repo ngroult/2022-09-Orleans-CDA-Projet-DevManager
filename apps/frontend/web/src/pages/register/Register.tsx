@@ -2,12 +2,16 @@ import {
   Box,
   Button,
   Center,
+  Divider,
   FormControl,
   FormHelperText,
   FormLabel,
+  Heading,
   Input,
   InputGroup,
   InputRightElement,
+  Link,
+  Text,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -16,33 +20,52 @@ function Register() {
   const handleClick = () => setShow(!show);
 
   return (
-    <Box bg="#E4E4ED" opacity="">
-      <FormControl>
-        <FormLabel>Username</FormLabel>
-        <Input placeholder="codelande" bg="white" type="text" />
-        <FormLabel>E-mail</FormLabel>
-        <Input placeholder="codelande@devmanager.com" bg="white" type="email" />
-        <FormHelperText>We'll never share your email.</FormHelperText>
-        <FormLabel pt="4">Password</FormLabel>
-        <InputGroup size="md">
+    <Box>
+      <Center>
+        <Heading fontSize="3xl">DevManager</Heading>
+      </Center>
+      <Center>
+        <Text fontSize="xl">Register</Text>
+      </Center>
+
+      <Box bg="#E4E4ED">
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input placeholder="codelande" bg="white" type="text" />
+          <FormLabel>E-mail</FormLabel>
           <Input
+            placeholder="codelande@devmanager.com"
             bg="white"
-            pr="4.5rem"
-            type={show ? 'text' : 'password'}
-            placeholder="Enter password"
+            type="email"
           />
-          <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? 'Hide' : 'Show'}
+          <FormHelperText>We'll never share your email.</FormHelperText>
+          <FormLabel pt="4">Password</FormLabel>
+          <InputGroup size="md">
+            <Input
+              bg="white"
+              pr="4.5rem"
+              type={show ? 'text' : 'password'}
+              placeholder="Enter password"
+            />
+            <InputRightElement width="4.5rem">
+              <Button h="1.75rem" size="sm" onClick={handleClick}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          <Center>
+            <Button boxShadow="lg" my="8" color="white" bg="#797AA6">
+              Create your account
             </Button>
-          </InputRightElement>
-        </InputGroup>
+          </Center>
+          <Center>
+            <Divider borderColor="9393B7" width="75%" />
+          </Center>
+        </FormControl>
         <Center>
-          <Button boxShadow="lg" my="8" color="white" bg="#797AA6">
-            Create your account
-          </Button>
+          <Link py="7">Have already an account</Link>
         </Center>
-      </FormControl>
+      </Box>
     </Box>
   );
 }
