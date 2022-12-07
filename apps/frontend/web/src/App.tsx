@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import theme from "./utils/theme";
 import { SomeInterface, User } from '@libs/typings';
-import { Box, Heading } from '@chakra-ui/react';
 
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
@@ -28,7 +26,7 @@ function App() {
     };
   }, []);
 
-  return <div className="App"><div>{`${someData.someProperty}`}</div>
+  return <div className="App">{`${someData.someProperty}`}
   </div>;
 }
 

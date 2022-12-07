@@ -5,7 +5,8 @@ import './index.css';
 import theme from "./utils/theme";
 import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/chakra-petch/400.css';
-import '@fontsource/orbitron/700.css'
+import '@fontsource/orbitron/700.css';
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ChakraProvider theme={theme}>
   <React.StrictMode>
