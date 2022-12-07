@@ -37,6 +37,8 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "@apps/backend-api": "^0.0.1",
+    "@nestjs/mapped-types": "^1.2.0",
     "dotenv": "^16.0.3"
   }
 }
