@@ -15,7 +15,7 @@ const ResourcesBar = () => {
     <Flex minWidth="max-content" alignItems="center" gap="2">
       <HStack>
           <Box boxSize="30px">
-            <Image src="https://bit.ly/dan-abramov" />
+            <Image src="/company4.png" placeholder="my_company" />
           </Box>
           <Box>
           My Company
@@ -27,7 +27,7 @@ const ResourcesBar = () => {
         <HStack>
           <Box>50</Box>
           <Box boxSize="30px">
-            <Image src="https://bit.ly/dan-abramov" />
+            <Image src="/area.png" />
           </Box>
         </HStack>
       </VStack>
@@ -36,7 +36,7 @@ const ResourcesBar = () => {
         <HStack>
           <Box>110</Box>
           <Box boxSize="30px">
-            <Image src="https://bit.ly/dan-abramov" />
+            <Image src="/area.png" />
           </Box>
         </HStack>
       </VStack>
@@ -46,7 +46,7 @@ const ResourcesBar = () => {
         <Box bg="#F7F0D0" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
           <HStack>
             <Box boxSize="30px">
-              <Image src="https://bit.ly/dan-abramov" />
+              <Image src="/dollar.png" />
             </Box>
             <Box> 123456</Box>
           </HStack>
@@ -54,7 +54,7 @@ const ResourcesBar = () => {
         <Box bg="#D9F1F0" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
           <HStack>
             <Box boxSize="30px">
-              <Image src="https://bit.ly/dan-abramov" />
+              <Image src="/soda.png" />
             </Box>
             <Box> 123456</Box>
           </HStack>
@@ -62,7 +62,7 @@ const ResourcesBar = () => {
         <Box bg="#EAD9C4" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
           <HStack>
             <Box boxSize="30px">
-              <Image src="https://bit.ly/dan-abramov" />
+              <Image src="/coffee.png" />
             </Box>
             <Box> 123456</Box>
           </HStack>
@@ -70,7 +70,7 @@ const ResourcesBar = () => {
         <Box bg="#DDEDF6" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
           <HStack>
             <Box boxSize="30px">
-              <Image src="https://bit.ly/dan-abramov" />
+              <Image src="/contract.png" />
             </Box>
             <Box> 123456</Box>
           </HStack>
@@ -78,7 +78,7 @@ const ResourcesBar = () => {
         <Box bg="#E3F0FD" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
           <HStack>
             <Box boxSize="30px">
-              <Image src="https://bit.ly/dan-abramov" />
+              <Image src="/delivery_order.png" />
             </Box>
             <Box> 123456</Box>
           </HStack>
