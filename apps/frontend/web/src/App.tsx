@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-
 import { SomeInterface, User } from '@libs/typings';
 import Overview from './pages/Overview';
 
