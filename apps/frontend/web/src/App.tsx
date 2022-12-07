@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 import { SomeInterface, User } from '@libs/typings';
+import { Routes, Route } from 'react-router-dom';
+import NewGame from './pages/NewGame';
 
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
@@ -27,7 +29,17 @@ function App() {
     };
   }, []);
 
-  return <div className="App">{`${someData.someProperty}`}</div>;
+  return (
+    <>
+      <Routes>
+        <Route path="/new-game" element={<NewGame />} />
+        <Route
+          path="*"
+          element={<div className="App">{`${someData.someProperty}`}</div>}
+        />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
