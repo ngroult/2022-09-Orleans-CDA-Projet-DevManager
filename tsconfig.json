@@ -3,6 +3,9 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["workspaces", "@typescript-eslint"],
   "ignorePatterns": ["**/**/dist/*.{js,ts}"],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+  },
   "rules": {
     "workspaces/no-relative-imports": "error",
     "workspaces/require-dependency": "warn"

@@ -19,11 +19,7 @@
     "dev": "concurrently -c \"auto\" \"npm:watch:*\" \"npm:dev:backend:*\" \"npm:dev:frontend:*(!mobile)\"",
     "d": "npm run dev",
     "dc:up": "docker compose -f ./deployment/docker-compose.dev.yml up -d",
-    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down",
-    "migration:create": "npx typeorm-ts-node-esm migration:create",
-    "migration:generate": "npx typeorm-ts-node-esm migration:generate -d apps/backend/api/src/config/migration.config.ts",
-    "migration:up": "npx typeorm-ts-node-esm migration:run -d src/config/migration.config.ts",
-    "migration:down": "npx typeorm-ts-node-esm migration:revert -d src/config/migration.config.ts"
+    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down"
   },
   "workspaces": [
     "libs/typings",

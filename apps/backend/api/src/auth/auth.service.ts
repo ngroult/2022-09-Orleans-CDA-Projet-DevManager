@@ -12,7 +12,7 @@ export class AuthService {
     return this.usersService.create(user);
   }
 
-  private hash(password): string {
+  private hash(password: string): string {
     return crypto.createHmac('sha256', password).digest('hex');
   }
 }
