@@ -23,7 +23,7 @@ const ResourcesBar = () => {
       </HStack>
       <Spacer />
       <VStack>
-        <Box>Restant</Box>
+        <Box>Remaining</Box>
         <HStack>
           <Box>50</Box>
           <Box boxSize="30px">
