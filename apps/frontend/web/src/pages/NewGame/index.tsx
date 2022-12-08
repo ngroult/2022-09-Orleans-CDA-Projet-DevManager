@@ -16,6 +16,7 @@ import {
   useDisclosure,
   useRadioGroup,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import CompanyImageRadioCard from '../../components/CompanyImageRadioCard';
 
 const NewGame = () => {
@@ -34,6 +35,45 @@ const NewGame = () => {
   ];
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [companyName, setCompanyName] = useState();
+  const [ceo, setCeo] = useState();
+  const [location, setLocation] = useState();
+
+  useEffect(() => {
+    if (isSubmitted === true) {
+      const createdAt = new Date();
+
+      const data = {
+        idUser: 1,
+        createdAt: createdAt,
+        companyName: companyName,
+        ceo: ceo,
+        location: location,
+        idImage: 3,
+      };
+
+      console.log("kfjdhlgfjh");
+
+      fetch('/api/games', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Success:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
+      setIsSubmitted(false);
+    }
+  }, [isSubmitted]);
 
   return (
     <>
@@ -78,6 +118,8 @@ const NewGame = () => {
               mb="1rem"
               bgColor="#fff"
               _placeholder={{ opacity: 0.3 }}
+              value={companyName}
+              onChange={() => setCompanyName(companyName)}
             />
             <Text textAlign="left" w="400px">
               CEO of your company :
@@ -88,6 +130,7 @@ const NewGame = () => {
               mb="1rem"
               bgColor="#fff"
               _placeholder={{ opacity: 0.3 }}
+              value={ceo}
             />
             <Text textAlign="left" w="400px">
               Location of your company :
@@ -97,6 +140,7 @@ const NewGame = () => {
               placeholder="Paris, France..."
               bgColor="#fff"
               _placeholder={{ opacity: 0.3 }}
+              value={location}
             />
           </InputGroup>
           <Button
@@ -110,6 +154,7 @@ const NewGame = () => {
             _focus={{
               outline: 'none',
             }}
+            onClick={() => setIsSubmitted(true)}
           >
             Start the game
           </Button>

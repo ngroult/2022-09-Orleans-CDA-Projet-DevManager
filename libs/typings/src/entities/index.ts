@@ -1,1 +1,1 @@
-export * from "./User.entity";
+export * from "./game.entity";
