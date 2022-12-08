@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { SomeInterface, User } from '@libs/typings';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
@@ -26,7 +27,8 @@ function App() {
     };
   }, []);
 
-  return <div className="App">{`${someData.someProperty}`}
+  return <div className="App">
+    <Navbar/>
   </div>;
 }
 
