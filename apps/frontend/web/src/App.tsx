@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { SomeInterface, User } from '@libs/typings';
-import Overview from './pages/Overview';
+import ResourcesBar from './components/resourcesBar/ResourcesBar';
 
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
@@ -29,7 +29,7 @@ function App() {
 
   return <div className="App">
     {/* {`${someData.someProperty}`} */}
-    <Overview />
+    <ResourcesBar/>
     </div>;
 }
 
