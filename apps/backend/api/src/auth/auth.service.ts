@@ -6,6 +6,7 @@ import * as crypto from 'crypto';
 @Injectable()
 export class AuthService {
   constructor(private readonly usersService: UsersService) {}
+
   public async register(user: User): Promise<any> {
     user.password = this.hash(user.password);
 

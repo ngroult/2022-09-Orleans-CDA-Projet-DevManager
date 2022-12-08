@@ -35,6 +35,9 @@
   "dependencies": {
     "@apps/backend-api": "^0.0.1",
     "@nestjs/mapped-types": "^1.2.0",
-    "dotenv": "^16.0.3"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "i": "^0.3.7",
+    "npm": "^9.2.0"
   }
 }
