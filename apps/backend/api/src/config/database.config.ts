@@ -1,6 +1,6 @@
 import { DataSourceOptions } from 'typeorm';
 import 'dotenv/config';
-import { Game } from '@libs/typings';
+import { Game } from '../games/entities/game.entity';
 
 export const databaseConfig: DataSourceOptions = {
   type: 'mysql',

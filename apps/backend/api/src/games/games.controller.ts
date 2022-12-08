@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { GamesService } from './games.service';
-import { CreateGameDto } from '@libs/typings/src/dtos/create-game.dto';
-import { UpdateGameDto } from '@libs/typings/src/dtos/update-game.dto';
+import { CreateGameDto } from './dto/create-game.dto';
+import { UpdateGameDto } from './dto/update-game.dto';
 
 @Controller('games')
 export class GamesController {
