@@ -23,18 +23,16 @@ function Register() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [formData, setFormData] = useState({});
 
   const  handleSubmit = async() => {
-     setFormData({
-      username: username,
-      email: email,
-      password: password,
-    });
      await fetch('api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
     }).then(() => {
       console.log('it worked');
     });

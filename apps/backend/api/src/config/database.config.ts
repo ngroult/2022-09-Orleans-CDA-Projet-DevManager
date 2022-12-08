@@ -1,6 +1,6 @@
 import { DataSourceOptions } from 'typeorm';
 import 'dotenv/config';
-import { User } from '../users/entities/user.entity';
+import { User } from '@libs/typings/src/entities/user.entity';
 
 export const databaseConfig: DataSourceOptions = {
   type: 'mysql',
