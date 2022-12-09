@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { SomeInterface, User } from '@libs/typings';
+
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
     someProperty: 'someValue',

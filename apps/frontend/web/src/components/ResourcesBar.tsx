@@ -1,25 +1,13 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Spacer,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, Spacer, VStack } from '@chakra-ui/react';
 
 const ResourcesBar = () => {
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2">
       <HStack>
-          <Box boxSize="30px">
-            <Image src="/company4.png" placeholder="my_company" />
-          </Box>
-          <Box>
-          My Company
+        <Box boxSize="30px">
+          <Image src="/company4.png" placeholder="my_company" />
         </Box>
+        <Box>My Company</Box>
       </HStack>
       <Spacer />
       <VStack>
@@ -43,7 +31,13 @@ const ResourcesBar = () => {
 
       <Spacer />
       <HStack>
-        <Box bg="#F7F0D0" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
+        <Box
+          bg="gold.200"
+          px="10px"
+          py="5px"
+          borderRadius="20px"
+          boxShadow="xl"
+        >
           <HStack>
             <Box boxSize="30px">
               <Image src="/dollar.png" />
@@ -51,7 +45,13 @@ const ResourcesBar = () => {
             <Box> 123456</Box>
           </HStack>
         </Box>
-        <Box bg="#D9F1F0" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
+        <Box
+          bg="turquoise.200"
+          px="10px"
+          py="5px"
+          borderRadius="20px"
+          boxShadow="xl"
+        >
           <HStack>
             <Box boxSize="30px">
               <Image src="/soda.png" />
@@ -59,7 +59,13 @@ const ResourcesBar = () => {
             <Box> 123456</Box>
           </HStack>
         </Box>
-        <Box bg="#EAD9C4" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
+        <Box
+          bg="brown.200"
+          px="10px"
+          py="5px"
+          borderRadius="20px"
+          boxShadow="xl"
+        >
           <HStack>
             <Box boxSize="30px">
               <Image src="/coffee.png" />
@@ -67,7 +73,13 @@ const ResourcesBar = () => {
             <Box> 123456</Box>
           </HStack>
         </Box>
-        <Box bg="#DDEDF6" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
+        <Box
+          bg="blue.100"
+          px="10px"
+          py="5px"
+          borderRadius="20px"
+          boxShadow="xl"
+        >
           <HStack>
             <Box boxSize="30px">
               <Image src="/contract.png" />
@@ -75,7 +87,13 @@ const ResourcesBar = () => {
             <Box> 123456</Box>
           </HStack>
         </Box>
-        <Box bg="#E3F0FD" px="10px" py="5px" borderRadius="20px" boxShadow="xl">
+        <Box
+          bg="brown.500"
+          px="10px"
+          py="5px"
+          borderRadius="20px"
+          boxShadow="xl"
+        >
           <HStack>
             <Box boxSize="30px">
               <Image src="/delivery_order.png" />
