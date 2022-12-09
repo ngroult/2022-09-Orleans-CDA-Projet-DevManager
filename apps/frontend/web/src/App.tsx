@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { SomeInterface, User } from '@libs/typings';
-import ResourcesBar from './components/resourcesBar/ResourcesBar';
-
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
     someProperty: 'someValue',
@@ -28,8 +26,7 @@ function App() {
   }, []);
 
   return <div className="App">
-    <ResourcesBar/>
-    </div>;
+  </div>;
 }
 
 export default App;
