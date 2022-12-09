@@ -4,6 +4,7 @@ import {
   Center,
   Divider,
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   Heading,
@@ -24,8 +25,10 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const  handleSubmit = async() => {
-     await fetch('api/auth/register', {
+  const isError = email === '';
+
+  const handleSubmit = async () => {
+    await fetch('api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -50,7 +53,7 @@ function Register() {
       </Center>
       <Box bg="#E4E4ED" h="80vh">
         <Center>
-          <FormControl w="75%" pt="14">
+          <FormControl w="75%" pt="14" isInvalid={isError}>
             <FormLabel mb="0">Username</FormLabel>
             <Input
               placeholder="codelande"
@@ -73,7 +76,13 @@ function Register() {
                 setEmail(e.target.value);
               }}
             />
-            <FormHelperText>We'll never share your email.</FormHelperText>
+            {!isError ? (
+              <FormHelperText>
+                We don't share tour email
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+            )}
             <FormLabel pt="4" mb="0">
               Password
             </FormLabel>

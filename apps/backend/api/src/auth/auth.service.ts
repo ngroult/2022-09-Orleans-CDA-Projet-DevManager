@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import * as crypto from 'crypto';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
