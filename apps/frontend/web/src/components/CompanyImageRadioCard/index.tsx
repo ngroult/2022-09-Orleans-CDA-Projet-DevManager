@@ -1,26 +1,18 @@
 import { Box, Image, useRadio } from '@chakra-ui/react';
 
-const CompanyImageRadioCard = (props: any) => {
-  const { getInputProps, getCheckboxProps } = useRadio(props);
-  const input = getInputProps();
-  const checkbox = getCheckboxProps();
+const CompanyImageRadioCard = ({isSelected, ...radioProps}) => {
+  const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
 
   return (
     <Box as="label">
-      <input {...input} />
+      <input {...getInputProps()} />
       <Box
-        {...checkbox}
+        {...getCheckboxProps()}
         w="75px"
-        border=".25rem solid #aaaaaa"
+        opacity={state.isChecked ? '1' : '0.2'}
         cursor="pointer"
-        _checked={{
-          borderColor: '#B03D99',
-        }}
       >
-        <Image
-          src="https://www.fastcat.com.ph/wp-content/uploads/2016/04/dummy-post-square-1-768x768.jpg"
-          alt="Company image"
-        />
+        <Image src="/images/default_img.jpg" alt="Default image" />
       </Box>
     </Box>
   );

@@ -1,7 +1,12 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import {
   Button,
   Card,
   CardBody,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
   Grid,
   Heading,
   Image,
@@ -12,17 +17,26 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Text,
   useDisclosure,
   useRadioGroup,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import CompanyImageRadioCard from '../../components/CompanyImageRadioCard';
 
 const NewGame = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { getRootProps, getRadioProps } = useRadioGroup();
+  const group = getRootProps();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [companyImage, setCompanyImage] = useState('img1');
+  const [companyName, setCompanyName] = useState('');
+  const [ceo, setCeo] = useState('');
+  const [location, setLocation] = useState('');
   const options = [
-    'img0',
     'img1',
     'img2',
     'img3',
@@ -32,48 +46,34 @@ const NewGame = () => {
     'img7',
     'img8',
     'img9',
+    'img10',
   ];
-  const { getRootProps, getRadioProps } = useRadioGroup();
-  const group = getRootProps();
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [companyName, setCompanyName] = useState();
-  const [ceo, setCeo] = useState();
-  const [location, setLocation] = useState();
+  const onSubmit = (values: any) => {
+    const data = {
+      idUser: 1,
+      createdAt: new Date(),
+      companyName: values.companyName,
+      ceo: values.ceo,
+      location: values.location,
+      idImage: 3,
+    };
 
-  useEffect(() => {
-    if (isSubmitted === true) {
-      const createdAt = new Date();
-
-      const data = {
-        idUser: 1,
-        createdAt: createdAt,
-        companyName: companyName,
-        ceo: ceo,
-        location: location,
-        idImage: 3,
-      };
-
-      console.log("kfjdhlgfjh");
-
-      fetch('/api/games', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+    fetch('/api/games', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
       })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Success:', data);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-
-      setIsSubmitted(false);
-    }
-  }, [isSubmitted]);
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
 
   return (
     <>
@@ -86,80 +86,121 @@ const NewGame = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Image
-            m="auto auto 1rem auto"
-            boxSize="150px"
-            src="https://www.fastcat.com.ph/wp-content/uploads/2016/04/dummy-post-square-1-768x768.jpg"
-            alt="Default image"
-          />
-          <Button
-            onClick={onOpen}
-            _hover={{
-              border: 'none',
-            }}
-            _focus={{
-              outline: 'none',
-            }}
-          >
-            Choose another company picture
-          </Button>
-          <InputGroup
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            m="2rem 0"
-          >
-            <Text textAlign="left" w="400px">
-              Name of your company :
-            </Text>
-            <Input
-              maxW="400px"
-              placeholder="My Company..."
-              mb="1rem"
-              bgColor="#fff"
-              _placeholder={{ opacity: 0.3 }}
-              value={companyName}
-              onChange={() => setCompanyName(companyName)}
-            />
-            <Text textAlign="left" w="400px">
-              CEO of your company :
-            </Text>
-            <Input
-              maxW="400px"
-              placeholder="Elon Musk..."
-              mb="1rem"
-              bgColor="#fff"
-              _placeholder={{ opacity: 0.3 }}
-              value={ceo}
-            />
-            <Text textAlign="left" w="400px">
-              Location of your company :
-            </Text>
-            <Input
-              maxW="400px"
-              placeholder="Paris, France..."
-              bgColor="#fff"
-              _placeholder={{ opacity: 0.3 }}
-              value={location}
-            />
-          </InputGroup>
-          <Button
-            bgColor="#B03D99"
-            color="#ffffff"
-            _hover={{
-              bgColor: '#B03D9990',
-              outline: 'none',
-              border: '#B03D9990',
-            }}
-            _focus={{
-              outline: 'none',
-            }}
-            onClick={() => setIsSubmitted(true)}
-          >
-            Start the game
-          </Button>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl
+              isInvalid={errors.companyName || errors.ceo || errors.location}
+            >
+              <Image
+                m="auto auto 1rem auto"
+                boxSize="150px"
+                src="https://www.fastcat.com.ph/wp-content/uploads/2016/04/dummy-post-square-1-768x768.jpg"
+                alt="Default image"
+              />
+              <Button
+                onClick={onOpen}
+                _hover={{
+                  border: 'none',
+                }}
+                _focus={{
+                  outline: 'none',
+                }}
+              >
+                Choose another company picture
+              </Button>
+              <InputGroup
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                m="2rem 0"
+              >
+                <FormLabel htmlFor="companyName" textAlign="left" w="400px">
+                  Name of your company :
+                </FormLabel>
+                <Input
+                  id="companyName"
+                  maxW="400px"
+                  placeholder="My Company..."
+                  mb="1rem"
+                  bgColor="#fff"
+                  _placeholder={{ opacity: 0.3 }}
+                  {...register('companyName', {
+                    required: 'The name of the company is required',
+                    minLength: {
+                      value: 4,
+                      message: 'Minimum length should be 4',
+                    },
+                    value: companyName,
+                    onChange: (e) => setCompanyName(e.target.value),
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.companyName && errors.companyName.message}
+                </FormErrorMessage>
+                <FormLabel htmlFor="ceo" textAlign="left" w="400px">
+                  CEO of your company :
+                </FormLabel>
+                <Input
+                  id="ceo"
+                  maxW="400px"
+                  placeholder="Elon Musk..."
+                  mb="1rem"
+                  bgColor="#fff"
+                  _placeholder={{ opacity: 0.3 }}
+                  {...register('ceo', {
+                    required: 'The name of the CEO is required',
+                    minLength: {
+                      value: 4,
+                      message: 'Minimum length should be 4',
+                    },
+                    value: ceo,
+                    onChange: (e) => setCeo(e.target.value),
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.ceo && errors.ceo.message}
+                </FormErrorMessage>
+                <FormLabel htmlFor="location" textAlign="left" w="400px">
+                  Location of your company :
+                </FormLabel>
+                <Input
+                  maxW="400px"
+                  placeholder="Paris, France..."
+                  bgColor="#fff"
+                  _placeholder={{ opacity: 0.3 }}
+                  {...register('location', {
+                    required: 'The location is required',
+                    minLength: {
+                      value: 4,
+                      message: 'Minimum length should be 4',
+                    },
+                    value: location,
+                    onChange: (e) => setLocation(e.target.value),
+                  })}
+                />
+                <FormErrorMessage>
+                  {errors.location && errors.location.message}
+                </FormErrorMessage>
+              </InputGroup>
+            </FormControl>
+            <Button
+              bgColor="#B03D99"
+              color="#ffffff"
+              _hover={{
+                bgColor: '#B03D9990',
+                outline: 'none',
+                border: '#B03D9990',
+              }}
+              _focus={{
+                outline: 'none',
+              }}
+              type="submit"
+            >
+              Start the game
+            </Button>
+          </form>
         </CardBody>
       </Card>
+
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent p="1rem">
@@ -174,8 +215,15 @@ const NewGame = () => {
               gap="1rem"
             >
               {options.map((value, index) => {
-                const radio = getRadioProps({ value });
-                return <CompanyImageRadioCard key={index} {...radio} />;
+                const radioProps = getRadioProps({ value });
+                return value === companyImage ? (
+                  <CompanyImageRadioCard
+                    key={index}
+                    {...radioProps}
+                  />
+                ) : (
+                  <CompanyImageRadioCard key={index} {...radioProps} />
+                );
               })}
             </Grid>
             <Button
