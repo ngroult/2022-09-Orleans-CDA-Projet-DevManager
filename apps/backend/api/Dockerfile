@@ -10,4 +10,3 @@ COPY libs libs
 RUN npm ci
 RUN npm run build --workspace=apps/backend/api
 CMD ["node","./apps/backend/api/dist/main.js"]
-# CMD tail -f /dev/null
