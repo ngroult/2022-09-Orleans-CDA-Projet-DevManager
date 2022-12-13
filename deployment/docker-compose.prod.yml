@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  back:
+    container_name: back
+    restart: always
+    build:
+      context: ../
+      dockerfile: ./apps/backend/api/Dockerfile
+    depends_on:
+      - mysql
+    environment:
+      - NODE_ENV=production
+      - PORT=3333
+      - DATABASE_HOST=localhost
+      - DATABASE_PORT=3306
+      - DATABASE_USERNAME=user
+      - DATABASE_PASSWORD=password
+      - DATABASE_DB=devmanager
+
+  front:
+    container_name: front
+    build:
+      context: ../
+      dockerfile: ./apps/frontend/web/Dockerfile
+    volumes:
+      - frontend:/app
+    environment:
+      - NODE_ENV=production
+
+  mysql:
+    container_name: mysql-devmanager
+    image: mysql:8.0.31
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=devmanager
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db:/var/lib/mysql
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.21.3
+    depends_on:
+      - back
+      - front
+    restart: always
+    ports:
+      - ${GATEWAY_PORT:-8000}:80
+    volumes:
+      - ./nginx.prod.conf:/etc/nginx/nginx.conf
+      - ./logs:/var/log/nginx
+      - frontend:/frontend
+
+volumes:
+  frontend:
