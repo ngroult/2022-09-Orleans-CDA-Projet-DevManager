@@ -16,9 +16,9 @@
     "dev": "concurrently -c \"auto\" \"npm:watch:*\" \"npm:dev:backend:*\" \"npm:dev:frontend:*(!mobile)\"",
     "d": "npm run dev",
     "dc:up": "docker compose -f ./deployment/docker-compose.dev.yml up -d",
-    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down",
+    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down -v",
     "dcp:up": "docker compose -f ./deployment/docker-compose.prod.yml up -d --build",
-    "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down"
+    "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v"
   },
   "workspaces": [
     "libs/typings",
