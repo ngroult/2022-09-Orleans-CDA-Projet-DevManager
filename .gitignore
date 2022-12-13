@@ -56,3 +56,5 @@ apps/frontend/mobile-e2e/artifacts
 
 .env
 deployment/db/
+deployment/logs/
+deployment/*.env
