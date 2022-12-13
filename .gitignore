@@ -57,3 +57,5 @@ apps/frontend/mobile-e2e/artifacts
 .env
 deployment/db/
 deployment/logs/
+deployment/back.env
+deployment/mysql.env
