@@ -11,12 +11,8 @@ services:
       - mysql
     environment:
       - NODE_ENV=production
-      - PORT=3333
-      - DATABASE_HOST=localhost
-      - DATABASE_PORT=3306
-      - DATABASE_USERNAME=user
-      - DATABASE_PASSWORD=password
-      - DATABASE_DB=devmanager
+    env_file:
+      - ./back.env
 
   front:
     container_name: front
@@ -33,10 +29,9 @@ services:
     image: mysql:8.0.31
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
-      - MYSQL_DATABASE=devmanager
+      - NODE_ENV=production
+    env_file:
+      - ./mysql.env
     ports:
       - 3306:3306
     volumes:
