@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { SomeInterface, User } from '@libs/typings';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar';
 
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
