@@ -7,9 +7,8 @@ import {
   IconButton,
   Text,
   Grid,
-  Flex,
 } from '@chakra-ui/react';
-import { ArrowRightIcon } from '@chakra-ui/icons';
+import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 const Navbar = () => {
   const iconsSize: string = '30px';
@@ -17,21 +16,24 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
+    <Box  w={`${isOpen ? '220px' : '60px'}`}>
     <Box
       boxShadow="inner"
       bg="blue.200"
       w={`${isOpen ? '220px' : '60px'}`}
+      h="calc(100vh)"
       position="absolute"
-      h="max"
       top="0"
       left="0"
+      overflow="scroll"
     >
+      
       <Box bg="blue.500" w={`${isOpen ? '220px' : '60px'}`} h="80px">
-          {isOpen ? (
-            <Heading fontSize="xl" pt="25px">DevManager</Heading>
-          ) : (
-            <Heading fontSize="xl" pt="25px">D</Heading>
-          )}
+        {isOpen && (
+          <Heading fontSize="xl" pt="25px">
+            DevManager
+          </Heading>
+        )}
       </Box>
       <Grid>
         <Box pl={paddingBetweendIcons} pt={paddingBetweendIcons}>
@@ -82,14 +84,18 @@ const Navbar = () => {
           </HStack>
         </Box>
       </Grid>
-      <Center pl={`${isOpen ? '220px' : '60px'}`} pt={paddingBetweendIcons}>
-        <IconButton
+      
+    </Box>
+    <Center pl={`${isOpen && '156px'}`} pt="calc(50vh)" >
+        <IconButton 
+        size="xs"
           aria-label="Search database"
-          icon={<ArrowRightIcon />}
+          icon={isOpen ? <ArrowLeftIcon /> : <ArrowRightIcon />}
           rounded="100px"
           bg="blue.500"
           boxShadow="inner"
           onClick={() => setIsOpen((prev) => !prev)}
+          pos="absolute"
         />
       </Center>
     </Box>
