@@ -86,7 +86,7 @@ const Navbar = () => {
       </Grid>
       
     </Box>
-    <Center pl={`${isOpen && '156px'}`} pt="calc(50vh)" >
+    <Center pl={`${isOpen ? '220px' : '60px'}`} pt="calc(50vh)" >
         <IconButton 
         size="xs"
           aria-label="Search database"
