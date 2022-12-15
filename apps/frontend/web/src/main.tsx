@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import '@fontsource/chakra-petch/400.css';
 import '@fontsource/orbitron/700.css';
-import theme from './theme/index';
+import theme from './theme';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ChakraProvider theme={theme}>
