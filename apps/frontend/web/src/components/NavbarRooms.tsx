@@ -14,7 +14,7 @@ const NavbarRooms = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const iconsSize: string = '30px';
-  const paddingBetweendIcons: string = '15px';
+  const paddingBetweenIcons: string = '15px';
   let paddingLeftIcons: string;
   {isOpen ?
      paddingLeftIcons = '30px'
@@ -36,28 +36,28 @@ const NavbarRooms = () => {
       >
         <Box bg="blue.500" w={`${isOpen ? '220px' : '60px'}`} h="80px" />
         <Grid>
-          <Box pl={paddingLeftIcons} pt={paddingBetweendIcons}>
+          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/overview.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweendIcons}>Overview</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>Overview</Text>}
             </HStack>
           </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweendIcons}>
+          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweendIcons}>Open Space</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>Open Space</Text>}
             </HStack>
           </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweendIcons}>
+          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/offices.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweendIcons}>Offices</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>Offices</Text>}
             </HStack>
           </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweendIcons}>
+          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweendIcons}>Break Room</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>Break Room</Text>}
             </HStack>
           </Box>
         </Grid>
