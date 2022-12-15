@@ -1,6 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import 'dotenv/config';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../entities/user.entity';
 
 export const databaseConfig: DataSourceOptions = {
   type: 'mysql',
@@ -11,5 +10,4 @@ export const databaseConfig: DataSourceOptions = {
   database: process.env.DATABASE_DB,
   entities: [User],
   synchronize: false,
-  migrations: [__dirname + '/../migrations/*.ts'],
 };

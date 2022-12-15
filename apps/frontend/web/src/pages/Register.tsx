@@ -28,7 +28,7 @@ function Register() {
   const isError = email === '';
 
   const handleSubmit = async () => {
-    await fetch('api/auth/register', {
+    await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -45,16 +45,16 @@ function Register() {
     <Box>
       <Center>
         <VStack h="20vh" justify="center">
-          <Heading fontSize="3xl">DevManager</Heading>
+          <Heading fontSize="3xl">{"DevManager"}</Heading>
           <Text color="#797AA6" fontSize="xl">
-            Register
+            {"Register"}
           </Text>
         </VStack>
       </Center>
       <Box bg="#E4E4ED" h="80vh">
         <Center>
           <FormControl w="75%" pt="14" isInvalid={isError}>
-            <FormLabel mb="0">Username</FormLabel>
+            <FormLabel mb="0">{"Username"}</FormLabel>
             <Input
               placeholder="codelande"
               bg="white"
@@ -65,7 +65,7 @@ function Register() {
               }}
             />
             <FormLabel pt="4" mb="0">
-              E-mail
+              {"E-mail"}
             </FormLabel>
             <Input
               placeholder="codelande@devmanager.com"
@@ -78,13 +78,13 @@ function Register() {
             />
             {!isError ? (
               <FormHelperText>
-                We don't share tour email
+                {"We don't share tour email"}
               </FormHelperText>
             ) : (
-              <FormErrorMessage>Email is required.</FormErrorMessage>
+              <FormErrorMessage>{"Email is required."}</FormErrorMessage>
             )}
             <FormLabel pt="4" mb="0">
-              Password
+              {"Password"}
             </FormLabel>
             <InputGroup size="md">
               <Input
@@ -111,7 +111,7 @@ function Register() {
                 bg="#797AA6"
                 onClick={handleSubmit}
               >
-                Create your account
+                {"Create your account"}
               </Button>
             </Center>
             <Center>
@@ -120,7 +120,7 @@ function Register() {
           </FormControl>
         </Center>
         <Center>
-          <Link py="7">Have you already an account ?</Link>
+          <Link py="7">{"Have you already an account ?"}</Link>
         </Center>
       </Box>
     </Box>
