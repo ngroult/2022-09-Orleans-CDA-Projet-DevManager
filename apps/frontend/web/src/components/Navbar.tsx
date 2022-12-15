@@ -30,9 +30,11 @@ const Navbar = () => {
       
       <Box bg="blue.500" w={`${isOpen ? '220px' : '60px'}`} h="80px">
         {isOpen && (
+          <Center>
           <Heading fontSize="xl" pt="25px">
-            DevManager
+            {"DevManager"}
           </Heading>
+          </Center>
         )}
       </Box>
       <Grid>
@@ -44,43 +46,43 @@ const Navbar = () => {
               w={iconsSize}
               filter="grayscale(80%)"
             />
-            {isOpen && <Text pl={paddingBetweenIcons}>Resume Game</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"Resume Game"}</Text>}
           </HStack>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
           <HStack>
             <Image src="/leaderboard.png" h={iconsSize} w={iconsSize} />
-            {isOpen && <Text pl={paddingBetweenIcons}>Leaderboard</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"Leaderboard"}</Text>}
           </HStack>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
           <HStack>
             <Image src="/game_settings.png" h={iconsSize} w={iconsSize} />
-            {isOpen && <Text pl={paddingBetweenIcons}>Game Settings</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"Game Settings"}</Text>}
           </HStack>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
           <HStack>
             <Image src="/account_settings.png" h={iconsSize} w={iconsSize} />
-            {isOpen && <Text pl={paddingBetweenIcons}>Account Settings</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"Account Settings"}</Text>}
           </HStack>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
           <HStack>
             <Image src="/about.png" h={iconsSize} w={iconsSize} />
-            {isOpen && <Text pl={paddingBetweenIcons}>About</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"About"}</Text>}
           </HStack>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
           <HStack>
             <Image src="/logout.png" h={iconsSize} w={iconsSize} />
-            {isOpen && <Text pl={paddingBetweenIcons}>Logout</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"Logout"}</Text>}
           </HStack>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
           <HStack>
             <Image src="/assistance.png" h={iconsSize} w={iconsSize} />
-            {isOpen && <Text pl={paddingBetweenIcons}>Assistance</Text>}
+            {isOpen && <Text pl={paddingBetweenIcons}>{"Assistance"}</Text>}
           </HStack>
         </Box>
       </Grid>
