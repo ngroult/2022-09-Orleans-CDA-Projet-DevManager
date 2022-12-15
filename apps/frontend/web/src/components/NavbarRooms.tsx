@@ -39,25 +39,25 @@ const NavbarRooms = () => {
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/overview.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>Overview</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{"Overview"}</Text>}
             </HStack>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>Open Space</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{"Open Space"}</Text>}
             </HStack>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/offices.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>Offices</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{"Offices"}</Text>}
             </HStack>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>Break Room</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{"Break Room"}</Text>}
             </HStack>
           </Box>
         </Grid>
