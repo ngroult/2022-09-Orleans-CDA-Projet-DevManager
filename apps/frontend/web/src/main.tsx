@@ -11,10 +11,8 @@ import '@fontsource/orbitron/700.css';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ChakraProvider theme={theme}>
   <React.StrictMode>
-    <ChakraProvider>
       <App />
       <Register />
-    </ChakraProvider>
   </React.StrictMode>
   </ChakraProvider>
 );
