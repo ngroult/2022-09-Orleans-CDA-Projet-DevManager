@@ -55,4 +55,6 @@ web-build/
 apps/frontend/mobile-e2e/artifacts
 
 .env
+deployment/mysql.env
+deployment/back.env
 deployment/db/
