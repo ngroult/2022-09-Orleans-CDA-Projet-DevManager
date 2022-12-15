@@ -7,9 +7,6 @@
   "scripts": {
     "env:cp": "cp ./.env ./apps/frontend/web/.env && cp ./.env ./apps/frontend/mobile/.env && cp ./.env ./apps/backend/api/.env",
     "watch:env": "nodemon --watch ./.env --exec \"npm run env:cp\"",
-    "build:frontend:web": "npm run build --workspace=apps/frontend/web",
-    "build:backend:api": "docker build -f ./apps/backend/api/Dockerfile -t backend-api .",
-    "build": "concurrently -c \"auto\" \"npm:build:*\"",
     "dev:frontend:web": "npm run dev --workspace=apps/frontend/web",
     "dev:frontend:mobile": "npm run dev --workspace=apps/frontend/mobile",
     "dev:backend:api": "npm run dev --workspace=apps/backend/api",
@@ -19,7 +16,9 @@
     "dev": "concurrently -c \"auto\" \"npm:watch:*\" \"npm:dev:backend:*\" \"npm:dev:frontend:*(!mobile)\"",
     "d": "npm run dev",
     "dc:up": "docker compose -f ./deployment/docker-compose.dev.yml up -d",
-    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down"
+    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down -v",
+    "dcp:up": "docker compose -f ./deployment/docker-compose.prod.yml up -d --build",
+    "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v"
   },
   "workspaces": [
     "libs/typings",
@@ -33,6 +32,8 @@
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "@fontsource/chakra-petch": "^4.5.9",
+    "@fontsource/orbitron": "^4.5.10",
     "dotenv": "^16.0.3"
   }
 }

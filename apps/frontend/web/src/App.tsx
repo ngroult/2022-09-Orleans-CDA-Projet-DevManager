@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-
 import { SomeInterface, User } from '@libs/typings';
 
 function App() {
@@ -27,7 +25,8 @@ function App() {
     };
   }, []);
 
-  return <div className="App">{`${someData.someProperty}`}</div>;
+  return <div className="App">
+  </div>;
 }
 
 export default App;

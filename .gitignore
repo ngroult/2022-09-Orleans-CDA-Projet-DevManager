@@ -59,3 +59,4 @@ deployment/db/
 
 **/*.env
 deployment/logs/
+deployment/*.env
