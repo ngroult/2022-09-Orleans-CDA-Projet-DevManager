@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { SomeInterface, User } from '@libs/typings';
-import Overview from './pages/Overview';
 
 function App() {
   const [someData, setSomeData] = useState<SomeInterface>({
@@ -28,7 +26,6 @@ function App() {
   }, []);
 
   return <div className="App">
-    <Overview/>
   </div>;
 }
 
