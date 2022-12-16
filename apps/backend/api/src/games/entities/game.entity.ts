@@ -5,21 +5,21 @@ export class Game {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('int')
+  @Column('int', { unsigned: true })
   idUser: number;
 
   @Column('datetime')
   createdAt: string;
 
-  @Column('varchar')
+  @Column('varchar', { length: 50 })
   companyName: string;
 
-  @Column('varchar')
+  @Column('varchar', { length: 50 })
   ceo: string;
 
-  @Column('varchar')
+  @Column('varchar', { length: 50 })
   location: string;
 
-  @Column('int')
+  @Column('int', { unsigned: true })
   idImage: number;
 }
