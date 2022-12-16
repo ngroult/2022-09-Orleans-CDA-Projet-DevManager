@@ -64,7 +64,7 @@ function CharacterCard() {
             >
               <Flex align="center">
                 <Image src="/dollar.png" alt="dollar" boxSize="30px" p="1" />
-                {'100$'}
+                {'$100'}
               </Flex>
             </Badge>
 
