@@ -8,11 +8,11 @@ import theme from './theme';
 import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <ChakraProvider theme={theme}>
-    <StrictMode>
+  <StrictMode>
+    <ChakraProvider theme={theme}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </StrictMode>
-  </ChakraProvider>
+    </ChakraProvider>
+  </StrictMode>
 );
