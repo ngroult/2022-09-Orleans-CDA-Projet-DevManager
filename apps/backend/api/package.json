@@ -31,6 +31,7 @@
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^9.0.1",
     "argon2": "^0.30.2",
     "rimraf": "^3.0.2",
     "class-transformer": "^0.5.1",
@@ -41,7 +42,6 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "@nestjs/config": "^2.2.0",
-    "@nestjs/typeorm": "^9.0.1",
     "typeorm": "^0.3.11"
   },
   "workspaceDependencies": [
