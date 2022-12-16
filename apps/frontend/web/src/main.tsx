@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Register from './pages/Register';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react';
 import '@fontsource/chakra-petch/400.css';
