@@ -1,6 +1,6 @@
 import { DataSourceOptions } from 'typeorm';
-import { User } from '../entities/user.entity';
-import { Game } from '../entities/game.entity';
+import { User } from '../users/entities/user.entity';
+import { Game } from '../games/entities/game.entity';
 
 export const databaseConfig: DataSourceOptions = {
   type: 'mysql',
