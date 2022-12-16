@@ -1,4 +1,3 @@
-import { IsNotEmpty } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -6,27 +5,21 @@ export class Game {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  @IsNotEmpty()
+  @Column('int')
   idUser: number;
 
-  @Column()
-  @IsNotEmpty()
+  @Column('datetime')
   createdAt: string;
 
-  @Column()
-  @IsNotEmpty()
+  @Column('varchar')
   companyName: string;
 
-  @Column()
-  @IsNotEmpty()
+  @Column('varchar')
   ceo: string;
 
-  @Column()
-  @IsNotEmpty()
+  @Column('varchar')
   location: string;
 
-  @Column()
-  @IsNotEmpty()
+  @Column('int')
   idImage: number;
 }

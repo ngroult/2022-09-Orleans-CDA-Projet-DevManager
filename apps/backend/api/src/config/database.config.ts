@@ -1,6 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import { User } from '../users/entities/user.entity';
-import { Game } from '../games/entities/game.entity';
+import { entities } from './entities';
 
 export const databaseConfig: DataSourceOptions = {
   type: 'mysql',
@@ -9,6 +8,6 @@ export const databaseConfig: DataSourceOptions = {
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_DB,
-  entities: [User, Game],
+  entities: entities,
   synchronize: false,
 };
