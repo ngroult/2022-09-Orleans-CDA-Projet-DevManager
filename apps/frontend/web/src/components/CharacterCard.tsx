@@ -24,7 +24,7 @@ function CharacterCard() {
           boxSize="80%"
           m="auto"
           mt="2.5"
-          src="lead_dev.png"
+          src="/lead_dev.png"
           alt="lead developer"
         />
       </Box>
