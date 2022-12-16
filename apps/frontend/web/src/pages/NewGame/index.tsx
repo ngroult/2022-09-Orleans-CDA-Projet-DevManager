@@ -32,31 +32,26 @@ const NewGame = () => {
     formState: { errors },
   } = useForm();
 
-  const [companyImage, setCompanyImage] = useState('img1');
+  const [companyImage, setCompanyImage] = useState('1');
+  const [selectedImage, setSelectedImage] = useState('1');
   const [companyName, setCompanyName] = useState('');
   const [ceo, setCeo] = useState('');
   const [location, setLocation] = useState('');
-  const options = [
-    'img1',
-    'img2',
-    'img3',
-    'img4',
-    'img5',
-    'img6',
-    'img7',
-    'img8',
-    'img9',
-    'img10',
-  ];
+  const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
-  const onSubmit = (values: any) => {
+  const handleSaveCompanyImage = () => {
+    onClose();
+    setCompanyImage(selectedImage);
+  };
+
+  const onSubmit = (values) => {
     const data = {
       idUser: 1,
       createdAt: new Date(),
       companyName: values.companyName,
       ceo: values.ceo,
       location: values.location,
-      idImage: 3,
+      idImage: values.companyImage,
     };
 
     fetch('/api/games', {
@@ -88,13 +83,17 @@ const NewGame = () => {
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
-              isInvalid={errors.companyName || errors.ceo || errors.location}
+              isInvalid={
+                errors.companyName || errors.ceo || errors.location
+                  ? true
+                  : false
+              }
             >
               <Image
                 m="auto auto 1rem auto"
                 boxSize="150px"
-                src="https://www.fastcat.com.ph/wp-content/uploads/2016/04/dummy-post-square-1-768x768.jpg"
-                alt="Default image"
+                src={`/images/company${companyImage}.png`}
+                alt={`Image of the company ${companyImage}`}
               />
               <Button
                 onClick={onOpen}
@@ -134,7 +133,7 @@ const NewGame = () => {
                   })}
                 />
                 <FormErrorMessage>
-                  {errors.companyName && errors.companyName.message}
+                  {`${errors.companyName && errors.companyName.message}`}
                 </FormErrorMessage>
                 <FormLabel htmlFor="ceo" textAlign="left" w="400px">
                   CEO of your company :
@@ -157,7 +156,7 @@ const NewGame = () => {
                   })}
                 />
                 <FormErrorMessage>
-                  {errors.ceo && errors.ceo.message}
+                  {`${errors.ceo && errors.ceo.message}`}
                 </FormErrorMessage>
                 <FormLabel htmlFor="location" textAlign="left" w="400px">
                   Location of your company :
@@ -178,7 +177,7 @@ const NewGame = () => {
                   })}
                 />
                 <FormErrorMessage>
-                  {errors.location && errors.location.message}
+                  {`${errors.location && errors.location.message}`}
                 </FormErrorMessage>
               </InputGroup>
             </FormControl>
@@ -216,13 +215,13 @@ const NewGame = () => {
             >
               {options.map((value, index) => {
                 const radioProps = getRadioProps({ value });
-                return value === companyImage ? (
+                return (
                   <CompanyImageRadioCard
                     key={index}
+                    selectedImage={selectedImage}
+                    setSelectedImage={setSelectedImage}
                     {...radioProps}
                   />
-                ) : (
-                  <CompanyImageRadioCard key={index} {...radioProps} />
                 );
               })}
             </Grid>
@@ -240,7 +239,7 @@ const NewGame = () => {
               Cancel
             </Button>
             <Button
-              onClick={onClose}
+              onClick={handleSaveCompanyImage}
               ml=".5rem"
               bgColor="#B03D99"
               color="#ffffff"
