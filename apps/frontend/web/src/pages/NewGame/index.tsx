@@ -44,14 +44,18 @@ const NewGame = () => {
     setCompanyImage(selectedImage);
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: {
+    companyName: string;
+    ceo: string;
+    location: string;
+  }) => {
     const data = {
       idUser: 1,
       createdAt: new Date(),
       companyName: values.companyName,
       ceo: values.ceo,
       location: values.location,
-      idImage: values.companyImage,
+      idImage: parseInt(companyImage, 10),
     };
 
     fetch('/api/games', {

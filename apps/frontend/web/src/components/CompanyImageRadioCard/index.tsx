@@ -1,5 +1,4 @@
 import { Box, Image, useRadio } from '@chakra-ui/react';
-import { useEffect } from 'react';
 
 const CompanyImageRadioCard = ({
   selectedImage,
@@ -9,25 +8,7 @@ const CompanyImageRadioCard = ({
   selectedImage: string;
   setSelectedImage: (value: string) => void;
 }) => {
-  const {
-    state,
-    getInputProps,
-    getCheckboxProps,
-    getLabelProps,
-    getRootProps,
-    htmlProps,
-  } = useRadio(radioProps);
-
-  useEffect(() => {
-    console.log({
-      'state =': state,
-      'getInputProps =': getInputProps(),
-      'getCheckboxProps =': getCheckboxProps(),
-      'getLabelProps =': getLabelProps(),
-      'getRootProps =': getRootProps(),
-      'htmlProps =': htmlProps,
-    });
-  }, []);
+  const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
 
   return (
     <Box as="label">
