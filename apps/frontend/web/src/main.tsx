@@ -10,7 +10,7 @@ import Login from './pages/Login';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ChakraProvider theme={theme}>
     <React.StrictMode>
-      <Login />
+      <App />
     </React.StrictMode>
   </ChakraProvider>
 )
