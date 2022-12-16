@@ -20,7 +20,7 @@ import {
   useDisclosure,
   useRadioGroup,
 } from '@chakra-ui/react';
-import CompanyImageRadioCard from '../../components/CompanyImageRadioCard';
+import CompanyImageRadioCard from '../components/CompanyImageRadioCard';
 
 const NewGame = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
