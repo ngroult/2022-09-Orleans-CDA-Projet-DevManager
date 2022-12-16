@@ -20,7 +20,7 @@ const CompanyImageRadioCard = ({
         cursor="pointer"
       >
         <Image
-          src={`/images/company${getInputProps().value}.png`}
+          src={`/company${getInputProps().value}.png`}
           alt={`Image of the company ${getInputProps().value}`}
           onClick={() => setSelectedImage(getInputProps().value)}
         />

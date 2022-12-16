@@ -16,7 +16,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.40.0",
+<<<<<<< HEAD
     "react-router-dom": "^6.4.4"
+=======
+    "react-router-dom": "^6.4.4",
+    "@chakra-ui/icons": "^2.0.13",
+    "@chakra-ui/skip-nav": "^2.0.12",
+    "@fontsource/chakra-petch": "^4.5.9",
+    "@fontsource/orbitron": "^4.5.10"
+>>>>>>> b49d8828a568389d113b40f40a4014c84c39173a
   },
   "workspaceDependencies": [
     "libs/typings"
@@ -26,6 +34,9 @@
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
+    "@chakra-ui/icons": "^2.0.13",
+    "@fontsource/chakra-petch": "^4.5.9",
+    "@fontsource/orbitron": "^4.5.10",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
   }

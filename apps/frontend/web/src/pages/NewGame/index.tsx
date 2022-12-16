@@ -96,7 +96,7 @@ const NewGame = () => {
               <Image
                 m="auto auto 1rem auto"
                 boxSize="150px"
-                src={`/images/company${companyImage}.png`}
+                src={`/company${companyImage}.png`}
                 alt={`Image of the company ${companyImage}`}
               />
               <Button

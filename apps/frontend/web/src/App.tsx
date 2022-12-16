@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-
 import { SomeInterface, User } from '@libs/typings';
 import { Routes, Route } from 'react-router-dom';
 import NewGame from './pages/NewGame';
