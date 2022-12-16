@@ -36,13 +36,15 @@ jobs:
           context: ./
           file: ./apps/frontend/web/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_FRONT_PROD}}:latest,${{ secrets.DOCKER_HUB_IMAGE_NAME_FRONT_PROD }}:${{ github.sha }},${{ secrets.DOCKER_HUB_IMAGE_NAME_FRONT_PROD }}:${{ github.event.release.name }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_FRONT_PROD}}:latest,${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_FRONT_PROD }}:${{ github.sha }},${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_FRONT_PROD }}:${{ github.event.release.name }}
 
-
+      - uses: docker/setup-buildx-action@v2
+        name: Set up Docker Buildx
+        
       - uses: docker/build-push-action@v3
         name: Build and push back
         with:
           context: ./
           file: ./apps/backend/api/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_BACK_PROD}}:latest,${{ secrets.DOCKER_HUB_IMAGE_NAME_BACK_PROD }}:${{ github.sha }},${{ secrets.DOCKER_HUB_IMAGE_NAME_BACK_PROD }}:${{ github.event.release.name }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_BACK_PROD}}:latest,${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_BACK_PROD }}:${{ github.sha }},${{ secrets.DOCKER_HUB_USERNAME }}/${{ secrets.DOCKER_HUB_IMAGE_NAME_BACK_PROD }}:${{ github.event.release.name }}

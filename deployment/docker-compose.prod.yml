@@ -4,9 +4,7 @@ services:
   back:
     container_name: back
     restart: always
-    build:
-      context: ../
-      dockerfile: ./apps/backend/api/Dockerfile
+    image: codelande/devmanager_prod_back:latest
     depends_on:
       - mysql
     environment:
@@ -16,9 +14,7 @@ services:
 
   front:
     container_name: front
-    build:
-      context: ../
-      dockerfile: ./apps/frontend/web/Dockerfile
+    image: codelande/devmanager_prod_front:latest
     volumes:
       - frontend:/app
     environment:
@@ -32,14 +28,12 @@ services:
       - NODE_ENV=production
     env_file:
       - ./mysql.env
-    ports:
-      - 3306:3306
     volumes:
       - ./db:/var/lib/mysql
 
   nginx:
     container_name: nginx
-    image: nginx:1.21.3
+    image: nginx:1.21.3-alpine
     depends_on:
       - back
       - front
