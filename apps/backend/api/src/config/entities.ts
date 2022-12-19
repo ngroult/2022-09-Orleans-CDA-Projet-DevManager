@@ -1,4 +1,6 @@
+import { Character } from '../characters/entities/character.entity';
+import { Game } from '../games/entities/game.entity';
+import { User } from '../users/entities/user.entity';
 import { Room } from '../rooms/room/room.entity';
-import { Character } from '../characters/characters/character.entity';
 
-export const entities = [Character, Room];
+export const entities = [Character, Game, User, Room];
