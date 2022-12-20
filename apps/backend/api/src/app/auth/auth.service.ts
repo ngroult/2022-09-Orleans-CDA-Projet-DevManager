@@ -4,12 +4,14 @@ import { User } from '../users/entities/user.entity';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   public async register(user: User): Promise<CreateUserDto> {
@@ -23,8 +25,8 @@ export class AuthService {
     return hash;
   }
 
-  async validate(email: string): Promise<User> {
-    return this.usersService.getUserByUsername(email);
+  async validate(username: string): Promise<User> {
+    return this.usersService.getUserByUsername(username);
   }
 
   public async login(
@@ -40,7 +42,9 @@ export class AuthService {
       // user found
       // The access token will be composed by the email
       const payload = `${userData.email}`;
-      const accessToken = this.jwtService.sign(payload, { secret: 'secret' });
+      const accessToken = this.jwtService.sign(payload, {
+        secret: this.configService.get('JWT_SECRET'),
+      });
 
       return {
         expires_in: 3600, // 1hour
