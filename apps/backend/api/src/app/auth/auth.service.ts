@@ -2,8 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { User } from '../users/entities/user.entity';
 import * as argon2 from 'argon2';
+<<<<<<< HEAD:apps/backend/api/src/auth/auth.service.ts
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
+=======
+import { CreateUserDto } from '../users/dto/create-user.dto';
+>>>>>>> origin/develop:apps/backend/api/src/app/auth/auth.service.ts
 
 @Injectable()
 export class AuthService {
