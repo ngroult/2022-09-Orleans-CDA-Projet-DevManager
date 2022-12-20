@@ -18,22 +18,25 @@ export class AuthService {
     return this.usersService.create(user);
   }
 
-  private hash(password: string) {
+  private hash(password: string): Promise<string> {
     const hash = argon2.hash(password);
     return hash;
   }
 
-  async validate(email: string): Promise<any> {
+  async validate(email: string): Promise<User> {
     return this.usersService.getUserByUsername(email);
   }
 
-  public async login(user: User): Promise<any | { status: number }> {
-    return this.validate(user.email).then((userData) => {
+  public async login(
+    user: User,
+  ): Promise<
+    { expires_in: number; access_token: string } | { status: number }
+  > {
+    return this.validate(user.email).then(async (userData) => {
       // user not found
-      if (!userData || userData.password != this.hash(user.password)) {
+      if (!userData || userData.password !== (await this.hash(user.password))) {
         return { status: 404 };
       }
-
       // user found
       // The access token will be composed by the email
       const payload = `${userData.email}`;

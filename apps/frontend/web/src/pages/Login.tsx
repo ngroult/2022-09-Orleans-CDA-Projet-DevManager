@@ -5,8 +5,6 @@ import {
     Center,
     Divider,
     FormControl,
-    FormErrorMessage,
-    FormHelperText,
     FormLabel,
     Heading,
     Input,
@@ -16,17 +14,14 @@ import {
     Text,
     VStack,
   } from '@chakra-ui/react';
-  import React, { useState } from 'react';
+  import { useState } from 'react';
   
   function Login() {
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
   
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-  
-    const handleSubmit = () => {
-    }
   
     return (
       <Box>
@@ -67,7 +62,7 @@ import {
                 />
                 <InputRightElement width="4.5rem">
                   <Button h="1.75rem" size="sm" onClick={handleClick} me='1'>
-                    {show ? ( <div>Hide <ViewOffIcon ms='0.5' /></div> ) : ( <div>Show <ViewIcon ms='0.5' /></div> )}
+                    {show ? ( <div>{"Hide"} <ViewOffIcon ms='0.5' /></div> ) : ( <div>{"Show"} <ViewIcon ms='0.5' /></div> )}
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -77,14 +72,13 @@ import {
                   my="8"
                   color="white"
                   bg="#797AA6"
-                  onClick={handleSubmit}
                 >
                   {"Login"}
                   <ArrowRightIcon ms='1.5' boxSize='3'/>
                 </Button>
               </Center>
               <Center>
-                <Divider borderColor="9393B7" width="75%" />
+                <Divider borderColor="#9393B7" width="75%" />
               </Center>
             </FormControl>
           </Center>
