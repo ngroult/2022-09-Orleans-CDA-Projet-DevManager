@@ -15,8 +15,10 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import ModalCompanyImage from '../components/ModalCompanyImage';
+import { useNavigate } from 'react-router-dom';
 
 const NewGame = () => {
+  const navigate = useNavigate();
   const { onOpen, isOpen, onClose } = useDisclosure();
   const {
     register,
@@ -53,6 +55,7 @@ const NewGame = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Success:', data);
+        return navigate('/game/overview');
       })
       .catch((error) => {
         console.error('Error:', error);
