@@ -23,7 +23,7 @@ import { GamesModule } from './games/games.module';
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_DB'),
         entities,
-        synchronize: false,
+        synchronize: configService.get('DATABASE_SYNCHRONIZE') === "true",
       }),
       inject: [ConfigService],
     }),
