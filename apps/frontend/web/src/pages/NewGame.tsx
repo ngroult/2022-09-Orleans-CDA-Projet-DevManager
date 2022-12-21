@@ -36,9 +36,8 @@ const NewGame = () => {
     ceo: string;
     location: string;
   }) => {
-    const data = {
+    const dataForm = {
       idUser: 1,
-      createdAt: new Date(),
       companyName: values.companyName,
       ceo: values.ceo,
       location: values.location,
@@ -50,12 +49,13 @@ const NewGame = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(dataForm),
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log('Sent data:', dataForm);
         console.log('Success:', data);
-        return navigate('/game/overview');
+        //return navigate('/game/overview');
       })
       .catch((error) => {
         console.error('Error:', error);
