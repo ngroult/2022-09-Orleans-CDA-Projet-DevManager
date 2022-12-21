@@ -4,15 +4,15 @@ import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import '@fontsource/chakra-petch/400.css';
 import '@fontsource/orbitron/700.css';
-import CharacterCard from './components/CharacterCard';
 import theme from './theme';
 import App from './App';
+import CharacterModal from './components/popups/CharacterModal';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
-        <App />
+        <CharacterModal />
       </BrowserRouter>
     </ChakraProvider>
   </StrictMode>
