@@ -31,7 +31,7 @@ const NewGame = () => {
   const [ceo, setCeo] = useState('');
   const [location, setLocation] = useState('');
 
-  const onSubmit = (values: {
+  const onSubmit = async (values: {
     companyName: string;
     ceo: string;
     location: string;
@@ -44,22 +44,23 @@ const NewGame = () => {
       idImage: parseInt(companyImage, 10),
     };
 
-    fetch('/api/games', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataForm),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Sent data:', dataForm);
-        console.log('Success:', data);
-        //return navigate('/game/overview');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    try {
+      const response = await fetch('/api/games', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataForm),
       });
+
+      if (response.ok) {
+        return navigate('/game/overview');
+      } else {
+        throw new Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
