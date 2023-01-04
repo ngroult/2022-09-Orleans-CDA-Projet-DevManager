@@ -15,8 +15,10 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import ModalCompanyImage from '../components/ModalCompanyImage';
+import { useNavigate } from 'react-router-dom';
 
 const NewGame = () => {
+  const navigate = useNavigate();
   const { onOpen, isOpen, onClose } = useDisclosure();
   const {
     register,
@@ -29,34 +31,36 @@ const NewGame = () => {
   const [ceo, setCeo] = useState('');
   const [location, setLocation] = useState('');
 
-  const onSubmit = (values: {
+  const onSubmit = async (values: {
     companyName: string;
     ceo: string;
     location: string;
   }) => {
-    const data = {
+    const dataForm = {
       idUser: 1,
-      createdAt: new Date(),
       companyName: values.companyName,
       ceo: values.ceo,
       location: values.location,
       idImage: parseInt(companyImage, 10),
     };
 
-    fetch('/api/games', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+    try {
+      const response = await fetch('/api/games', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataForm),
       });
+
+      if (response.ok) {
+        return navigate('/game/overview');
+      } else {
+        throw new Error(response.statusText);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
