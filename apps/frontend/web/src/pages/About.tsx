@@ -5,9 +5,7 @@ const About = () => {
     <Box>
       <HStack>
         <Navbar />
-        <Text>
-          {'About'}
-        </Text>
+        <Text>{'About'}</Text>
       </HStack>
     </Box>
   );
