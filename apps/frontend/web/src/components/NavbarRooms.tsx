@@ -10,6 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 const NavbarRooms = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,28 +39,36 @@ const NavbarRooms = () => {
         <Box bg="blue.500" w={`${isOpen ? '220px' : '60px'}`} h="80px" />
         <Grid>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
+          <Link to="/game/:room">
             <HStack>
               <Image src="/overview.png" h={iconsSize} w={iconsSize} />
               {isOpen && <Text pl={paddingBetweenIcons}>{"Overview"}</Text>}
             </HStack>
+          </Link>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
+          <Link to="/game/:room">
             <HStack>
               <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
               {isOpen && <Text pl={paddingBetweenIcons}>{"Open Space"}</Text>}
             </HStack>
+            </Link>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
+          <Link to="/game/:room">
             <HStack>
               <Image src="/offices.png" h={iconsSize} w={iconsSize} />
               {isOpen && <Text pl={paddingBetweenIcons}>{"Offices"}</Text>}
             </HStack>
+            </Link>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
+          <Link to="/game/:room">
             <HStack>
               <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
               {isOpen && <Text pl={paddingBetweenIcons}>{"Break Room"}</Text>}
             </HStack>
+            </Link>
           </Box>
         </Grid>
         <Center pt="calc(22vh)">

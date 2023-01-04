@@ -2,7 +2,7 @@ import { Box, Flex, HStack, Image, Spacer, VStack } from '@chakra-ui/react';
 
 const ResourcesBar = () => {
   return (
-    <Flex minWidth="max-content" alignItems="center" gap="2">
+    <Flex minWidth="max-content" alignItems="center" gap="2" px="80px">
       <HStack>
         <Box boxSize="30px">
           <Image src="/company4.png" placeholder="my_company" />

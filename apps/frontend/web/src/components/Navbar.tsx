@@ -10,10 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
   const [isOpen, setIsOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <Box  w={`${isOpen ? '220px' : '60px'}`}>
@@ -39,51 +41,65 @@ const Navbar = () => {
       </Box>
       <Grid>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/game/overview" onClick={() => setIsNavOpen(false)}>
           <HStack>
-            <Image
+          <Image
               src="/resume_game.png"
               h={iconsSize}
               w={iconsSize}
-              filter="grayscale(80%)"
             />
             {isOpen && <Text pl={paddingBetweenIcons}>{"Resume Game"}</Text>}
+            
           </HStack>
+          </Link>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/">
           <HStack>
             <Image src="/leaderboard.png" h={iconsSize} w={iconsSize} />
             {isOpen && <Text pl={paddingBetweenIcons}>{"Leaderboard"}</Text>}
           </HStack>
+          </Link>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/game-settings">
           <HStack>
             <Image src="/game_settings.png" h={iconsSize} w={iconsSize} />
             {isOpen && <Text pl={paddingBetweenIcons}>{"Game Settings"}</Text>}
           </HStack>
+          </Link>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/account-settings">
           <HStack>
             <Image src="/account_settings.png" h={iconsSize} w={iconsSize} />
             {isOpen && <Text pl={paddingBetweenIcons}>{"Account Settings"}</Text>}
           </HStack>
+          </Link>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/about">
           <HStack>
             <Image src="/about.png" h={iconsSize} w={iconsSize} />
             {isOpen && <Text pl={paddingBetweenIcons}>{"About"}</Text>}
           </HStack>
+          </Link>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/">
           <HStack>
             <Image src="/logout.png" h={iconsSize} w={iconsSize} />
             {isOpen && <Text pl={paddingBetweenIcons}>{"Logout"}</Text>}
           </HStack>
+          </Link>
         </Box>
         <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+        <Link to="/assistance">
           <HStack>
             <Image src="/assistance.png" h={iconsSize} w={iconsSize} />
             {isOpen && <Text pl={paddingBetweenIcons}>{"Assistance"}</Text>}
           </HStack>
+          </Link>
         </Box>
       </Grid>
       
