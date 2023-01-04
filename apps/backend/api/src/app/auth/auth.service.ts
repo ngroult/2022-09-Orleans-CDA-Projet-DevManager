@@ -4,6 +4,7 @@ import { User } from '../users/entities/user.entity';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { LoginUserDto } from '../users/dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -28,18 +29,21 @@ export class AuthService {
   }
 
   public async login(
-    user: User,
+    user: LoginUserDto,
   ): Promise<
     { expires_in: number; access_token: string } | { status: number }
   > {
-    return this.validate(user.email).then(async (userData) => {
+    return this.validate(user.username).then(async (userData) => {
       // user not found
-      if (!userData || userData.password !== (await this.hash(user.password))) {
+      console.log(userData);
+      console.log(this.hash(user.password));
+      const isCorrect = await argon2.verify(userData.password, user.password);
+      if (!userData || !isCorrect) {
         return { status: 404 };
       }
       // user found
       // The access token will be composed by the email
-      const payload = `${userData.email}`;
+      const payload = `${userData.username}`;
       const accessToken = this.jwtService.sign(payload);
 
       return {
