@@ -11,7 +11,7 @@ import { User } from '../users/entities/user.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
-  providers: [AuthService, UsersService, JwtStrategy, JwtService],
+  providers: [AuthService, UsersService, JwtStrategy],
   imports: [
     UsersModule,
     PassportModule,
@@ -19,7 +19,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '10h' },
+        signOptions: { expiresIn: '1h' },
       }),
       inject: [ConfigService],
     }),

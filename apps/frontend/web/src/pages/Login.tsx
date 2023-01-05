@@ -22,6 +22,19 @@ import {
   
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const handleSubmit = async () => {
+      await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      }).then(() => {
+        console.log('it worked or not');
+      });
+    };
   
     return (
       <Box>
@@ -72,6 +85,7 @@ import {
                   my="8"
                   color="white"
                   bg="#797AA6"
+                  onClick={handleSubmit}
                 >
                   {"Login"}
                   <ArrowRightIcon ms='1.5' boxSize='3'/>

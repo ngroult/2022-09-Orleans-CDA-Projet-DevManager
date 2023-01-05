@@ -30,24 +30,22 @@ export class AuthService {
 
   public async login(
     user: LoginUserDto,
-  ): Promise<
-    { expires_in: number; access_token: string } | { status: number }
-  > {
+  ): Promise<{ access_token?: string; status?: number }> {
     return this.validate(user.username).then(async (userData) => {
       // user not found
       console.log(userData);
-      console.log(this.hash(user.password));
+      console.log('pass: ', this.hash(user.password));
       const isCorrect = await argon2.verify(userData.password, user.password);
       if (!userData || !isCorrect) {
         return { status: 404 };
       }
       // user found
       // The access token will be composed by the email
-      const payload = `${userData.username}`;
+      const payload = { username: userData.username, sub: userData.id };
       const accessToken = this.jwtService.sign(payload);
+      console.log('access token =>', accessToken);
 
       return {
-        expires_in: 3600, // 1hour
         access_token: accessToken,
       };
     });
