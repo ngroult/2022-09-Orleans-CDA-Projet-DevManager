@@ -16,19 +16,16 @@ export class GamesService {
   }
 
   async findAll() {
-    return this.gamesRepository.find();
+    return this.gamesRepository.find({
+      relations: {
+        user: true,
+      },
+    });
   }
 
   async findOne(id: number): Promise<Game[]> {
     return this.gamesRepository.find({
-      select: [
-        'idUser',
-        'createdAt',
-        'companyName',
-        'ceo',
-        'location',
-        'idImage',
-      ],
+      select: ['user', 'companyName', 'ceo', 'location', 'idImage'],
       where: [{ id: id }],
     });
   }

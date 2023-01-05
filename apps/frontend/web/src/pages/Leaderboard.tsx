@@ -13,18 +13,26 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
 
 const Leaderboard = () => {
-  fetch('api/games', { method: 'GET' })
-    .then((data) => data.json())
-    .then((data) => {
-      console.log(data);
-    });
-  fetch('api/users', { method: 'GET' })
-    .then((data1) => data1.json())
-    .then((data1) => {
-      console.log(data1);
-    });
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    fetch('api/games', { method: 'GET', signal: abortController.signal })
+      .then((data) => data.json())
+      .then((data) => {
+        setLeaderboard(data);
+      });
+    return () => {
+      abortController.abort();
+    };
+  }, []);
+
+  console.log(leaderboard);
+  
   return (
     <Box>
       <Center>
@@ -69,34 +77,29 @@ const Leaderboard = () => {
             <Tr>
               <Th>N°</Th>
               <Th>Player</Th>
+              <Th>Ceo Name</Th>
               <Th>Company</Th>
+              
             </Tr>
           </Thead>
-          <Tbody>
-            <Tr>
-              <Td>
-                <Image src="/medal_gold.png" boxSize="7"></Image>
-              </Td>
-              <Td>Ydrogen</Td>
-              <Td>RazrNet</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <Image src="/medal_silver.png" boxSize="7"></Image>
-              </Td>
-              <Td>Hérve Tournois</Td>
-              <Td>HervéTournoi</Td>
-            </Tr>
-            <Tr>
-              <Td>
-                <Image src="/medal_bronze.png" boxSize="7"></Image>
-              </Td>
-              <Td>Mamouth</Td>
-              <Td>Mamouth</Td>
-            </Tr>
-          </Tbody>
+          {leaderboard.map((leaderboard) => (
+            <Tbody key={leaderboard.id}>
+              <Tr>
+                <Td>
+                {(leaderboard.id === 1) ? <Image src="/medal_gold.png" boxSize="7"></Image>
+    : (leaderboard.id === 2) ? <Image src="/medal_silver.png" boxSize="7"></Image>
+    : (leaderboard.id === 3) ? <Image src="/medal_bronze.png" boxSize="7"></Image>
+    : `${leaderboard.id}`}
+                </Td>
+                <Td>{leaderboard .user.username}</Td>
+                <Td>{leaderboard.ceo}</Td>
+                <Td>{leaderboard.companyName}</Td>
+              </Tr>
+            </Tbody>
+          ))}
         </Table>
       </TableContainer>
+      
     </Box>
   );
 };

@@ -1,15 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from 'src/app/users/entities/user.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Game {
   @PrimaryGeneratedColumn({ unsigned: true })
   id: number;
 
-  @Column('int', { unsigned: true })
-  idUser: number;
-
-  @Column('datetime')
-  createdAt: string;
+  @ManyToOne(() => User, (user) => user.games)
+  user: User;
 
   @Column('varchar', { length: 50 })
   companyName: string;

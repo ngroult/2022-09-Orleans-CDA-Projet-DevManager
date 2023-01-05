@@ -16,8 +16,12 @@ export class UsersService {
   }
 
   findAll() {
+    return this.usersRepository.find();
+  }
+
+  findLeaderboard() {
     return this.usersRepository.find({
-      select: ['email', 'id', 'username'],
+      select: ['id', 'username'],
     });
   }
 
