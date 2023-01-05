@@ -1,5 +1,46 @@
+import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+
 const Home = () => {
-  return <div>{'Home'}</div>;
+  return (
+    <Box>
+      <Image
+        src="/overview.jpg"
+        h="100vh"
+        objectFit="cover"
+        alt="Overview"
+        zIndex={-1}
+        position="absolute"
+      ></Image>
+      <Flex justify="center" m="20">
+        <Box
+          h="25vh"
+          bg="#797AA6"
+          opacity="90%"
+          border="1px"
+          borderRadius="5px"
+        >
+          <Text color="white" m="5px">
+            {
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at nisl leo. Hfjdshfgj, hfdpcqssqiofjfkfv'
+            }
+          </Text>
+        </Box>
+      </Flex>
+      <Flex justify="center" mb="7">
+        <Button bg="#42B7B4" color="white">
+          {'Sign Up'}
+        </Button>
+      </Flex>
+      <Flex justify="center">
+        <Link to="/register">
+        <Button bg="#797AA6" color="white" >
+          {'Create your account'}
+        </Button>
+        </Link>
+      </Flex>
+    </Box>
+  );
 };
 
 export default Home;
