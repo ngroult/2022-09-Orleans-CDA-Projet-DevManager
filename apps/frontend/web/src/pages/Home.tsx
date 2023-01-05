@@ -11,9 +11,10 @@ const Home = () => {
         alt="Overview"
         zIndex={-1}
         position="absolute"
-      ></Image>
+      />
       <Flex justify="center" m="20">
         <Box
+        w="50vw"
           h="25vh"
           bg="#797AA6"
           opacity="90%"
@@ -22,7 +23,7 @@ const Home = () => {
         >
           <Text color="white" m="5px">
             {
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at nisl leo. Hfjdshfgj, hfdpcqssqiofjfkfv'
+              'Welcome to DevManager!'
             }
           </Text>
         </Box>
@@ -34,9 +35,9 @@ const Home = () => {
       </Flex>
       <Flex justify="center">
         <Link to="/register">
-        <Button bg="#797AA6" color="white" >
-          {'Create your account'}
-        </Button>
+          <Button bg="#797AA6" color="white">
+            {'Create your account'}
+          </Button>
         </Link>
       </Flex>
     </Box>
