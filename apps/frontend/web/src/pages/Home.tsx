@@ -14,7 +14,7 @@ const Home = () => {
       />
       <Flex justify="center" m="20">
         <Box
-        w="50vw"
+          w="50vw"
           h="25vh"
           bg="#797AA6"
           opacity="90%"
@@ -22,9 +22,7 @@ const Home = () => {
           borderRadius="5px"
         >
           <Text color="white" m="5px">
-            {
-              'Welcome to DevManager!'
-            }
+            {'Welcome to DevManager!'}
           </Text>
         </Box>
       </Flex>
