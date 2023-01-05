@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Game } from '../../games/entities/game.entity';
+import { Resource } from '../../resources/entities/resource.entity';
 
 @Entity()
 export class GameResource {
@@ -6,11 +8,11 @@ export class GameResource {
   id: number;
 
   @Column({ unsigned: true })
-  idGame: number;
-
-  @Column({ unsigned: true })
-  idResource: number;
-
-  @Column({ unsigned: true })
   quantity: number;
+
+  @ManyToOne(() => Game, (game) => game.gameResources)
+  game: Game;
+
+  @ManyToOne(() => Resource, (resource) => resource.gameResources)
+  resource: Resource;
 }

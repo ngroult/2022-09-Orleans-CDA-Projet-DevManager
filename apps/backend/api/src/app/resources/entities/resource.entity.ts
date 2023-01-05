@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { GameResource } from '../../game-resources/entities/game-resource.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Resource {
@@ -19,4 +20,7 @@ export class Resource {
 
   @Column('varchar', { length: 50 })
   color: string;
+
+  @OneToMany(() => GameResource, (gameResource) => gameResource.resource)
+  gameResources: GameResource[];
 }
