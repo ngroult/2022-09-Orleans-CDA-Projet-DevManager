@@ -12,7 +12,8 @@ services:
       - MYSQL_DATABASE=devmanager
     ports:
       - 3306:3306
-    volumes:
+    volumes: 
+      - ./sql:/docker-entrypoint-initdb.d
       - ./db:/var/lib/mysql
 
   nginx:
