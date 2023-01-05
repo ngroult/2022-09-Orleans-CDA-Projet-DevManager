@@ -1,5 +1,11 @@
 import { GameResource } from '../../game-resources/entities/game-resource.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Game {
@@ -9,8 +15,8 @@ export class Game {
   @Column('int', { unsigned: true })
   idUser: number;
 
-  @Column('datetime')
-  createdAt: string;
+  @CreateDateColumn()
+  createdAt: Date;
 
   @Column('varchar', { length: 50 })
   companyName: string;
