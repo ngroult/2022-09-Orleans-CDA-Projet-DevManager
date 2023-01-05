@@ -33,8 +33,6 @@ export class AuthService {
   ): Promise<{ access_token?: string; status?: number }> {
     return this.validate(user.username).then(async (userData) => {
       // user not found
-      console.log(userData);
-      console.log('pass: ', this.hash(user.password));
       const isCorrect = await argon2.verify(userData.password, user.password);
       if (!userData || !isCorrect) {
         return { status: 404 };
@@ -43,7 +41,6 @@ export class AuthService {
       // The access token will be composed by the email
       const payload = { username: userData.username, sub: userData.id };
       const accessToken = this.jwtService.sign(payload);
-      console.log('access token =>', accessToken);
 
       return {
         access_token: accessToken,

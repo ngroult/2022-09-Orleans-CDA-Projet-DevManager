@@ -37,7 +37,7 @@ function Register() {
         password: password,
       }),
     }).then(() => {
-      console.log('it worked or not');
+      console.log('it worked');
     });
   };
 
