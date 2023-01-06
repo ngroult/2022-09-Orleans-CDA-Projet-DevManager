@@ -9,7 +9,7 @@ export class Game {
   idUser: number;
 
   @CreateDateColumn()
-  createdAt: string;
+  createdAt: Date;
 
   @Column('varchar', { length: 50 })
   companyName: string;
