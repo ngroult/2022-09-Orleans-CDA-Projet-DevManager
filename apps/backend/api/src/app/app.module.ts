@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { GamesModule } from './games/games.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { CharactersModule } from './characters/character.module';
+import { ForgeModule } from './forge/forge.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CharactersModule } from './characters/character.module';
     UsersModule,
     RoomsModule,
     CharactersModule,
+    ForgeModule,
     AuthModule,
   ],
   controllers: [AppController],

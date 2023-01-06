@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Game {
@@ -8,7 +8,7 @@ export class Game {
   @Column('int', { unsigned: true })
   idUser: number;
 
-  @Column('datetime')
+  @CreateDateColumn()
   createdAt: string;
 
   @Column('varchar', { length: 50 })
