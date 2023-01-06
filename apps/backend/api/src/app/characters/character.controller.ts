@@ -5,30 +5,30 @@ import { UpdateCharacterDto } from './dto/update-character.dto';
 
 @Controller('characters')
 export class CharactersController {
-    constructor(private readonly roomsService: CharactersService) {}
+    constructor(private readonly charactersService: CharactersService) {}
 
     @Post()
-    create(@Body() createRoomDto: CreateCharacterDto) {
-        return this.roomsService.create(createRoomDto);
+    create(@Body() createCharacterDto: CreateCharacterDto) {
+        return this.charactersService.create(createCharacterDto);
     }
 
     @Get()
     findAll(){
-        return this.roomsService.findAll();
+        return this.charactersService.findAll();
     }
 
     @Get(':id')
     findOne(@Param('id') id: string){
-        return this.roomsService.findOne(+id);
+        return this.charactersService.findOne(+id);
     }
 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() updateRoomDto: UpdateCharacterDto) {
-        return this.roomsService.update(+id, updateRoomDto);
+    update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
+        return this.charactersService.update(+id, updateCharacterDto);
     }
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        return this.roomsService.remove(+id);
+        return this.charactersService.remove(+id);
     }
 }
