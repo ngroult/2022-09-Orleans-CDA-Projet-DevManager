@@ -17,10 +17,7 @@ const NavbarRooms = () => {
 
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
-  let paddingLeftIcons: string;
-  {
-    isOpen ? (paddingLeftIcons = '30px') : (paddingLeftIcons = '15px');
-  }
+  const paddingLeftIcons: string = isOpen ?  '30px' :  '15px';
 
   return (
     <Box w={`${isOpen ? '220px' : '60px'}`}>
