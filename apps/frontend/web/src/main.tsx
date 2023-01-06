@@ -13,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
+      <Leaderboard />
       </BrowserRouter>
     </ChakraProvider>
   </StrictMode>

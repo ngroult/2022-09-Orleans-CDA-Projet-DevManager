@@ -14,9 +14,10 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
+import {Game} from '../../../../../apps/backend/api/src/app/games/entities/game.entity'
 
 const Leaderboard = () => {
-  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [leaderboard, setLeaderboard] = useState<Game[]>([]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -31,13 +32,11 @@ const Leaderboard = () => {
     };
   }, []);
 
-  console.log(leaderboard);
-  
   return (
     <Box>
       <Center>
         <Heading as="h1" size="2xl" m="20" color="#797AA6">
-          Leaderboard
+          {'Leaderboard'}
         </Heading>
       </Center>
       <Center>
@@ -47,17 +46,17 @@ const Leaderboard = () => {
               boxSize="75"
               src="/company8.png"
               alt="Your company image"
-            ></Image>
+            />
             <Flex>
               <Box ml="8">
                 <Heading as="h2" size="l">
                   <Flex>
-                    <Image src="/badge.png" boxSize="5" mr="2"></Image>
-                    Your rank
+                    <Image src="/badge.png" boxSize="5" mr="2" alt='Badge'/>
+                    {'Your rank'}
                   </Flex>
                 </Heading>
-                <p>2500 / 1 500 000</p>
-                <p>$ 1 030 spent</p>
+                <p>{'2500 / 1 500 000'}</p>
+                <p>{'$ 1 030 spent'}</p>
               </Box>
             </Flex>
           </Flex>
@@ -68,30 +67,34 @@ const Leaderboard = () => {
       </Center>
       <Center>
         <Heading as="h2" size="l" mt="10">
-          Mondial rank
+          {'Mondial rank'}
         </Heading>
       </Center>
       <TableContainer>
         <Table variant="striped" size="sm">
           <Thead>
             <Tr>
-              <Th>N°</Th>
-              <Th>Player</Th>
-              <Th>Ceo Name</Th>
-              <Th>Company</Th>
-              
+              <Th>{'N°'}</Th>
+              <Th>{'Player'}</Th>
+              <Th>{'Ceo Name'}</Th>
+              <Th>{'Company'}</Th>
             </Tr>
           </Thead>
           {leaderboard.map((leaderboard) => (
             <Tbody key={leaderboard.id}>
               <Tr>
                 <Td>
-                {(leaderboard.id === 1) ? <Image src="/medal_gold.png" boxSize="7"></Image>
-    : (leaderboard.id === 2) ? <Image src="/medal_silver.png" boxSize="7"></Image>
-    : (leaderboard.id === 3) ? <Image src="/medal_bronze.png" boxSize="7"></Image>
-    : `${leaderboard.id}`}
+                  {leaderboard.id === 1 ? (
+                    <Image src="/medal_gold.png" boxSize="7" alt='Medal gold'/>
+                  ) : leaderboard.id === 2 ? (
+                    <Image src="/medal_silver.png" boxSize="7" alt='Medal silver'/>
+                  ) : leaderboard.id === 3 ? (
+                    <Image src="/medal_bronze.png" boxSize="7" alt='Medal bronze'/>
+                  ) : (
+                    `${leaderboard.id}`
+                  )}
                 </Td>
-                <Td>{leaderboard .user.username}</Td>
+                <Td>{leaderboard.user.username}</Td>
                 <Td>{leaderboard.ceo}</Td>
                 <Td>{leaderboard.companyName}</Td>
               </Tr>
@@ -99,7 +102,6 @@ const Leaderboard = () => {
           ))}
         </Table>
       </TableContainer>
-      
     </Box>
   );
 };
