@@ -54,7 +54,7 @@ export class ForgeService {
       description: 'Break Room Description',
       color: 'gold.900',
       price: 10000,
-      isExpandable: true,
+      isExpandable: false,
     });
 
     this.charactersRepository.save({

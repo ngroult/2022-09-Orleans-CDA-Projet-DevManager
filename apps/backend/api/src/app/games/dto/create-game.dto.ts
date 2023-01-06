@@ -4,9 +4,6 @@ export class CreateGameDto {
   @IsNotEmpty()
   idUser: number;
   
-  // @IsNotEmpty()
-  // createdAt: string;
-  
   @IsNotEmpty()
   companyName: string;
 
