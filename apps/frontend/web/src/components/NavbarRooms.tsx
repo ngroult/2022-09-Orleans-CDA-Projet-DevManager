@@ -42,7 +42,7 @@ const NavbarRooms = () => {
             </Link>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/:room">
+            <Link to="/game/overview">
               <HStack>
                 <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
                 {isOpen && <Text pl={paddingBetweenIcons}>{'Open Space'}</Text>}
@@ -50,7 +50,7 @@ const NavbarRooms = () => {
             </Link>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/:room">
+            <Link to="/game/overview">
               <HStack>
                 <Image src="/offices.png" h={iconsSize} w={iconsSize} />
                 {isOpen && <Text pl={paddingBetweenIcons}>{'Offices'}</Text>}
@@ -58,7 +58,7 @@ const NavbarRooms = () => {
             </Link>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/:room">
+            <Link to="/game/overview">
               <HStack>
                 <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
                 {isOpen && <Text pl={paddingBetweenIcons}>{'Break Room'}</Text>}
