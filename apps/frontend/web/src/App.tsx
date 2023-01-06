@@ -10,6 +10,7 @@ import AccountSettings from './pages/AccountSettings';
 import About from './pages/About';
 import Assistance from './pages/Assistance';
 import Page404 from './pages/Page404';
+import Forge from './pages/Forge';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/account-settings" element={<AccountSettings />} />
         <Route path="/about" element={<About />} />
         <Route path="/assistance" element={<Assistance />} />
+        <Route path="/forge" element={<Forge />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>
