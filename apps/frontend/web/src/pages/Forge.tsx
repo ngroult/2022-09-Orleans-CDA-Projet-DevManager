@@ -2,12 +2,14 @@ import { Button, Center } from '@chakra-ui/react';
 
 const Forge = () => {
   const addData = async () => {
-    await fetch('/api/forge', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    }).then(() => {
-      console.log('it worked');
-    });
+    try {
+      const res = await fetch('/api/forge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+    } catch (error) {
+      console.error('The promise is rejected !', error);
+    }
   };
 
   return (
