@@ -8,7 +8,7 @@ export default new DataSource({
   port: parseInt(process.env.DATABASE_PORT || '3000'),
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_DB,
+  database: process.env.DATABASE_MIGRATION_DB,
   entities,
   migrations: [__dirname + '/../migrations/*.ts'],
 });
