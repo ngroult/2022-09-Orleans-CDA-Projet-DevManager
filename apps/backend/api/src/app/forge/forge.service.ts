@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Character, Game, Room, User } from '../../entities';
 import { Repository } from 'typeorm';
-import { Character } from '../characters/entities/character.entity';
-import { Game } from '../games/entities/game.entity';
-import { Room } from '../rooms/entities/room.entity';
-import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class ForgeService {
@@ -16,7 +13,7 @@ export class ForgeService {
     private charactersRepository: Repository<Character>,
   ) {}
 
-  async create(): Promise<String> {
+  async create(): Promise<string> {
     const user1 = await this.usersRepository.save({
       username: 'XXdemonSlayer',
       email: 'john.doe@email.com',

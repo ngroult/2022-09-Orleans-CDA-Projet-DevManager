@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "prepare": "husky install",
-    "format": "npx prettier --write . '!./deployment/db'",
-    "format:check": "npx prettier --check . '!./deployment/db'",
+    "format": "npx prettier --write . !./deployment/db",
+    "format:check": "npx prettier --check . !./deployment/db",
     "env:cp": "cp ./.env ./apps/frontend/web/.env && cp ./.env ./apps/frontend/mobile/.env && cp ./.env ./apps/backend/api/.env",
     "watch:env": "nodemon --watch ./.env --exec \"npm run env:cp\"",
     "dev:frontend:web": "npm run dev --workspace=apps/frontend/web",

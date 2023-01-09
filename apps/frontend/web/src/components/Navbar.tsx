@@ -50,7 +50,7 @@ const Navbar = () => {
             </Link>
           </Box>
           <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-            <Link to="/">
+            <Link to="/leaderboard">
               <HStack>
                 <Image src="/leaderboard.png" h={iconsSize} w={iconsSize} />
                 {isOpen && (

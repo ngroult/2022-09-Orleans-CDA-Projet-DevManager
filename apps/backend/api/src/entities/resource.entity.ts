@@ -1,4 +1,4 @@
-import { GameResource } from '../../game-resources/entities/game-resource.entity';
+import { GameResource } from './game-resource.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
