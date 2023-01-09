@@ -26,7 +26,6 @@ const App = () => {
         <Route path="/account-settings" element={<AccountSettings />} />
         <Route path="/about" element={<About />} />
         <Route path="/assistance" element={<Assistance />} />
-        <Route path="/forge" element={<Forge />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </>
