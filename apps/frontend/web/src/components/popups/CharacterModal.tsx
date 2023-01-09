@@ -18,7 +18,7 @@ import {
 function CharacterModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <>
+    <Box>
       <Button onClick={onOpen}>{'Open Modal'}</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size={'full'}>
@@ -119,7 +119,7 @@ function CharacterModal() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </>
+    </Box>
   );
 }
 
