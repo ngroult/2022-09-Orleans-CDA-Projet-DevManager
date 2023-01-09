@@ -16,10 +16,8 @@ const NavbarRooms = () => {
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
   let paddingLeftIcons: string;
-  {isOpen ?
-     paddingLeftIcons = '30px'
-    :
-     paddingLeftIcons = '15px'
+  {
+    isOpen ? (paddingLeftIcons = '30px') : (paddingLeftIcons = '15px');
   }
 
   return (
@@ -39,40 +37,40 @@ const NavbarRooms = () => {
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/overview.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>{"Overview"}</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{'Overview'}</Text>}
             </HStack>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>{"Open Space"}</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{'Open Space'}</Text>}
             </HStack>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/offices.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>{"Offices"}</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{'Offices'}</Text>}
             </HStack>
           </Box>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <HStack>
               <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
-              {isOpen && <Text pl={paddingBetweenIcons}>{"Break Room"}</Text>}
+              {isOpen && <Text pl={paddingBetweenIcons}>{'Break Room'}</Text>}
             </HStack>
           </Box>
         </Grid>
         <Center pt="calc(22vh)">
-        <IconButton
-          size="xs"
-          aria-label="Search database"
-          icon={isOpen ? <ArrowRightIcon /> : <ArrowLeftIcon />}
-          rounded="100px"
-          bg="blue.500"
-          boxShadow="inner"
-          onClick={() => setIsOpen((prev) => !prev)}
-          pos="absolute"
-        />
-      </Center>
+          <IconButton
+            size="xs"
+            aria-label="Search database"
+            icon={isOpen ? <ArrowRightIcon /> : <ArrowLeftIcon />}
+            rounded="100px"
+            bg="blue.500"
+            boxShadow="inner"
+            onClick={() => setIsOpen((prev) => !prev)}
+            pos="absolute"
+          />
+        </Center>
       </Box>
     </Box>
   );
