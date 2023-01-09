@@ -4,7 +4,7 @@ import { GameResourcesController } from './game-resources.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GameResource } from '../../entities/game-resource.entity';
 import { Resource } from '../../entities/resource.entity';
-import { Game } from '../games/entities/game.entity';
+import { Game } from 'src/entities';
 
 @Module({
   imports: [TypeOrmModule.forFeature([GameResource, Game, Resource])],

@@ -14,7 +14,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import {Game} from '@apps/backend-api'
+import { Game } from '@apps/backend-api';
 
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState<Game[]>([]);
@@ -42,16 +42,12 @@ const Leaderboard = () => {
       <Center>
         <Box>
           <Flex>
-            <Image
-              boxSize="75"
-              src="/company8.png"
-              alt="Your company image"
-            />
+            <Image boxSize="75" src="/company8.png" alt="Your company image" />
             <Flex>
               <Box ml="8">
                 <Heading as="h2" size="l">
                   <Flex>
-                    <Image src="/badge.png" boxSize="5" mr="2" alt='Badge'/>
+                    <Image src="/badge.png" boxSize="5" mr="2" alt="Badge" />
                     {'Your rank'}
                   </Flex>
                 </Heading>
@@ -85,11 +81,19 @@ const Leaderboard = () => {
               <Tr>
                 <Td>
                   {leaderboard.id === 1 ? (
-                    <Image src="/medal_gold.png" boxSize="7" alt='Medal gold'/>
+                    <Image src="/medal_gold.png" boxSize="7" alt="Medal gold" />
                   ) : leaderboard.id === 2 ? (
-                    <Image src="/medal_silver.png" boxSize="7" alt='Medal silver'/>
+                    <Image
+                      src="/medal_silver.png"
+                      boxSize="7"
+                      alt="Medal silver"
+                    />
                   ) : leaderboard.id === 3 ? (
-                    <Image src="/medal_bronze.png" boxSize="7" alt='Medal bronze'/>
+                    <Image
+                      src="/medal_bronze.png"
+                      boxSize="7"
+                      alt="Medal bronze"
+                    />
                   ) : (
                     `${leaderboard.id}`
                   )}

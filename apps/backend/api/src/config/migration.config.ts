@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { entities } from './entities';
+import entities from '../entities';
 import 'dotenv/config';
 
 export default new DataSource({

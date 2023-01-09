@@ -5,7 +5,7 @@ import { CreateGameResourceDto } from './dto/create-game-resource.dto';
 import { UpdateGameResourceDto } from './dto/update-game-resource.dto';
 import { GameResource } from '../../entities/game-resource.entity';
 import { Resource } from '../../entities/resource.entity';
-import { Game } from '../games/entities/game.entity';
+import { Game } from 'src/entities';
 
 @Injectable()
 export class GameResourcesService {
