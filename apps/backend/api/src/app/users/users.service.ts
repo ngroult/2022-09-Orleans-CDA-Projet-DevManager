@@ -30,4 +30,8 @@ export class UsersService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    return this.usersRepository.findOneBy({ username: username });
+  }
 }
