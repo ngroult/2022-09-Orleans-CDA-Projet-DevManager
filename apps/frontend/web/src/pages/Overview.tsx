@@ -9,7 +9,6 @@ const Overview = () => {
 
   const handleGetCheck = async () => {
     const data = {
-      quantity: 1000,
       gameId: 1,
       resourceId: 1,
     };

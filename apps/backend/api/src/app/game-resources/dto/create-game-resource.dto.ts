@@ -6,7 +6,4 @@ export class CreateGameResourceDto {
 
   @IsNotEmpty()
   resourceId: number;
-
-  @IsNotEmpty()
-  quantity: number;
 }
