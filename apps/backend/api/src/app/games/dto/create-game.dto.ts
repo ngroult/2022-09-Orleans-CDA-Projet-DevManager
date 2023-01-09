@@ -3,7 +3,7 @@ import { IsNotEmpty } from 'class-validator';
 export class CreateGameDto {
   @IsNotEmpty()
   idUser: number;
-  
+
   @IsNotEmpty()
   companyName: string;
 

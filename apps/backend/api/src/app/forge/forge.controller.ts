@@ -9,6 +9,4 @@ export class ForgeController {
   create() {
     return this.forgeService.create();
   }
-
-  
 }

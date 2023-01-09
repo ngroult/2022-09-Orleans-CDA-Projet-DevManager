@@ -17,10 +17,11 @@ export class ForgeService {
   ) {}
 
   async create(): Promise<String> {
-    const user1 =  await this.usersRepository.save({
+    const user1 = await this.usersRepository.save({
       username: 'XXdemonSlayer',
       email: 'john.doe@email.com',
-      password: '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
+      password:
+        '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
     });
 
     this.gamesRepository.save({

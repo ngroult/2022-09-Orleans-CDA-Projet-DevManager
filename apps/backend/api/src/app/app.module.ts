@@ -27,7 +27,6 @@ import { ForgeModule } from './forge/forge.module';
         database: configService.get('DATABASE_DB'),
         entities,
         synchronize: configService.get('DATABASE_SYNCHRONIZE') === 'true',
-
       }),
       inject: [ConfigService],
     }),
