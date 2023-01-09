@@ -1,5 +1,3 @@
-import { Game } from 'src/entities';
-
 export class CreateUserDto {
   id: number;
 
