@@ -10,6 +10,8 @@ import { GamesModule } from './games/games.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { CharactersModule } from './characters/character.module';
 import { ForgeModule } from './forge/forge.module';
+import { ResourcesModule } from './resources/resources.module';
+import { GameResourcesModule } from './game-resources/game-resources.module';
 
 @Module({
   imports: [
@@ -36,6 +38,8 @@ import { ForgeModule } from './forge/forge.module';
     CharactersModule,
     ForgeModule,
     AuthModule,
+    ResourcesModule,
+    GameResourcesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
