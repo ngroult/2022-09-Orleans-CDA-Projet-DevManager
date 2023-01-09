@@ -17,39 +17,35 @@ export class ForgeService {
   ) {}
 
   async create(): Promise<String> {
-    this.usersRepository.save({
-      id: 1,
+    const user1 =  await this.usersRepository.save({
       username: 'XXdemonSlayer',
       email: 'john.doe@email.com',
-      password: 'password',
+      password: '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
     });
 
     this.gamesRepository.save({
-      idUser: 1,
+      idUser: user1.id,
       companyName: 'Twitter',
       ceo: 'Elon Musk',
       location: 'Paris, France',
       idImage: 1,
     });
 
-    this.roomsRepository.save({
-      id: 1,
+    const room1 = await this.roomsRepository.save({
       name: 'Open Space',
       description: 'Open Space Description',
       color: 'purple.900',
       price: 5000,
       isExpandable: true,
     });
-    this.roomsRepository.save({
-      id: 2,
+    const room2 = await this.roomsRepository.save({
       name: 'Offices',
       description: 'Offices Description',
       color: 'turquoise.900',
       price: 7500,
       isExpandable: true,
     });
-    this.roomsRepository.save({
-      id: 3,
+    const room3 = await this.roomsRepository.save({
       name: 'Break Room',
       description: 'Break Room Description',
       color: 'gold.900',
@@ -58,58 +54,52 @@ export class ForgeService {
     });
 
     this.charactersRepository.save({
-      id: 1,
       name: 'Intern',
       description: 'Intern description',
       image: 'intern.png',
       price: 1,
       size: 1,
-      idRoom: 1,
+      idRoom: room1.id,
     });
     this.charactersRepository.save({
-      id: 2,
       name: 'Developer',
       description: 'Developer description',
       image: 'developer.png',
       price: 100,
       size: 5,
-      idRoom: 1,
+      idRoom: room1.id,
     });
     this.charactersRepository.save({
-      id: 3,
       name: 'Lead developer',
       description: 'Lead developer description',
       image: 'lead_dev.png',
       price: 1000,
       size: 15,
-      idRoom: 1,
+      idRoom: room1.id,
     });
     this.charactersRepository.save({
-      id: 4,
       name: 'Recruiter',
       description: 'Recruiter description',
       image: 'recruiter.png',
       price: 5000,
       size: 5,
-      idRoom: 2,
+      idRoom: room2.id,
     });
     this.charactersRepository.save({
-      id: 5,
       name: 'Salesman',
       description: 'Salesman description',
       image: 'salesman.png',
       price: 5000,
       size: 5,
-      idRoom: 2,
+      idRoom: room2.id,
     });
     this.charactersRepository.save({
-      id: 6,
       name: 'Delivery man',
       description: 'Delivery man description',
       image: 'delivery_man.png',
       price: 7500,
       size: 5,
-      idRoom: 2,
+      idRoom: room2.id,
     });
 
     return 'OK';
