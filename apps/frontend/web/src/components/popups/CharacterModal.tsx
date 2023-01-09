@@ -10,6 +10,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  Spacer,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -23,7 +24,7 @@ function CharacterModal() {
       <Modal isOpen={isOpen} onClose={onClose} size={'full'}>
         <ModalContent bg={'purple.200'}>
           <ModalCloseButton />
-          <ModalBody pt={'10'}>
+          <ModalBody pt={'10'} px={'0'}>
             <Center>
               <Image
                 boxSize="35%"
@@ -110,9 +111,11 @@ function CharacterModal() {
                 </Badge>
               </Box>
             </Center>
-            <Box h={'4rem'} bg={'blue'} w={'screen'}></Box>
-            <Box h={'2rem'} bg={'green'}></Box>
-            <Box h={'1rem'} bg={'pink'}></Box>
+            <Box bottom={'1'}>
+              <Box h={'4rem'} bg={'blue'} w={'100%'}></Box>
+              <Box h={'2rem'} bg={'green'}></Box>
+              <Box h={'1rem'} bg={'pink'}></Box>
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>
