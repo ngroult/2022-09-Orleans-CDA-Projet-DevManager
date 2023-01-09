@@ -10,7 +10,6 @@ import AccountSettings from './pages/AccountSettings';
 import About from './pages/About';
 import Assistance from './pages/Assistance';
 import Page404 from './pages/Page404';
-import Forge from './pages/Forge';
 
 const App = () => {
   return (
