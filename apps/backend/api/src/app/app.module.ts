@@ -11,7 +11,7 @@ import { CharactersModule } from './characters/character.module';
 import { ForgeModule } from './forge/forge.module';
 import { ResourcesModule } from './resources/resources.module';
 import { GameResourcesModule } from './game-resources/game-resources.module';
-import entities from 'src/entities';
+import entities from '../entities';
 
 @Module({
   imports: [
