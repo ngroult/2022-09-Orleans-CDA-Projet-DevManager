@@ -14,7 +14,7 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import {Game} from '../../../../../apps/backend/api/src/app/games/entities/game.entity'
+import {Game} from '@apps/backend-api'
 
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState<Game[]>([]);
@@ -22,7 +22,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch('api/games', { method: 'GET', signal: abortController.signal })
+    fetch('/api/games', { method: 'GET', signal: abortController.signal })
       .then((data) => data.json())
       .then((data) => {
         setLeaderboard(data);
@@ -31,9 +31,6 @@ const Leaderboard = () => {
       abortController.abort();
     };
   }, []);
-
-  console.log(leaderboard);
-  
 
   return (
     <Box>

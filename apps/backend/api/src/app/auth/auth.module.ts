@@ -4,7 +4,7 @@ import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { User } from '../users/entities/user.entity';
+import { User } from '../../entities/user.entity';
 
 @Module({
   providers: [AuthService, UsersService],
