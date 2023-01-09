@@ -7,6 +7,11 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { GamesModule } from './games/games.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { CharactersModule } from './characters/character.module';
+import { ForgeModule } from './forge/forge.module';
+import { ResourcesModule } from './resources/resources.module';
+import { GameResourcesModule } from './game-resources/game-resources.module';
 
 @Module({
   imports: [
@@ -23,13 +28,18 @@ import { GamesModule } from './games/games.module';
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_DB'),
         entities,
-        synchronize: false,
+        synchronize: configService.get('DATABASE_SYNCHRONIZE') === 'true',
       }),
       inject: [ConfigService],
     }),
     GamesModule,
     UsersModule,
+    RoomsModule,
+    CharactersModule,
+    ForgeModule,
     AuthModule,
+    ResourcesModule,
+    GameResourcesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,19 +7,21 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  useDisclosure,
   useRadioGroup,
 } from '@chakra-ui/react';
 import CompanyImageRadioCard from '../components/CompanyImageRadioCard';
 
 const ModalCompanyImage = ({
+  isOpen,
+  onClose,
   setCompanyImage,
 }: {
+  isOpen: boolean;
+  onClose: () => void;
   setCompanyImage: (value: string) => void;
 }) => {
   const [selectedImage, setSelectedImage] = useState('1');
 
-  const { isOpen, onClose } = useDisclosure();
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
 
