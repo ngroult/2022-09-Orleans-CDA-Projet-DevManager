@@ -9,7 +9,7 @@ export class Character {
   name: string;
 
   @Column()
-  decription: string;
+  description: string;
 
   @Column()
   image: string;
