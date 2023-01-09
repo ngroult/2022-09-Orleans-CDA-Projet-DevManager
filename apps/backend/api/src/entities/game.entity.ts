@@ -1,9 +1,11 @@
 import { User } from './user.entity';
+import { GameResource } from './game-resource.entity';
 import {
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
+  CreateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -29,4 +31,7 @@ export class Game {
 
   @Column('int', { unsigned: true })
   idImage: number;
+
+  @OneToMany(() => GameResource, (gameResource) => gameResource.game)
+  gameResources: GameResource[];
 }

@@ -25,7 +25,7 @@ const NavbarRooms = () => {
         boxShadow="inner"
         bg="blue.200"
         w={`${isOpen ? '220px' : '60px'}`}
-        h="calc(100vh)"
+        h="100vh"
         position="absolute"
         top="0"
         right="0"
@@ -66,7 +66,7 @@ const NavbarRooms = () => {
             </Link>
           </Box>
         </Grid>
-        <Center pt="calc(22vh)">
+        <Center pt="22vh">
           <IconButton
             size="xs"
             aria-label="Search database"
