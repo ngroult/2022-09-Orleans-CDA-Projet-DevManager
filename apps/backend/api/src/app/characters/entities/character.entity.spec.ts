@@ -1,7 +1,7 @@
-import { CharactersEntity } from './character.entity';
+import { Character } from './character.entity';
 
-describe('CharactersEntity', () => {
+describe('Character', () => {
   it('should be defined', () => {
-    expect(new CharactersEntity()).toBeDefined();
+    expect(new Character()).toBeDefined();
   });
 });
