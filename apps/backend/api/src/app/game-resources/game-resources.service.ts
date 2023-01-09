@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGameResourceDto } from './dto/create-game-resource.dto';
@@ -26,18 +21,22 @@ export class GameResourcesService {
   async create(createGameResourceDto: CreateGameResourceDto) {
     const game = await this.gamesRepository
       .createQueryBuilder('game')
-      .where('game.id = :id', { id: createGameResourceDto.game.id })
+      .where('game.id = :id', { id: createGameResourceDto.gameId })
       .getOne();
 
     const resource = await this.resourcesRepository
       .createQueryBuilder('resource')
-      .where('resource.id = :id', { id: createGameResourceDto.resource.id })
+      .where('resource.id = :id', { id: createGameResourceDto.resourceId })
       .getOne();
 
     const errors: { errorGame?: string; errorResource?: string } = {};
 
     if (game && resource) {
-      this.gameResourcesRepository.save(createGameResourceDto);
+      this.gameResourcesRepository.save({
+        game: { id: createGameResourceDto.gameId },
+        resource: { id: createGameResourceDto.resourceId },
+        quantity: 1000,
+      });
 
       return { status: 'ok' };
     } else {
