@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGameResourceDto } from './dto/create-game-resource.dto';
 import { UpdateGameResourceDto } from './dto/update-game-resource.dto';
-import { GameResource } from '../../entities/game-resource.entity';
-import { Resource } from '../../entities/resource.entity';
-import { Game } from 'src/entities';
+import { GameResource } from '../../entities';
+import { Resource } from '../../entities';
+import { Game } from '../../entities';
 
 @Injectable()
 export class GameResourcesService {

@@ -11,6 +11,7 @@ import { CharactersModule } from './characters/character.module';
 import { ForgeModule } from './forge/forge.module';
 import { ResourcesModule } from './resources/resources.module';
 import { GameResourcesModule } from './game-resources/game-resources.module';
+import entities from 'src/entities';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { GameResourcesModule } from './game-resources/game-resources.module';
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE_DB'),
+        entities,
         synchronize: configService.get('DATABASE_SYNCHRONIZE') === 'true',
       }),
       inject: [ConfigService],

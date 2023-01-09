@@ -63,7 +63,7 @@ const Leaderboard = () => {
       </Center>
       <Center>
         <Heading as="h2" size="l" mt="10">
-          {'Mondial rank'}
+          {'World ranking'}
         </Heading>
       </Center>
       <TableContainer>
