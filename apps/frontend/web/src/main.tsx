@@ -7,12 +7,13 @@ import '@fontsource/orbitron/700.css';
 import CharacterCard from './components/CharacterCard';
 import theme from './theme';
 import App from './App';
+import EventModal from './components/popups/EventModal';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
-        <App />
+        <EventModal />
       </BrowserRouter>
     </ChakraProvider>
   </StrictMode>
