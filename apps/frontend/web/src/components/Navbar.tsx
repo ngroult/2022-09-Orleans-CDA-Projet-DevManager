@@ -23,7 +23,7 @@ const Navbar = () => {
         boxShadow="inner"
         bg="blue.200"
         w={`${isOpen ? '220px' : '60px'}`}
-        h="calc(100vh)"
+        h="100vh"
         position="absolute"
         top="0"
         left="0"
@@ -109,7 +109,7 @@ const Navbar = () => {
           </Box>
         </Grid>
       </Box>
-      <Center pl={`${isOpen ? '220px' : '60px'}`} pt="calc(50vh)">
+      <Center pl={`${isOpen ? '220px' : '60px'}`} pt="50vh">
         <IconButton
           size="xs"
           aria-label="Search database"

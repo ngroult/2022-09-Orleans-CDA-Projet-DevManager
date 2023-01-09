@@ -7,6 +7,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { GamesModule } from './games/games.module';
+import { ResourcesModule } from './resources/resources.module';
+import { GameResourcesModule } from './game-resources/game-resources.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { GamesModule } from './games/games.module';
     GamesModule,
     UsersModule,
     AuthModule,
+    ResourcesModule,
+    GameResourcesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
