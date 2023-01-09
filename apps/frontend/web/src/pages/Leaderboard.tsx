@@ -32,6 +32,9 @@ const Leaderboard = () => {
     };
   }, []);
 
+  console.log(leaderboard);
+  
+
   return (
     <Box>
       <Center>

@@ -1,5 +1,11 @@
 import { User } from 'src/app/users/entities/user.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Game {
@@ -8,6 +14,9 @@ export class Game {
 
   @ManyToOne(() => User, (user) => user.games)
   user: User;
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @Column('varchar', { length: 50 })
   companyName: string;
