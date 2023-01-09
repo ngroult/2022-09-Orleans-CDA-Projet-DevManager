@@ -47,7 +47,7 @@ import {
                 <Center>
                   <Flex py={'10'}>
                     <Text mr={'3'} fontWeight={'extrabold'}>
-                      {'Current price :'}
+                      {'Current price:'}
                     </Text>
                     <Badge
                       fontSize="xl"
