@@ -5,6 +5,8 @@ import { Character } from '../characters/entities/character.entity';
 import { Game } from '../games/entities/game.entity';
 import { Room } from '../rooms/entities/room.entity';
 import { User } from '../users/entities/user.entity';
+import { Resource } from '../resources/entities/resource.entity';
+import { GameResource } from '../game-resources/entities/game-resource.entity';
 
 @Injectable()
 export class ForgeService {
@@ -14,6 +16,10 @@ export class ForgeService {
     @InjectRepository(Room) private roomsRepository: Repository<Room>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
+    @InjectRepository(Resource)
+    private resourcesRepository: Repository<Resource>,
+    @InjectRepository(GameResource)
+    private gameResourcesRepository: Repository<GameResource>,
   ) {}
 
   async create(): Promise<String> {
@@ -24,7 +30,7 @@ export class ForgeService {
         '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
     });
 
-    this.gamesRepository.save({
+    const game1 = await this.gamesRepository.save({
       idUser: user1.id,
       companyName: 'Twitter',
       ceo: 'Elon Musk',
@@ -54,53 +60,110 @@ export class ForgeService {
       isExpandable: false,
     });
 
-    this.charactersRepository.save({
+    await this.charactersRepository.save({
       name: 'Intern',
       description: 'Intern description',
-      image: 'intern.png',
+      image: '/intern.png',
       price: 1,
       size: 1,
       idRoom: room1.id,
     });
-    this.charactersRepository.save({
+    await this.charactersRepository.save({
       name: 'Developer',
       description: 'Developer description',
-      image: 'developer.png',
+      image: '/developer.png',
       price: 100,
       size: 5,
       idRoom: room1.id,
     });
-    this.charactersRepository.save({
+    await this.charactersRepository.save({
       name: 'Lead developer',
       description: 'Lead developer description',
-      image: 'lead_dev.png',
+      image: '/lead_dev.png',
       price: 1000,
       size: 15,
       idRoom: room1.id,
     });
-    this.charactersRepository.save({
+    await this.charactersRepository.save({
       name: 'Recruiter',
       description: 'Recruiter description',
-      image: 'recruiter.png',
+      image: '/recruiter.png',
       price: 5000,
       size: 5,
       idRoom: room2.id,
     });
-    this.charactersRepository.save({
+    await this.charactersRepository.save({
       name: 'Salesman',
       description: 'Salesman description',
-      image: 'salesman.png',
+      image: '/salesman.png',
       price: 5000,
       size: 5,
       idRoom: room2.id,
     });
-    this.charactersRepository.save({
+    await this.charactersRepository.save({
       name: 'Delivery man',
       description: 'Delivery man description',
-      image: 'delivery_man.png',
+      image: '/delivery_man.png',
       price: 7500,
       size: 5,
       idRoom: room2.id,
+    });
+
+    const resource1 = await this.resourcesRepository.save({
+      name: 'DevDollars',
+      description: 'DevDollars Description',
+      image: '/dollar.png',
+      color: 'gold.200',
+    });
+    const resource2 = await this.resourcesRepository.save({
+      name: 'Energic drinks',
+      description: 'Energic drinks Description',
+      image: '/soda.png',
+      color: 'turquoise.200',
+    });
+    const resource3 = await this.resourcesRepository.save({
+      name: 'Coffees',
+      description: 'Coffees Description',
+      image: '/coffee.png',
+      color: 'brown.200',
+    });
+    const resource4 = await this.resourcesRepository.save({
+      name: 'Contracts',
+      description: 'Contracts Description',
+      image: '/contract.png',
+      color: 'blue.100',
+    });
+    const resource5 = await this.resourcesRepository.save({
+      name: 'Delivery orders',
+      description: 'Delivery orders Description',
+      image: '/delivery_order.png',
+      color: 'brown.500',
+    });
+
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource1.id },
+      quantity: 1257,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource2.id },
+      quantity: 1951,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource3.id },
+      quantity: 2752,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource4.id },
+      quantity: 275,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource5.id },
+      quantity: 25,
     });
 
     return 'OK';
