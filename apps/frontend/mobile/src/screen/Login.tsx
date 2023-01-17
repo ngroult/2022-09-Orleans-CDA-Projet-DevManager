@@ -25,7 +25,12 @@ export default function Login() {
           >
             {'DevManager'}
           </Heading>
-          <Heading style={styles.font} color="green.300" fontWeight="medium" size="xs">
+          <Heading
+            style={styles.font}
+            color="green.300"
+            fontWeight="medium"
+            size="xs"
+          >
             {'Login'}
           </Heading>
         </Center>
@@ -69,5 +74,5 @@ export default function Login() {
 const styles = StyleSheet.create({
   font: {
     fontFamily: 'ChakraPetch',
-  }
+  },
 });
