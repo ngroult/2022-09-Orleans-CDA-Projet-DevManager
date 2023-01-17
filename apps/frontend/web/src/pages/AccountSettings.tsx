@@ -58,16 +58,16 @@ const AccountSettings = () => {
           </Button>
           <VStack m="2rem 0">
             <HStack>
-              <Text textAlign="right">Username :</Text>
-              <Text textAlign="left">Codelande</Text>
+              <Text textAlign="right">{'Username :'}</Text>
+              <Text textAlign="left">{'Codelande'}</Text>
             </HStack>
             <HStack>
-              <Text textAlign="right">E-mail :</Text>
-              <Text textAlign="left">codelande@mail.com</Text>
+              <Text textAlign="right">{'E-mail :'}</Text>
+              <Text textAlign="left">{'codelande@mail.com'}</Text>
             </HStack>
             <HStack>
-              <Text textAlign="right">Password :</Text>
-              <Text textAlign="left">***************</Text>
+              <Text textAlign="right">{'Password :'}</Text>
+              <Text textAlign="left">{'***************'}</Text>
             </HStack>
           </VStack>
           <Button

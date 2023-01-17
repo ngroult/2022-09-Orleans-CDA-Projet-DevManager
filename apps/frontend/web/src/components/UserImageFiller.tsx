@@ -31,7 +31,7 @@ const UserImageFiller = () => {
   ];
 
   return (
-    <Grid {...group} templateColumns="repeat(3, 1fr)" m="2rem 0" gap="1rem">
+    <Grid {...group} templateColumns="repeat(3, 1fr)" my="2rem" gap="1rem">
       {options.map((value, index) => {
         const radioProps = getRadioProps({ value });
         const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);

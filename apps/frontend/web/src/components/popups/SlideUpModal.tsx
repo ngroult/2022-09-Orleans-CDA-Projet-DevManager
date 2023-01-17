@@ -70,7 +70,7 @@ const SlideUpModal = ({
             </Button>
           </Flex>
         </ModalBody>
-        <Box w="calc(100% + 2rem)" m="2rem -1rem -1rem -1rem">
+        <Box w="calc(100% + 2rem)" m="2rem -1rem -1rem">
           <Box h="4rem" bgColor={color + `33`}></Box>
           <Box h="3rem" bgColor={color + `80`}></Box>
           <Box h="2rem" bgColor={color + `FF`}></Box>
