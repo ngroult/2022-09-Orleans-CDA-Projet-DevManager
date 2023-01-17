@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Text,
   Box,
@@ -11,16 +10,22 @@ import {
   Button,
   HStack,
 } from 'native-base';
+import { StyleSheet } from 'react-native';
 
 export default function Login() {
   return (
     <Center>
-      <Box w="100%">
+      <Box w="100%" mt={'5'}>
         <Center h={'20%'}>
-          <Heading size="lg" fontWeight="600" color="coolGray.800">
+          <Heading
+            style={{ fontFamily: 'Orbitron' }}
+            size="lg"
+            fontWeight="600"
+            color="coolGray.800"
+          >
             {'DevManager'}
           </Heading>
-          <Heading color="green.300" fontWeight="medium" size="xs">
+          <Heading style={styles.font} color="green.300" fontWeight="medium" size="xs">
             {'Login'}
           </Heading>
         </Center>
@@ -35,7 +40,9 @@ export default function Login() {
                 <FormControl.Label>{'Password'}</FormControl.Label>
                 <Input type="password" />
               </FormControl>
-              <Button colorScheme="indigo">{'Sign in'}</Button>
+              <Button mt={'5'} colorScheme="indigo">
+                {'Sign in'}
+              </Button>
               <HStack justifyContent="center">
                 <Text fontSize="sm" color="coolGray.600">
                   {"I'm a new user."}
@@ -58,3 +65,9 @@ export default function Login() {
     </Center>
   );
 }
+
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: 'ChakraPetch',
+  }
+});
