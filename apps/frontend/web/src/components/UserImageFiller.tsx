@@ -36,7 +36,7 @@ const UserImageFiller = () => {
         const radioProps = getRadioProps({ value });
         const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
         return (
-          <Box as="label">
+          <Box as="label" key={index}>
             <input {...getInputProps()} hidden />
             <Box
               {...getCheckboxProps()}

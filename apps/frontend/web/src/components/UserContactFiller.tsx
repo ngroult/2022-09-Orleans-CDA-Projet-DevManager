@@ -19,7 +19,7 @@ const UserContactFiller = () => {
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
       />
-      <FormLabel htmlFor="email" textAlign="left" w="100%" m="0.5rem 0 0 0">
+      <FormLabel htmlFor="email" textAlign="left" w="100%" mt="0.5rem">
         {'E-mail :'}
       </FormLabel>
       <Input

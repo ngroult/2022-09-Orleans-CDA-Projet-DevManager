@@ -33,7 +33,7 @@ const SlideUpModal = ({
     >
       <ModalContent
         p="1rem"
-        bg={`linear-gradient(${color}20, ${color}20), linear-gradient(#FFF, #FFF)`}
+        bg={`linear-gradient(${color}33, ${color}33), linear-gradient(#FFF, #FFF)`}
         display="flex"
         flexDir="column"
       >
@@ -71,7 +71,7 @@ const SlideUpModal = ({
           </Flex>
         </ModalBody>
         <Box w="calc(100% + 2rem)" m="2rem -1rem -1rem -1rem">
-          <Box h="4rem" bgColor={color + `20`}></Box>
+          <Box h="4rem" bgColor={color + `33`}></Box>
           <Box h="3rem" bgColor={color + `80`}></Box>
           <Box h="2rem" bgColor={color + `FF`}></Box>
         </Box>
