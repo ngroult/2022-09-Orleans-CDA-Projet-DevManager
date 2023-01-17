@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
-import { GameResource } from 'src/app/game-resources/entities/game-resource.entity';
+import { GameResource } from 'src/entities/game-resource.entity';
 
 export class CreateResourceDto {
   @IsNotEmpty()
