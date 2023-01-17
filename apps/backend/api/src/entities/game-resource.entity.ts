@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Game } from '../../games/entities/game.entity';
-import { Resource } from '../../resources/entities/resource.entity';
+import { Game } from './game.entity';
+import { Resource } from './resource.entity';
 
 @Entity()
 export class GameResource {

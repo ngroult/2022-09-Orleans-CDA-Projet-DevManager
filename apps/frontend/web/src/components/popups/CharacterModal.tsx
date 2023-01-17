@@ -14,14 +14,14 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-function EventModal() {
+function CharacterModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
       <Button onClick={onOpen}>{'Open Modal'}</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size={'full'}>
-        <ModalContent bg={'yellow.200'}>
+        <ModalContent bg={'purple.200'}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>
             <Box h={'calc(100vh-7rem)'}>
@@ -30,13 +30,13 @@ function EventModal() {
                   boxSize="35%"
                   m="auto"
                   mt="2.5"
-                  src="/hackathon.png"
-                  alt="hackathon image"
+                  src="/lead_dev.png"
+                  alt="lead developer"
                 />
               </Center>
               <Center>
                 <Heading size="md" py={'10'}>
-                  {'Hackaton'}
+                  {'Lead Developer'}
                 </Heading>
               </Center>
               <Text textAlign={'center'}>
@@ -66,7 +66,7 @@ function EventModal() {
                       {'$100'}
                     </Flex>
                   </Badge>
-                  <Text fontWeight={'extrabold'}>{'/ event'}</Text>
+                  <Text fontWeight={'extrabold'}>{'/ unit'}</Text>
                 </Flex>
               </Center>
               <Center>
@@ -124,4 +124,4 @@ function EventModal() {
   );
 }
 
-export default EventModal;
+export default CharacterModal;

@@ -10,6 +10,7 @@ import AccountSettings from './pages/AccountSettings';
 import About from './pages/About';
 import Assistance from './pages/Assistance';
 import Page404 from './pages/Page404';
+import Leaderboard from './pages/Leaderboard';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/new-game" element={<NewGame />} />
         <Route path="/game/overview" element={<Overview />} />

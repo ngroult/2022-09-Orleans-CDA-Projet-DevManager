@@ -1,7 +1,9 @@
-import { GameResource } from '../../game-resources/entities/game-resource.entity';
+import { User } from './user.entity';
+import { GameResource } from './game-resource.entity';
 import {
   Column,
   Entity,
+  ManyToOne,
   OneToMany,
   CreateDateColumn,
   PrimaryGeneratedColumn,
@@ -12,8 +14,8 @@ export class Game {
   @PrimaryGeneratedColumn({ unsigned: true })
   id: number;
 
-  @Column('int', { unsigned: true })
-  idUser: number;
+  @ManyToOne(() => User, (user) => user.games)
+  user: User;
 
   @CreateDateColumn()
   createdAt: Date;

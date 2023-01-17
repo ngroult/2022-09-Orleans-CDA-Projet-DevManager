@@ -1,6 +1,7 @@
 {
   "name": "@apps/backend-api",
   "version": "0.0.1",
+  "main": "index.ts",
   "description": "",
   "author": "",
   "private": true,
