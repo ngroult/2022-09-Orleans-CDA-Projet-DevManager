@@ -10,8 +10,6 @@ import Login from './src/screen/Login';
 const API_HOST = Constants.expoConfig?.extra?.API_HOST;
 
 export default function App() {
-
-
   // const user: Partial<User> = {};
 
   // useEffect(() => {

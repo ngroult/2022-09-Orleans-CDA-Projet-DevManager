@@ -16,7 +16,7 @@ export default function Login() {
   return (
     <Center>
       <Box w="100%">
-        <Center h={'20v%'}>
+        <Center h={'20%'}>
           <Heading size="lg" fontWeight="600" color="coolGray.800">
             {'DevManager'}
           </Heading>
