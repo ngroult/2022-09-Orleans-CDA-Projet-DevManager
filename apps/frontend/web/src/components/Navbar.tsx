@@ -12,7 +12,7 @@ import {
 import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import ModalNavbar from './ModalNavbar';
+import DrawerNavbar from './DrawerNavbar';
 
 const Navbar = () => {
   const iconsSize: string = '30px';
@@ -24,13 +24,14 @@ const Navbar = () => {
   return (
     <>
       <Box w={`${isNavbarOpen ? '220px' : '60px'}`}>
-        <Box bg="blue.500" w="60px" h="80px" left="0" top="0" position="fixed">
+        <Box w="60px" h="80px" left="0" top="0" position="fixed">
           <Center>
             <IconButton
               aria-label="Hamburger button"
               icon={<HamburgerIcon />}
               ref={btnRef}
-              colorScheme="blue.500"
+              colorScheme="white"
+              color="black"
               onClick={onOpen}
               size="lg"
             />
@@ -151,7 +152,7 @@ const Navbar = () => {
           />
         </Center>
       </Box>
-      <ModalNavbar isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
+      <DrawerNavbar isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
     </>
   );
 };

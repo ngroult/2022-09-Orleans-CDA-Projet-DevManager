@@ -15,7 +15,7 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function ModalNavbar({
+function DrawerNavbar({
   isOpen,
   onClose,
   btnRef,
@@ -118,4 +118,4 @@ function ModalNavbar({
   );
 }
 
-export default ModalNavbar;
+export default DrawerNavbar;
