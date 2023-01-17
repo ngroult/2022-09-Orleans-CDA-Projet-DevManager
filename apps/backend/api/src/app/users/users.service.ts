@@ -41,6 +41,9 @@ export class UsersService {
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return this.usersRepository.findOneBy({ username: username });
+    return this.usersRepository.findOne({
+      select: ['id', 'username', 'password'],
+      where: { username },
+    });
   }
 }
