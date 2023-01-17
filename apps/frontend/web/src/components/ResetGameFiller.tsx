@@ -1,6 +1,6 @@
 import { InputGroup, Input, FormLabel } from '@chakra-ui/react';
 
-const DeleteAccountFiller = () => {
+const ResetGameFiller = () => {
   return (
     <InputGroup
       display="flex"
@@ -23,4 +23,4 @@ const DeleteAccountFiller = () => {
   );
 };
 
-export default DeleteAccountFiller;
+export default ResetGameFiller;
