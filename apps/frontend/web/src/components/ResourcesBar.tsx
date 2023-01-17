@@ -7,18 +7,32 @@ import {
   VStack,
   Button,
   useDisclosure,
-  Drawer,
-  DrawerOverlay,
-  DrawerHeader,
-  DrawerBody,
-  DrawerContent,
-  DrawerCloseButton,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import ModalResources from './ModalResources';
+import { GameResource } from '@apps/backend-api';
 
 const ResourcesBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [resources, setResources] = useState<GameResource[]>([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    fetch('/api/game-resources', {
+      method: 'GET',
+      signal: abortController.signal,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setResources(data);
+      });
+    console.log(resources);
+    return () => {
+      abortController.abort();
+    };
+  }, []);
+
   return (
     <>
       <Flex minWidth="max-content" alignItems="center" gap="2" px="80px">
@@ -26,22 +40,22 @@ const ResourcesBar = () => {
           <Box boxSize="30px">
             <Image src="/company4.png" placeholder="my_company" />
           </Box>
-          <Box>My Company</Box>
+          <Box>{'My Company'}</Box>
         </HStack>
         <Spacer />
         <VStack>
-          <Box>Remaining</Box>
+          <Box>{'Remaining'}</Box>
           <HStack>
-            <Box>50</Box>
+            <Box>{'50'}</Box>
             <Box boxSize="30px">
               <Image src="/area.png" />
             </Box>
           </HStack>
         </VStack>
         <VStack>
-          <Box>Total</Box>
+          <Box>{'Total'}</Box>
           <HStack>
-            <Box>110</Box>
+            <Box>{'110'}</Box>
             <Box boxSize="30px">
               <Image src="/area.png" />
             </Box>
@@ -50,82 +64,30 @@ const ResourcesBar = () => {
 
         <Spacer />
         <HStack>
-          <Box
-            bg="gold.200"
-            px="10px"
-            py="5px"
-            borderRadius="20px"
-            boxShadow="xl"
-          >
-            <HStack>
-              <Box boxSize="30px">
-                <Image src="/dollar.png" />
-              </Box>
-              <Box> 123456</Box>
-            </HStack>
-          </Box>
-          <Box
-            bg="turquoise.200"
-            px="10px"
-            py="5px"
-            borderRadius="20px"
-            boxShadow="xl"
-          >
-            <HStack>
-              <Box boxSize="30px">
-                <Image src="/soda.png" />
-              </Box>
-              <Box> 123456</Box>
-            </HStack>
-          </Box>
-          <Box
-            bg="brown.200"
-            px="10px"
-            py="5px"
-            borderRadius="20px"
-            boxShadow="xl"
-          >
-            <HStack>
-              <Box boxSize="30px">
-                <Image src="/coffee.png" />
-              </Box>
-              <Box> 123456</Box>
-            </HStack>
-          </Box>
-          <Box
-            bg="blue.100"
-            px="10px"
-            py="5px"
-            borderRadius="20px"
-            boxShadow="xl"
-          >
-            <HStack>
-              <Box boxSize="30px">
-                <Image src="/contract.png" />
-              </Box>
-              <Box> 123456</Box>
-            </HStack>
-          </Box>
-          <Box
-            bg="brown.500"
-            px="10px"
-            py="5px"
-            borderRadius="20px"
-            boxShadow="xl"
-          >
-            <HStack>
-              <Box boxSize="30px">
-                <Image src="/delivery_order.png" />
-              </Box>
-              <Box> 123456</Box>
-            </HStack>
-          </Box>
-          <Button colorScheme="blue" onClick={onOpen}>
-            Open
+          {resources.map((resource) => (
+            <Box
+              key={resource.id}
+              bg={resource.resource.color}
+              px="10px"
+              py="5px"
+              borderRadius="20px"
+              boxShadow="xl"
+            >
+              <HStack>
+                <Box boxSize="30px">
+                  <Image src={resource.resource.image} />
+                </Box>
+                <Box> {resource.quantity}</Box>
+              </HStack>
+            </Box>
+          ))}
+
+          <Button colorScheme="white" onClick={onOpen}>
+            <Image src="/more.png" boxSize="30px" />
           </Button>
         </HStack>
       </Flex>
-      <ModalResources isOpen={isOpen} onClose={onClose} />
+      <ModalResources isOpen={isOpen} onClose={onClose} resources={resources} />
     </>
   );
 };
