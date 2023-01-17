@@ -2,41 +2,44 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
+import { NativeBaseProvider, Box } from 'native-base';
 
 import { SomeInterface, User } from '@libs/typings';
+import Login from './src/screen/Login';
 
 const API_HOST = Constants.expoConfig?.extra?.API_HOST;
 
 export default function App() {
-  const [someData, setSomeData] = useState<SomeInterface>({
-    someProperty: 'someValue',
-  });
 
-  const user: Partial<User> = {};
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const go = async () => {
-      const response = await fetch(`${API_HOST}/some-route`, {
-        signal: abortController.signal,
-      });
-      const data = await response.json();
-      setSomeData(data);
-    };
+  // const user: Partial<User> = {};
 
-    go();
+  // useEffect(() => {
+  //   const abortController = new AbortController();
+  //   const go = async () => {
+  //     const response = await fetch(`${API_HOST}/some-route`, {
+  //       signal: abortController.signal,
+  //     });
+  //     const data = await response.json();
+  //     setSomeData(data);
+  //   };
 
-    return () => {
-      abortController.abort();
-    };
-  }, []);
+  //   go();
+
+  //   return () => {
+  //     abortController.abort();
+  //   };
+  // }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>{`host: ${API_HOST}`}</Text>
+    // <View style={styles.container}>
+    <NativeBaseProvider>
+      <Login />
+    </NativeBaseProvider>
+    /* <Text>{`host: ${API_HOST}`}</Text>
       <Text>{`someProperty: ${someData.someProperty}`}</Text>
       <StatusBar style="auto" />
-    </View>
+    </View> */
   );
 }
 
