@@ -33,8 +33,6 @@ export class AuthService {
   ): Promise<{ access_token?: string; status?: number }> {
     return this.validate(user.username).then(async (userData) => {
       // user not found
-      console.log(userData);
-
       const isCorrect = await argon2.verify(userData.password, user.password);
       if (!userData || !isCorrect) {
         return { status: 404 };
