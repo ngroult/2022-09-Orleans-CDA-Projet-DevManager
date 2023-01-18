@@ -6,13 +6,16 @@ import '@fontsource/chakra-petch/400.css';
 import '@fontsource/orbitron/700.css';
 import theme from './theme';
 import App from './App';
+import { AuthProvider } from './contexts/AuthContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </AuthProvider>
     </ChakraProvider>
   </StrictMode>
 );
