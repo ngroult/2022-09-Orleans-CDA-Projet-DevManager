@@ -20,7 +20,7 @@ const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef: any = useRef();
+  const btnRef = useRef<HTMLButtonElement | null>(null);
   return (
     <>
       <Box w={`${isNavbarOpen ? '220px' : '60px'}`}>
