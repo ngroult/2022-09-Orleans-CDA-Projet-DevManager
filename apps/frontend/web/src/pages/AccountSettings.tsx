@@ -15,11 +15,11 @@ import UserImageFiller from '../components/UserImageFiller';
 import UserContactFiller from '../components/UserContactFiller';
 import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
+const pageColor = 'turquoise';
 
 const AccountSettings = () => {
   const [gamerImage, setGamerImage] = useState('man1');
   const [selectedImage, setSelectedImage] = useState(gamerImage);
-  const pageColor = 'turquoise';
   const userImage = useDisclosure();
   const userContact = useDisclosure();
   const userPassword = useDisclosure();

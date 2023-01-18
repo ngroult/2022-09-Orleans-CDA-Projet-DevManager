@@ -14,11 +14,11 @@ import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
+const pageColor = 'gold';
 
 const GameSettings = () => {
   const [companyImage, setCompanyImage] = useState('1');
   const [selectedImage, setSelectedImage] = useState(companyImage);
-  const pageColor = 'gold';
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
