@@ -33,26 +33,25 @@ export class AuthService {
     access_token?: string;
     status?: number;
   }> {
-    return this.validate(user.username).then(
-      async ({ password, ...userData }) => {
-        if (!userData) {
-          return { status: 404 };
-        }
-        // user not found
-        const isCorrect = await argon2.verify(password, user.password);
-        if (!isCorrect) {
-          return { status: 404 };
-        }
-        // user found
-        // The access token will be composed by the email
-        const payload = { username: userData.username, sub: userData.id };
-        const accessToken = this.jwtService.sign(payload);
+    return this.validate(user.username).then(async (userData) => {
+      if (!userData) {
+        return { status: 404 };
+      }
+      const { password, ...userDataRest } = userData;
+      // user not found
+      const isCorrect = await argon2.verify(password, user.password);
+      if (!isCorrect) {
+        return { status: 404 };
+      }
+      // user found
+      // The access token will be composed by the email
+      const payload = { username: userDataRest.username, sub: userDataRest.id };
+      const accessToken = this.jwtService.sign(payload);
 
-        return {
-          user: userData,
-          access_token: accessToken,
-        };
-      },
-    );
+      return {
+        user: userDataRest,
+        access_token: accessToken,
+      };
+    });
   }
 }
