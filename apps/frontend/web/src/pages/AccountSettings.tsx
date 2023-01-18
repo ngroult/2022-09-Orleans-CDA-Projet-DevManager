@@ -19,7 +19,7 @@ import DeleteAccountFiller from '../components/DeleteAccountFiller';
 const AccountSettings = () => {
   const [gamerImage, setGamerImage] = useState('man1');
   const [selectedImage, setSelectedImage] = useState(gamerImage);
-  const pageColor = '#42B7B4';
+  const pageColor = 'turquoise';
   const userImage = useDisclosure();
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
@@ -30,26 +30,26 @@ const AccountSettings = () => {
       <Flex flexDir="column" w="100%" h="100vh">
         <Grid
           w="100%"
-          h="70px"
+          h="4.5rem"
           autoFlow="column"
           templateColumns="20% auto 20%"
           alignItems="center"
           justifyItems="center"
         >
           <HamburgerIcon boxSize="5" />
-          <Text color={pageColor} fontSize="1.2rem">
+          <Text color={`${pageColor}.900`} fontSize="1.2rem">
             {'Account Settings'}
           </Text>
         </Grid>
         <Flex
           flexDir="column"
           alignItems="center"
-          bgColor={`${pageColor}33`}
+          bgColor={`${pageColor}.200`}
           w="100%"
           flexGrow="1"
         >
           <Image
-            w="80px"
+            w="5.5rem"
             src={`/${gamerImage}.png`}
             alt={`Image of ${gamerImage}`}
             mt="2rem"
@@ -57,7 +57,7 @@ const AccountSettings = () => {
           />
           <Button
             onClick={userImage.onOpen}
-            bgColor={pageColor}
+            bgColor={`${pageColor}.900`}
             color="#FFF"
             w="8rem"
             fontWeight="normal"
@@ -82,7 +82,7 @@ const AccountSettings = () => {
           <Button
             onClick={userContact.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-            bgColor={pageColor}
+            bgColor={`${pageColor}.900`}
             color="#FFF"
             w="13rem"
             fontWeight="normal"
@@ -93,7 +93,7 @@ const AccountSettings = () => {
             onClick={userPassword.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
             mt="0.8rem"
-            bgColor={pageColor}
+            bgColor={`${pageColor}.900`}
             color="#FFF"
             w="13rem"
             fontWeight="normal"
@@ -104,7 +104,7 @@ const AccountSettings = () => {
             onClick={deleteAccount.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
             mt="2rem"
-            bgColor="#E7008C"
+            bgColor="pink.900"
             color="#FFF"
             w="13rem"
             fontWeight="normal"
@@ -116,7 +116,7 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={userImage.isOpen}
         onClose={userImage.onClose}
-        color={pageColor}
+        pageColor="#42B7B4"
         title="Choose a new avatar"
         content={
           <UserImageFiller
@@ -130,7 +130,7 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={userContact.isOpen}
         onClose={userContact.onClose}
-        color={pageColor}
+        pageColor="#42B7B4"
         title="Edit your contact details"
         content={<UserContactFiller />}
         submitText="Save"
@@ -138,7 +138,7 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={userPassword.isOpen}
         onClose={userPassword.onClose}
-        color={pageColor}
+        pageColor="#42B7B4"
         title="Edit your password"
         content={<UserPasswordFiller />}
         submitText="Save"
@@ -146,7 +146,7 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={deleteAccount.isOpen}
         onClose={deleteAccount.onClose}
-        color={pageColor}
+        pageColor="#42B7B4"
         title="Write your password to confirm you want to delete your account"
         content={<DeleteAccountFiller />}
         submitText="Delete"

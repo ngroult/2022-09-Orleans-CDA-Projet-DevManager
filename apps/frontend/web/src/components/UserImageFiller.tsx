@@ -43,7 +43,7 @@ const UserImageFiller = ({
             <input {...getInputProps()} hidden />
             <Box
               {...getCheckboxProps()}
-              w="75px"
+              w="4.7rem"
               opacity={
                 selectedImage === getInputProps().value
                   ? '1'

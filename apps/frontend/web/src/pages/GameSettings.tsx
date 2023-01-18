@@ -18,7 +18,7 @@ import ResetGameFiller from '../components/ResetGameFiller';
 const GameSettings = () => {
   const [companyImage, setCompanyImage] = useState('1');
   const [selectedImage, setSelectedImage] = useState(companyImage);
-  const pageColor = '#D4B514';
+  const pageColor = 'gold';
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
@@ -28,26 +28,26 @@ const GameSettings = () => {
       <Flex flexDir="column" w="100%" h="100vh">
         <Grid
           w="100%"
-          h="70px"
+          h="4.5rem"
           autoFlow="column"
           templateColumns="20% auto 20%"
           alignItems="center"
           justifyItems="center"
         >
           <HamburgerIcon boxSize="5" />
-          <Text color={pageColor} fontSize="1.2rem">
+          <Text color={`${pageColor}.900`} fontSize="1.2rem">
             {'Game Settings'}
           </Text>
         </Grid>
         <Flex
           flexDir="column"
           alignItems="center"
-          bgColor={`${pageColor}33`}
+          bgColor={`${pageColor}.200`}
           w="100%"
           flexGrow="1"
         >
           <Image
-            w="80px"
+            w="5.5rem"
             src={`/company${companyImage}.png`}
             alt={`Image of ${companyImage}`}
             mt="2rem"
@@ -55,7 +55,7 @@ const GameSettings = () => {
           />
           <Button
             onClick={gameImage.onOpen}
-            bgColor={pageColor}
+            bgColor={`${pageColor}.900`}
             color="#FFF"
             w="8rem"
             fontWeight="normal"
@@ -80,7 +80,7 @@ const GameSettings = () => {
           <Button
             onClick={gameDetails.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-            bgColor={pageColor}
+            bgColor={`${pageColor}.900`}
             color="#FFF"
             w="13rem"
             fontWeight="normal"
@@ -103,7 +103,7 @@ const GameSettings = () => {
       <SlideUpModal
         isOpen={gameImage.isOpen}
         onClose={gameImage.onClose}
-        color={pageColor}
+        pageColor="#D4B514"
         title="Choose a new avatar"
         content={
           <GameImageFiller
@@ -117,7 +117,7 @@ const GameSettings = () => {
       <SlideUpModal
         isOpen={gameDetails.isOpen}
         onClose={gameDetails.onClose}
-        color={pageColor}
+        pageColor="#D4B514"
         title="Edit the game details"
         content={<GameDetailsFiller />}
         submitText="Save"
@@ -125,7 +125,7 @@ const GameSettings = () => {
       <SlideUpModal
         isOpen={resetGame.isOpen}
         onClose={resetGame.onClose}
-        color={pageColor}
+        pageColor="#D4B514"
         title="Write your password to confirm you want to reset the game"
         content={<ResetGameFiller />}
         submitText="Reset"
