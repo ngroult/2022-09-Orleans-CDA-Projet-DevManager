@@ -11,12 +11,11 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 function Login() {
@@ -126,7 +125,9 @@ function Login() {
           </FormControl>
         </Center>
         <Center>
-          <Link py="7">{'Not register yet ?'}</Link>
+          <Link to="/register">
+            <Text py="7">{'Not register yet ?'}</Text>
+          </Link>
         </Center>
       </Box>
     </Box>
