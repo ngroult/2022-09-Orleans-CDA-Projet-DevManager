@@ -16,6 +16,7 @@ const SlideUpModal = ({
   title,
   content,
   submitText,
+  submitFunction,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -23,6 +24,7 @@ const SlideUpModal = ({
   title: string;
   content: ReactElement;
   submitText: string;
+  submitFunction: () => void;
 }) => {
   return (
     <Modal
@@ -48,7 +50,6 @@ const SlideUpModal = ({
             justifyContent="center"
             mt="3rem"
           >
-            {}
             <Button
               onClick={onClose}
               mr=".5rem"
@@ -65,6 +66,10 @@ const SlideUpModal = ({
               fontWeight="normal"
               w="7rem"
               boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+              onClick={() => {
+                onClose();
+                submitFunction();
+              }}
             >
               {submitText}
             </Button>
