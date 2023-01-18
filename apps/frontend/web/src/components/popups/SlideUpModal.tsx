@@ -50,7 +50,6 @@ const SlideUpModal = ({
             justifyContent="center"
             mt="3rem"
           >
-            {}
             <Button
               onClick={onClose}
               mr=".5rem"

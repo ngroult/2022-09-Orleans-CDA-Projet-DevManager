@@ -1,37 +1,16 @@
-import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { Box, Image, useRadio, useRadioGroup, Grid } from '@chakra-ui/react';
 
-const UserImageFiller = ({
+const CompanyImageFiller = ({
   selectedImage,
   setSelectedImage,
 }: {
   selectedImage: string;
   setSelectedImage: (value: string) => void;
 }) => {
-  const { getRootProps, getRadioProps } = useRadioGroup();
+  const { getRootProps, getRadioProps, setValue } = useRadioGroup();
   const group = getRootProps();
 
-  const options = [
-    'man1',
-    'man2',
-    'man3',
-    'man4',
-    'man5',
-    'man6',
-    'man7',
-    'man8',
-    'man9',
-    'man10',
-    'woman1',
-    'woman2',
-    'woman3',
-    'woman4',
-    'woman5',
-    'woman6',
-    'woman7',
-    'woman8',
-    'woman9',
-    'woman10',
-  ];
+  const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
   return (
     <Grid
@@ -49,7 +28,7 @@ const UserImageFiller = ({
             <input {...getInputProps()} hidden />
             <Box
               {...getCheckboxProps()}
-              w="4.7rem"
+              w="75px"
               opacity={
                 selectedImage === getInputProps().value
                   ? '1'
@@ -60,7 +39,7 @@ const UserImageFiller = ({
               cursor="pointer"
             >
               <Image
-                src={`/${getInputProps().value}.png`}
+                src={`/company${getInputProps().value}.png`}
                 alt={`Image of ${getInputProps().value}`}
                 onClick={() => setSelectedImage(getInputProps().value)}
               />
@@ -72,4 +51,4 @@ const UserImageFiller = ({
   );
 };
 
-export default UserImageFiller;
+export default CompanyImageFiller;
