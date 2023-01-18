@@ -23,7 +23,7 @@ const Navbar = () => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   return (
     <>
-      <Box w={`${isNavbarOpen ? '220px' : '60px'}`}>
+      <Box w={isNavbarOpen ? '220px' : '60px'}>
         <Box w="60px" h="80px" left="0" top="0" position="fixed">
           <Center>
             <IconButton
@@ -42,14 +42,14 @@ const Navbar = () => {
           display={{ base: 'none', sm: 'inline-block' }}
           boxShadow="inner"
           bg="blue.200"
-          w={`${isNavbarOpen ? '220px' : '60px'}`}
+          w={isNavbarOpen ? '220px' : '60px'}
           h="100vh"
           position="absolute"
           top="0"
           left="0"
           overflow="scroll"
         >
-          <Box bg="blue.500" w={`${isNavbarOpen ? '220px' : '60px'}`} h="80px">
+          <Box bg="blue.500" w={isNavbarOpen ? '220px' : '60px'} h="80px">
             {isNavbarOpen && (
               <Center>
                 <Heading fontSize="xl" pt="25px">
@@ -137,7 +137,7 @@ const Navbar = () => {
         </Box>
         <Center
           display={{ base: 'none', sm: 'flex' }}
-          pl={`${isNavbarOpen ? '220px' : '60px'}`}
+          pl={isNavbarOpen ? '220px' : '60px'}
           pt="50vh"
         >
           <IconButton
