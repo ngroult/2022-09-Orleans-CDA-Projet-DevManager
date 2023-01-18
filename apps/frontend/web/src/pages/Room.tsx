@@ -5,10 +5,10 @@ import ResourcesBar from '../components/ResourcesBar';
 const Room = () => {
   return (
     <div>
-      {'Room'}
       <ResourcesBar />
       <Navbar />
       <NavbarRooms />
+      {'Room'}
     </div>
   );
 };

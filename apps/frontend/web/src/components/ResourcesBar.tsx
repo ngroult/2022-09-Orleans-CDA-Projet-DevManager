@@ -7,13 +7,29 @@ import {
   VStack,
   Button,
   useDisclosure,
+  Text,
+  IconButton,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { ArrowDownIcon } from '@chakra-ui/icons';
 import ModalResources from './ModalResources';
 import { GameResource } from '@apps/backend-api';
+import DrawerResources from './DrawerResources';
 
 const ResourcesBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenModalResources,
+    onOpen: onOpenModalResources,
+    onClose: onCloseModalResources,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenDrawerResources,
+    onOpen: onOpenDrawerResources,
+    onClose: onCloseDrawerResources,
+  } = useDisclosure();
+
   const [resources, setResources] = useState<GameResource[]>([]);
 
   useEffect(() => {
@@ -36,14 +52,14 @@ const ResourcesBar = () => {
   return (
     <>
       <Flex minWidth="max-content" alignItems="center" gap="2" px="80px">
-        <HStack>
+        <HStack display={{ base: 'none', md: 'flex' }}>
           <Box boxSize="30px">
             <Image src="/company4.png" placeholder="my_company" />
           </Box>
           <Box>{'My Company'}</Box>
         </HStack>
-        <Spacer />
-        <VStack>
+        <Spacer display={{ base: 'none', md: 'flex' }} />
+        <VStack display={{ base: 'none', md: 'flex' }}>
           <Box>{'Remaining'}</Box>
           <HStack>
             <Box>{'50'}</Box>
@@ -52,7 +68,7 @@ const ResourcesBar = () => {
             </Box>
           </HStack>
         </VStack>
-        <VStack>
+        <VStack display={{ base: 'none', md: 'flex' }}>
           <Box>{'Total'}</Box>
           <HStack>
             <Box>{'110'}</Box>
@@ -61,33 +77,79 @@ const ResourcesBar = () => {
             </Box>
           </HStack>
         </VStack>
-
-        <Spacer />
+        <Spacer display={{ base: 'none', md: 'flex' }} />
         <HStack>
-          {resources.map((resource) => (
-            <Box
-              key={resource.id}
-              bg={resource.resource.color}
-              px="10px"
-              py="5px"
-              borderRadius="20px"
-              boxShadow="xl"
-            >
-              <HStack>
-                <Box boxSize="30px">
-                  <Image src={resource.resource.image} />
-                </Box>
-                <Box> {resource.quantity}</Box>
-              </HStack>
-            </Box>
-          ))}
-
-          <Button colorScheme="white" onClick={onOpen}>
+          <Box>
+            <HStack>
+              <Grid templateColumns="repeat(5, 1fr)" gap={2}>
+                {resources.map((resource) => (
+                  <GridItem
+                    key={resource.id}
+                    bg={resource.resource.color}
+                    px="10px"
+                    py="5px"
+                    borderRadius="20px"
+                    boxShadow="xl"
+                  >
+                    <HStack>
+                      <Box boxSize="30px">
+                        <Image src={resource.resource.image} />
+                      </Box>
+                      <Box> {resource.quantity}</Box>
+                    </HStack>
+                  </GridItem>
+                ))}
+              </Grid>
+            </HStack>
+          </Box>
+          <Button
+            display={{ base: 'none', md: 'flex' }}
+            colorScheme="white"
+            onClick={onOpenModalResources}
+          >
             <Image src="/more.png" boxSize="30px" />
           </Button>
+          <IconButton
+            display={{ base: 'flex', md: 'none' }}
+            size="md"
+            aria-label="Resources"
+            icon={<ArrowDownIcon />}
+            rounded="100px"
+            bg="white"
+            border="1px"
+            borderColor="black"
+            boxShadow="inner"
+            onClick={onOpenDrawerResources}
+          />
         </HStack>
       </Flex>
-      <ModalResources isOpen={isOpen} onClose={onClose} resources={resources} />
+      <Flex minWidth="max-content" alignItems="center" gap="2" px="80px">
+        <HStack py="10px" display={{ base: 'flex', md: 'none', sm: 'flex' }}>
+          <Box boxSize="30px">
+            <Image src="/company4.png" placeholder="my_company" />
+          </Box>
+          <Box fontSize="xl">{'My Company'}</Box>
+          <Spacer />
+          <Box bgColor="gray.200" rounded="5px" p="5px">
+            <HStack>
+              <Box boxSize="30px">
+                <Image src="/area.png" />
+              </Box>
+              <Text>{'50'}</Text>
+            </HStack>
+          </Box>
+        </HStack>
+      </Flex>
+      <ModalResources
+        isOpen={isOpenModalResources}
+        onClose={onCloseModalResources}
+        resources={resources}
+      />
+      <DrawerResources
+        isOpen={isOpenDrawerResources}
+        onClose={onCloseDrawerResources}
+        resources={resources}
+      />
     </>
   );
 };
