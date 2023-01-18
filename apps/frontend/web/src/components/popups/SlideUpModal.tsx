@@ -12,7 +12,7 @@ import { ReactElement } from 'react';
 const SlideUpModal = ({
   isOpen,
   onClose,
-  color,
+  pageColor,
   title,
   content,
   submitText,
@@ -20,11 +20,11 @@ const SlideUpModal = ({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  color: string;
+  pageColor: string;
   title: string;
   content: ReactElement;
   submitText: string;
-  submitFunction: () => void;
+  submitFunction?: () => void;
 }) => {
   return (
     <Modal
@@ -35,7 +35,7 @@ const SlideUpModal = ({
     >
       <ModalContent
         p="1rem"
-        bg={`linear-gradient(${color}33, ${color}33), linear-gradient(#FFF, #FFF)`}
+        bg={`linear-gradient(${pageColor}33, ${pageColor}33), linear-gradient(#FFF, #FFF)`}
         display="flex"
         flexDir="column"
       >
@@ -61,7 +61,7 @@ const SlideUpModal = ({
             </Button>
             <Button
               ml=".5rem"
-              bgColor={color}
+              bgColor={pageColor}
               color="#FFF"
               fontWeight="normal"
               w="7rem"
@@ -76,9 +76,9 @@ const SlideUpModal = ({
           </Flex>
         </ModalBody>
         <Box w="calc(100% + 2rem)" m="2rem -1rem -1rem">
-          <Box h="4rem" bgColor={color + `33`}></Box>
-          <Box h="3rem" bgColor={color + `80`}></Box>
-          <Box h="2rem" bgColor={color + `FF`}></Box>
+          <Box h="4rem" bgColor={`${pageColor}33`}></Box>
+          <Box h="3rem" bgColor={`${pageColor}80`}></Box>
+          <Box h="2rem" bgColor={`${pageColor}FF`}></Box>
         </Box>
       </ModalContent>
     </Modal>

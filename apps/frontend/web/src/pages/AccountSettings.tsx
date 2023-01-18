@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import {
   Text,
   Flex,
   Image,
   Grid,
   Button,
-  Box,
   VStack,
   HStack,
   useDisclosure,
@@ -15,8 +15,11 @@ import UserImageFiller from '../components/UserImageFiller';
 import UserContactFiller from '../components/UserContactFiller';
 import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
+const pageColor = 'turquoise';
 
 const AccountSettings = () => {
+  const [gamerImage, setGamerImage] = useState('man1');
+  const [selectedImage, setSelectedImage] = useState(gamerImage);
   const userImage = useDisclosure();
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
@@ -27,29 +30,35 @@ const AccountSettings = () => {
       <Flex flexDir="column" w="100%" h="100vh">
         <Grid
           w="100%"
-          h="70px"
+          h="4.5rem"
           autoFlow="column"
           templateColumns="20% auto 20%"
           alignItems="center"
           justifyItems="center"
         >
           <HamburgerIcon boxSize="5" />
-          <Text color="#42B7B4" fontSize="1.2rem">
+          <Text color={`${pageColor}.900`} fontSize="1.2rem">
             {'Account Settings'}
           </Text>
         </Grid>
         <Flex
           flexDir="column"
           alignItems="center"
-          bgColor="#42B7B433"
+          bgColor={`${pageColor}.200`}
           w="100%"
           flexGrow="1"
         >
-          <Image w="80px" src="/man3.png" mt="2rem" mb="1rem" />
+          <Image
+            w="5.5rem"
+            src={`/${gamerImage}.png`}
+            alt={`Image of ${gamerImage}`}
+            mt="2rem"
+            mb="1rem"
+          />
           <Button
             onClick={userImage.onOpen}
-            bgColor="#42B7B4"
-            color="#fff"
+            bgColor={`${pageColor}.900`}
+            color="#FFF"
             w="8rem"
             fontWeight="normal"
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
@@ -73,8 +82,8 @@ const AccountSettings = () => {
           <Button
             onClick={userContact.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-            bgColor="#42B7B4"
-            color="#fff"
+            bgColor={`${pageColor}.900`}
+            color="#FFF"
             w="13rem"
             fontWeight="normal"
           >
@@ -84,8 +93,8 @@ const AccountSettings = () => {
             onClick={userPassword.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
             mt="0.8rem"
-            bgColor="#42B7B4"
-            color="#fff"
+            bgColor={`${pageColor}.900`}
+            color="#FFF"
             w="13rem"
             fontWeight="normal"
           >
@@ -95,8 +104,8 @@ const AccountSettings = () => {
             onClick={deleteAccount.onOpen}
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
             mt="2rem"
-            bgColor="#E7008C"
-            color="#fff"
+            bgColor="pink.900"
+            color="#FFF"
             w="13rem"
             fontWeight="normal"
           >
@@ -107,15 +116,21 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={userImage.isOpen}
         onClose={userImage.onClose}
-        color="#42B7B4"
+        pageColor="#42B7B4"
         title="Choose a new avatar"
-        content={<UserImageFiller />}
+        content={
+          <UserImageFiller
+            selectedImage={selectedImage}
+            setSelectedImage={setSelectedImage}
+          />
+        }
         submitText="Save"
+        submitFunction={() => setGamerImage(selectedImage)}
       />
       <SlideUpModal
         isOpen={userContact.isOpen}
         onClose={userContact.onClose}
-        color="#42B7B4"
+        pageColor="#42B7B4"
         title="Edit your contact details"
         content={<UserContactFiller />}
         submitText="Save"
@@ -123,7 +138,7 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={userPassword.isOpen}
         onClose={userPassword.onClose}
-        color="#42B7B4"
+        pageColor="#42B7B4"
         title="Edit your password"
         content={<UserPasswordFiller />}
         submitText="Save"
@@ -131,7 +146,7 @@ const AccountSettings = () => {
       <SlideUpModal
         isOpen={deleteAccount.isOpen}
         onClose={deleteAccount.onClose}
-        color="#42B7B4"
+        pageColor="#42B7B4"
         title="Write your password to confirm you want to delete your account"
         content={<DeleteAccountFiller />}
         submitText="Delete"
