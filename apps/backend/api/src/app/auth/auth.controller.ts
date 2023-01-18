@@ -1,5 +1,13 @@
 import { User } from '../../entities';
-import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { LoginUserDto } from '../users/dto/login-user.dto';
@@ -20,8 +28,9 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('test')
-  async test() {
+  @Get('me')
+  getProfile(@Request() req) {
+    console.log(req.user);
     return 'yo';
   }
 
@@ -31,8 +40,8 @@ export class AuthController {
     @Body() loginUserDto: LoginUserDto,
   ) {
     const login = await this.authService.login(loginUserDto);
-    if (login.status) {
-      return login;
+    if (login.status === 404) {
+      return { status: 'KO' };
     }
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
 
@@ -42,5 +51,6 @@ export class AuthController {
       secure: NODE_ENV === 'production',
       signed: true,
     });
+    return { status: 'OK', data: login.user };
   }
 }
