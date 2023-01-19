@@ -18,8 +18,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
-  const [isShow, isSetShow] = useState(false);
-  const handleClick = () => isSetShow(!isShow);
+  const [isShow, setIsShow] = useState(false);
+  const handleClick = () => setIsShow(!isShow);
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
