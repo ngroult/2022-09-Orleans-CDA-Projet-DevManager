@@ -28,23 +28,31 @@ export class AuthService {
     return this.usersService.getUserByUsername(username);
   }
 
-  public async login(
-    user: LoginUserDto,
-  ): Promise<{ access_token?: string; status?: number }> {
-    return this.validate(user.username).then(async (userData) => {
-      // user not found
-      const isCorrect = await argon2.verify(userData.password, user.password);
-      if (!userData || !isCorrect) {
-        return { status: 404 };
-      }
-      // user found
-      // The access token will be composed by the email
-      const payload = { username: userData.username, sub: userData.id };
-      const accessToken = this.jwtService.sign(payload);
+  public async login(user: LoginUserDto): Promise<{
+    user?: Partial<User>;
+    access_token?: string;
+    status?: number;
+  }> {
+    return this.validate(user.username).then(
+      async ({ password, ...userData }) => {
+        if (!userData) {
+          return { status: 404 };
+        }
+        // user not found
+        const isCorrect = await argon2.verify(password, user.password);
+        if (!isCorrect) {
+          return { status: 404 };
+        }
+        // user found
+        // The access token will be composed by the email
+        const payload = { username: userData.username, sub: userData.id };
+        const accessToken = this.jwtService.sign(payload);
 
-      return {
-        access_token: accessToken,
-      };
-    });
+        return {
+          user: userData,
+          access_token: accessToken,
+        };
+      },
+    );
   }
 }
