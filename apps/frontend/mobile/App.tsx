@@ -1,8 +1,7 @@
 import { useFonts } from 'expo-font';
-import { extendTheme, NativeBaseProvider } from 'native-base';
-import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
-import Login from './src/screen/Login';
+import { NativeBaseProvider } from 'native-base';
+import React from 'react';
+import LoginScreen from './src/screens/LoginScreen';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,7 +11,7 @@ export default function App() {
 
   return (
     <NativeBaseProvider>
-      <Login />
+      <LoginScreen />
     </NativeBaseProvider>
   );
 }

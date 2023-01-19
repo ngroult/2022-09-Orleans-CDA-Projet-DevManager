@@ -32,4 +32,5 @@ module.exports = {
   extra: {
     API_HOST: process.env.VITE_API_HOST,
   },
+  assets: ['./assets/fonts/'],
 };

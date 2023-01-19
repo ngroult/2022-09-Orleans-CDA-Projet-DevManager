@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Text,
   Box,
@@ -12,7 +13,35 @@ import {
 } from 'native-base';
 import { StyleSheet } from 'react-native';
 
-export default function Login() {
+export default function LoginScreen() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [isVisiblePassword, setIsVisiblePassword] = useState(false);
+
+  const handleSubmit = async () => {
+    try {
+      const loginResponse = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+      const jsonResponse = await loginResponse.json();
+
+      if (jsonResponse.status === 'KO') {
+        setError('Username and / or password incorrect');
+      }
+      if (jsonResponse.status === 'OK') {
+        setUser(jsonResponse.data);
+        navigate('/game/overview');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Center>
       <Box w="100%" mt={'5'}>
@@ -36,16 +65,27 @@ export default function Login() {
         </Center>
         <VStack space={3} h={'80%'} backgroundColor={'green.100'}>
           <Center>
-            <Box w="55%">
+            <Box w="100%">
               <FormControl isRequired pt={'8'}>
                 <FormControl.Label>{'Username'}</FormControl.Label>
-                <Input />
+                <Input
+                  placeholder="Username..."
+                  w="100%"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
               </FormControl>
               <FormControl isRequired>
                 <FormControl.Label>{'Password'}</FormControl.Label>
-                <Input type="password" />
+                <Input
+                  w="100%"
+                  type={isVisiblePassword ? 'text' : 'password'}
+                  placeholder="Password..."
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                />
               </FormControl>
-              <Button mt={'5'} colorScheme="indigo">
+              <Button mt={'5'} colorScheme="indigo" onClick={handleSubmit}>
                 {'Sign in'}
               </Button>
               <HStack justifyContent="center">
@@ -72,7 +112,10 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  font: {
+  title: {
     fontFamily: 'ChakraPetch',
+  },
+  paragraph: {
+    fontFamily: 'Orbitron',
   },
 });
