@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Character, Game, Room, User } from '../../entities';
+import { Character, Game, Image, Room, User } from '../../entities';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -9,16 +9,27 @@ export class ForgeService {
     @InjectRepository(Game) private gamesRepository: Repository<Game>,
     @InjectRepository(User) private usersRepository: Repository<User>,
     @InjectRepository(Room) private roomsRepository: Repository<Room>,
+    @InjectRepository(Image) private imagesRepository: Repository<Image>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
   ) {}
 
   async create(): Promise<string> {
+    this.imagesRepository.save({
+      name: 'profilePic1',
+      category: 'profile',
+    });
+    this.imagesRepository.save({
+      name: 'gamePic1',
+      category: 'game',
+    });
+
     const user1 = await this.usersRepository.save({
       username: 'XXdemonSlayer',
       email: 'john.doe@email.com',
       password:
         '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
+      image: 1,
     });
 
     this.gamesRepository.save({
