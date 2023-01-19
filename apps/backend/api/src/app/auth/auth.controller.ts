@@ -52,4 +52,10 @@ export class AuthController {
     });
     return { status: 'OK', data: login.user };
   }
+
+  @Get('logout')
+  async logout(@Res({ passthrough: true }) res: Response) {
+    res.clearCookie('jwt');
+    return { status: 'OK' };
+  }
 }
