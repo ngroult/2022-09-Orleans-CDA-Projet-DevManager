@@ -43,7 +43,6 @@ const ResourcesBar = () => {
       .then((data) => {
         setResources(data);
       });
-    console.log(resources);
     return () => {
       abortController.abort();
     };

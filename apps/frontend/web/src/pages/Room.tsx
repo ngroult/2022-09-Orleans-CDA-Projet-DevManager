@@ -1,15 +1,16 @@
 import Navbar from '../components/Navbar';
 import NavbarRooms from '../components/NavbarRooms';
 import ResourcesBar from '../components/ResourcesBar';
+import { Text, Box } from '@chakra-ui/react';
 
 const Room = () => {
   return (
-    <div>
+    <Box>
       <ResourcesBar />
       <Navbar />
       <NavbarRooms />
-      {'Room'}
-    </div>
+      <Text>{'Room'}</Text>
+    </Box>
   );
 };
 
