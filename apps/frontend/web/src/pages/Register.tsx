@@ -11,11 +11,11 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [show, setShow] = React.useState(false);
@@ -118,7 +118,9 @@ function Register() {
           </FormControl>
         </Center>
         <Center>
-          <Link py="7">{'Have you already an account ?'}</Link>
+          <Link to="/login">
+            <Text py="7">{'Have you already an account?'}</Text>
+          </Link>
         </Center>
       </Box>
     </Box>

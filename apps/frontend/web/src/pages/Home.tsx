@@ -27,13 +27,15 @@ const Home = () => {
         </Box>
       </Flex>
       <Flex justify="center" mb="7">
-        <Button bg="#42B7B4" color="white">
-          {'Sign Up'}
-        </Button>
+        <Link to="/login">
+          <Button bg="#42B7B4" color="white" fontWeight="normal" w="12rem">
+            {'Sign up'}
+          </Button>
+        </Link>
       </Flex>
       <Flex justify="center">
         <Link to="/register">
-          <Button bg="#797AA6" color="white">
+          <Button bg="#797AA6" color="white" fontWeight="normal" w="12rem">
             {'Create your account'}
           </Button>
         </Link>
