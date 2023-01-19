@@ -52,4 +52,17 @@ export class AuthController {
     });
     return { status: 'OK', data: login.user };
   }
+
+  @Get('logout')
+  async logout(@Res({ passthrough: true }) res: Response) {
+    const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
+
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      sameSite: true,
+      secure: NODE_ENV === 'production',
+      signed: true,
+    });
+    return { status: 'OK' };
+  }
 }
