@@ -15,29 +15,21 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const iconsSize: string = '30px';
-const paddingBetweenIcons: string = '15px';
+const iconsSize = '30px';
+const paddingBetweenIcons = '15px';
 
 function DrawerNavbar({
   isOpen,
   onClose,
-  btnRef,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  btnRef: any;
 }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
-      <Drawer
-        isOpen={isOpen}
-        size="full"
-        placement="left"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
+      <Drawer isOpen={isOpen} size="full" placement="left" onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
@@ -50,7 +42,12 @@ function DrawerNavbar({
               <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
                 <Link to="/game/overview" onClick={() => setIsNavOpen(false)}>
                   <HStack>
-                    <Image src="/resume_game.png" h={iconsSize} w={iconsSize} />
+                    <Image
+                      alt="Resume Game"
+                      src="/resume_game.png"
+                      h={iconsSize}
+                      w={iconsSize}
+                    />
                     <Text pl={paddingBetweenIcons}>{'Resume Game'}</Text>
                   </HStack>
                 </Link>
@@ -58,7 +55,12 @@ function DrawerNavbar({
               <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
                 <Link to="/leaderboard">
                   <HStack>
-                    <Image src="/leaderboard.png" h={iconsSize} w={iconsSize} />
+                    <Image
+                      alt="Leaderboard"
+                      src="/leaderboard.png"
+                      h={iconsSize}
+                      w={iconsSize}
+                    />
                     <Text pl={paddingBetweenIcons}>{'Leaderboard'}</Text>
                   </HStack>
                 </Link>
@@ -67,6 +69,7 @@ function DrawerNavbar({
                 <Link to="/game-settings">
                   <HStack>
                     <Image
+                      alt="Game Settings"
                       src="/game_settings.png"
                       h={iconsSize}
                       w={iconsSize}
@@ -79,6 +82,7 @@ function DrawerNavbar({
                 <Link to="/account-settings">
                   <HStack>
                     <Image
+                      alt="Account Settings"
                       src="/account_settings.png"
                       h={iconsSize}
                       w={iconsSize}
@@ -90,7 +94,12 @@ function DrawerNavbar({
               <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
                 <Link to="/about">
                   <HStack>
-                    <Image src="/about.png" h={iconsSize} w={iconsSize} />
+                    <Image
+                      alt="About"
+                      src="/about.png"
+                      h={iconsSize}
+                      w={iconsSize}
+                    />
                     <Text pl={paddingBetweenIcons}>{'About'}</Text>
                   </HStack>
                 </Link>
@@ -98,7 +107,12 @@ function DrawerNavbar({
               <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
                 <Link to="/">
                   <HStack>
-                    <Image src="/logout.png" h={iconsSize} w={iconsSize} />
+                    <Image
+                      alt="Logout"
+                      src="/logout.png"
+                      h={iconsSize}
+                      w={iconsSize}
+                    />
                     <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
                   </HStack>
                 </Link>
@@ -106,7 +120,12 @@ function DrawerNavbar({
               <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
                 <Link to="/assistance">
                   <HStack>
-                    <Image src="/assistance.png" h={iconsSize} w={iconsSize} />
+                    <Image
+                      alt="Assistance"
+                      src="/assistance.png"
+                      h={iconsSize}
+                      w={iconsSize}
+                    />
                     <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
                   </HStack>
                 </Link>

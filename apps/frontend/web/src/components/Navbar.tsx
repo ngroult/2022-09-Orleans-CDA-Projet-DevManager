@@ -14,13 +14,14 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import DrawerNavbar from './DrawerNavbar';
 
+const iconsSize = '30px';
+const paddingBetweenIcons = '15px';
+
 const Navbar = () => {
-  const iconsSize: string = '30px';
-  const paddingBetweenIcons: string = '15px';
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef<HTMLButtonElement | null>(null);
+
   return (
     <>
       <Box w={isNavbarOpen ? '220px' : '60px'}>
@@ -29,7 +30,6 @@ const Navbar = () => {
             <IconButton
               aria-label="Hamburger button"
               icon={<HamburgerIcon />}
-              ref={btnRef}
               colorScheme="white"
               color="black"
               onClick={onOpen}
@@ -62,7 +62,12 @@ const Navbar = () => {
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/game/overview" onClick={() => setIsNavOpen(false)}>
                 <HStack>
-                  <Image src="/resume_game.png" h={iconsSize} w={iconsSize} />
+                  <Image
+                    alt="Resume Game"
+                    src="/resume_game.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                   {isNavbarOpen && (
                     <Text pl={paddingBetweenIcons}>{'Resume Game'}</Text>
                   )}
@@ -72,7 +77,12 @@ const Navbar = () => {
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/leaderboard">
                 <HStack>
-                  <Image src="/leaderboard.png" h={iconsSize} w={iconsSize} />
+                  <Image
+                    alt="Leaderboard"
+                    src="/leaderboard.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                   {isNavbarOpen && (
                     <Text pl={paddingBetweenIcons}>{'Leaderboard'}</Text>
                   )}
@@ -82,7 +92,12 @@ const Navbar = () => {
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/game-settings">
                 <HStack>
-                  <Image src="/game_settings.png" h={iconsSize} w={iconsSize} />
+                  <Image
+                    alt="Game Settings"
+                    src="/game_settings.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                   {isNavbarOpen && (
                     <Text pl={paddingBetweenIcons}>{'Game Settings'}</Text>
                   )}
@@ -93,6 +108,7 @@ const Navbar = () => {
               <Link to="/account-settings">
                 <HStack>
                   <Image
+                    alt="Account Settings"
                     src="/account_settings.png"
                     h={iconsSize}
                     w={iconsSize}
@@ -106,7 +122,12 @@ const Navbar = () => {
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/about">
                 <HStack>
-                  <Image src="/about.png" h={iconsSize} w={iconsSize} />
+                  <Image
+                    alt="About"
+                    src="/about.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                   {isNavbarOpen && (
                     <Text pl={paddingBetweenIcons}>{'About'}</Text>
                   )}
@@ -116,7 +137,12 @@ const Navbar = () => {
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/">
                 <HStack>
-                  <Image src="/logout.png" h={iconsSize} w={iconsSize} />
+                  <Image
+                    alt="Logout"
+                    src="/logout.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                   {isNavbarOpen && (
                     <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
                   )}
@@ -126,7 +152,12 @@ const Navbar = () => {
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/assistance">
                 <HStack>
-                  <Image src="/assistance.png" h={iconsSize} w={iconsSize} />
+                  <Image
+                    alt="Assistance"
+                    src="/assistance.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                   {isNavbarOpen && (
                     <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
                   )}
@@ -152,7 +183,7 @@ const Navbar = () => {
           />
         </Center>
       </Box>
-      <DrawerNavbar isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
+      <DrawerNavbar isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
