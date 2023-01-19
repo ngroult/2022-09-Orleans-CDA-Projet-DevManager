@@ -15,11 +15,11 @@ export class ForgeService {
   ) {}
 
   async create(): Promise<string> {
-    this.imagesRepository.save({
+    const image1 = await this.imagesRepository.save({
       name: 'profilePic1',
       category: 'profile',
     });
-    this.imagesRepository.save({
+    await this.imagesRepository.save({
       name: 'gamePic1',
       category: 'game',
     });
@@ -29,11 +29,11 @@ export class ForgeService {
       email: 'john.doe@email.com',
       password:
         '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
-      image: 1,
+      image: { id: image1.id },
     });
 
-    this.gamesRepository.save({
-      idUser: user1.id,
+    await this.gamesRepository.save({
+      userId: user1.id,
       companyName: 'Twitter',
       ceo: 'Elon Musk',
       location: 'Paris, France',

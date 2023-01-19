@@ -28,5 +28,5 @@ export class User {
   games: Game[];
 
   @ManyToOne(() => Image, (image) => image.users)
-  image: number;
+  image: Image;
 }

@@ -9,7 +9,7 @@ export class Image {
   @Column('varchar', { length: 200 })
   name: string;
 
-  @Column('varchar', { length: 2000 })
+  @Column('varchar', { length: 200 })
   category: string;
 
   @OneToMany(() => User, (user) => user.image)
