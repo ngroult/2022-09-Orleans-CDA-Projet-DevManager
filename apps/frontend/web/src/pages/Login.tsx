@@ -126,7 +126,7 @@ function Login() {
         </Center>
         <Center>
           <Link to="/register">
-            <Text py="7">{'Not register yet ?'}</Text>
+            <Text py="7">{'Not register yet?'}</Text>
           </Link>
         </Center>
       </Box>

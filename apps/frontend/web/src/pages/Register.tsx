@@ -119,7 +119,7 @@ function Register() {
         </Center>
         <Center>
           <Link to="/login">
-            <Text py="7">{'Have you already an account ?'}</Text>
+            <Text py="7">{'Have you already an account?'}</Text>
           </Link>
         </Center>
       </Box>
