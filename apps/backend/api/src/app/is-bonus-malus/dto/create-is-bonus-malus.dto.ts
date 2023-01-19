@@ -1,27 +1,24 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateRoomDto {
-  @IsNotEmpty()
-  id: number;
-
+export class CreateIsBonusMalusDto {
   @IsNotEmpty()
   name: string;
 
   @IsNotEmpty()
-  description: string;
-
-  @IsNotEmpty()
-  image: string;
+  type: string;
 
   @IsNotEmpty()
   label: string;
 
   @IsNotEmpty()
-  color: string;
+  rate: number;
 
   @IsNotEmpty()
-  price: number;
+  isBonus: boolean;
 
   @IsNotEmpty()
-  isExpandable: boolean;
+  eventId: number;
+
+  @IsNotEmpty()
+  characterId: number;
 }

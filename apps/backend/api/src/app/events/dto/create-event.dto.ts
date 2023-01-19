@@ -1,9 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class CreateRoomDto {
-  @IsNotEmpty()
-  id: number;
-
+export class CreateEventDto {
   @IsNotEmpty()
   name: string;
 
@@ -11,17 +8,17 @@ export class CreateRoomDto {
   description: string;
 
   @IsNotEmpty()
-  image: string;
-
-  @IsNotEmpty()
   label: string;
 
   @IsNotEmpty()
-  color: string;
+  image: string;
 
   @IsNotEmpty()
   price: number;
 
   @IsNotEmpty()
-  isExpandable: boolean;
+  duration: number;
+
+  @IsNotEmpty()
+  roomId: number;
 }

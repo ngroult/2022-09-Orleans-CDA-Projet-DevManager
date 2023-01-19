@@ -24,9 +24,14 @@ export class RoomsController {
     return this.roomsService.findAll();
   }
 
-  @Get(':id')
+  @Get('by-id/:id')
   findOne(@Param('id') id: string) {
     return this.roomsService.findOne(+id);
+  }
+
+  @Get('by-label/:label')
+  findOneByLabel(@Param('label') label: string) {
+    return this.roomsService.findOneByLabel(label);
   }
 
   @Patch(':id')

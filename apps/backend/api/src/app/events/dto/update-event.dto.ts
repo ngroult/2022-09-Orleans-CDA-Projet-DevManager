@@ -1,8 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsNotEmpty } from 'class-validator';
-import { CreateRoomDto } from './create-room.dto';
+import { CreateEventDto } from './create-event.dto';
 
-export class UpdateRoomDto extends PartialType(CreateRoomDto) {
+export class UpdateEventDto extends PartialType(CreateEventDto) {
   @IsNotEmpty()
   name: string;
 
@@ -10,17 +10,17 @@ export class UpdateRoomDto extends PartialType(CreateRoomDto) {
   description: string;
 
   @IsNotEmpty()
-  image: string;
-
-  @IsNotEmpty()
   label: string;
 
   @IsNotEmpty()
-  color: string;
+  image: string;
 
   @IsNotEmpty()
   price: number;
 
   @IsNotEmpty()
-  isExpandable: boolean;
+  duration: number;
+
+  @IsNotEmpty()
+  idRoom: number;
 }

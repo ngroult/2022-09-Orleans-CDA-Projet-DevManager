@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { GameCharacter } from './game-character.entity';
+import { IsBonusMalus } from './isBonusMalus.entity';
 
 @Entity()
 export class Character {
@@ -22,4 +24,10 @@ export class Character {
 
   @Column()
   idRoom: number;
+
+  @OneToMany(() => GameCharacter, (gameCharacter) => gameCharacter.character)
+  gameCharacters: GameCharacter[];
+
+  @OneToMany(() => IsBonusMalus, (isBonusMalus) => isBonusMalus.character)
+  isBonusMalus: IsBonusMalus[];
 }

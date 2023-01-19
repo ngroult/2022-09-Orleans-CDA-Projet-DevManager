@@ -10,7 +10,7 @@ export class Resource {
   name: string;
 
   @Column('varchar', { length: 50 })
-  decription: string;
+  description: string;
 
   @Column('varchar', { length: 50 })
   image: string;
