@@ -2,10 +2,6 @@ import { Box, Heading, Center, Image, Flex, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 const About = () => {
-  const handleClick = () => {
-    window.location.href = 'https://www.flaticon.com/fr/';
-  };
-
   return (
     <Box bgColor="#E4E4ED" h="100%">
       <Center>
@@ -47,9 +43,9 @@ const About = () => {
           {'Paul'}
         </Text>
         <Box mt="10" mb="10" as="u">
-          <Link to="" onClick={handleClick}>
+          <a href="https://www.flaticon.com/fr/">
             {'Icons Flaticon : Référence des icônes sur ce lien'}
-          </Link>
+          </a>
         </Box>
       </Flex>
     </Box>
