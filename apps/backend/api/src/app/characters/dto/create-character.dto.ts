@@ -20,5 +20,5 @@ export class CreateCharacterDto {
   size: number;
 
   @IsNotEmpty()
-  idRoom: number;
+  roomId: number;
 }

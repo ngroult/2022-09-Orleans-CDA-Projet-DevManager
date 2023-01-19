@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
 import { GameCharacter, Room, Game, Character } from '../../entities';
@@ -24,11 +24,6 @@ export class GameCharactersService {
       .where('game.id = :id', { id: createGameCharacterDto.gameId })
       .getOne();
 
-    const room = await this.roomsRepository
-      .createQueryBuilder('room')
-      .where('room.id = :id', { id: createGameCharacterDto.roomId })
-      .getOne();
-
     const character = await this.charactersRepository
       .createQueryBuilder('room')
       .where('character.id = :id', { id: createGameCharacterDto.characterId })
@@ -40,10 +35,9 @@ export class GameCharactersService {
       errorCharacter?: string;
     } = {};
 
-    if (game && room && character) {
+    if (game && character) {
       this.gameCharactersRepository.save({
         game: { id: createGameCharacterDto.gameId },
-        room: { id: createGameCharacterDto.roomId },
         character: { id: createGameCharacterDto.characterId },
         quantity: 1000,
       });
@@ -53,9 +47,6 @@ export class GameCharactersService {
       if (game === null)
         errors.errorGame =
           'There is no row with the id of table "game" you try to insert in the table "gameCharacter".';
-      if (room === null)
-        errors.errorRoom =
-          'There is no row with the id of table "room" you try to insert in the table "gameCharacter".';
       if (character === null)
         errors.errorCharacter =
           'There is no row with the id of table "character" you try to insert in the table "gameCharacter".';
@@ -65,15 +56,15 @@ export class GameCharactersService {
 
   async findAll() {
     return this.gameCharactersRepository.find({
-      relations: { game: true, room: true, character: true },
+      relations: { game: true, character: true },
     });
   }
 
   async findOne(id: number): Promise<GameCharacter[]> {
     return this.gameCharactersRepository.find({
-      select: ['quantity', 'game', 'room', 'character'],
+      select: ['quantity', 'game', 'character'],
       where: [{ id: id }],
-      relations: { game: true, room: true, character: true },
+      relations: { game: true, character: true },
     });
   }
 

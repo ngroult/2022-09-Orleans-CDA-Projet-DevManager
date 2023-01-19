@@ -5,8 +5,5 @@ export class CreateGameCharacterDto {
   gameId: number;
 
   @IsNotEmpty()
-  roomId: number;
-
-  @IsNotEmpty()
   characterId: number;
 }

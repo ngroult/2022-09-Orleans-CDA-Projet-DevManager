@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { GameRoom } from './game-room.entity';
 import { GameCharacter } from './game-character.entity';
 import { Event } from './event.entity';
+import { Character } from './character.entity';
 
 @Entity()
 export class Room {
@@ -23,7 +24,7 @@ export class Room {
   @Column('varchar', { length: 15 })
   color: string;
 
-  @Column({ type: 'int', width: 11 })
+  @Column({ type: 'int', width: 200 })
   price: number;
 
   @Column({ type: 'boolean' })
@@ -32,8 +33,8 @@ export class Room {
   @OneToMany(() => GameRoom, (gameRoom) => gameRoom.room)
   gameRooms: GameRoom[];
 
-  @OneToMany(() => GameCharacter, (gameCharacter) => gameCharacter.character)
-  gameCharacters: GameCharacter[];
+  @OneToMany(() => Character, (character) => character.room)
+  characters: Character[];
 
   @OneToMany(() => Event, (event) => event.room)
   events: Event[];
