@@ -9,15 +9,32 @@ import {
   Grid,
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Room } from '@apps/backend-api';
 
 const NavbarRooms = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
   const paddingLeftIcons: string = isOpen ? '30px' : '15px';
+  const [rooms, setRooms] = useState<Room[]>([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    fetch('/api/rooms', {
+      method: 'GET',
+      signal: abortController.signal,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setRooms(data);
+      });
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   return (
     <Box w={`${isOpen ? '220px' : '60px'}`}>
@@ -34,37 +51,23 @@ const NavbarRooms = () => {
         <Box bg="blue.500" w={`${isOpen ? '220px' : '60px'}`} h="80px" />
         <Grid>
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/:room">
+            <Link to="/game/overview">
               <HStack>
                 <Image src="/overview.png" h={iconsSize} w={iconsSize} />
                 {isOpen && <Text pl={paddingBetweenIcons}>{'Overview'}</Text>}
               </HStack>
             </Link>
           </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
-                {isOpen && <Text pl={paddingBetweenIcons}>{'Open Space'}</Text>}
-              </HStack>
-            </Link>
-          </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/offices.png" h={iconsSize} w={iconsSize} />
-                {isOpen && <Text pl={paddingBetweenIcons}>{'Offices'}</Text>}
-              </HStack>
-            </Link>
-          </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
-                {isOpen && <Text pl={paddingBetweenIcons}>{'Break Room'}</Text>}
-              </HStack>
-            </Link>
-          </Box>
+          {rooms.map((room) => (
+            <Box key={room.id} pl={paddingLeftIcons} pt={paddingBetweenIcons}>
+              <Link to={`/game/${room.label}`} state={{ room }}>
+                <HStack>
+                  <Image src={room.image} h={iconsSize} w={iconsSize} />
+                  {isOpen && <Text pl={paddingBetweenIcons}>{room.name}</Text>}
+                </HStack>
+              </Link>
+            </Box>
+          ))}
         </Grid>
         <Center pt="22vh">
           <IconButton

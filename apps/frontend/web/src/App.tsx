@@ -4,7 +4,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import NewGame from './pages/NewGame';
 import Overview from './pages/Overview';
-import Room from './pages/Room';
+import RoomPage from './pages/RoomPage';
 import GameSettings from './pages/GameSettings';
 import AccountSettings from './pages/AccountSettings';
 import About from './pages/About';
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/new-game" element={<NewGame />} />
         <Route path="/game/overview" element={<Overview />} />
-        <Route path="/game/:room" element={<Room />} />
+        <Route path="/game/:label" element={<RoomPage />} />
         <Route path="/game-settings" element={<GameSettings />} />
         <Route path="/account-settings" element={<AccountSettings />} />
         <Route path="/about" element={<About />} />
