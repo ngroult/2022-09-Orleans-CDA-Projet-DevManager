@@ -43,7 +43,7 @@ const About = () => {
           {'Paul'}
         </Text>
         <Box mt="10" mb="10" as="u">
-          <a href="https://www.flaticon.com/fr/">
+          <a href="https://www.flaticon.com/fr/" target="_blank">
             {'Icons Flaticon : Référence des icônes sur ce lien'}
           </a>
         </Box>
