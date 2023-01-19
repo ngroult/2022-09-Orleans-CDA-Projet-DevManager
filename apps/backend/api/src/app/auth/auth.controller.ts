@@ -55,7 +55,14 @@ export class AuthController {
 
   @Get('logout')
   async logout(@Res({ passthrough: true }) res: Response) {
-    res.clearCookie('jwt');
+    const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
+
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      sameSite: true,
+      secure: NODE_ENV === 'production',
+      signed: true,
+    });
     return { status: 'OK' };
   }
 }
