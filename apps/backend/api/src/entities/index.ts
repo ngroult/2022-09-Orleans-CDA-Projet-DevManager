@@ -9,6 +9,8 @@ import { Event } from './event.entity';
 import { IsBonusMalus } from './isBonusMalus.entity';
 import { Resource } from './resource.entity';
 import { GameEvent } from './game-event.entity';
+import { ResourceUsed } from './resource-used.entity';
+import { ResourceProduced } from './resource-produced.entity';
 
 const entities = [
   Room,
@@ -22,6 +24,8 @@ const entities = [
   Event,
   IsBonusMalus,
   GameEvent,
+  ResourceUsed,
+  ResourceProduced,
 ];
 
 export {
@@ -36,6 +40,8 @@ export {
   Event,
   IsBonusMalus,
   GameEvent,
+  ResourceUsed,
+  ResourceProduced,
 };
 
 export default entities;

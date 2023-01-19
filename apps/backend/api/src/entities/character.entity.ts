@@ -1,6 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { GameCharacter } from './game-character.entity';
 import { IsBonusMalus } from './isBonusMalus.entity';
+import { ResourceUsed } from './resource-used.entity';
+import { ResourceProduced } from './resource-produced.entity';
 
 @Entity()
 export class Character {
@@ -30,4 +32,13 @@ export class Character {
 
   @OneToMany(() => IsBonusMalus, (isBonusMalus) => isBonusMalus.character)
   isBonusMalus: IsBonusMalus[];
+
+  @OneToMany(() => ResourceUsed, (resourcesUsed) => resourcesUsed.character)
+  resourcesUsed: ResourceUsed[];
+
+  @OneToMany(
+    () => ResourceProduced,
+    (resourcesProduced) => resourcesProduced.character,
+  )
+  resourcesProduced: ResourceProduced[];
 }
