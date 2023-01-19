@@ -16,14 +16,17 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [route, setRoute] = useState('');
 
   const isError = email === '';
 
@@ -37,7 +40,7 @@ function Register() {
         password: password,
       }),
     }).then(() => {
-      console.log('it worked');
+      navigate('/new-game');
     });
   };
 

@@ -16,7 +16,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 function Login() {
@@ -27,6 +27,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useContext(AuthContext);
+  const location = useLocation();
 
   const [error, setError] = useState('');
 
@@ -49,7 +50,11 @@ function Login() {
       }
       if (jsonResponse.status === 'OK') {
         setUser(jsonResponse.data);
-        navigate('/game/overview');
+        if (location.state?.redirectTo) {
+          navigate(location.state.redirectTo);
+        } else {
+          navigate('/game/overview');
+        }
       }
     } catch (err) {
       console.error(err);
