@@ -15,6 +15,9 @@ import {
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const iconsSize: string = '30px';
+const paddingBetweenIcons: string = '15px';
+
 function DrawerNavbar({
   isOpen,
   onClose,
@@ -24,8 +27,6 @@ function DrawerNavbar({
   onClose: () => void;
   btnRef: any;
 }) {
-  const iconsSize: string = '30px';
-  const paddingBetweenIcons: string = '15px';
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
