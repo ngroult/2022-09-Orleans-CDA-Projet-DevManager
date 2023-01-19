@@ -1,6 +1,11 @@
 import { Box, Heading, Center, Image, Flex, Text } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
+  const handleClick = () => {
+    window.location.href = 'https://www.flaticon.com/fr/';
+  };
+
   return (
     <Box bgColor="#E4E4ED" h="100%">
       <Center>
@@ -13,7 +18,7 @@ const About = () => {
           w="40%"
           mt="10"
           borderRadius="10"
-        ></Image>
+        />
         <Text mt="3" fontSize="lg">
           {'Nolwenn'}
         </Text>
@@ -23,7 +28,7 @@ const About = () => {
           w="40%"
           mt="10"
           borderRadius="10"
-        ></Image>
+        />
         <Text mt="3" fontSize="lg">
           {'Corentin'}
         </Text>
@@ -37,19 +42,15 @@ const About = () => {
         <Text mt="3" fontSize="lg">
           {'Kylian'}
         </Text>
-        <Image
-          src="/paul.jpg"
-          alt="Paul"
-          w="40%"
-          mt="10"
-          borderRadius="10"
-        ></Image>
+        <Image src="/paul.jpg" alt="Paul" w="40%" mt="10" borderRadius="10" />
         <Text mt="3" fontSize="lg">
           {'Paul'}
         </Text>
-        <Text mt="10" mb="10">
-          Icons Flaticon : Référence des icônes sur ce lien{' '}
-        </Text>
+        <Box mt="10" mb="10" as="u">
+          <Link to="" onClick={handleClick}>
+            {'Icons Flaticon : Référence des icônes sur ce lien'}
+          </Link>
+        </Box>
       </Flex>
     </Box>
   );
