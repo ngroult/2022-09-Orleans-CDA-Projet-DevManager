@@ -6,7 +6,7 @@ const Page404 = () => {
       <Center>
         <Image
           src="/404.jpg"
-          alt="Dev dort"
+          alt="Dev sleep"
           w={{ base: '60%', sm: '60%', md: '80%', lg: '60%' }}
           borderRadius="10"
           mt="10"
@@ -14,7 +14,7 @@ const Page404 = () => {
       </Center>
       <Center>
         <Text fontSize="3xl" mt="20" p="5">
-          {"Oups, c'est la salle 404! C'est rien c'est juste le stagaire!"}
+          {"Oups, this is room 404! It's nothing, it's just the trainee!"}
         </Text>
       </Center>
     </Box>
