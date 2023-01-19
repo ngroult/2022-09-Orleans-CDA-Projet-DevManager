@@ -1,26 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateResourceDto } from './dto/create-resource.dto';
 import { UpdateResourceDto } from './dto/update-resource.dto';
+import { Resource } from '../../entities/resource.entity';
 
 @Injectable()
 export class ResourcesService {
-  create(createResourceDto: CreateResourceDto) {
-    return 'This action adds a new resource';
+  constructor(
+    @InjectRepository(Resource)
+    private resourcesRepository: Repository<Resource>,
+  ) {}
+
+  async create(createResourceDto: CreateResourceDto): Promise<Resource> {
+    return this.resourcesRepository.save(createResourceDto);
   }
 
-  findAll() {
-    return `This action returns all resources`;
+  async findAll() {
+    return this.resourcesRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} resource`;
+  async findOne(id: number): Promise<Resource[]> {
+    return this.resourcesRepository.find({
+      select: ['name', 'description', 'image', 'color'],
+      where: [{ id: id }],
+    });
   }
 
-  update(id: number, updateResourceDto: UpdateResourceDto) {
-    return `This action updates a #${id} resource`;
+  async update(
+    id: number,
+    updateResourceDto: UpdateResourceDto,
+  ): Promise<UpdateResult> {
+    return this.resourcesRepository.update(id, updateResourceDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} resource`;
+  async remove(id: number): Promise<void> {
+    await this.resourcesRepository.delete(id);
   }
 }
