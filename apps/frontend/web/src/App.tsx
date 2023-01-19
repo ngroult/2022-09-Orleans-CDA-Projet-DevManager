@@ -84,9 +84,9 @@ const App = () => {
         <Route
           path="/account-settings"
           element={
-            <Protected>
-              <AccountSettings />
-            </Protected>
+            // <Protected>
+            <AccountSettings />
+            // </Protected>
           }
         />
         <Route path="/about" element={<About />} />
