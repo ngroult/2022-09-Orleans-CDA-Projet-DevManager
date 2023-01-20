@@ -47,7 +47,7 @@ export default function LoginScreen() {
       <Box w="100%" mt={'5'}>
         <Center h={'20%'}>
           <Heading
-            style={{ fontFamily: 'Orbitron' }}
+            fontFamily={styles.title.fontFamily}
             size="lg"
             fontWeight="600"
             color="coolGray.800"
@@ -55,7 +55,7 @@ export default function LoginScreen() {
             {'DevManager'}
           </Heading>
           <Heading
-            style={styles.font}
+            fontFamily={styles.title.fontFamily}
             color="green.300"
             fontWeight="medium"
             size="xs"
@@ -63,16 +63,19 @@ export default function LoginScreen() {
             {'Login'}
           </Heading>
         </Center>
-        <VStack space={3} h={'80%'} backgroundColor={'green.100'}>
+        <VStack space={3} h={'80%'} backgroundColor={'green.100'} px="8">
           <Center>
             <Box w="100%">
               <FormControl isRequired pt={'8'}>
-                <FormControl.Label>{'Username'}</FormControl.Label>
+                <FormControl.Label fontFamily={styles.paragraph.fontFamily}>
+                  {'Username'}
+                </FormControl.Label>
                 <Input
                   placeholder="Username..."
                   w="100%"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  fontFamily={styles.paragraph.fontFamily}
                 />
               </FormControl>
               <FormControl isRequired>
@@ -89,7 +92,7 @@ export default function LoginScreen() {
                 {'Sign in'}
               </Button>
               <HStack justifyContent="center">
-                <Text fontSize="sm" color="coolGray.600">
+                <Text fontSize="sm" color="coolGray.600" m="1">
                   {"I'm a new user."}
                 </Text>
                 <Link
