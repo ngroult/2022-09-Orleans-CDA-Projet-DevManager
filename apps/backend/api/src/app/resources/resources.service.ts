@@ -22,7 +22,7 @@ export class ResourcesService {
 
   async findOne(id: number): Promise<Resource[]> {
     return this.resourcesRepository.find({
-      select: ['id', 'name', 'description', 'image', 'price', 'color'],
+      select: ['id', 'name', 'description', 'image', 'color'],
       where: [{ id: id }],
     });
   }

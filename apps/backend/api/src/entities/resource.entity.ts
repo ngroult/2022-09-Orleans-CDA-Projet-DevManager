@@ -17,8 +17,8 @@ export class Resource {
   @Column('varchar', { length: 50 })
   image: string;
 
-  @Column()
-  price: number;
+  // @Column()
+  // price: number;
 
   @Column('varchar', { length: 50 })
   color: string;

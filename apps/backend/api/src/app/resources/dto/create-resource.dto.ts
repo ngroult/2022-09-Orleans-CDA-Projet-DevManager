@@ -13,8 +13,8 @@ export class CreateResourceDto {
   @IsNotEmpty()
   image: string;
 
-  @IsNotEmpty()
-  price: number;
+  // @IsNotEmpty()
+  // price: number;
 
   @IsNotEmpty()
   color: string;

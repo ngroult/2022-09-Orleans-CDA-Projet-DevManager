@@ -9,31 +9,32 @@ import {
   Character,
   Resource,
   GameResource,
-  GameRoom,
   GameCharacter,
   Event,
   IsBonusMalus,
   GameEvent,
+  GameRoom,
+  ResourceUsed,
+  ResourceProduced,
 } from '../../entities';
-import {
 
 @Module({
   imports: [
-    
-    TypeOrmModule.forFeature([   
-      Game,  
+    TypeOrmModule.forFeature([
+      Game,
       User,
       Room,
       Character,
       Resource,
       GameResource,
-      GameRoom,
       GameCharacter,
       Event,
       IsBonusMalus,
       GameEvent,
+      GameRoom,
+      ResourceUsed,
+      ResourceProduced,
     ]),
-  ,
   ],
   controllers: [ForgeController],
   providers: [ForgeService],
