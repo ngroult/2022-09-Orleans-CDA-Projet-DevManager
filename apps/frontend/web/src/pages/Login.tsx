@@ -5,33 +5,59 @@ import {
   Center,
   Divider,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Heading,
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import AuthContext from '../contexts/AuthContext';
 
 function Login() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser } = useContext(AuthContext);
+  const location = useLocation();
+
+  const [error, setError] = useState('');
+
+  const isError = error !== '';
 
   const handleSubmit = async () => {
-    await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+    try {
+      const loginResponse = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
+      const jsonResponse = await loginResponse.json();
+
+      if (jsonResponse.status === 'KO') {
+        setError('Username and / or password incorrect');
+      }
+      if (jsonResponse.status === 'OK') {
+        setUser(jsonResponse.data);
+        if (location.state?.redirectTo) {
+          navigate(location.state.redirectTo);
+        } else {
+          navigate('/game/overview');
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -46,7 +72,8 @@ function Login() {
       </Center>
       <Box bg="#E4E4ED" h="80vh">
         <Center>
-          <FormControl w="75%" pt="14">
+          <FormControl w="75%" pt="14" isInvalid={isError}>
+            {isError && <FormErrorMessage>{error}</FormErrorMessage>}
             <FormLabel mb="0">{'Username'}</FormLabel>
             <Input
               placeholder="codelande"
@@ -103,7 +130,9 @@ function Login() {
           </FormControl>
         </Center>
         <Center>
-          <Link py="7">{'Not register yet ?'}</Link>
+          <Link to="/register">
+            <Text py="7">{'Not register yet?'}</Text>
+          </Link>
         </Center>
       </Box>
     </Box>

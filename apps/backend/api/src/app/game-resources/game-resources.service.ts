@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateGameResourceDto } from './dto/create-game-resource.dto';
 import { UpdateGameResourceDto } from './dto/update-game-resource.dto';
 import { GameResource, Resource, Game } from '../../entities';
@@ -62,8 +62,11 @@ export class GameResourcesService {
     });
   }
 
-  update(id: number, updateGameResourceDto: UpdateGameResourceDto) {
-    return `This action updates a #${id} gameResource`;
+  async update(
+    id: number,
+    updateGameResourceDto: UpdateGameResourceDto,
+  ): Promise<UpdateResult> {
+    return this.gameResourcesRepository.update(id, updateGameResourceDto);
   }
 
   async remove(id: number): Promise<void> {

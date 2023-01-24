@@ -7,9 +7,11 @@ import {
   GameRoom,
   Room,
   User,
+  Resource,
   Event,
   IsBonusMalus,
-  GameEvent,
+  GameResource,
+GameEvent,
 } from '../../entities';
 import { Repository } from 'typeorm';
 
@@ -21,6 +23,10 @@ export class ForgeService {
     @InjectRepository(Room) private roomsRepository: Repository<Room>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
+    @InjectRepository(Resource)
+    private resourcesRepository: Repository<Resource>,
+    @InjectRepository(GameResource)
+    private gameResourcesRepository: Repository<GameResource>,
     @InjectRepository(GameRoom)
     private gameRoomsRepository: Repository<GameRoom>,
     @InjectRepository(GameCharacter)
@@ -273,6 +279,63 @@ export class ForgeService {
       endDate: '',
       game: { id: game1.id },
       event: { id: event3.id },
+    });
+
+    const resource1 = await this.resourcesRepository.save({
+      name: 'DevDollars',
+      description: 'DevDollars Description',
+      image: '/dollar.png',
+      color: 'gold.200',
+    });
+    const resource2 = await this.resourcesRepository.save({
+      name: 'Energic drinks',
+      description: 'Energic drinks Description',
+      image: '/soda.png',
+      color: 'turquoise.200',
+    });
+    const resource3 = await this.resourcesRepository.save({
+      name: 'Coffees',
+      description: 'Coffees Description',
+      image: '/coffee.png',
+      color: 'brown.200',
+    });
+    const resource4 = await this.resourcesRepository.save({
+      name: 'Contracts',
+      description: 'Contracts Description',
+      image: '/contract.png',
+      color: 'blue.100',
+    });
+    const resource5 = await this.resourcesRepository.save({
+      name: 'Delivery orders',
+      description: 'Delivery orders Description',
+      image: '/delivery_order.png',
+      color: 'brown.500',
+    });
+
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource1.id },
+      quantity: 1257,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource2.id },
+      quantity: 1951,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource3.id },
+      quantity: 2752,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource4.id },
+      quantity: 275,
+    });
+    await this.gameResourcesRepository.save({
+      game: { id: game1.id },
+      resource: { id: resource5.id },
+      quantity: 25,
     });
 
     return 'OK';

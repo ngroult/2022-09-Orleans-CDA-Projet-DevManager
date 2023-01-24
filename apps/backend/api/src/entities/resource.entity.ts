@@ -17,7 +17,7 @@ export class Resource {
   @Column('varchar', { length: 50 })
   image: string;
 
-  @Column({ unsigned: true })
+  @Column()
   price: number;
 
   @Column('varchar', { length: 50 })

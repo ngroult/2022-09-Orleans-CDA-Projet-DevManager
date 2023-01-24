@@ -11,15 +11,16 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Text,
   VStack,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+  const [isShow, setIsShow] = useState(false);
+  const handleClick = () => setIsShow(!isShow);
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ function Register() {
         password: password,
       }),
     }).then(() => {
-      console.log('it worked');
+      navigate('/new-game');
     });
   };
 
@@ -88,7 +89,7 @@ function Register() {
               <Input
                 bg="white"
                 pr="4.5rem"
-                type={show ? 'text' : 'password'}
+                type={isShow ? 'text' : 'password'}
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => {
@@ -97,7 +98,7 @@ function Register() {
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
-                  {show ? 'Hide' : 'Show'}
+                  {isShow ? 'Hide' : 'Show'}
                 </Button>
               </InputRightElement>
             </InputGroup>
@@ -118,7 +119,9 @@ function Register() {
           </FormControl>
         </Center>
         <Center>
-          <Link py="7">{'Have you already an account ?'}</Link>
+          <Link to="/login">
+            <Text py="7">{'Have you already an account?'}</Text>
+          </Link>
         </Center>
       </Box>
     </Box>

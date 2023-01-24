@@ -33,6 +33,12 @@ const styles = {
       200: '#F2E1CC',
       500: '#E6D2BE',
     },
+    green: {
+      900: '#7CC171',
+    },
+    red: {
+      900: '#D66969',
+    },
   },
   fonts: {
     heading: `'Orbitron', sans-serif`,
