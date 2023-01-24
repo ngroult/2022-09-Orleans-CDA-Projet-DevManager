@@ -9,7 +9,7 @@ module.exports = {
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
   splash: {
-    image: './assets/splash.png',
+    image: './assets/developer.gif',
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
   },

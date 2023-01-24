@@ -14,7 +14,6 @@
     "@expo-google-fonts/chakra-petch": "^0.2.2",
     "@expo-google-fonts/orbitron": "^0.2.2",
     "expo": "~47.0.6",
-    "expo-app-loading": "~2.1.1",
     "expo-constants": "^14.0.2",
     "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.5",

@@ -1,5 +1,7 @@
-import { extendTheme, NativeBaseProvider } from 'native-base';
-import { useFonts } from 'expo-font';
+import { useCallback, useEffect, useState } from 'react';
+import { extendTheme, NativeBaseProvider, View } from 'native-base';
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
 import {
   Orbitron_400Regular,
   Orbitron_500Medium,
@@ -20,32 +22,10 @@ import {
   ChakraPetch_700Bold_Italic,
   ChakraPetch_700Bold,
 } from '@expo-google-fonts/chakra-petch';
-import React from 'react';
 import LoginScreen from './src/screens/LoginScreen';
 
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Orbitron_400Regular,
-    Orbitron_500Medium,
-    Orbitron_600SemiBold,
-    Orbitron_700Bold,
-    Orbitron_800ExtraBold,
-    Orbitron_900Black,
-    ChakraPetch_300Light_Italic,
-    ChakraPetch_300Light,
-    ChakraPetch_400Regular_Italic,
-    ChakraPetch_400Regular,
-    ChakraPetch_500Medium_Italic,
-    ChakraPetch_500Medium,
-    ChakraPetch_600SemiBold_Italic,
-    ChakraPetch_600SemiBold,
-    ChakraPetch_700Bold_Italic,
-    ChakraPetch_700Bold,
-  });
-
-  if (!fontsLoaded) {
-    return null;
-  }
+  const [appIsReady, setAppIsReady] = useState(false);
 
   const theme = extendTheme({
     fontConfig: {
@@ -133,9 +113,54 @@ export default function App() {
     },
   });
 
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        await SplashScreen.preventAutoHideAsync();
+
+        await Font.loadAsync({ Orbitron_400Regular });
+        await Font.loadAsync({ Orbitron_500Medium });
+        await Font.loadAsync({ Orbitron_600SemiBold });
+        await Font.loadAsync({ Orbitron_700Bold });
+        await Font.loadAsync({ Orbitron_800ExtraBold });
+        await Font.loadAsync({ Orbitron_900Black });
+
+        await Font.loadAsync({ ChakraPetch_300Light_Italic });
+        await Font.loadAsync({ ChakraPetch_300Light });
+        await Font.loadAsync({ ChakraPetch_400Regular_Italic });
+        await Font.loadAsync({ ChakraPetch_400Regular });
+        await Font.loadAsync({ ChakraPetch_500Medium_Italic });
+        await Font.loadAsync({ ChakraPetch_500Medium });
+        await Font.loadAsync({ ChakraPetch_600SemiBold_Italic });
+        await Font.loadAsync({ ChakraPetch_600SemiBold });
+        await Font.loadAsync({ ChakraPetch_700Bold_Italic });
+        await Font.loadAsync({ ChakraPetch_700Bold });
+
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    };
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
     <NativeBaseProvider theme={theme}>
-      <LoginScreen />
+      <View onLayout={onLayoutRootView}>
+        <LoginScreen />
+      </View>
     </NativeBaseProvider>
   );
 }
