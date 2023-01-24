@@ -11,7 +11,6 @@ import {
   Button,
   HStack,
 } from 'native-base';
-import { StyleSheet } from 'react-native';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');
@@ -47,7 +46,7 @@ export default function LoginScreen() {
       <Box w="100%" mt={'5'}>
         <Center h={'20%'}>
           <Heading
-            fontFamily={styles.title.fontFamily}
+            fontFamily="heading"
             size="lg"
             fontWeight="600"
             color="coolGray.800"
@@ -55,7 +54,7 @@ export default function LoginScreen() {
             {'DevManager'}
           </Heading>
           <Heading
-            fontFamily={styles.title.fontFamily}
+            fontFamily="heading"
             color="green.300"
             fontWeight="medium"
             size="xs"
@@ -67,7 +66,7 @@ export default function LoginScreen() {
           <Center>
             <Box w="100%">
               <FormControl isRequired pt={'8'}>
-                <FormControl.Label fontFamily={styles.paragraph.fontFamily}>
+                <FormControl.Label fontFamily="body">
                   {'Username'}
                 </FormControl.Label>
                 <Input
@@ -75,7 +74,7 @@ export default function LoginScreen() {
                   w="100%"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  fontFamily={styles.paragraph.fontFamily}
+                  fontFamily="body"
                 />
               </FormControl>
               <FormControl isRequired>
@@ -113,12 +112,3 @@ export default function LoginScreen() {
     </Center>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontFamily: 'ChakraPetch',
-  },
-  paragraph: {
-    fontFamily: 'Orbitron',
-  },
-});

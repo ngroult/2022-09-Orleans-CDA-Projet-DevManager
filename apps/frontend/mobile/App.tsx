@@ -8,6 +8,18 @@ import {
   Orbitron_800ExtraBold,
   Orbitron_900Black,
 } from '@expo-google-fonts/orbitron';
+import {
+  ChakraPetch_300Light_Italic,
+  ChakraPetch_300Light,
+  ChakraPetch_400Regular_Italic,
+  ChakraPetch_400Regular,
+  ChakraPetch_500Medium_Italic,
+  ChakraPetch_500Medium,
+  ChakraPetch_600SemiBold_Italic,
+  ChakraPetch_600SemiBold,
+  ChakraPetch_700Bold_Italic,
+  ChakraPetch_700Bold,
+} from '@expo-google-fonts/chakra-petch';
 import React from 'react';
 import LoginScreen from './src/screens/LoginScreen';
 
@@ -19,6 +31,16 @@ export default function App() {
     Orbitron_700Bold,
     Orbitron_800ExtraBold,
     Orbitron_900Black,
+    ChakraPetch_300Light_Italic,
+    ChakraPetch_300Light,
+    ChakraPetch_400Regular_Italic,
+    ChakraPetch_400Regular,
+    ChakraPetch_500Medium_Italic,
+    ChakraPetch_500Medium,
+    ChakraPetch_600SemiBold_Italic,
+    ChakraPetch_600SemiBold,
+    ChakraPetch_700Bold_Italic,
+    ChakraPetch_700Bold,
   });
 
   if (!fontsLoaded) {
@@ -28,34 +50,51 @@ export default function App() {
   const theme = extendTheme({
     fontConfig: {
       ChakraPetch: {
-        100: {
-          normal: 'Roboto-Light',
-          italic: 'Roboto-LightItalic',
-        },
-        200: {
-          normal: 'Roboto-Light',
-          italic: 'Roboto-LightItalic',
-        },
         300: {
-          normal: 'Roboto-Light',
-          italic: 'Roboto-LightItalic',
+          normal: 'ChakraPetch_300Light',
+          italic: 'ChakraPetch_300Light_Italic',
         },
         400: {
-          normal: 'Roboto-Regular',
-          italic: 'Roboto-Italic',
+          normal: 'ChakraPetch_400Regular',
+          italic: 'ChakraPetch_400Regular_Italic',
         },
         500: {
-          normal: 'Roboto-Medium',
+          normal: 'ChakraPetch_500Medium',
+          italic: 'ChakraPetch_500Medium_Italic',
         },
         600: {
-          normal: 'Roboto-Medium',
-          italic: 'Roboto-MediumItalic',
+          normal: 'ChakraPetch_600SemiBold',
+          italic: 'ChakraPetch_600SemiBold_Italic',
+        },
+        700: {
+          normal: 'ChakraPetch_700Bold',
+          italic: 'ChakraPetch_700Bold_Italic',
+        },
+      },
+      Orbitron: {
+        400: {
+          normal: 'Orbitron_400Regular',
+        },
+        500: {
+          normal: 'Orbitron_500Medium',
+        },
+        600: {
+          normal: 'Orbitron_600SemiBold',
+        },
+        700: {
+          normal: 'Orbitron_700Bold',
+        },
+        800: {
+          normal: 'Orbitron_800ExtraBold',
+        },
+        900: {
+          normal: 'Orbitron_900Black',
         },
       },
     },
     fonts: {
-      heading: 'Roboto',
-      body: 'Roboto',
+      heading: 'Orbitron',
+      body: 'ChakraPetch',
     },
     colors: {
       turquoise: {
