@@ -19,30 +19,6 @@ export default function LoginScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
 
-  const handleSubmit = async () => {
-    try {
-      const loginResponse = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-      });
-      const jsonResponse = await loginResponse.json();
-
-      if (jsonResponse.status === 'KO') {
-        setError('Username and / or password incorrect');
-      }
-      if (jsonResponse.status === 'OK') {
-        setUser(jsonResponse.data);
-        navigate('/game/overview');
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
     <Flex flex="1" backgroundColor="turquoise.200">
       <Flex align="center" justify="center" bgColor="#FFF" py="9">
@@ -98,7 +74,6 @@ export default function LoginScreen({ navigation }) {
           w="150"
           borderRadius="8"
           backgroundColor="turquoise.900"
-          onClick={handleSubmit}
           onPress={() => navigation.navigate('Overview')}
         >
           {'Sign in'}
