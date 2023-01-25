@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateGameResourceDto } from './dto/create-game-resource.dto';
 import { UpdateGameResourceDto } from './dto/update-game-resource.dto';
 import { GameResource, Resource, Game } from '../../entities';
@@ -48,19 +48,28 @@ export class GameResourcesService {
     }
   }
 
-  findAll() {
-    return `This action returns all gameResources`;
+  async findAll() {
+    return this.gameResourcesRepository.find({
+      relations: { game: true, resource: true },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} gameResource`;
+  async findOne(id: number): Promise<GameResource[]> {
+    return this.gameResourcesRepository.find({
+      select: ['quantity', 'game', 'resource'],
+      where: [{ id: id }],
+      relations: { game: true, resource: true },
+    });
   }
 
-  update(id: number, updateGameResourceDto: UpdateGameResourceDto) {
-    return `This action updates a #${id} gameResource`;
+  async update(
+    id: number,
+    updateGameResourceDto: UpdateGameResourceDto,
+  ): Promise<UpdateResult> {
+    return this.gameResourcesRepository.update(id, updateGameResourceDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} gameResource`;
+  async remove(id: number): Promise<void> {
+    await this.gameResourcesRepository.delete(id);
   }
 }

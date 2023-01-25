@@ -11,12 +11,11 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 function Login() {
@@ -27,6 +26,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { setUser } = useContext(AuthContext);
+  const location = useLocation();
 
   const [error, setError] = useState('');
 
@@ -49,7 +49,11 @@ function Login() {
       }
       if (jsonResponse.status === 'OK') {
         setUser(jsonResponse.data);
-        navigate('/game/overview');
+        if (location.state?.redirectTo) {
+          navigate(location.state.redirectTo);
+        } else {
+          navigate('/game/overview');
+        }
       }
     } catch (err) {
       console.error(err);
@@ -67,66 +71,80 @@ function Login() {
         </VStack>
       </Center>
       <Box bg="#E4E4ED" h="80vh">
-        <Center>
+        <Center w={'100%'}>
           <FormControl w="75%" pt="14" isInvalid={isError}>
-            {isError && <FormErrorMessage>{error}</FormErrorMessage>}
-            <FormLabel mb="0">{'Username'}</FormLabel>
-            <Input
-              placeholder="codelande"
-              bg="white"
-              type="text"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-            <FormLabel pt="4" mb="0">
-              {'Password'}
-            </FormLabel>
-            <InputGroup size="md">
-              <Input
-                bg="white"
-                pr="4.5rem"
-                type={show ? 'text' : 'password'}
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handleClick} me="1">
-                  {show ? (
-                    <div>
-                      {'Hide'} <ViewOffIcon ms="0.5" />
-                    </div>
-                  ) : (
-                    <div>
-                      {'Show'} <ViewIcon ms="0.5" />
-                    </div>
-                  )}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-            <Center>
-              <Button
-                boxShadow="lg"
-                my="8"
-                color="white"
-                bg="#797AA6"
-                onClick={handleSubmit}
-              >
-                {'Login'}
-                <ArrowRightIcon ms="1.5" boxSize="3" />
-              </Button>
+            <Center w={'100%'}>
+              <VStack width={{ base: '100%', md: '75%' }} h="100%">
+                {isError && <FormErrorMessage>{error}</FormErrorMessage>}
+                <FormLabel alignSelf={'start'} mb="0">
+                  {'Username'}
+                </FormLabel>
+                <Input
+                  placeholder="codelande"
+                  bg="white"
+                  type="text"
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                />
+                <FormLabel alignSelf={'start'} pt="4" mb="0">
+                  {'Password'}
+                </FormLabel>
+
+                <InputGroup size="md">
+                  <Input
+                    bg="white"
+                    pr="4.5rem"
+                    type={show ? 'text' : 'password'}
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleClick} me="1">
+                      {show ? (
+                        <div>
+                          {'Hide'} <ViewOffIcon ms="0.5" />
+                        </div>
+                      ) : (
+                        <div>
+                          {'Show'} <ViewIcon ms="0.5" />
+                        </div>
+                      )}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <Center>
+                  <Button
+                    boxShadow="lg"
+                    my="8"
+                    color="white"
+                    bg="#797AA6"
+                    onClick={handleSubmit}
+                  >
+                    {'Login'}
+                    <ArrowRightIcon ms="1.5" boxSize="3" />
+                  </Button>
+                </Center>
+                <Center>
+                  <Divider borderColor="#9393B7" width="75%" />
+                </Center>
+              </VStack>
             </Center>
             <Center>
-              <Divider borderColor="#9393B7" width="75%" />
+              <Divider borderColor="9393B7" width="50%" />
             </Center>
           </FormControl>
         </Center>
         <Center>
-          <Link py="7">{'Not register yet ?'}</Link>
+          <Link to="/register">
+            <Text textDecoration={'underline'} py="7">
+              {'Not register yet?'}
+            </Text>
+          </Link>
         </Center>
       </Box>
     </Box>
