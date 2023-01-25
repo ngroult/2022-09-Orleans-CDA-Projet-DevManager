@@ -12,7 +12,7 @@ import {
   HStack,
 } from 'native-base';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
@@ -79,7 +79,12 @@ export default function LoginScreen() {
                   value={password}
                 />
               </FormControl>
-              <Button mt={'5'} colorScheme="indigo" onClick={handleSubmit}>
+              <Button
+                mt={'5'}
+                colorScheme="indigo"
+                onClick={handleSubmit}
+                onPress={() => navigation.navigate('Overview')}
+              >
                 {'Sign in'}
               </Button>
               <HStack justifyContent="center">
@@ -92,7 +97,6 @@ export default function LoginScreen() {
                     fontWeight: 'medium',
                     fontSize: 'sm',
                   }}
-                  href="#"
                 >
                   {'Sign Up'}
                 </Link>

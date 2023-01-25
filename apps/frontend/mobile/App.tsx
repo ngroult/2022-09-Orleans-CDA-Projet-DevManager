@@ -3,6 +3,9 @@ import { extendTheme, NativeBaseProvider, View } from 'native-base';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import LoginScreen from './src/screens/LoginScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import OverviewScreen from './src/screens/OverviewScreen';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -137,11 +140,17 @@ export default function App() {
     return null;
   }
 
+  const Stack = createNativeStackNavigator();
+
   return (
     <NativeBaseProvider theme={theme}>
-      <View onLayout={onLayoutRootView}>
-        <LoginScreen />
-      </View>
+      <View onLayout={onLayoutRootView}></View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Overview" component={OverviewScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </NativeBaseProvider>
   );
 }
