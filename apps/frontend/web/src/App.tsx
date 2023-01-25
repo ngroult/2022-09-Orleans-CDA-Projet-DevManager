@@ -57,14 +57,7 @@ const App = () => {
             </Protected>
           }
         />
-        <Route
-          path="/game/overview"
-          element={
-            <Protected>
-              <Overview />
-            </Protected>
-          }
-        />
+        <Route path="/game/overview" element={<Overview />} />
         <Route
           path="/game/:room"
           element={

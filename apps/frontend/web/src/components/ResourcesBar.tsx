@@ -49,8 +49,8 @@ const ResourcesBar = () => {
   }, []);
 
   return (
-    <>
-      <Flex minWidth="max-content" alignItems="center" gap="2" px="80px">
+    <Box position="absolute" top="0">
+      <Flex minWidth="max-content" gap="2" px="80px">
         <HStack display={{ base: 'none', md: 'flex' }}>
           <Box boxSize="30px">
             <Image src="/company4.png" placeholder="my_company" />
@@ -149,7 +149,7 @@ const ResourcesBar = () => {
         onClose={onCloseDrawerResources}
         resources={resources}
       />
-    </>
+    </Box>
   );
 };
 

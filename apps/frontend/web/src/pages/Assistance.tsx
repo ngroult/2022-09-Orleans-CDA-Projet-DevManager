@@ -46,17 +46,22 @@ const Assistance = () => {
         position="absolute"
         top="0"
         margin="auto"
-        w="100%"
         zIndex="-1"
       >
         <Center>
-          <Heading mt="5">{'Assistance'}</Heading>
+          <Heading mt="10" fontSize="5xl">
+            {'Assistance'}
+          </Heading>
         </Center>
         <Center>
-          <Image src="/assistance.png" boxSize="100px" mt="10" />
+          <Image
+            src="/assistance.png"
+            boxSize={{ base: '100px', lg: '150px' }}
+            mt="10"
+          />
         </Center>
         <Center>
-          <Box w={{ base: '60%', md: '80%' }} mt="20">
+          <Box w={{ base: '60%', md: '60%' }} mt="20">
             <FormControl isRequired>
               <FormLabel mb="0">{'E-mail'}</FormLabel>
               <Input

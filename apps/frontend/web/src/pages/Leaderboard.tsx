@@ -45,11 +45,9 @@ const Leaderboard = () => {
         <Center>
           <Box>
             <Flex>
-              <Image
-                boxSize="75"
-                src="/company8.png"
-                alt="Your company image"
-              />
+              <Box ml="20" boxSize="20%">
+                <Image src="/company8.png" alt="Your company image" />
+              </Box>
               <Flex>
                 <Box ml="8">
                   <Heading as="h2" size="l">

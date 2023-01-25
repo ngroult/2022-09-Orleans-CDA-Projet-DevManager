@@ -24,8 +24,8 @@ const Navbar = () => {
 
   return (
     <>
-      <Box w={isNavbarOpen ? '220px' : '60px'}>
-        <Box w="60px" h="80px" left="0" top="0" position="fixed">
+      <Box w={isNavbarOpen ? '220px' : '60px'} position="absolute" zIndex="999">
+        <Box w="60px" h="80px" left="0" top="0">
           <Center>
             <IconButton
               aria-label="Hamburger button"
@@ -42,7 +42,6 @@ const Navbar = () => {
           display={{ base: 'none', sm: 'inline-block' }}
           boxShadow="inner"
           bg="blue.200"
-          w={isNavbarOpen ? '220px' : '60px'}
           h="100vh"
           position="absolute"
           top="0"
