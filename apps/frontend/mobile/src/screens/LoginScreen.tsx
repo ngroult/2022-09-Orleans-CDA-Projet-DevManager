@@ -46,19 +46,14 @@ export default function LoginScreen() {
       <Box w="100%" mt={'5'}>
         <Center h={'20%'}>
           <Heading
-            fontFamily="heading"
             size="lg"
             fontWeight="600"
             color="coolGray.800"
+            fontFamily="heading"
           >
             {'DevManager'}
           </Heading>
-          <Heading
-            fontFamily="heading"
-            color="green.300"
-            fontWeight="medium"
-            size="xs"
-          >
+          <Heading color="green.300" fontWeight="medium" size="xs">
             {'Login'}
           </Heading>
         </Center>
@@ -66,15 +61,12 @@ export default function LoginScreen() {
           <Center>
             <Box w="100%">
               <FormControl isRequired pt={'8'}>
-                <FormControl.Label fontFamily="body">
-                  {'Username'}
-                </FormControl.Label>
+                <FormControl.Label>{'Username'}</FormControl.Label>
                 <Input
                   placeholder="Username..."
                   w="100%"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  fontFamily="body"
                 />
               </FormControl>
               <FormControl isRequired>

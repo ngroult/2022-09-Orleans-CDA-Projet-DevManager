@@ -2,26 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { extendTheme, NativeBaseProvider, View } from 'native-base';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import {
-  Orbitron_400Regular,
-  Orbitron_500Medium,
-  Orbitron_600SemiBold,
-  Orbitron_700Bold,
-  Orbitron_800ExtraBold,
-  Orbitron_900Black,
-} from '@expo-google-fonts/orbitron';
-import {
-  ChakraPetch_300Light_Italic,
-  ChakraPetch_300Light,
-  ChakraPetch_400Regular_Italic,
-  ChakraPetch_400Regular,
-  ChakraPetch_500Medium_Italic,
-  ChakraPetch_500Medium,
-  ChakraPetch_600SemiBold_Italic,
-  ChakraPetch_600SemiBold,
-  ChakraPetch_700Bold_Italic,
-  ChakraPetch_700Bold,
-} from '@expo-google-fonts/chakra-petch';
 import LoginScreen from './src/screens/LoginScreen';
 
 export default function App() {
@@ -29,6 +9,26 @@ export default function App() {
 
   const theme = extendTheme({
     fontConfig: {
+      Orbitron: {
+        400: {
+          normal: 'Orbitron_400Regular',
+        },
+        500: {
+          normal: 'Orbitron_500Medium',
+        },
+        600: {
+          normal: 'Orbitron_600SemiBold',
+        },
+        700: {
+          normal: 'Orbitron_700Bold',
+        },
+        800: {
+          normal: 'Orbitron_800ExtraBold',
+        },
+        900: {
+          normal: 'Orbitron_900Black',
+        },
+      },
       ChakraPetch: {
         300: {
           normal: 'ChakraPetch_300Light',
@@ -49,26 +49,6 @@ export default function App() {
         700: {
           normal: 'ChakraPetch_700Bold',
           italic: 'ChakraPetch_700Bold_Italic',
-        },
-      },
-      Orbitron: {
-        400: {
-          normal: 'Orbitron_400Regular',
-        },
-        500: {
-          normal: 'Orbitron_500Medium',
-        },
-        600: {
-          normal: 'Orbitron_600SemiBold',
-        },
-        700: {
-          normal: 'Orbitron_700Bold',
-        },
-        800: {
-          normal: 'Orbitron_800ExtraBold',
-        },
-        900: {
-          normal: 'Orbitron_900Black',
         },
       },
     },
@@ -118,23 +98,24 @@ export default function App() {
       try {
         await SplashScreen.preventAutoHideAsync();
 
-        await Font.loadAsync({ Orbitron_400Regular });
-        await Font.loadAsync({ Orbitron_500Medium });
-        await Font.loadAsync({ Orbitron_600SemiBold });
-        await Font.loadAsync({ Orbitron_700Bold });
-        await Font.loadAsync({ Orbitron_800ExtraBold });
-        await Font.loadAsync({ Orbitron_900Black });
-
-        await Font.loadAsync({ ChakraPetch_300Light_Italic });
-        await Font.loadAsync({ ChakraPetch_300Light });
-        await Font.loadAsync({ ChakraPetch_400Regular_Italic });
-        await Font.loadAsync({ ChakraPetch_400Regular });
-        await Font.loadAsync({ ChakraPetch_500Medium_Italic });
-        await Font.loadAsync({ ChakraPetch_500Medium });
-        await Font.loadAsync({ ChakraPetch_600SemiBold_Italic });
-        await Font.loadAsync({ ChakraPetch_600SemiBold });
-        await Font.loadAsync({ ChakraPetch_700Bold_Italic });
-        await Font.loadAsync({ ChakraPetch_700Bold });
+        await Font.loadAsync({
+          Orbitron_400Regular: require('./assets/fonts/orbitron/Orbitron_400Regular.ttf'),
+          Orbitron_500Medium: require('./assets/fonts/orbitron/Orbitron_500Medium.ttf'),
+          Orbitron_600SemiBold: require('./assets/fonts/orbitron/Orbitron_600SemiBold.ttf'),
+          Orbitron_700Bold: require('./assets/fonts/orbitron/Orbitron_700Bold.ttf'),
+          Orbitron_800ExtraBold: require('./assets/fonts/orbitron/Orbitron_800ExtraBold.ttf'),
+          Orbitron_900Black: require('./assets/fonts/orbitron/Orbitron_900Black.ttf'),
+          ChakraPetch_300Light_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_300Light_Italic.ttf'),
+          ChakraPetch_300Light: require('./assets/fonts/chakra-petch/ChakraPetch_300Light.ttf'),
+          ChakraPetch_400Regular_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_400Regular_Italic.ttf'),
+          ChakraPetch_400Regular: require('./assets/fonts/chakra-petch/ChakraPetch_400Regular.ttf'),
+          ChakraPetch_500Medium_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_500Medium_Italic.ttf'),
+          ChakraPetch_500Medium: require('./assets/fonts/chakra-petch/ChakraPetch_500Medium.ttf'),
+          ChakraPetch_600SemiBold_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_600SemiBold_Italic.ttf'),
+          ChakraPetch_600SemiBold: require('./assets/fonts/chakra-petch/ChakraPetch_600SemiBold.ttf'),
+          ChakraPetch_700Bold_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_700Bold_Italic.ttf'),
+          ChakraPetch_700Bold: require('./assets/fonts/chakra-petch/ChakraPetch_700Bold.ttf'),
+        });
 
         await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (e) {
