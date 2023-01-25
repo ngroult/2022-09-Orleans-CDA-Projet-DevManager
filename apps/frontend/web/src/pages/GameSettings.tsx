@@ -10,6 +10,7 @@ import {
   useDisclosure,
   Box,
   Center,
+  Heading,
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
@@ -30,6 +31,11 @@ const GameSettings = () => {
     <>
       <Navbar />
       <Box position="absolute" top="0" margin="auto" w="100%" zIndex="0">
+        <Center>
+          <Heading mt="10" mb="10" color={`${pageColor}`}>
+            {'Game Setting'}
+          </Heading>
+        </Center>
         <Flex flexDir="column" w="100%" h="100vh">
           <Flex
             flexDir="column"

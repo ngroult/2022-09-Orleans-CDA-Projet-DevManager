@@ -54,7 +54,13 @@ const Overview = () => {
       <Navbar />
       <NavbarRooms />
       <Center>
-        <Box display="flex" flexDir="column" alignItems="center" maxW="550px">
+        <Box
+          display="flex"
+          flexDir="column"
+          alignItems="center"
+          maxW="550px"
+          mt="300"
+        >
           <HStack>
             <VStack>
               <Text fontSize="xl">{'Overview'}</Text>

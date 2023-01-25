@@ -9,6 +9,7 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -49,15 +50,23 @@ const Leaderboard = () => {
                 <Image src="/company8.png" alt="Your company image" />
               </Box>
               <Flex>
-                <Box ml="8">
-                  <Heading as="h2" size="l">
+                <Box ml={{ base: '10', md: '40' }}>
+                  <Heading
+                    as="h2"
+                    size={{ base: 'l', md: 'xl' }}
+                    mb={{ base: '5', md: '10' }}
+                  >
                     <Flex>
-                      <Image src="/badge.png" boxSize="5" mr="2" alt="Badge" />
+                      <Image src="/badge.png" boxSize="10" mr="2" alt="Badge" />
                       {'Your rank'}
                     </Flex>
                   </Heading>
-                  <p>{'2500 / 1 500 000'}</p>
-                  <p>{'$ 1 030 spent'}</p>
+                  <Text fontSize={{ base: 'l', md: 'xl' }}>
+                    {'2500 / 1 500 000'}
+                  </Text>
+                  <Text fontSize={{ base: 'l', md: 'xl' }}>
+                    {'$ 1 030 spent'}
+                  </Text>
                 </Box>
               </Flex>
             </Flex>

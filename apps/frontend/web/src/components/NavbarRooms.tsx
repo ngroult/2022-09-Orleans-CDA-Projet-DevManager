@@ -6,6 +6,7 @@ import {
   Image,
   Text,
   Grid,
+  Flex,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -18,19 +19,24 @@ const NavbarRooms = () => {
   const paddingLeftIcons: string = '15px';
 
   return (
-    <Box>
+    <>
       <Box
         boxShadow="inner"
         bg="blue.200"
-        w="60px"
-        h="100vh"
-        position="fixed"
-        top="0"
-        right="0"
+        w={{ base: '100%', sm: '60px' }}
+        h={{ base: '60px', sm: '100vh' }}
+        position="absolute"
+        top={{ sm: '0' }}
+        bottom={{ base: '0', sm: 'initial' }}
+        right={{ sm: '0' }}
+        left={{ base: '0', sm: 'initial' }}
         overflow="scroll"
       >
-        <Box bg="blue.500" h="80px" />
-        <Grid>
+        <Box bg="blue.500" h={{ base: '0px', sm: '80px' }} />
+        <Flex
+          flexDir={{ base: 'row', sm: 'column' }}
+          justifyContent="space-around"
+        >
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <Link to="/game/:room">
               <HStack>
@@ -59,9 +65,9 @@ const NavbarRooms = () => {
               </HStack>
             </Link>
           </Box>
-        </Grid>
+        </Flex>
       </Box>
-    </Box>
+    </>
   );
 };
 

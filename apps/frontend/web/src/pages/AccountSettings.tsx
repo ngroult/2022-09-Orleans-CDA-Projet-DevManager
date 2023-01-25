@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   Text,
   Flex,
@@ -9,6 +9,8 @@ import {
   HStack,
   useDisclosure,
   Box,
+  Heading,
+  Center,
 } from '@chakra-ui/react';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
@@ -17,6 +19,7 @@ import UserContactFiller from '../components/UserContactFiller';
 import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
 import Navbar from '../components/Navbar';
+import AuthContext from '../contexts/AuthContext';
 const pageColor = 'turquoise';
 
 const AccountSettings = () => {
@@ -26,11 +29,17 @@ const AccountSettings = () => {
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
+  const { user } = useContext(AuthContext);
 
   return (
     <>
       <Navbar />
       <Box position="absolute" top="0" margin="auto" w="100%" zIndex="-1">
+        <Center>
+          <Heading mt="10" mb="10" color={`${pageColor}`}>
+            {'Account Setting'}
+          </Heading>
+        </Center>
         <Flex flexDir="column" w="100%" h="100vh">
           <Flex
             flexDir="column"
@@ -59,15 +68,15 @@ const AccountSettings = () => {
             <VStack m="2rem 0">
               <HStack>
                 <Text textAlign="right">{'Username :'}</Text>
-                <Text textAlign="left">{'Codelande'}</Text>
+                <Text textAlign="left">{user?.username}</Text>
               </HStack>
               <HStack>
                 <Text textAlign="right">{'E-mail :'}</Text>
-                <Text textAlign="left">{'codelande@mail.com'}</Text>
+                <Text textAlign="left">{user?.email}</Text>
               </HStack>
               <HStack>
                 <Text textAlign="right">{'Password :'}</Text>
-                <Text textAlign="left">{'***************'}</Text>
+                <Text textAlign="left">{user?.password}</Text>
               </HStack>
             </VStack>
             <Button
