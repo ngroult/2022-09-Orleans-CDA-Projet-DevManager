@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
+import { StatusBar } from 'react-native';
 import { extendTheme, NativeBaseProvider, View } from 'native-base';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import LoginScreen from './src/screens/LoginScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginScreen from './src/screens/LoginScreen';
 import OverviewScreen from './src/screens/OverviewScreen';
+import RegisterScreen from './src/screens/RegisterScreen';
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -144,10 +146,12 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={theme}>
+      <StatusBar backgroundColor="#00000000" barStyle="light-content" />
       <View onLayout={onLayoutRootView}></View>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
           <Stack.Screen name="Overview" component={OverviewScreen} />
         </Stack.Navigator>
       </NavigationContainer>
