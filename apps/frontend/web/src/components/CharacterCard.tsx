@@ -9,27 +9,30 @@ import {
   Heading,
   Image,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import {
-  Character,
+  GameCharacter,
   Room,
   ResourceUsed,
   ResourceProduced,
-  GameEvent,
 } from '@apps/backend-api';
 import { useState, useEffect } from 'react';
+import CharacterModal from './popups/CharacterModal';
+import BadgeResource from './BadgeResource';
 
 function CharacterCard({
-  character,
+  gameCharacter,
   room,
 }: {
-  character: Character;
+  gameCharacter: GameCharacter;
   room: Room;
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
   const [resourcesProduced, setResourcesProduced] = useState<
     ResourceProduced[]
   >([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -68,118 +71,136 @@ function CharacterCard({
   }, []);
 
   return (
-    <Card
-      direction={{ base: 'column', sm: 'row' }}
-      overflow="hidden"
-      bg={`${room.color}.500`}
-      w="100%"
-    >
-      <Box
-        borderRightRadius="10px"
-        w="100px"
-        h="100px"
-        bg={`${room.color}.900`}
-        shadow="2xl"
+    <>
+      <Card
+        direction={{ base: 'column', sm: 'row' }}
+        overflow="hidden"
+        bg={`${room.color}.500`}
+        w="100%"
       >
-        <Image
-          boxSize="80%"
-          m="auto"
-          mt="2.5"
-          src={character.image}
-          alt={character.name}
-        />
-      </Box>
+        <Box
+          borderRightRadius="10px"
+          boxSize="10%"
+          bg={`${room.color}.900`}
+          shadow="2xl"
+          onClick={onOpen}
+        >
+          <Image
+            m="auto"
+            mt="2.5"
+            src={gameCharacter.character.image}
+            alt={gameCharacter.character.name}
+          />
+        </Box>
 
-      <CardBody>
-        <Flex alignItems="center" w="full" justifyContent="space-between">
-          <Box>
-            <>
-              <Heading size="md" mt="1">
-                {character.name}
-              </Heading>
+        <CardBody>
+          <Flex alignItems="center" w="full" justifyContent="space-between">
+            <Box>
+              <>
+                <Heading size="md" mt="1">
+                  {gameCharacter.character.name}
+                </Heading>
 
-              {resourcesUsed && resourcesProduced ? (
-                <HStack>
-                  {resourcesProduced
-                    .filter(
-                      (resourceProduced) =>
-                        resourceProduced.character.id === character.id
-                    )
-                    .map((resourceProduced) => (
-                      <Badge
-                        borderRadius="5px"
-                        px="2"
-                        bgColor="green.900"
-                        key={resourceProduced.id}
-                      >
-                        <Flex align="center">
-                          <Image
-                            src={resourceProduced.resource.image}
-                            alt={resourceProduced.resource.name}
-                            boxSize="30px"
-                            p="1"
-                          />
-                          <Text>{resourceProduced.quantity}</Text>
-                        </Flex>
-                      </Badge>
-                    ))}
+                {resourcesUsed && resourcesProduced ? (
+                  <HStack>
+                    {resourcesProduced
+                      .filter(
+                        (resourceProduced) =>
+                          resourceProduced.character.id ===
+                          gameCharacter.character.id
+                      )
+                      .map((resourceProduced) => (
+                        // <Badge
+                        //   borderRadius="5px"
+                        //   px="2"
+                        //   bgColor="green.900"
+                        //   key={resourceProduced.id}
+                        // >
+                        //   <Flex align="center">
+                        //     <Image
+                        //       src={resourceProduced.resource.image}
+                        //       alt={resourceProduced.resource.name}
+                        //       boxSize="30px"
+                        //       p="1"
+                        //     />
+                        //     <Text>{resourceProduced.quantity}</Text>
+                        //   </Flex>
+                        // </Badge>
+                        // <BadgeResource resource={resourceProduced}/>
+                        <BadgeResource
+                          key={resourceProduced.id}
+                          color={'green.900'}
+                          image={resourceProduced.resource.image}
+                          alt={resourceProduced.resource.name}
+                          text={resourceProduced.quantity}
+                        />
+                      ))}
 
-                  {resourcesUsed
-                    .filter(
-                      (resourceUsed) =>
-                        resourceUsed.character.id === character.id
-                    )
-                    .map((resourceUsed) => (
-                      <Badge
-                        borderRadius="5px"
-                        px="2"
-                        bgColor="red.900"
-                        key={resourceUsed.id}
-                      >
-                        <Flex align="center">
-                          <Image
-                            src={resourceUsed.resource.image}
-                            alt={resourceUsed.resource.name}
-                            boxSize="30px"
-                            p="1"
-                          />
-                          <Text>{resourceUsed.quantity}</Text>
-                        </Flex>
-                      </Badge>
-                    ))}
-                </HStack>
-              ) : (
-                <></>
-              )}
-            </>
-          </Box>
-          <Box>
-            <Badge
-              fontSize="xl"
-              borderRadius="full"
-              px="2"
-              bgColor="gold.200"
-              mx="5"
-            >
-              <Flex align="center">
-                <Image src="/dollar.png" alt="dollar" boxSize="30px" p="1" />
-                {character.price}
-              </Flex>
-            </Badge>
-
-            <Button
-              // variant="unstyled"
-              bg={`${room.color}.900`}
-              boxShadow="2xl"
-              size="lg"
-              color="white"
-            >
-              {'+ 1'}
-            </Button>
-          </Box>
-        </Flex>
-      </CardBody>
-    </Card>
+                    {resourcesUsed
+                      .filter(
+                        (resourceUsed) =>
+                          resourceUsed.character.id ===
+                          gameCharacter.character.id
+                      )
+                      .map((resourceUsed) => (
+                        // <Badge
+                        //   borderRadius="5px"
+                        //   px="2"
+                        //   bgColor="red.900"
+                        //   key={resourceUsed.id}
+                        // >
+                        //   <Flex align="center">
+                        //     <Image
+                        //       src={resourceUsed.resource.image}
+                        //       alt={resourceUsed.resource.name}
+                        //       boxSize="30px"
+                        //       p="1"
+                        //     />
+                        //     <Text>{resourceUsed.quantity}</Text>
+                        //   </Flex>
+                        // </Badge>
+                        // <BadgeResource resource={resourceUsed}/>
+                        <BadgeResource
+                          key={resourceUsed.id}
+                          color={'red.900'}
+                          image={resourceUsed.resource.image}
+                          alt={resourceUsed.resource.name}
+                          text={resourceUsed.quantity}
+                        />
+                      ))}
+                  </HStack>
+                ) : (
+                  <></>
+                )}
+              </>
+            </Box>
+            <Box>
+              <Badge fontSize="xl" borderRadius="full" bgColor="gold.200">
+                <Flex align="center">
+                  <Image src="/dollar.png" alt="dollar" boxSize="30px" p="1" />
+                  {gameCharacter.character.price}
+                </Flex>
+              </Badge>
+              <Button
+                bg={`${room.color}.900`}
+                boxShadow="2xl"
+                size="lg"
+                color="white"
+              >
+                {'+ 1'}
+              </Button>
+            </Box>
+          </Flex>
+        </CardBody>
+      </Card>
+      <CharacterModal
+        isOpen={isOpen}
+        onClose={onClose}
+        gameCharacter={gameCharacter}
+        resourcesUsed={resourcesUsed}
+        resourcesProduced={resourcesProduced}
+      />
+    </>
   );
 }
 

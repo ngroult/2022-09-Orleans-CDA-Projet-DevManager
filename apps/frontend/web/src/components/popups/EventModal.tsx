@@ -1,7 +1,7 @@
+import { GameEvent, IsBonusMalus } from '@apps/backend-api';
 import {
   Badge,
   Box,
-  Button,
   Center,
   Flex,
   Heading,
@@ -11,51 +11,49 @@ import {
   ModalCloseButton,
   ModalContent,
   Text,
-  useDisclosure,
+  HStack,
 } from '@chakra-ui/react';
+import BadgeResource from '../BadgeResource';
 
-function EventModal() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+function EventModal({
+  isOpen,
+  onClose,
+  gameEvent,
+  isBonusMalus,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  gameEvent: GameEvent;
+  isBonusMalus: IsBonusMalus[];
+}) {
   return (
     <Box>
-      <Button onClick={onOpen}>{'Open Modal'}</Button>
-
-      <Modal isOpen={isOpen} onClose={onClose} size={'full'}>
-        <ModalContent bg={'yellow.200'}>
+      <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+        <ModalContent bg={`${gameEvent.event.room.color}.200`}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>
             <Box h={'calc(100vh-7rem)'}>
               <Center>
                 <Image
-                  boxSize="35%"
+                  boxSize="20%"
                   m="auto"
                   mt="2.5"
-                  src="/hackathon.png"
-                  alt="hackathon image"
+                  src={gameEvent.event.image}
+                  alt={gameEvent.event.label}
                 />
               </Center>
               <Center>
                 <Heading size="md" py={'10'}>
-                  {'Hackaton'}
+                  {gameEvent.event.name}
                 </Heading>
               </Center>
-              <Text textAlign={'center'}>
-                {
-                  'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veritatis maxime fugiat pariatur aliquid, ut ratione neque? Quamlaudantium ipsa velit, placeat reiciendis rerum, totam quo dictaexpedita itaque ea eius?'
-                }
-              </Text>
+              <Text textAlign={'center'}>{gameEvent.event.description}</Text>
               <Center>
                 <Flex py={'10'}>
-                  <Text mr={'3'} fontWeight={'extrabold'}>
+                  <Text mr={'3'} fontSize={'lg'} as="b">
                     {'Current price:'}
                   </Text>
-                  <Badge
-                    fontSize="xl"
-                    borderRadius="full"
-                    px="2"
-                    colorScheme="yellow"
-                    marginEnd="5"
-                  >
+                  <Badge borderRadius="full" bgColor="gold.200">
                     <Flex align="center">
                       <Image
                         src="/dollar.png"
@@ -63,59 +61,45 @@ function EventModal() {
                         boxSize="30px"
                         p="1"
                       />
-                      {'$100'}
+                      <Text fontSize={'lg'} as="b">
+                        {`$ ${gameEvent.event.price}`}
+                      </Text>
                     </Flex>
                   </Badge>
-                  <Text fontWeight={'extrabold'}>{'/ event'}</Text>
+                  <Text>{'/ event'}</Text>
                 </Flex>
               </Center>
               <Center>
-                <Text fontWeight={'extrabold'}>
+                <Text fontSize={'lg'} as="b">
                   {'Ressource produced and used:'}
                 </Text>
               </Center>
               <Center>
-                <Box pt={'8'}>
-                  <Badge borderRadius="full" px="2" colorScheme="teal">
-                    <Flex align="center">
-                      <Image
-                        src="/coffee.png"
-                        alt="coffee"
-                        boxSize="30px"
-                        p="1"
-                      />
-                      <Text>{'Coffee'}</Text>
-                    </Flex>
-                  </Badge>
-                  <Badge borderRadius="full" px="2" colorScheme="teal">
-                    <Flex align="center">
-                      <Image
-                        src="/coffee.png"
-                        alt="coffee"
-                        boxSize="30px"
-                        p="1"
-                      />
-                      <Text>{'Coffee'}</Text>
-                    </Flex>
-                  </Badge>
-                  <Badge borderRadius="full" px="2" colorScheme="red">
-                    <Flex align="center">
-                      <Image
-                        src="/coffee.png"
-                        alt="coffee"
-                        boxSize="30px"
-                        p="1"
-                      />
-                      <Text>{'Coffee'}</Text>
-                    </Flex>
-                  </Badge>
+                <Box mb="30%">
+                  {isBonusMalus ? (
+                    <HStack>
+                      {isBonusMalus
+                        .filter((isBM) => isBM.event.id === gameEvent.event.id)
+                        .map((isBM) => (
+                          <BadgeResource
+                            key={isBM.id}
+                            color={isBM.isBonus ? `green.900` : `red.900`}
+                            image={isBM.character.image}
+                            alt={isBM.label}
+                            text={isBM.name}
+                          />
+                        ))}
+                    </HStack>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
               </Center>
             </Box>
             <Box pos={'absolute'} bottom={'0'} w={'100%'}>
-              <Box h={'4rem'} bg={'blue'}></Box>
-              <Box h={'2rem'} bg={'green'}></Box>
-              <Box h={'1rem'} bg={'pink'}></Box>
+              <Box h={'4rem'} bg={`${gameEvent.event.room.color}.300`}></Box>
+              <Box h={'2rem'} bg={`${gameEvent.event.room.color}.500`}></Box>
+              <Box h={'1rem'} bg={`${gameEvent.event.room.color}.900`}></Box>
             </Box>
           </ModalBody>
         </ModalContent>

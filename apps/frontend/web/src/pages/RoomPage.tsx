@@ -3,12 +3,13 @@ import NavbarRooms from '../components/NavbarRooms';
 import ResourcesBar from '../components/ResourcesBar';
 import { Box, Flex, VStack, Image } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { Room, Character, GameEvent } from '@apps/backend-api';
+import { Room, GameCharacter, GameEvent } from '@apps/backend-api';
 import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard';
+import EventCard from '../components/EventCard';
 
 const RoomPage = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characters, setCharacters] = useState<GameCharacter[]>([]);
   const [thisRoom, setThisRoom] = useState<Room>();
   const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
 
@@ -32,7 +33,7 @@ const RoomPage = () => {
 
     const handleCharacters = async () => {
       try {
-        const res = await fetch(`/api/characters`, {
+        const res = await fetch(`/api/game-characters`, {
           method: 'GET',
           signal: abortController.signal,
         });
@@ -69,19 +70,33 @@ const RoomPage = () => {
       <Flex pr="80px" justifyContent="space-between">
         <Navbar />
         <NavbarRooms />
-        <Box boxSize="50%">
+        <Box boxSize="50%" display={{ base: 'column', sm: 'none' }}>
           <Image src="/overview.jpg" alt="overview" />
         </Box>
-        {thisRoom ? (
+        {thisRoom && gameEvents ? (
           <>
             <Box bgColor={`${thisRoom.color}.200`} p="50px">
               <VStack>
                 {characters
-                  .filter((char) => thisRoom.id === char.room.id)
-                  .map((character) => (
+                  .filter(
+                    (gameCharacter) =>
+                      thisRoom.id === gameCharacter.character.room.id
+                  )
+                  .map((gameCharacter) => (
                     <CharacterCard
-                      key={character.id}
-                      character={character}
+                      key={gameCharacter.character.id}
+                      gameCharacter={gameCharacter}
+                      room={thisRoom}
+                    />
+                  ))}
+                {gameEvents
+                  .filter(
+                    (gameEvent) => thisRoom.id === gameEvent.event.room.id
+                  )
+                  .map((gameEvent) => (
+                    <EventCard
+                      key={gameEvent.id}
+                      gameEvent={gameEvent}
                       room={thisRoom}
                     />
                   ))}
