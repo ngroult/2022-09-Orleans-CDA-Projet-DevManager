@@ -76,7 +76,7 @@ function EventModal({
               </Center>
               <Center>
                 <Box mb="30%">
-                  {isBonusMalus ? (
+                  {isBonusMalus && (
                     <HStack>
                       {isBonusMalus
                         .filter((isBM) => isBM.event.id === gameEvent.event.id)
@@ -90,8 +90,6 @@ function EventModal({
                           />
                         ))}
                     </HStack>
-                  ) : (
-                    <></>
                   )}
                 </Box>
               </Center>

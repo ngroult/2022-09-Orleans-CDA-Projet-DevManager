@@ -1,19 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Center,
-  Flex,
-  Heading,
-  Image,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  Text,
-  HStack,
-} from '@chakra-ui/react';
-import { ResourceUsed, ResourceProduced } from '@apps/backend-api';
+import { Badge, Flex, Image, Text } from '@chakra-ui/react';
 
 function BadgeResource({
   color,

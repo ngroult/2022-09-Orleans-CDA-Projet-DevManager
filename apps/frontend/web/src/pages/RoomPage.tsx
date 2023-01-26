@@ -73,38 +73,32 @@ const RoomPage = () => {
         <Box boxSize="50%" display={{ base: 'column', sm: 'none' }}>
           <Image src="/overview.jpg" alt="overview" />
         </Box>
-        {thisRoom && gameEvents ? (
-          <>
-            <Box bgColor={`${thisRoom.color}.200`} p="50px">
-              <VStack>
-                {characters
-                  .filter(
-                    (gameCharacter) =>
-                      thisRoom.id === gameCharacter.character.room.id
-                  )
-                  .map((gameCharacter) => (
-                    <CharacterCard
-                      key={gameCharacter.character.id}
-                      gameCharacter={gameCharacter}
-                      room={thisRoom}
-                    />
-                  ))}
-                {gameEvents
-                  .filter(
-                    (gameEvent) => thisRoom.id === gameEvent.event.room.id
-                  )
-                  .map((gameEvent) => (
-                    <EventCard
-                      key={gameEvent.id}
-                      gameEvent={gameEvent}
-                      room={thisRoom}
-                    />
-                  ))}
-              </VStack>
-            </Box>
-          </>
-        ) : (
-          <Box></Box>
+        {thisRoom && gameEvents && (
+          <Box bgColor={`${thisRoom.color}.200`} p="50px">
+            <VStack>
+              {characters
+                .filter(
+                  (gameCharacter) =>
+                    thisRoom.id === gameCharacter.character.room.id
+                )
+                .map((gameCharacter) => (
+                  <CharacterCard
+                    key={gameCharacter.character.id}
+                    gameCharacter={gameCharacter}
+                    room={thisRoom}
+                  />
+                ))}
+              {gameEvents
+                .filter((gameEvent) => thisRoom.id === gameEvent.event.room.id)
+                .map((gameEvent) => (
+                  <EventCard
+                    key={gameEvent.id}
+                    gameEvent={gameEvent}
+                    room={thisRoom}
+                  />
+                ))}
+            </VStack>
+          </Box>
         )}
       </Flex>
     </Box>

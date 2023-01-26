@@ -8,7 +8,6 @@ import {
   Flex,
   Heading,
   Image,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import {
@@ -96,49 +95,44 @@ function CharacterCard({
         <CardBody>
           <Flex alignItems="center" w="full" justifyContent="space-between">
             <Box>
-              <>
-                <Heading size="md" mt="1">
-                  {gameCharacter.character.name}
-                </Heading>
+              <Heading size="md" mt="1">
+                {gameCharacter.character.name}
+              </Heading>
 
-                {resourcesUsed && resourcesProduced ? (
-                  <HStack>
-                    {resourcesProduced
-                      .filter(
-                        (resourceProduced) =>
-                          resourceProduced.character.id ===
-                          gameCharacter.character.id
-                      )
-                      .map((resourceProduced) => (
-                        <BadgeResource
-                          key={resourceProduced.id}
-                          color={'green.900'}
-                          image={resourceProduced.resource.image}
-                          alt={resourceProduced.resource.name}
-                          text={resourceProduced.quantity}
-                        />
-                      ))}
+              {resourcesUsed && resourcesProduced && (
+                <HStack>
+                  {resourcesProduced
+                    .filter(
+                      (resourceProduced) =>
+                        resourceProduced.character.id ===
+                        gameCharacter.character.id
+                    )
+                    .map((resourceProduced) => (
+                      <BadgeResource
+                        key={resourceProduced.id}
+                        color={'green.900'}
+                        image={resourceProduced.resource.image}
+                        alt={resourceProduced.resource.name}
+                        text={resourceProduced.quantity}
+                      />
+                    ))}
 
-                    {resourcesUsed
-                      .filter(
-                        (resourceUsed) =>
-                          resourceUsed.character.id ===
-                          gameCharacter.character.id
-                      )
-                      .map((resourceUsed) => (
-                        <BadgeResource
-                          key={resourceUsed.id}
-                          color={'red.900'}
-                          image={resourceUsed.resource.image}
-                          alt={resourceUsed.resource.name}
-                          text={resourceUsed.quantity}
-                        />
-                      ))}
-                  </HStack>
-                ) : (
-                  <></>
-                )}
-              </>
+                  {resourcesUsed
+                    .filter(
+                      (resourceUsed) =>
+                        resourceUsed.character.id === gameCharacter.character.id
+                    )
+                    .map((resourceUsed) => (
+                      <BadgeResource
+                        key={resourceUsed.id}
+                        color={'red.900'}
+                        image={resourceUsed.resource.image}
+                        alt={resourceUsed.resource.name}
+                        text={resourceUsed.quantity}
+                      />
+                    ))}
+                </HStack>
+              )}
             </Box>
             <Box>
               <Badge fontSize="xl" borderRadius="full" bgColor="gold.200">

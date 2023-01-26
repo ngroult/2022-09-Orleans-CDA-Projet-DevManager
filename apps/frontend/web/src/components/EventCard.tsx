@@ -8,7 +8,6 @@ import {
   Flex,
   Heading,
   Image,
-  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import { Room, GameEvent, IsBonusMalus } from '@apps/backend-api';
@@ -68,29 +67,25 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
         <CardBody>
           <Flex alignItems="center" w="full" justifyContent="space-between">
             <Box>
-              <>
-                <Heading size="md" mt="1">
-                  {gameEvent.event.name}
-                </Heading>
+              <Heading size="md" mt="1">
+                {gameEvent.event.name}
+              </Heading>
 
-                {isBonusMalus ? (
-                  <HStack>
-                    {isBonusMalus
-                      .filter((isBM) => isBM.event.id === gameEvent.event.id)
-                      .map((isBM) => (
-                        <BadgeResource
-                          key={isBM.id}
-                          color={isBM.isBonus ? `green.900` : `red.900`}
-                          image={isBM.character.image}
-                          alt={isBM.label}
-                          text={isBM.name}
-                        />
-                      ))}
-                  </HStack>
-                ) : (
-                  <></>
-                )}
-              </>
+              {isBonusMalus && (
+                <HStack>
+                  {isBonusMalus
+                    .filter((isBM) => isBM.event.id === gameEvent.event.id)
+                    .map((isBM) => (
+                      <BadgeResource
+                        key={isBM.id}
+                        color={isBM.isBonus ? `green.900` : `red.900`}
+                        image={isBM.character.image}
+                        alt={isBM.label}
+                        text={isBM.name}
+                      />
+                    ))}
+                </HStack>
+              )}
             </Box>
             <Box>
               <Badge fontSize="xl" borderRadius="full" bgColor="gold.200">

@@ -1,7 +1,6 @@
 import {
   Badge,
   Box,
-  Button,
   Center,
   Flex,
   Heading,
