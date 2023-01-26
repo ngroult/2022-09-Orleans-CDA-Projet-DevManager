@@ -13,7 +13,10 @@ import { ResourcesModule } from './resources/resources.module';
 import { GameResourcesModule } from './game-resources/game-resources.module';
 import { ResourcesUsedModule } from './resources-used/resources-used.module';
 import { ResourcesProducedModule } from './resources-produced/resources-produced.module';
-import entities from '../entities';
+import { GameEventsModule } from './game-events/game-events.module';
+import entities, { GameCharacter } from '../entities';
+import { EventsModule } from './events/events.module';
+import { IsBonusMalusModule } from './is-bonus-malus/is-bonus-malus.module';
 
 @Module({
   imports: [
@@ -44,6 +47,10 @@ import entities from '../entities';
     GameResourcesModule,
     ResourcesUsedModule,
     ResourcesProducedModule,
+    GameEventsModule,
+    EventsModule,
+    GameCharacter,
+    IsBonusMalusModule,
   ],
   controllers: [AppController],
   providers: [AppService],
