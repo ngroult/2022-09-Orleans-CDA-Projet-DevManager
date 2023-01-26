@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Image } from 'src/entities/image.entity';
+import { Image } from '../../entities/image.entity';
 import { Repository } from 'typeorm';
 // import { CreateImageDto } from './dto/create-image.dto';
 // import { UpdateImageDto } from './dto/update-image.dto';
