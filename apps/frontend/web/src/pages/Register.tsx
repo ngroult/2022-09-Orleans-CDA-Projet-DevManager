@@ -1,8 +1,7 @@
 import {
-  Box,
   Button,
-  Center,
   Divider,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -12,7 +11,6 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -43,96 +41,105 @@ function Register() {
   };
 
   return (
-    <Box>
-      <Center>
-        <VStack h="20vh" justify="center">
-          <Heading fontSize="3xl">{'DevManager'}</Heading>
-          <Text color="#797AA6" fontSize="xl">
-            {'Register'}
-          </Text>
-        </VStack>
-      </Center>
-      <Box bg="#E4E4ED" h="80vh">
-        <Center>
-          <FormControl w="75%" pt="14">
-            <Center w={'100%'}>
-              <VStack width={{ base: '100%', md: '75%' }} h="100%">
-                <FormLabel alignSelf={'start'} mb="0">
-                  {'Username'}
-                </FormLabel>
-                <Input
-                  placeholder="codelande"
-                  bg="white"
-                  type="text"
-                  value={username}
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
-                />
-                <FormLabel alignSelf={'start'} pt="4" mb="0">
-                  {'E-mail'}
-                </FormLabel>
-                <Input
-                  placeholder="codelande@devmanager.com"
-                  bg="white"
-                  type="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-                {!isError ? (
-                  <FormHelperText>{"We don't share tour email"}</FormHelperText>
-                ) : (
-                  <FormErrorMessage>{'Email is required.'}</FormErrorMessage>
-                )}
-                <FormLabel alignSelf={'start'} pt="4" mb="0">
-                  {'Password'}
-                </FormLabel>
-                <InputGroup size="md">
-                  <Input
-                    bg="white"
-                    pr="4.5rem"
-                    type={isShow ? 'text' : 'password'}
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick}>
-                      {isShow ? 'Hide' : 'Show'}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <Center>
-                  <Button
-                    boxShadow="lg"
-                    my="8"
-                    color="white"
-                    bg="#797AA6"
-                    onClick={handleSubmit}
-                  >
-                    {'Create your account'}
-                  </Button>
-                </Center>
-              </VStack>
-            </Center>
-            <Center>
-              <Divider borderColor="9393B7" width="75%" />
-            </Center>
-          </FormControl>
-        </Center>
-        <Center>
-          <Link to="/login">
-            <Text textDecoration={'underline'} py="7">
-              {'Have you already an account?'}
-            </Text>
-          </Link>
-        </Center>
-      </Box>
-    </Box>
+    <Flex flexDir="column" bgColor="blue.200" minH="100vh" alignItems="center">
+      <Flex
+        flexDir="column"
+        alignItems="center"
+        py="3rem"
+        bgColor="#FFF"
+        w="100%"
+      >
+        <Heading fontSize="3xl">{'DevManager'}</Heading>
+        <Text color="blue.900" fontSize="xl">
+          {'Register'}
+        </Text>
+      </Flex>
+
+      <FormControl
+        display="flex"
+        flexDir="column"
+        alignItems="center"
+        justifyContent="center"
+        p="2rem 2rem 0"
+      >
+        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          {'Username'}
+        </FormLabel>
+        <Input
+          maxW="400px"
+          placeholder="Create username..."
+          bgColor="#fff"
+          _placeholder={{ opacity: 0.3 }}
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+
+        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          {'E-mail'}
+        </FormLabel>
+        <Input
+          maxW="400px"
+          placeholder="Enter your email..."
+          bgColor="#fff"
+          _placeholder={{ opacity: 0.3 }}
+          type="email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        {!isError ? (
+          <FormHelperText>{"We don't share tour email"}</FormHelperText>
+        ) : (
+          <FormErrorMessage>{'Email is required.'}</FormErrorMessage>
+        )}
+
+        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          {'Password'}
+        </FormLabel>
+        <InputGroup size="md" maxW="400px">
+          <Input
+            maxW="400px"
+            placeholder="Create your password..."
+            bgColor="#fff"
+            _placeholder={{ opacity: 0.3 }}
+            type={isShow ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={handleClick}>
+              {isShow ? 'Hide' : 'Show'}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+
+        <Button
+          w="13rem"
+          bgColor="blue.900"
+          color="#FFF"
+          fontWeight="normal"
+          my="2rem"
+          boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+          onClick={handleSubmit}
+        >
+          {'Create your account'}
+        </Button>
+      </FormControl>
+
+      <Divider borderColor="grey" width="75%" maxW="400px" />
+
+      <Link to="/login">
+        <Text textDecoration="underline" py="7">
+          {'Have you already an account?'}
+        </Text>
+      </Link>
+    </Flex>
   );
 }
 

@@ -1,9 +1,8 @@
-import { ArrowRightIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
-  Box,
   Button,
-  Center,
   Divider,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -12,7 +11,6 @@ import {
   InputGroup,
   InputRightElement,
   Text,
-  VStack,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
@@ -61,93 +59,101 @@ function Login() {
   };
 
   return (
-    <Box>
-      <Center>
-        <VStack h="20vh" justify="center">
-          <Heading fontSize="3xl">{'DevManager'}</Heading>
-          <Text color="#797AA6" fontSize="xl">
-            {'Login'}
-          </Text>
-        </VStack>
-      </Center>
-      <Box bg="#E4E4ED" h="80vh">
-        <Center w={'100%'}>
-          <FormControl w="75%" pt="14" isInvalid={isError}>
-            <Center w={'100%'}>
-              <VStack width={{ base: '100%', md: '75%' }} h="100%">
-                {isError && <FormErrorMessage>{error}</FormErrorMessage>}
-                <FormLabel alignSelf={'start'} mb="0">
-                  {'Username'}
-                </FormLabel>
-                <Input
-                  placeholder="codelande"
-                  bg="white"
-                  type="text"
-                  value={username}
-                  onChange={(e) => {
-                    setUsername(e.target.value);
-                  }}
-                />
-                <FormLabel alignSelf={'start'} pt="4" mb="0">
-                  {'Password'}
-                </FormLabel>
+    <Flex
+      flexDir="column"
+      bgColor="turquoise.200"
+      minH="100vh"
+      alignItems="center"
+    >
+      <Flex
+        flexDir="column"
+        alignItems="center"
+        py="3rem"
+        bgColor="#FFF"
+        w="100%"
+      >
+        <Heading fontSize="3xl">{'DevManager'}</Heading>
+        <Text color="turquoise.900" fontSize="xl">
+          {'Login'}
+        </Text>
+      </Flex>
 
-                <InputGroup size="md">
-                  <Input
-                    bg="white"
-                    pr="4.5rem"
-                    type={show ? 'text' : 'password'}
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                    }}
-                  />
-                  <InputRightElement width="4.5rem">
-                    <Button h="1.75rem" size="sm" onClick={handleClick} me="1">
-                      {show ? (
-                        <div>
-                          {'Hide'} <ViewOffIcon ms="0.5" />
-                        </div>
-                      ) : (
-                        <div>
-                          {'Show'} <ViewIcon ms="0.5" />
-                        </div>
-                      )}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                <Center>
-                  <Button
-                    boxShadow="lg"
-                    my="8"
-                    color="white"
-                    bg="#797AA6"
-                    onClick={handleSubmit}
-                  >
-                    {'Login'}
-                    <ArrowRightIcon ms="1.5" boxSize="3" />
-                  </Button>
-                </Center>
-                <Center>
-                  <Divider borderColor="#9393B7" width="75%" />
-                </Center>
-              </VStack>
-            </Center>
-            <Center>
-              <Divider borderColor="9393B7" width="50%" />
-            </Center>
-          </FormControl>
-        </Center>
-        <Center>
-          <Link to="/register">
-            <Text textDecoration={'underline'} py="7">
-              {'Not register yet?'}
-            </Text>
-          </Link>
-        </Center>
-      </Box>
-    </Box>
+      <FormControl
+        display="flex"
+        flexDir="column"
+        alignItems="center"
+        justifyContent="center"
+        p="2rem 2rem 0"
+        isInvalid={isError}
+      >
+        {isError && <FormErrorMessage>{error}</FormErrorMessage>}
+
+        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          {'Username'}
+        </FormLabel>
+        <Input
+          maxW="400px"
+          placeholder="Enter username..."
+          bgColor="#fff"
+          _placeholder={{ opacity: 0.3 }}
+          type="text"
+          value={username}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+        />
+
+        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          {'Password'}
+        </FormLabel>
+        <InputGroup size="md" maxW="400px">
+          <Input
+            maxW="400px"
+            placeholder="Enter password..."
+            bgColor="#fff"
+            _placeholder={{ opacity: 0.3 }}
+            type={show ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={handleClick} me="1">
+              {show ? (
+                <div>
+                  {'Hide'} <ViewOffIcon ms="0.5" />
+                </div>
+              ) : (
+                <div>
+                  {'Show'} <ViewIcon ms="0.5" />
+                </div>
+              )}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+
+        <Button
+          w="10rem"
+          bgColor="turquoise.900"
+          color="#FFF"
+          fontWeight="normal"
+          my="2rem"
+          boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+          onClick={handleSubmit}
+        >
+          {'Sign in'}
+        </Button>
+      </FormControl>
+
+      <Divider borderColor="grey" width="75%" maxW="400px" />
+
+      <Link to="/register">
+        <Text textDecoration="underline" py="7">
+          {'You are not register yet?'}
+        </Text>
+      </Link>
+    </Flex>
   );
 }
 
