@@ -3,9 +3,13 @@ import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
 const UserImageFiller = ({
   selectedImage,
   setSelectedImage,
+  formData,
+  setFormData,
 }: {
   selectedImage: string;
   setSelectedImage: (value: string) => void;
+  formData: any;
+  setFormData: any;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
@@ -46,7 +50,11 @@ const UserImageFiller = ({
         const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
         return (
           <Box as="label" key={index}>
-            <input {...getInputProps()} hidden />
+            <input
+              {...getInputProps()}
+              hidden
+              onChange={(e) => setFormData({ imageId: e.target.value })}
+            />
             <Box
               {...getCheckboxProps()}
               w="4.7rem"

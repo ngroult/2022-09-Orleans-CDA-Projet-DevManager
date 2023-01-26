@@ -25,6 +25,11 @@ const AccountSettings = () => {
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
 
+  const getFormData = () => {
+    // do something
+  };
+  const [formData, setFormData] = useState({});
+
   return (
     <>
       <Flex flexDir="column" w="100%" h="100vh">
@@ -122,26 +127,34 @@ const AccountSettings = () => {
           <UserImageFiller
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
+            formData={formData}
+            setFormData={setFormData}
           />
         }
         submitText="Save"
-        submitFunction={() => setGamerImage(selectedImage)}
+        action={getFormData()}
       />
       <SlideUpModal
         isOpen={userContact.isOpen}
         onClose={userContact.onClose}
         pageColor="#42B7B4"
         title="Edit your contact details"
-        content={<UserContactFiller />}
+        content={
+          <UserContactFiller formData={formData} setFormData={setFormData} />
+        }
         submitText="Save"
+        action={getFormData()}
       />
       <SlideUpModal
         isOpen={userPassword.isOpen}
         onClose={userPassword.onClose}
         pageColor="#42B7B4"
         title="Edit your password"
-        content={<UserPasswordFiller />}
+        content={
+          <UserPasswordFiller formData={formData} setFormData={setFormData} />
+        }
         submitText="Save"
+        action={getFormData()}
       />
       <SlideUpModal
         isOpen={deleteAccount.isOpen}

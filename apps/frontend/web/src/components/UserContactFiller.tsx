@@ -1,6 +1,6 @@
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
 
-const UserContactFiller = () => {
+const UserContactFiller = (formData: any, setFormData: any) => {
   return (
     <InputGroup
       display="flex"
@@ -18,6 +18,7 @@ const UserContactFiller = () => {
         placeholder="Username..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) => setFormData({ username: e.target.value })}
       />
       <FormLabel htmlFor="email" textAlign="left" w="100%" m="0.5rem 0 0">
         {'E-mail :'}
@@ -28,6 +29,7 @@ const UserContactFiller = () => {
         placeholder="E-mail..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) => setFormData({ email: e.target.value })}
       />
     </InputGroup>
   );

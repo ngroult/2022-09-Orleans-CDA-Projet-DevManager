@@ -1,6 +1,6 @@
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
 
-const UserPasswordFiller = () => {
+const UserPasswordFiller = (formData: any, setFormData: any) => {
   return (
     <InputGroup
       display="flex"
@@ -28,6 +28,7 @@ const UserPasswordFiller = () => {
         placeholder="New password..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) => setFormData({ password: e.target.value })}
       />
     </InputGroup>
   );
