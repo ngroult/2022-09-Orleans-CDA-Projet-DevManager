@@ -66,9 +66,9 @@ const RoomPage = () => {
   return (
     <Box>
       <ResourcesBar />
-      <Navbar />
-      <NavbarRooms />
-      <Flex px="80px" justifyContent="space-between">
+      <Flex pr="80px" justifyContent="space-between">
+        <Navbar />
+        <NavbarRooms />
         <Box boxSize="50%">
           <Image src="/overview.jpg" alt="overview" />
         </Box>
