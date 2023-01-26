@@ -12,7 +12,7 @@ export class ResourcesUsedService {
     private resourcesUsedRepository: Repository<ResourceUsed>,
     @InjectRepository(Resource)
     private resourcesRepository: Repository<Resource>,
-    @InjectRepository(ResourceUsed)
+    @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
   ) {}
 
@@ -31,7 +31,7 @@ export class ResourcesUsedService {
 
     if (character && resource) {
       this.resourcesUsedRepository.save({
-        game: { id: createResourceUsedDto.characterId },
+        character: { id: createResourceUsedDto.characterId },
         resource: { id: createResourceUsedDto.resourceId },
         quantity: 1000,
       });
@@ -40,10 +40,10 @@ export class ResourcesUsedService {
     } else {
       if (character === null)
         errors.errorCharacter =
-          'There is no row with the id of table "character" you try to insert in the table "gameResource".';
+          'There is no row with the id of table "character" you try to insert in the table "resourcesUsed".';
       if (resource === null)
         errors.errorResource =
-          'There is no row with the id of table "resource" you try to insert in the table "gameResource".';
+          'There is no row with the id of table "resource" you try to insert in the table "resourcesUsed".';
       return errors;
     }
   }

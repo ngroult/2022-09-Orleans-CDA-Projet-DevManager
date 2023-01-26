@@ -66,7 +66,7 @@ export class ForgeService {
       description: 'Open Space Description',
       image: '/open_space.png',
       label: 'open_space',
-      color: 'purple.900',
+      color: 'purple',
       price: 5000,
       isExpandable: true,
     });
@@ -75,7 +75,7 @@ export class ForgeService {
       description: 'Offices Description',
       image: '/offices.png',
       label: 'offices',
-      color: 'turquoise.900',
+      color: 'turquoise',
       price: 7500,
       isExpandable: true,
     });
@@ -84,7 +84,7 @@ export class ForgeService {
       description: 'Break Room Description',
       image: '/break_room.png',
       label: 'break_room',
-      color: 'gold.900',
+      color: 'gold',
       price: 10000,
       isExpandable: false,
     });
@@ -95,7 +95,7 @@ export class ForgeService {
       image: '/intern.png',
       price: 1,
       size: 1,
-      idRoom: room1.id,
+      room: { id: room1.id },
     });
     const character2 = await this.charactersRepository.save({
       name: 'Developer',
@@ -103,7 +103,7 @@ export class ForgeService {
       image: '/developer.png',
       price: 100,
       size: 5,
-      idRoom: room1.id,
+      room: { id: room1.id },
     });
     const character3 = await this.charactersRepository.save({
       name: 'Lead developer',
@@ -111,7 +111,7 @@ export class ForgeService {
       image: '/lead_dev.png',
       price: 1000,
       size: 15,
-      idRoom: room1.id,
+      room: { id: room1.id },
     });
     const character4 = await this.charactersRepository.save({
       name: 'Recruiter',
@@ -119,7 +119,7 @@ export class ForgeService {
       image: '/recruiter.png',
       price: 5000,
       size: 5,
-      idRoom: room2.id,
+      room: { id: room2.id },
     });
     const character5 = await this.charactersRepository.save({
       name: 'Salesman',
@@ -127,7 +127,7 @@ export class ForgeService {
       image: '/salesman.png',
       price: 5000,
       size: 5,
-      idRoom: room2.id,
+      room: { id: room2.id },
     });
     const character6 = await this.charactersRepository.save({
       name: 'Delivery man',
@@ -135,7 +135,7 @@ export class ForgeService {
       image: '/delivery_man.png',
       price: 7500,
       size: 5,
-      idRoom: room2.id,
+      room: { id: room2.id },
     });
 
     const resource1 = await this.resourcesRepository.save({
@@ -195,12 +195,6 @@ export class ForgeService {
       quantity: 25,
     });
 
-    // DevDollars used by "More Area"
-    await this.resourcesUsedRepository.save({
-      quantity: 100,
-      resource: { id: resource1.id },
-      // character: { id: character1.id }, // More Area
-    });
     // Energic drinks used by Lead Dev
     await this.resourcesUsedRepository.save({
       quantity: 12,
@@ -239,37 +233,37 @@ export class ForgeService {
     });
 
     // DevDollars produced by Developers
-    await this.resourcesUsedRepository.save({
+    await this.resourcesProducedRepository.save({
       quantity: 100,
       resource: { id: resource1.id },
       character: { id: character2.id },
     });
-    // DevDollars produced by Developers
-    await this.resourcesUsedRepository.save({
+    // DevDollars produced by Lead Dev
+    await this.resourcesProducedRepository.save({
       quantity: 100,
       resource: { id: resource1.id },
       character: { id: character3.id },
     });
     // Energic drinks produced by Delivery man
-    await this.resourcesUsedRepository.save({
+    await this.resourcesProducedRepository.save({
       quantity: 100,
       resource: { id: resource2.id },
       character: { id: character6.id },
     });
     // Coffee produced by Interns
-    await this.resourcesUsedRepository.save({
+    await this.resourcesProducedRepository.save({
       quantity: 100,
       resource: { id: resource3.id },
       character: { id: character1.id },
     });
     // Contracts produced by Salesman
-    await this.resourcesUsedRepository.save({
+    await this.resourcesProducedRepository.save({
       quantity: 100,
       resource: { id: resource4.id },
       character: { id: character5.id },
     });
     // Delivery orders produced by Recruiters
-    await this.resourcesUsedRepository.save({
+    await this.resourcesProducedRepository.save({
       quantity: 100,
       resource: { id: resource5.id },
       character: { id: character4.id },

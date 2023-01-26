@@ -17,21 +17,18 @@ export class Resource {
   @Column('varchar', { length: 50 })
   image: string;
 
-  // @Column()
-  // price: number;
-
   @Column('varchar', { length: 50 })
   color: string;
 
   @OneToMany(() => GameResource, (gameResource) => gameResource.resource)
   gameResources: GameResource[];
 
-  @OneToMany(() => ResourceUsed, (resourcesUsed) => resourcesUsed.resource)
+  @OneToMany(() => ResourceUsed, (resourceUsed) => resourceUsed.resource)
   resourcesUsed: ResourceUsed[];
 
   @OneToMany(
     () => ResourceProduced,
-    (resourcesProduced) => resourcesProduced.resource,
+    (resourceProduced) => resourceProduced.resource,
   )
-  resourcesProduced: ResourceUsed[];
+  resourcesProduced: ResourceProduced[];
 }

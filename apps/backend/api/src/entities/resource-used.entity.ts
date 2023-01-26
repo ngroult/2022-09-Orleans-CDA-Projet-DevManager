@@ -1,5 +1,4 @@
-import { GameResource } from './game-resource.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Resource } from './resource.entity';
 import { Character } from './character.entity';
 
@@ -11,9 +10,9 @@ export class ResourceUsed {
   @Column()
   quantity: number;
 
-  @ManyToMany(() => Resource, (resource) => resource.resourcesUsed)
+  @ManyToOne(() => Resource, (resource) => resource.resourcesUsed)
   resource: Resource;
 
-  @ManyToMany(() => Character, (character) => character.resourcesUsed)
+  @ManyToOne(() => Character, (character) => character.resourcesUsed)
   character: Character;
 }

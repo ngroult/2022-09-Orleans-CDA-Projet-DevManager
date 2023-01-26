@@ -11,6 +11,8 @@ import { CharactersModule } from './characters/character.module';
 import { ForgeModule } from './forge/forge.module';
 import { ResourcesModule } from './resources/resources.module';
 import { GameResourcesModule } from './game-resources/game-resources.module';
+import { ResourcesUsedModule } from './resources-used/resources-used.module';
+import { ResourcesProducedModule } from './resources-produced/resources-produced.module';
 import entities from '../entities';
 
 @Module({
@@ -40,6 +42,8 @@ import entities from '../entities';
     AuthModule,
     ResourcesModule,
     GameResourcesModule,
+    ResourcesUsedModule,
+    ResourcesProducedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

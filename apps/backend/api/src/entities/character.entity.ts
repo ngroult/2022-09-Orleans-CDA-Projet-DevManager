@@ -31,21 +31,18 @@ export class Character {
   @Column()
   size: number;
 
-  @Column()
-  idRoom: number;
-
   @OneToMany(() => GameCharacter, (gameCharacter) => gameCharacter.character)
   gameCharacters: GameCharacter[];
 
   @OneToMany(() => IsBonusMalus, (isBonusMalus) => isBonusMalus.character)
   isBonusMalus: IsBonusMalus[];
 
-  @OneToMany(() => ResourceUsed, (resourcesUsed) => resourcesUsed.character)
+  @OneToMany(() => ResourceUsed, (resourceUsed) => resourceUsed.character)
   resourcesUsed: ResourceUsed[];
 
   @OneToMany(
     () => ResourceProduced,
-    (resourcesProduced) => resourcesProduced.character,
+    (resourceProduced) => resourceProduced.character,
   )
   resourcesProduced: ResourceProduced[];
 
