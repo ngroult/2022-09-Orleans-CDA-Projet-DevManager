@@ -11,7 +11,7 @@ import { GameEventsService } from './game-events.service';
 import { CreateGameEventDto } from './dto/create-game-event.dto';
 import { UpdateGameEventDto } from './dto/update-game-event.dto';
 
-@Controller('game-resources')
+@Controller('game-events')
 export class GameEventsController {
   constructor(private readonly gameEventsService: GameEventsService) {}
 
