@@ -85,7 +85,7 @@ const Assistance = () => {
                 onChange={handleInputChangeTitle}
               />
               {!isErrorTitle ? null : (
-                <FormErrorMessage>Title is required.</FormErrorMessage>
+                <FormErrorMessage>{'Title is required.'}</FormErrorMessage>
               )}
               <FormLabel mt="2" mb="0">
                 {'Message'}

@@ -16,7 +16,7 @@ const About = () => {
         zIndex="-1"
       >
         <Center>
-          <Heading mt="20">{'La team'}</Heading>
+          <Heading mt="20">{'The team'}</Heading>
         </Center>
         <Box
           display="flex"
@@ -77,7 +77,7 @@ const About = () => {
         <Center>
           <Box mt={{ base: '10', md: '40' }} mb="10" as="u">
             <a href="https://www.flaticon.com/fr/" target="_blank">
-              {'Icons Flaticon : Référence des icônes sur ce lien'}
+              {'Icons Flaticon : Icon reference on this link'}
             </a>
           </Box>
         </Center>
