@@ -110,23 +110,6 @@ function CharacterCard({
                           gameCharacter.character.id
                       )
                       .map((resourceProduced) => (
-                        // <Badge
-                        //   borderRadius="5px"
-                        //   px="2"
-                        //   bgColor="green.900"
-                        //   key={resourceProduced.id}
-                        // >
-                        //   <Flex align="center">
-                        //     <Image
-                        //       src={resourceProduced.resource.image}
-                        //       alt={resourceProduced.resource.name}
-                        //       boxSize="30px"
-                        //       p="1"
-                        //     />
-                        //     <Text>{resourceProduced.quantity}</Text>
-                        //   </Flex>
-                        // </Badge>
-                        // <BadgeResource resource={resourceProduced}/>
                         <BadgeResource
                           key={resourceProduced.id}
                           color={'green.900'}
@@ -143,23 +126,6 @@ function CharacterCard({
                           gameCharacter.character.id
                       )
                       .map((resourceUsed) => (
-                        // <Badge
-                        //   borderRadius="5px"
-                        //   px="2"
-                        //   bgColor="red.900"
-                        //   key={resourceUsed.id}
-                        // >
-                        //   <Flex align="center">
-                        //     <Image
-                        //       src={resourceUsed.resource.image}
-                        //       alt={resourceUsed.resource.name}
-                        //       boxSize="30px"
-                        //       p="1"
-                        //     />
-                        //     <Text>{resourceUsed.quantity}</Text>
-                        //   </Flex>
-                        // </Badge>
-                        // <BadgeResource resource={resourceUsed}/>
                         <BadgeResource
                           key={resourceUsed.id}
                           color={'red.900'}

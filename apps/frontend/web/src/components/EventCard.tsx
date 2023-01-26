@@ -30,7 +30,6 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        console.log(jsonResponse);
         setIsBonusMalus(jsonResponse);
       } catch (e) {
         console.log('error handleIsBonusMalus : ' + e);
