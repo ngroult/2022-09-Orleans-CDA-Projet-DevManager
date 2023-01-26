@@ -17,6 +17,7 @@ import { GameEventsModule } from './game-events/game-events.module';
 import entities, { GameCharacter } from '../entities';
 import { EventsModule } from './events/events.module';
 import { IsBonusMalusModule } from './is-bonus-malus/is-bonus-malus.module';
+import { GameCharactersModule } from './game-characters/game-characters.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { IsBonusMalusModule } from './is-bonus-malus/is-bonus-malus.module';
     EventsModule,
     GameCharacter,
     IsBonusMalusModule,
+    GameCharactersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
