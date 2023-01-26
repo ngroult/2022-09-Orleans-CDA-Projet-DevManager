@@ -14,6 +14,7 @@ import Leaderboard from './pages/Leaderboard';
 import AuthContext from './contexts/AuthContext';
 import { useContext, useEffect } from 'react';
 import Protected from './components/Protected';
+import { Box } from '@chakra-ui/react';
 
 const App = () => {
   const { setUser } = useContext(AuthContext);
@@ -43,7 +44,7 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <Box w="100vw" h="100vh">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -93,7 +94,7 @@ const App = () => {
         <Route path="/assistance" element={<Assistance />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
-    </>
+    </Box>
   );
 };
 
