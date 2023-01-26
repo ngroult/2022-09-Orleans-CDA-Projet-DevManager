@@ -24,7 +24,7 @@ const SlideUpModal = ({
   title: string;
   content: ReactElement;
   submitText: string;
-  action?: any;
+  action: () => void;
 }) => {
   return (
     <Modal

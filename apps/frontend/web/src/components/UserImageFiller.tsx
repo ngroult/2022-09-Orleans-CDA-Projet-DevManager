@@ -3,12 +3,10 @@ import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
 const UserImageFiller = ({
   selectedImage,
   setSelectedImage,
-  formData,
   setFormData,
 }: {
   selectedImage: string;
   setSelectedImage: (value: string) => void;
-  formData: any;
   setFormData: any;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup();

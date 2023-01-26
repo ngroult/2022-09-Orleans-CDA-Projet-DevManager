@@ -25,10 +25,19 @@ const AccountSettings = () => {
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
 
-  const getFormData = () => {
-    // do something
+  const updateUserSettings = () => {
+    console.log(formData);
+    fetch('http://localhost:3000/api/user', {
+      method: 'PATCH',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
   };
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
   return (
     <>
@@ -127,34 +136,29 @@ const AccountSettings = () => {
           <UserImageFiller
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
-            formData={formData}
             setFormData={setFormData}
           />
         }
         submitText="Save"
-        action={getFormData()}
+        action={updateUserSettings}
       />
       <SlideUpModal
         isOpen={userContact.isOpen}
         onClose={userContact.onClose}
         pageColor="#42B7B4"
         title="Edit your contact details"
-        content={
-          <UserContactFiller formData={formData} setFormData={setFormData} />
-        }
+        content={<UserContactFiller setFormData={setFormData} />}
         submitText="Save"
-        action={getFormData()}
+        action={updateUserSettings}
       />
       <SlideUpModal
         isOpen={userPassword.isOpen}
         onClose={userPassword.onClose}
         pageColor="#42B7B4"
         title="Edit your password"
-        content={
-          <UserPasswordFiller formData={formData} setFormData={setFormData} />
-        }
+        content={<UserPasswordFiller setFormData={setFormData} />}
         submitText="Save"
-        action={getFormData()}
+        action={updateUserSettings}
       />
       <SlideUpModal
         isOpen={deleteAccount.isOpen}
@@ -163,6 +167,7 @@ const AccountSettings = () => {
         title="Write your password to confirm you want to delete your account"
         content={<DeleteAccountFiller />}
         submitText="Delete"
+        action={updateUserSettings}
       />
     </>
   );
