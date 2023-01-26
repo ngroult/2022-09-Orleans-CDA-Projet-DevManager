@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
-import { GameCharacter, Room, Game, Character } from '../../entities';
+import { GameCharacter, Game, Character } from '../../entities';
 
 @Injectable()
 export class GameCharactersService {
@@ -12,8 +12,6 @@ export class GameCharactersService {
     private gameCharactersRepository: Repository<GameCharacter>,
     @InjectRepository(Game)
     private gamesRepository: Repository<Game>,
-    @InjectRepository(Room)
-    private roomsRepository: Repository<Room>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
   ) {}
@@ -25,13 +23,12 @@ export class GameCharactersService {
       .getOne();
 
     const character = await this.charactersRepository
-      .createQueryBuilder('room')
+      .createQueryBuilder('character')
       .where('character.id = :id', { id: createGameCharacterDto.characterId })
       .getOne();
 
     const errors: {
       errorGame?: string;
-      errorRoom?: string;
       errorCharacter?: string;
     } = {};
 
@@ -55,9 +52,12 @@ export class GameCharactersService {
   }
 
   async findAll() {
-    return this.gameCharactersRepository.find({
-      relations: { game: true, character: true },
-    });
+    return await this.gameCharactersRepository
+      .createQueryBuilder('gameCharacter')
+      .leftJoinAndSelect('gameCharacter.game', 'game')
+      .leftJoinAndSelect('gameCharacter.character', 'character')
+      .leftJoinAndSelect('character.room', 'room')
+      .getMany();
   }
 
   async findOne(id: number): Promise<GameCharacter[]> {
