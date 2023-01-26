@@ -46,7 +46,6 @@ const Navbar = () => {
           position="absolute"
           top="0"
           left="0"
-          overflow="scroll"
         >
           <Box bg="blue.500" w={isNavbarOpen ? '220px' : '60px'} h="80px">
             {isNavbarOpen && (
