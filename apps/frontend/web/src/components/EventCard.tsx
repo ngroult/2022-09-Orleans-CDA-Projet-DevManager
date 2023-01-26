@@ -20,22 +20,6 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
   const [isBonusMalus, setIsBonusMalus] = useState<IsBonusMalus[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // useEffect(() => {
-  //   const abortController = new AbortController();
-  //   const res = fetch('/api/isBonusMalus', {
-  //     method: 'GET',
-  //     signal: abortController.signal,
-  //   })
-  //     .then((data) => data.json())
-  //     .then((data) => {
-  //       console.log(data[0]);
-  //       setIsBonusMalus(data[0]);
-  //     });
-  //   return () => {
-  //     abortController.abort();
-  //   };
-  // }, []);
-
   useEffect(() => {
     const abortController = new AbortController();
 
