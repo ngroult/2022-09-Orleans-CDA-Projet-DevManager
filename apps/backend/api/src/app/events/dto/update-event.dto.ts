@@ -22,5 +22,5 @@ export class UpdateEventDto extends PartialType(CreateEventDto) {
   duration: number;
 
   @IsNotEmpty()
-  idRoom: number;
+  roomId: number;
 }

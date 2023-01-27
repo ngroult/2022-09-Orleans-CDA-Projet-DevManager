@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
 import { GameCharacter, Game, Character } from '../../entities';
@@ -51,7 +51,7 @@ export class GameCharactersService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<GameCharacter[]> {
     return await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
@@ -60,16 +60,21 @@ export class GameCharactersService {
       .getMany();
   }
 
-  async findOne(id: number): Promise<GameCharacter[]> {
-    return this.gameCharactersRepository.find({
-      select: ['quantity', 'game', 'character'],
-      where: [{ id: id }],
-      relations: { game: true, character: true },
-    });
+  async findOne(id: number): Promise<GameCharacter> {
+    return await this.gameCharactersRepository
+      .createQueryBuilder('gameCharacter')
+      .leftJoinAndSelect('gameCharacter.game', 'game')
+      .leftJoinAndSelect('gameCharacter.character', 'character')
+      .leftJoinAndSelect('character.room', 'room')
+      .where('gameCharacter.id = :id', { id })
+      .getOne();
   }
 
-  update(id: number, updateGameCharacterDto: UpdateGameCharacterDto) {
-    return `This action updates a #${id} gameCharacter`;
+  async update(
+    id: number,
+    updateGameCharacterDto: UpdateGameCharacterDto,
+  ): Promise<UpdateResult> {
+    return this.gameCharactersRepository.update(id, updateGameCharacterDto);
   }
 
   async remove(id: number): Promise<void> {

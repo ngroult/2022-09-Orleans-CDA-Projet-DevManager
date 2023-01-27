@@ -52,7 +52,6 @@ export class EventsService {
         'price',
         'duration',
         'isBonusMalus',
-        'room',
       ],
       where: [{ id: id }],
       relations: { room: true },

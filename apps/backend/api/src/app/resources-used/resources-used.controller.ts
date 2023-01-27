@@ -11,7 +11,7 @@ import { ResourcesUsedService } from './resources-used.service';
 import { CreateResourceUsedDto } from './dto/create-resource-used.dto';
 import { UpdateResourceUsedDto } from './dto/update-resource-used.dto';
 
-@Controller('resourcesUsed')
+@Controller('resources-used')
 export class ResourcesUsedController {
   constructor(private readonly resourcesUsedService: ResourcesUsedService) {}
 

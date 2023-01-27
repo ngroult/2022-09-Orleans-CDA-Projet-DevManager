@@ -19,6 +19,7 @@ import { IsBonusMalusModule } from './is-bonus-malus/is-bonus-malus.module';
 import { GameCharactersModule } from './game-characters/game-characters.module';
 import { ImagesModule } from './images/images.module';
 import entities from '../entities';
+import { GameRoomsModule } from './game-rooms/game-rooms.module';
 
 @Module({
   imports: [
@@ -55,6 +56,7 @@ import entities from '../entities';
     IsBonusMalusModule,
     GameCharactersModule,
     ImagesModule,
+    GameRoomsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -42,7 +42,7 @@ export class CharactersService {
 
   async findOne(id: number): Promise<Character[]> {
     return this.charactersRepository.find({
-      select: ['id', 'name', 'description', 'image', 'price', 'size', 'room'],
+      select: ['id', 'name', 'description', 'image', 'price', 'size'],
       where: [{ id: id }],
       relations: { room: true },
     });

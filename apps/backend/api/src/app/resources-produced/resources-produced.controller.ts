@@ -11,7 +11,7 @@ import { ResourcesProducedService } from './resources-produced.service';
 import { CreateResourceProducedDto } from './dto/create-resource-produced.dto';
 import { UpdateResourceProducedDto } from './dto/update-resource-produced.dto';
 
-@Controller('resourcesProduced')
+@Controller('resources-produced')
 export class ResourcesProducedController {
   constructor(
     private readonly resourcesProducedService: ResourcesProducedService,

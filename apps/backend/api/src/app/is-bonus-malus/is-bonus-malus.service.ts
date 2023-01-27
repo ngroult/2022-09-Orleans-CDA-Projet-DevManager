@@ -58,16 +58,7 @@ export class IsBonusMalusService {
 
   async findOne(id: number): Promise<IsBonusMalus[]> {
     return this.isBonusMalusRepository.find({
-      select: [
-        'id',
-        'name',
-        'type',
-        'label',
-        'rate',
-        'isBonus',
-        'event',
-        'character',
-      ],
+      select: ['id', 'name', 'type', 'label', 'rate', 'isBonus'],
       where: [{ id: id }],
       relations: { event: true, character: true },
     });

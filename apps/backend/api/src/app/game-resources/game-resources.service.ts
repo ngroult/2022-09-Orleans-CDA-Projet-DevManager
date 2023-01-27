@@ -56,7 +56,7 @@ export class GameResourcesService {
 
   async findOne(id: number): Promise<GameResource[]> {
     return this.gameResourcesRepository.find({
-      select: ['quantity', 'game', 'resource'],
+      select: ['quantity'],
       where: [{ id: id }],
       relations: { game: true, resource: true },
     });

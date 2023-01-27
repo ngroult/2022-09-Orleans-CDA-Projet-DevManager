@@ -38,7 +38,7 @@ function CharacterCard({
 
     const handleResourcesUsed = async () => {
       try {
-        const res = await fetch(`/api/resourcesUsed`, {
+        const res = await fetch(`/api/resources-used`, {
           method: 'GET',
           signal: abortController.signal,
         });
@@ -50,7 +50,7 @@ function CharacterCard({
     };
     const handleResourcesProduced = async () => {
       try {
-        const res = await fetch(`/api/resourcesProduced`, {
+        const res = await fetch(`/api/resources-produced`, {
           method: 'GET',
           signal: abortController.signal,
         });

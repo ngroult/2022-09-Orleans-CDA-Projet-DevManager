@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { CreateGameEventDto } from './dto/create-game-event.dto';
 import { UpdateGameEventDto } from './dto/update-game-event.dto';
 import { GameEvent, Event, Game } from '../../entities';
@@ -57,16 +57,21 @@ export class GameEventsService {
       .getMany();
   }
 
-  async findOne(id: number): Promise<GameEvent[]> {
-    return this.gameEventsRepository.find({
-      select: ['startDate', 'endDate', 'game', 'event'],
-      where: [{ id: id }],
-      relations: { game: true, event: true },
-    });
+  async findOne(id: number): Promise<GameEvent> {
+    return await this.gameEventsRepository
+      .createQueryBuilder('gameEvent')
+      .leftJoinAndSelect('gameEvent.game', 'game')
+      .leftJoinAndSelect('gameEvent.event', 'event')
+      .leftJoinAndSelect('event.room', 'room')
+      .where('gameEvent.id = :id', { id })
+      .getOne();
   }
 
-  update(id: number, updateGameEventDto: UpdateGameEventDto) {
-    return `This action updates a #${id} gameEvent`;
+  async update(
+    id: number,
+    updateGameEventDto: UpdateGameEventDto,
+  ): Promise<UpdateResult> {
+    return this.gameEventsRepository.update(id, updateGameEventDto);
   }
 
   async remove(id: number): Promise<void> {
