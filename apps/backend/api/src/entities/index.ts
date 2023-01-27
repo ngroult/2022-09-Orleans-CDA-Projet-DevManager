@@ -11,6 +11,7 @@ import { Resource } from './resource.entity';
 import { GameEvent } from './game-event.entity';
 import { ResourceUsed } from './resource-used.entity';
 import { ResourceProduced } from './resource-produced.entity';
+import { Image } from './image.entity';
 
 const entities = [
   Room,
@@ -26,6 +27,7 @@ const entities = [
   GameEvent,
   ResourceUsed,
   ResourceProduced,
+  Image,
 ];
 
 export {
@@ -42,6 +44,7 @@ export {
   GameEvent,
   ResourceUsed,
   ResourceProduced,
+  Image,
 };
 
 export default entities;

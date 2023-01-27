@@ -1,12 +1,11 @@
 import {
   Box,
   HStack,
-  Heading,
   Center,
   Image,
-  IconButton,
   Text,
-  Grid,
+  IconButton,
+  Flex,
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from 'react';
@@ -37,24 +36,28 @@ const NavbarRooms = () => {
   }, []);
 
   return (
-    <Box w={`${isOpen ? '220px' : '60px'}`}>
+    <>
       <Box
         boxShadow="inner"
         bg="blue.200"
-        w={`${isOpen ? '220px' : '60px'}`}
-        h="100vh"
+        w={{ base: '100%', sm: '60px' }}
+        h={{ base: '60px', sm: '100vh' }}
         position="absolute"
-        top="0"
-        right="0"
+        top={{ sm: '0' }}
+        bottom={{ base: '0', sm: 'initial' }}
+        right={{ sm: '0' }}
+        left={{ base: '0', sm: 'initial' }}
         overflow="scroll"
       >
-        <Box bg="blue.500" w={`${isOpen ? '220px' : '60px'}`} h="80px" />
-        <Grid>
+        <Box bg="blue.500" h={{ base: '0px', sm: '80px' }} />
+        <Flex
+          flexDir={{ base: 'row', sm: 'column' }}
+          justifyContent="space-around"
+        >
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
             <Link to="/game/overview">
               <HStack>
                 <Image src="/overview.png" h={iconsSize} w={iconsSize} />
-                {isOpen && <Text pl={paddingBetweenIcons}>{'Overview'}</Text>}
               </HStack>
             </Link>
           </Box>
@@ -68,21 +71,21 @@ const NavbarRooms = () => {
               </Link>
             </Box>
           ))}
-        </Grid>
-        <Center pt="22vh">
-          <IconButton
-            size="xs"
-            aria-label="Search database"
-            icon={isOpen ? <ArrowRightIcon /> : <ArrowLeftIcon />}
-            rounded="100px"
-            bg="blue.500"
-            boxShadow="inner"
-            onClick={() => setIsOpen((prev) => !prev)}
-            pos="absolute"
-          />
-        </Center>
+          <Center pt="22vh">
+            <IconButton
+              size="xs"
+              aria-label="Search database"
+              icon={isOpen ? <ArrowRightIcon /> : <ArrowLeftIcon />}
+              rounded="100px"
+              bg="blue.500"
+              boxShadow="inner"
+              onClick={() => setIsOpen((prev) => !prev)}
+              pos="absolute"
+            />
+          </Center>
+        </Flex>
       </Box>
-    </Box>
+    </>
   );
 };
 

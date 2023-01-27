@@ -67,10 +67,13 @@ const RoomPage = () => {
   return (
     <Box>
       <ResourcesBar />
-      <Flex pr="80px" justifyContent="space-between">
-        <Navbar />
-        <NavbarRooms />
-        <Box boxSize="50%" display={{ base: 'column', sm: 'none' }}>
+      <Navbar />
+      <NavbarRooms />
+      <Flex pt="80px" px="80px" justifyContent="space-between">
+        <Box
+          boxSize="100%"
+          display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
+        >
           <Image src="/overview.jpg" alt="overview" />
         </Box>
         {thisRoom && gameEvents && (

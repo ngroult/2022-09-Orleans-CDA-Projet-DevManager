@@ -14,10 +14,11 @@ import { GameResourcesModule } from './game-resources/game-resources.module';
 import { ResourcesUsedModule } from './resources-used/resources-used.module';
 import { ResourcesProducedModule } from './resources-produced/resources-produced.module';
 import { GameEventsModule } from './game-events/game-events.module';
-import entities, { GameCharacter } from '../entities';
 import { EventsModule } from './events/events.module';
 import { IsBonusMalusModule } from './is-bonus-malus/is-bonus-malus.module';
 import { GameCharactersModule } from './game-characters/game-characters.module';
+import { ImagesModule } from './images/images.module';
+import entities from '../entities';
 
 @Module({
   imports: [
@@ -50,9 +51,10 @@ import { GameCharactersModule } from './game-characters/game-characters.module';
     ResourcesProducedModule,
     GameEventsModule,
     EventsModule,
-    GameCharacter,
+    GameCharactersModule,
     IsBonusMalusModule,
     GameCharactersModule,
+    ImagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

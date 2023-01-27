@@ -16,6 +16,7 @@ import {
   GameRoom,
   ResourceUsed,
   ResourceProduced,
+  Image,
 } from '../../entities';
 
 @Module({
@@ -34,6 +35,7 @@ import {
       GameRoom,
       ResourceUsed,
       ResourceProduced,
+      Image,
     ]),
   ],
   controllers: [ForgeController],

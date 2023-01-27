@@ -54,64 +54,70 @@ function Register() {
       </Center>
       <Box bg="#E4E4ED" h="80vh">
         <Center>
-          <FormControl w="75%" pt="14" isInvalid={isError}>
-            <FormLabel mb="0">{'Username'}</FormLabel>
-            <Input
-              placeholder="codelande"
-              bg="white"
-              type="text"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-            <FormLabel pt="4" mb="0">
-              {'E-mail'}
-            </FormLabel>
-            <Input
-              placeholder="codelande@devmanager.com"
-              bg="white"
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-            {!isError ? (
-              <FormHelperText>{"We don't share tour email"}</FormHelperText>
-            ) : (
-              <FormErrorMessage>{'Email is required.'}</FormErrorMessage>
-            )}
-            <FormLabel pt="4" mb="0">
-              {'Password'}
-            </FormLabel>
-            <InputGroup size="md">
-              <Input
-                bg="white"
-                pr="4.5rem"
-                type={isShow ? 'text' : 'password'}
-                placeholder="Enter password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handleClick}>
-                  {isShow ? 'Hide' : 'Show'}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-            <Center>
-              <Button
-                boxShadow="lg"
-                my="8"
-                color="white"
-                bg="#797AA6"
-                onClick={handleSubmit}
-              >
-                {'Create your account'}
-              </Button>
+          <FormControl w="75%" pt="14">
+            <Center w={'100%'}>
+              <VStack width={{ base: '100%', md: '75%' }} h="100%">
+                <FormLabel alignSelf={'start'} mb="0">
+                  {'Username'}
+                </FormLabel>
+                <Input
+                  placeholder="codelande"
+                  bg="white"
+                  type="text"
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+                  }}
+                />
+                <FormLabel alignSelf={'start'} pt="4" mb="0">
+                  {'E-mail'}
+                </FormLabel>
+                <Input
+                  placeholder="codelande@devmanager.com"
+                  bg="white"
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+                {!isError ? (
+                  <FormHelperText>{"We don't share tour email"}</FormHelperText>
+                ) : (
+                  <FormErrorMessage>{'Email is required.'}</FormErrorMessage>
+                )}
+                <FormLabel alignSelf={'start'} pt="4" mb="0">
+                  {'Password'}
+                </FormLabel>
+                <InputGroup size="md">
+                  <Input
+                    bg="white"
+                    pr="4.5rem"
+                    type={isShow ? 'text' : 'password'}
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleClick}>
+                      {isShow ? 'Hide' : 'Show'}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                <Center>
+                  <Button
+                    boxShadow="lg"
+                    my="8"
+                    color="white"
+                    bg="#797AA6"
+                    onClick={handleSubmit}
+                  >
+                    {'Create your account'}
+                  </Button>
+                </Center>
+              </VStack>
             </Center>
             <Center>
               <Divider borderColor="9393B7" width="75%" />
@@ -120,7 +126,9 @@ function Register() {
         </Center>
         <Center>
           <Link to="/login">
-            <Text py="7">{'Have you already an account?'}</Text>
+            <Text textDecoration={'underline'} py="7">
+              {'Have you already an account?'}
+            </Text>
           </Link>
         </Center>
       </Box>

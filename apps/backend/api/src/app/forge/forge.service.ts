@@ -5,6 +5,7 @@ import {
   Game,
   GameCharacter,
   GameRoom,
+  Image,
   Room,
   User,
   Resource,
@@ -23,6 +24,7 @@ export class ForgeService {
     @InjectRepository(Game) private gamesRepository: Repository<Game>,
     @InjectRepository(User) private usersRepository: Repository<User>,
     @InjectRepository(Room) private roomsRepository: Repository<Room>,
+    @InjectRepository(Image) private imagesRepository: Repository<Image>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
     @InjectRepository(Resource)
@@ -46,15 +48,25 @@ export class ForgeService {
   ) {}
 
   async create(): Promise<string> {
+    const image1 = await this.imagesRepository.save({
+      name: 'profilePic1',
+      category: 'profile',
+    });
+    await this.imagesRepository.save({
+      name: 'gamePic1',
+      category: 'game',
+    });
+
     const user1 = await this.usersRepository.save({
       username: 'XXdemonSlayer',
       email: 'john.doe@email.com',
       password:
         '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
+      image: { id: image1.id },
     });
 
     const game1 = await this.gamesRepository.save({
-      idUser: user1.id,
+      userId: user1.id,
       companyName: 'Twitter',
       ceo: 'Elon Musk',
       location: 'Paris, France',

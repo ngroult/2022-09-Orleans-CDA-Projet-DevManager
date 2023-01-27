@@ -36,7 +36,6 @@ export class IsBonusMalusService {
       this.isBonusMalusRepository.save({
         event: { id: createIsBonusMalusDto.eventId },
         character: { id: createIsBonusMalusDto.characterId },
-
         quantity: 1000,
       });
 
