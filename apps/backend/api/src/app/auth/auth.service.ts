@@ -15,7 +15,6 @@ export class AuthService {
 
   public async register(user: CreateUserDto): Promise<User> {
     user.password = await this.hash(user.password);
-
     return this.usersService.create(user);
   }
 
