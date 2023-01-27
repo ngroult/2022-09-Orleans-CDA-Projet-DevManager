@@ -1,5 +1,6 @@
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
+  Box,
   Button,
   Divider,
   Flex,
@@ -21,8 +22,7 @@ function Login() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isIncorrectLogs, setIsIncorrectLogs] = useState(false);
-  const [isServerError, setIsServerError] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,8 +34,7 @@ function Login() {
   } = useForm();
 
   const submitLogin = async () => {
-    isIncorrectLogs ? setIsIncorrectLogs(false) : null;
-    isServerError ? setIsServerError(false) : null;
+    serverError !== null ? setServerError(null) : null;
 
     try {
       const loginResponse = await fetch('/api/auth/login', {
@@ -49,7 +48,7 @@ function Login() {
       const jsonResponse = await loginResponse.json();
 
       if (jsonResponse.status === 'KO') {
-        setIsIncorrectLogs(true);
+        setServerError('Username and/or password is incorrect');
       }
       if (jsonResponse.status === 'OK') {
         setUser(jsonResponse.data);
@@ -60,7 +59,7 @@ function Login() {
         }
       }
     } catch (err) {
-      setIsServerError(true);
+      setServerError('There seems to be an error, try again in a few minutes.');
     }
   };
 
@@ -107,9 +106,14 @@ function Login() {
             onChange: (e) => setUsername(e.target.value),
           })}
         />
-        <FormErrorMessage>
-          {`${errors.username && errors.username.message}`}
-        </FormErrorMessage>
+        {errors.username ? (
+          <FormErrorMessage
+            m="0 0 -1rem"
+            h="1.8rem"
+          >{`${errors.username.message}`}</FormErrorMessage>
+        ) : (
+          <Box mb="-1rem" h="1.8rem"></Box>
+        )}
 
         <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
           {'Password'}
@@ -146,9 +150,14 @@ function Login() {
             </Button>
           </InputRightElement>
         </InputGroup>
-        <FormErrorMessage>
-          {`${errors.password && errors.password.message}`}
-        </FormErrorMessage>
+        {errors.password ? (
+          <FormErrorMessage
+            m="0 0 -1rem"
+            h="1.8rem"
+          >{`${errors.password.message}`}</FormErrorMessage>
+        ) : (
+          <Box mb="-1rem" h="1.8rem"></Box>
+        )}
 
         <Button
           w="10rem"
@@ -161,7 +170,7 @@ function Login() {
         >
           {'Sign in'}
         </Button>
-        {isIncorrectLogs === true ? (
+        {serverError !== null ? (
           <Text
             color="var(--chakra-colors-red-500)"
             fontFamily="body"
@@ -169,18 +178,7 @@ function Login() {
             mt="-1rem"
             mb="1rem"
           >
-            {'Username and / or password incorrect'}
-          </Text>
-        ) : null}
-        {isServerError === true ? (
-          <Text
-            color="var(--chakra-colors-red-500)"
-            fontFamily="body"
-            fontSize="0.87rem"
-            mt="-1rem"
-            mb="1rem"
-          >
-            {'There seems to be an error, try again in a few minutes.'}
+            {serverError}
           </Text>
         ) : null}
       </FormControl>
