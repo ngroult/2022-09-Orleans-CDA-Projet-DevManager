@@ -16,7 +16,7 @@ import { useContext, useEffect } from 'react';
 import Protected from './components/Protected';
 
 const App = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setIsLoadingUser } = useContext(AuthContext);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -31,6 +31,7 @@ const App = () => {
 
         if (jsonResponse.message !== 'Unauthorized') {
           setUser(jsonResponse);
+          setIsLoadingUser(false);
         }
       } catch (err) {
         console.error(err);
@@ -84,9 +85,9 @@ const App = () => {
         <Route
           path="/account-settings"
           element={
-            // <Protected>
-            <AccountSettings />
-            // </Protected>
+            <Protected>
+              <AccountSettings />
+            </Protected>
           }
         />
         <Route path="/about" element={<About />} />

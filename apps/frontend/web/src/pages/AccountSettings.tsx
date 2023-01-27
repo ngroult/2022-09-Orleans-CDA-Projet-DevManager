@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Text,
   Flex,
@@ -15,6 +15,7 @@ import UserImageFiller from '../components/UserImageFiller';
 import UserContactFiller from '../components/UserContactFiller';
 import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
+import AuthContext from '../contexts/AuthContext';
 const pageColor = 'turquoise';
 
 const AccountSettings = () => {
@@ -25,17 +26,18 @@ const AccountSettings = () => {
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
 
+  const { user } = useContext(AuthContext);
+
   const updateUserSettings = () => {
-    console.log(formData);
-    fetch('http://localhost:3000/api/user', {
+    fetch(`/api/users/${user!.id}`, {
       method: 'PATCH',
       body: JSON.stringify(formData),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
+    }).then((response) => response.json());
+
+    setFormData({});
   };
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
