@@ -12,10 +12,10 @@ function BadgeResource({
   text: string | number;
 }) {
   return (
-    <Badge borderRadius="5px" px="2" bgColor={color}>
+    <Badge borderRadius="5px" bgColor={color}>
       <Flex align="center">
         <Image src={image} alt={alt} boxSize="30px" p="1" />
-        <Text>{text}</Text>
+        <Text color="white">{text}</Text>
       </Flex>
     </Badge>
   );

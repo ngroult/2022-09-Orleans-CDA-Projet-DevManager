@@ -9,6 +9,7 @@ import {
   Heading,
   Image,
   useDisclosure,
+  Text,
 } from '@chakra-ui/react';
 import {
   GameCharacter,
@@ -135,6 +136,14 @@ function CharacterCard({
               )}
             </Box>
             <Box>
+              <HStack>
+                <Text>{gameCharacter.character.size}</Text>
+                <Box boxSize="20px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </Box>
+            <Box>
               <Badge fontSize="xl" borderRadius="full" bgColor="gold.200">
                 <Flex align="center">
                   <Image src="/dollar.png" alt="dollar" boxSize="30px" p="1" />
@@ -146,6 +155,7 @@ function CharacterCard({
                 boxShadow="2xl"
                 size="lg"
                 color="white"
+                ml="5"
               >
                 {'+ 1'}
               </Button>
