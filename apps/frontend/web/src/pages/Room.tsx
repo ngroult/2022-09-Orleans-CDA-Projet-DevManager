@@ -3,7 +3,7 @@ import NavbarRooms from '../components/NavbarRooms';
 import ResourcesBar from '../components/ResourcesBar';
 import { Box, Flex, VStack, Image } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { Room, GameCharacter, GameEvent } from '@apps/backend-api';
+import { Room, GameCharacter, Event } from '@apps/backend-api';
 import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard';
 import EventCard from '../components/EventCard';
@@ -11,7 +11,7 @@ import EventCard from '../components/EventCard';
 const RoomPage = () => {
   const [characters, setCharacters] = useState<GameCharacter[]>([]);
   const [thisRoom, setThisRoom] = useState<Room>();
-  const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
 
   const { label } = useParams();
 
@@ -53,19 +53,19 @@ const RoomPage = () => {
     };
     handleCharacters();
 
-    const handleGameEvents = async () => {
+    const handleEvents = async () => {
       try {
-        const res = await fetch(`/api/game-events`, {
+        const res = await fetch(`/api/events`, {
           method: 'GET',
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        setGameEvents(jsonResponse);
+        setEvents(jsonResponse);
       } catch (e) {
         console.log('error handleGameEvents : ' + e);
       }
     };
-    handleGameEvents();
+    handleEvents();
 
     return () => {
       abortController.abort();
@@ -84,7 +84,7 @@ const RoomPage = () => {
         >
           <Image src="/overview.jpg" alt="overview" />
         </Box>
-        {thisRoom && gameEvents && (
+        {thisRoom && events && (
           <Box bgColor={`${thisRoom.color}.200`} p="50px">
             <VStack>
               {characters
@@ -99,14 +99,10 @@ const RoomPage = () => {
                     room={thisRoom}
                   />
                 ))}
-              {gameEvents
-                .filter((gameEvent) => thisRoom.id === gameEvent.event.room.id)
-                .map((gameEvent) => (
-                  <EventCard
-                    key={gameEvent.id}
-                    gameEvent={gameEvent}
-                    room={thisRoom}
-                  />
+              {events
+                .filter((event) => thisRoom.id === event.room.id)
+                .map((event) => (
+                  <EventCard key={event.id} event={event} room={thisRoom} />
                 ))}
             </VStack>
           </Box>
