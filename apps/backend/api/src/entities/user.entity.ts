@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Game } from './game.entity';
+import { Image } from './image.entity';
 
 @Entity()
 export class User {
@@ -19,4 +26,7 @@ export class User {
 
   @OneToMany(() => Game, (game) => game.user)
   games: Game[];
+
+  @ManyToOne(() => Image, (image) => image.users)
+  image: Image;
 }

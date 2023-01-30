@@ -9,6 +9,7 @@ import {
   Character,
   Resource,
   GameResource,
+  Image,
 } from '../../entities';
 
 @Module({
@@ -20,6 +21,7 @@ import {
       Character,
       Resource,
       GameResource,
+      Image,
     ]),
   ],
   controllers: [ForgeController],
