@@ -4,7 +4,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import NewGame from './pages/NewGame';
 import Overview from './pages/Overview';
-import RoomPage from './pages/RoomPage';
+import Room from './pages/Room';
 import GameSettings from './pages/GameSettings';
 import AccountSettings from './pages/AccountSettings';
 import About from './pages/About';
@@ -50,11 +50,46 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/new-game" element={<NewGame />} />
-        <Route path="/game/overview" element={<Overview />} />
-        <Route path="/game/:label" element={<RoomPage />} />
-        <Route path="/game-settings" element={<GameSettings />} />
-        <Route path="/account-settings" element={<AccountSettings />} />
+        <Route
+          path="/new-game"
+          element={
+            <Protected>
+              <NewGame />
+            </Protected>
+          }
+        />
+        <Route
+          path="/game/overview"
+          element={
+            <Protected>
+              <Overview />
+            </Protected>
+          }
+        />
+        <Route
+          path="/game/:label"
+          element={
+            <Protected>
+              <Room />
+            </Protected>
+          }
+        />
+        <Route
+          path="/game-settings"
+          element={
+            <Protected>
+              <GameSettings />
+            </Protected>
+          }
+        />
+        <Route
+          path="/account-settings"
+          element={
+            <Protected>
+              <AccountSettings />
+            </Protected>
+          }
+        />
         <Route path="/about" element={<About />} />
         <Route path="/assistance" element={<Assistance />} />
         <Route path="*" element={<Page404 />} />

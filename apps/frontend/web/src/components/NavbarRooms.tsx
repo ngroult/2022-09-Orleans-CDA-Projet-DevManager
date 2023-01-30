@@ -13,10 +13,9 @@ import { Link } from 'react-router-dom';
 import { Room } from '@apps/backend-api';
 
 const NavbarRooms = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
-  const paddingLeftIcons: string = isOpen ? '30px' : '15px';
+  const paddingLeftIcons: string = '15px';
   const [rooms, setRooms] = useState<Room[]>([]);
 
   useEffect(() => {
@@ -66,23 +65,10 @@ const NavbarRooms = () => {
               <Link to={`/game/${room.label}`} state={{ room }}>
                 <HStack>
                   <Image src={room.image} h={iconsSize} w={iconsSize} />
-                  {isOpen && <Text pl={paddingBetweenIcons}>{room.name}</Text>}
                 </HStack>
               </Link>
             </Box>
           ))}
-          <Center pt="22vh">
-            <IconButton
-              size="xs"
-              aria-label="Search database"
-              icon={isOpen ? <ArrowRightIcon /> : <ArrowLeftIcon />}
-              rounded="100px"
-              bg="blue.500"
-              boxShadow="inner"
-              onClick={() => setIsOpen((prev) => !prev)}
-              pos="absolute"
-            />
-          </Center>
         </Flex>
       </Box>
     </>
