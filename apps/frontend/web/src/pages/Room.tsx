@@ -31,6 +31,14 @@ const RoomPage = () => {
     };
     handleRoom();
 
+    return () => {
+      abortController.abort();
+    };
+  }, [label]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
     const handleCharacters = async () => {
       try {
         const res = await fetch(`/api/game-characters`, {
@@ -62,7 +70,7 @@ const RoomPage = () => {
     return () => {
       abortController.abort();
     };
-  }, [label]);
+  }, []);
 
   return (
     <Box>
