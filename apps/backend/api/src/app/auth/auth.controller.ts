@@ -14,6 +14,7 @@ import { LoginUserDto } from '../users/dto/login-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { CreateUserDto } from '../users/dto/create-user.dto';
+import { RegisterResponse } from '@libs/typings';
 
 @Controller('auth')
 export class AuthController {
@@ -23,14 +24,9 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  async register(@Body() user: CreateUserDto): Promise<
-    | User
-    | {
-        statusCode: number;
-        takenUsername?: { message: string };
-        registeredEmail?: { message: string };
-      }
-  > {
+  async register(
+    @Body() user: CreateUserDto,
+  ): Promise<User | RegisterResponse> {
     return this.authService.register(user);
   }
 

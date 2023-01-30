@@ -16,14 +16,16 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { RegisterResponse } from '@libs/typings';
 
 function Register() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-  const [serverError, setServerError] = useState<{
-    takenUsername?: { message: string };
-    registeredEmail?: { message: string };
-    internalError?: { message: string };
-  } | null>(null);
+  const [serverError, setServerError] = useState<
+    | null
+    | (RegisterResponse & {
+        internalError?: { message: string };
+      })
+  >(null);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -7,6 +7,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { RegisterResponse } from '@libs/typings';
 
 @Injectable()
 export class AuthService {
@@ -16,14 +17,7 @@ export class AuthService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  public async register(user: CreateUserDto): Promise<
-    | User
-    | {
-        statusCode: number;
-        takenUsername?: { message: string };
-        registeredEmail?: { message: string };
-      }
-  > {
+  public async register(user: CreateUserDto): Promise<User | RegisterResponse> {
     user.password = await this.hash(user.password);
     const usernameCount = await this.usersRepository.count({
       where: {
@@ -36,11 +30,7 @@ export class AuthService {
       },
     });
 
-    const errors: {
-      statusCode: number;
-      takenUsername?: { message: string };
-      registeredEmail?: { message: string };
-    } = { statusCode: 400 };
+    const errors: RegisterResponse = { statusCode: 400 };
     if (usernameCount > 0) {
       errors.takenUsername = { message: 'This username is already taken' };
     }
