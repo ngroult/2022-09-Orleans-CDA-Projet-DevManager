@@ -13,7 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async register(user: CreateUserDto): Promise<User> {
+  public async register(user: CreateUserDto) {
     user.password = await this.hash(user.password);
 
     return this.usersService.create(user);

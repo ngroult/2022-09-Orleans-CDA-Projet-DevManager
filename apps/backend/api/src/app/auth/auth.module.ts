@@ -4,7 +4,7 @@ import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { User } from '../../entities';
+import { User, Image } from '../../entities';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
@@ -23,7 +23,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Image]),
   ],
   controllers: [AuthController],
   exports: [AuthService],

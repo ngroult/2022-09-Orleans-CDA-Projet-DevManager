@@ -11,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { GameEvent } from './game-event.entity';
+import { Image } from './image.entity';
 
 @Entity()
 export class Game {
@@ -32,9 +33,6 @@ export class Game {
   @Column('varchar', { length: 50 })
   location: string;
 
-  @Column('int', { unsigned: true })
-  idImage: number;
-
   @OneToMany(() => GameResource, (gameResource) => gameResource.game)
   gameResources: GameResource[];
 
@@ -46,4 +44,7 @@ export class Game {
 
   @OneToMany(() => GameEvent, (gameEvent) => gameEvent.game)
   gameEvents: GameEvent[];
+
+  @ManyToOne(() => Image, (image) => image.games)
+  image: Image;
 }

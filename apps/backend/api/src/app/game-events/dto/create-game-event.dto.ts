@@ -2,10 +2,10 @@ import { IsDate, IsNumber } from 'class-validator';
 
 export class CreateGameEventDto {
   @IsDate()
-  startDate: Date;
+  startDate: string;
 
   @IsDate()
-  endDate: Date;
+  endDate: string;
 
   @IsNumber()
   eventId: number;
