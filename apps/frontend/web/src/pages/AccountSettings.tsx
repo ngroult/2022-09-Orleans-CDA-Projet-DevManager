@@ -29,7 +29,14 @@ const AccountSettings = () => {
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
+
   const { user } = useContext(AuthContext);
+
+  const deleteUserAccount = () => {
+    fetch(`/api/users/${user!.id}`, {
+      method: 'DELETE',
+    }).then((response) => response.json());
+  };
 
   return (
     <>
@@ -150,6 +157,7 @@ const AccountSettings = () => {
           title="Write your password to confirm you want to delete your account"
           content={<DeleteAccountFiller />}
           submitText="Delete"
+          action={deleteUserAccount}
         />
       </Box>
     </>

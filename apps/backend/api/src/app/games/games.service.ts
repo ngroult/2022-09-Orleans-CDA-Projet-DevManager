@@ -38,6 +38,6 @@ export class GamesService {
   }
 
   async remove(id: number): Promise<void> {
-    await this.gamesRepository.delete(id);
+    await this.gamesRepository.softDelete(id);
   }
 }

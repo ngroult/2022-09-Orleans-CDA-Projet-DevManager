@@ -4,6 +4,7 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  DeleteDateColumn,
 } from 'typeorm';
 import { Game } from './game.entity';
 import { Image } from './image.entity';
@@ -29,4 +30,7 @@ export class User {
 
   @ManyToOne(() => Image, (image) => image.users)
   image: Image;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

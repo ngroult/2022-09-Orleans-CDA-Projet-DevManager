@@ -7,6 +7,7 @@ import {
   OneToMany,
   CreateDateColumn,
   PrimaryGeneratedColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -34,4 +35,7 @@ export class Game {
 
   @OneToMany(() => GameResource, (gameResource) => gameResource.game)
   gameResources: GameResource[];
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }

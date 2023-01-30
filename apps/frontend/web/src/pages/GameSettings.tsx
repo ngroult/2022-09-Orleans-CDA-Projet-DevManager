@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Text,
   Flex,
@@ -18,6 +18,7 @@ import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
+import AuthContext from '../contexts/AuthContext';
 const pageColor = 'gold';
 
 const GameSettings = () => {
@@ -26,6 +27,14 @@ const GameSettings = () => {
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
+
+  const { user } = useContext(AuthContext);
+
+  const deleteGame = () => {
+    fetch(`/api/games/${user!.id}`, {
+      method: 'DELETE',
+    }).then((response) => response.json());
+  };
 
   return (
     <>
@@ -127,6 +136,7 @@ const GameSettings = () => {
           title="Write your password to confirm you want to reset the game"
           content={<ResetGameFiller />}
           submitText="Reset"
+          action={deleteGame}
         />
       </Box>
     </>
