@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { GameEvent } from './game-event.entity';
-import { BonusMalus } from './bonusMalus.entity';
+import { BonusMalus } from './bonus-malus.entity';
 import { Room } from './room.entity';
 
 @Entity()

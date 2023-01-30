@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { GameCharacter } from './game-character.entity';
-import { BonusMalus } from './bonusMalus.entity';
+import { BonusMalus } from './bonus-malus.entity';
 import { ResourceUsed } from './resource-used.entity';
 import { ResourceProduced } from './resource-produced.entity';
 import { Room } from './room.entity';

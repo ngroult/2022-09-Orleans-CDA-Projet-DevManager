@@ -6,7 +6,7 @@ import { GameResource } from './game-resource.entity';
 import { GameRoom } from './game-room.entity';
 import { GameCharacter } from './game-character.entity';
 import { Event } from './event.entity';
-import { BonusMalus } from './bonusMalus.entity';
+import { BonusMalus } from './bonus-malus.entity';
 import { Resource } from './resource.entity';
 import { GameEvent } from './game-event.entity';
 import { ResourceUsed } from './resource-used.entity';
