@@ -12,7 +12,6 @@ import {
   Heading,
   Center,
 } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import UserImageFiller from '../components/UserImageFiller';
 import UserContactFiller from '../components/UserContactFiller';
@@ -34,17 +33,23 @@ const AccountSettings = () => {
   return (
     <>
       <Navbar />
-      <Box position="absolute" top="0" margin="auto" w="100%" zIndex="-1">
+      <Box position="absolute" top="0" margin="auto" w="100%">
         <Center>
-          <Heading mt="10" mb="10" color={`${pageColor}`}>
+          <Heading mt="10" mb="10" color={`${pageColor}.900`}>
             {'Account Setting'}
           </Heading>
         </Center>
-        <Flex flexDir="column" w="100%" h="100vh">
+        <Flex w="100%" h="100vh">
           <Flex
-            flexDir="column"
+            flexDir={{ base: 'column', sm: 'column' }}
             alignItems="center"
-            bgColor={`${pageColor}.200`}
+            bgColor={{
+              base: `${pageColor}.200`,
+              xl: 'white',
+              lg: `${pageColor}.200`,
+              md: `${pageColor}.200`,
+              sm: `${pageColor}.200`,
+            }}
             w="100%"
             flexGrow="1"
           >
@@ -112,11 +117,28 @@ const AccountSettings = () => {
               {'Delete account'}
             </Button>
           </Flex>
+          <Box
+            boxShadow="2xl"
+            rounded="5px"
+            display={{
+              base: 'none',
+              xl: 'flex',
+              lg: 'none',
+              md: 'none',
+              sm: 'none',
+            }}
+            boxSize="lg"
+          >
+            <UserImageFiller
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+            />
+          </Box>
         </Flex>
         <SlideUpModal
           isOpen={userImage.isOpen}
           onClose={userImage.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Choose a new avatar"
           content={
             <UserImageFiller
@@ -130,7 +152,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={userContact.isOpen}
           onClose={userContact.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Edit your contact details"
           content={<UserContactFiller />}
           submitText="Save"
@@ -138,7 +160,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={userPassword.isOpen}
           onClose={userPassword.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Edit your password"
           content={<UserPasswordFiller />}
           submitText="Save"
@@ -146,7 +168,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={deleteAccount.isOpen}
           onClose={deleteAccount.onClose}
-          pageColor="#42B7B4"
+          pageColor="pink"
           title="Write your password to confirm you want to delete your account"
           content={<DeleteAccountFiller />}
           submitText="Delete"

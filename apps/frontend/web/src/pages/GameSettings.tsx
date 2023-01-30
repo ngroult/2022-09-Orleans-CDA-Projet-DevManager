@@ -12,7 +12,6 @@ import {
   Center,
   Heading,
 } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
@@ -32,7 +31,7 @@ const GameSettings = () => {
       <Navbar />
       <Box position="absolute" top="0" margin="auto" w="100%" zIndex="0">
         <Center>
-          <Heading mt="10" mb="10" color={`${pageColor}`}>
+          <Heading mt="10" mb="10" color={`${pageColor}.900`}>
             {'Game Setting'}
           </Heading>
         </Center>
@@ -89,7 +88,7 @@ const GameSettings = () => {
               onClick={resetGame.onOpen}
               boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
               mt="2rem"
-              bgColor="#E7008C"
+              bgColor="pink.900"
               color="#FFF"
               w="13rem"
               fontWeight="normal"
@@ -101,7 +100,7 @@ const GameSettings = () => {
         <SlideUpModal
           isOpen={gameImage.isOpen}
           onClose={gameImage.onClose}
-          pageColor="#D4B514"
+          pageColor={pageColor}
           title="Choose a new avatar"
           content={
             <GameImageFiller
@@ -115,7 +114,7 @@ const GameSettings = () => {
         <SlideUpModal
           isOpen={gameDetails.isOpen}
           onClose={gameDetails.onClose}
-          pageColor="#D4B514"
+          pageColor={pageColor}
           title="Edit the game details"
           content={<GameDetailsFiller />}
           submitText="Save"
@@ -123,7 +122,7 @@ const GameSettings = () => {
         <SlideUpModal
           isOpen={resetGame.isOpen}
           onClose={resetGame.onClose}
-          pageColor="#D4B514"
+          pageColor="pink"
           title="Write your password to confirm you want to reset the game"
           content={<ResetGameFiller />}
           submitText="Reset"
