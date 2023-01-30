@@ -1,24 +1,24 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class CreateBonusMalusDto {
-  @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsNotEmpty()
+  @IsString()
   type: string;
 
-  @IsNotEmpty()
+  @IsString()
   label: string;
 
-  @IsNotEmpty()
+  @IsNumber()
   rate: number;
 
-  @IsNotEmpty()
+  @IsBoolean()
   isBonus: boolean;
 
-  @IsNotEmpty()
+  @IsNumber()
   eventId: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   characterId: number;
 }

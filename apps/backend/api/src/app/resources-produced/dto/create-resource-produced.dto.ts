@@ -1,12 +1,12 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateResourceProducedDto {
-  @IsNotEmpty()
+  @IsNumber()
   quantity: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   resourceId: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   characterId: number;
 }

@@ -1,18 +1,18 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class CreateResourceDto {
-  @IsNotEmpty()
+  @IsString()
   id: number;
 
-  @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsNotEmpty()
+  @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @IsString()
   image: string;
 
-  @IsNotEmpty()
+  @IsString()
   color: string;
 }

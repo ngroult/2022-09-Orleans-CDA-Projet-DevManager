@@ -1,24 +1,24 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateCharacterDto {
-  @IsNotEmpty()
+  @IsNumber()
   id: number;
 
-  @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsNotEmpty()
+  @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @IsString()
   image: string;
 
-  @IsNotEmpty()
+  @IsNumber()
   price: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   size: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   roomId: number;
 }

@@ -1,15 +1,15 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsDate, IsNumber } from 'class-validator';
 
 export class CreateGameEventDto {
-  @IsNotEmpty()
+  @IsDate()
   startDate: Date;
 
-  @IsNotEmpty()
+  @IsDate()
   endDate: Date;
 
-  @IsNotEmpty()
+  @IsNumber()
   eventId: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   gameId: number;
 }

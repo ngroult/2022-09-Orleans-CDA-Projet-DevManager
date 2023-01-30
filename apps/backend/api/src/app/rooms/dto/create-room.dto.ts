@@ -1,27 +1,27 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
 export class CreateRoomDto {
-  @IsNotEmpty()
+  @IsNumber()
   id: number;
 
-  @IsNotEmpty()
+  @IsString()
   name: string;
 
-  @IsNotEmpty()
+  @IsString()
   description: string;
 
-  @IsNotEmpty()
+  @IsString()
   image: string;
 
-  @IsNotEmpty()
+  @IsString()
   label: string;
 
-  @IsNotEmpty()
+  @IsString()
   color: string;
 
-  @IsNotEmpty()
+  @IsNumber()
   price: number;
 
-  @IsNotEmpty()
+  @IsBoolean()
   isExpandable: boolean;
 }

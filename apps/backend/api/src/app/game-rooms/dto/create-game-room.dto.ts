@@ -1,9 +1,15 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateGameRoomDto {
-  @IsNotEmpty()
+  @IsNumber()
+  size: number;
+
+  @IsNumber()
+  totalSize: number;
+
+  @IsNumber()
   gameId: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   roomId: number;
 }
