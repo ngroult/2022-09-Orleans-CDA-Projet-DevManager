@@ -20,8 +20,10 @@
     "d": "npm run dev",
     "dc:up": "docker compose -f ./deployment/docker-compose.dev.yml up -d",
     "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down -v",
+    "dc:reset": "npm run dc:down && rm -rf deployment/db deployment/sql && npm run dc:up",
     "dcp:up": "docker compose -f ./deployment/docker-compose.prod.yml up -d --build",
-    "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v"
+    "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v",
+    "forge": "node apps/backend/api/src/app/forge/forge.launch.ts"
   },
   "workspaces": [
     "libs/typings",
