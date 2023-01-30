@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { GameRoom } from './game-room.entity';
-import { GameCharacter } from './game-character.entity';
 import { Event } from './event.entity';
 import { Character } from './character.entity';
 

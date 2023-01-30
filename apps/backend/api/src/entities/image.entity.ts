@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Game } from './game.entity';
-import { Room } from './room.entity';
 import { User } from './user.entity';
 
 @Entity()
