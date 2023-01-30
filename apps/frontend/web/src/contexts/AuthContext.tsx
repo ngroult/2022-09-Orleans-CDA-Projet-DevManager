@@ -1,5 +1,5 @@
 import { User } from '@apps/backend-api';
-import { createContext, useState, useMemo, ReactNode } from 'react';
+import { createContext, useState, useMemo, ReactNode, useEffect } from 'react';
 
 const AuthContext = createContext<{
   user?: User;
@@ -16,6 +16,12 @@ const AuthContext = createContext<{
 const AuthProvider = (props: { children: ReactNode }) => {
   const [user, setUser] = useState<User>();
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (user) {
+      setIsLoadingUser(false);
+    }
+  }, [user]);
 
   const value = useMemo(
     () => ({ user, setUser, isLoadingUser, setIsLoadingUser }),

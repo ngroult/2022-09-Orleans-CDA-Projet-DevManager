@@ -5,7 +5,7 @@ import AuthContext from '../contexts/AuthContext';
 const Protected = ({ children }: { children: ReactNode }) => {
   const { user, isLoadingUser } = useContext(AuthContext);
   if (isLoadingUser) {
-    return <>ca charge</>;
+    return null;
   }
   if (!user) {
     return <Navigate to={'/login'} />;
