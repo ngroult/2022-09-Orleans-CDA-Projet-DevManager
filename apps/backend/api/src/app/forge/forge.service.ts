@@ -10,7 +10,7 @@ import {
   User,
   Resource,
   Event,
-  IsBonusMalus,
+  BonusMalus,
   GameResource,
   GameEvent,
   ResourceUsed,
@@ -37,8 +37,8 @@ export class ForgeService {
     private gameCharactersRepository: Repository<GameCharacter>,
     @InjectRepository(Event)
     private eventsRepository: Repository<Event>,
-    @InjectRepository(IsBonusMalus)
-    private isBonusMalusRepository: Repository<IsBonusMalus>,
+    @InjectRepository(BonusMalus)
+    private bonusMalusRepository: Repository<BonusMalus>,
     @InjectRepository(GameEvent)
     private gameEventsRepository: Repository<GameEvent>,
     @InjectRepository(ResourceUsed)
@@ -365,7 +365,7 @@ export class ForgeService {
       room: { id: room3.id },
     });
 
-    const isBonus1 = await this.isBonusMalusRepository.save({
+    const isBonus1 = await this.bonusMalusRepository.save({
       name: 'Production +100%',
       type: 'production',
       label: 'interns_production_bonus',
@@ -374,7 +374,7 @@ export class ForgeService {
       event: { id: event1.id },
       character: { id: character1.id },
     });
-    const isBonus2 = await this.isBonusMalusRepository.save({
+    const isBonus2 = await this.bonusMalusRepository.save({
       name: 'Price -50%',
       type: 'price',
       label: 'interns_price_bonus',
@@ -383,7 +383,7 @@ export class ForgeService {
       event: { id: event2.id },
       character: { id: character1.id },
     });
-    const isBonus3 = await this.isBonusMalusRepository.save({
+    const isBonus3 = await this.bonusMalusRepository.save({
       name: 'Production -50%',
       type: 'production',
       label: 'developers_production_malus',
@@ -392,7 +392,7 @@ export class ForgeService {
       event: { id: event2.id },
       character: { id: character2.id },
     });
-    const isBonus4 = await this.isBonusMalusRepository.save({
+    const isBonus4 = await this.bonusMalusRepository.save({
       name: 'Price -50%',
       type: 'price',
       label: 'developers_price_bonus',
@@ -401,7 +401,7 @@ export class ForgeService {
       event: { id: event3.id },
       character: { id: character2.id },
     });
-    const isBonus5 = await this.isBonusMalusRepository.save({
+    const isBonus5 = await this.bonusMalusRepository.save({
       name: 'Production -50%',
       type: 'production',
       label: 'lead_developers_production_malus',

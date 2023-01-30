@@ -15,7 +15,7 @@ import { ResourcesUsedModule } from './resources-used/resources-used.module';
 import { ResourcesProducedModule } from './resources-produced/resources-produced.module';
 import { GameEventsModule } from './game-events/game-events.module';
 import { EventsModule } from './events/events.module';
-import { IsBonusMalusModule } from './is-bonus-malus/is-bonus-malus.module';
+import { BonusMalusModule } from './bonus-malus/bonus-malus.module';
 import { GameCharactersModule } from './game-characters/game-characters.module';
 import { ImagesModule } from './images/images.module';
 import entities from '../entities';
@@ -53,7 +53,7 @@ import { GameRoomsModule } from './game-rooms/game-rooms.module';
     GameEventsModule,
     EventsModule,
     GameCharactersModule,
-    IsBonusMalusModule,
+    BonusMalusModule,
     GameCharactersModule,
     ImagesModule,
     GameRoomsModule,

@@ -10,31 +10,31 @@ import {
   Image,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Room, GameEvent, IsBonusMalus } from '@apps/backend-api';
+import { Room, GameEvent, BonusMalus } from '@apps/backend-api';
 import { useState, useEffect } from 'react';
 import EventModal from './popups/EventModal';
 import BadgeResource from './BadgeResource';
 
 function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
-  const [isBonusMalus, setIsBonusMalus] = useState<IsBonusMalus[]>([]);
+  const [bonusMalus, setBonusMalus] = useState<BonusMalus[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    const handleIsBonusMalus = async () => {
+    const handleBonusMalus = async () => {
       try {
         const res = await fetch(`/api/is-bonus-malus`, {
           method: 'GET',
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        setIsBonusMalus(jsonResponse);
+        setBonusMalus(jsonResponse);
       } catch (e) {
         console.log('error handleIsBonusMalus : ' + e);
       }
     };
-    handleIsBonusMalus();
+    handleBonusMalus();
 
     return () => {
       abortController.abort();
@@ -71,17 +71,17 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
                 {gameEvent.event.name}
               </Heading>
 
-              {isBonusMalus && (
+              {bonusMalus && (
                 <HStack>
-                  {isBonusMalus
-                    .filter((isBM) => isBM.event.id === gameEvent.event.id)
-                    .map((isBM) => (
+                  {bonusMalus
+                    .filter((bonMal) => bonMal.event.id === gameEvent.event.id)
+                    .map((bonMal) => (
                       <BadgeResource
-                        key={isBM.id}
-                        color={isBM.isBonus ? `green.900` : `red.900`}
-                        image={isBM.character.image}
-                        alt={isBM.label}
-                        text={isBM.name}
+                        key={bonMal.id}
+                        color={bonMal.isBonus ? `green.900` : `red.900`}
+                        image={bonMal.character.image}
+                        alt={bonMal.label}
+                        text={bonMal.name}
                       />
                     ))}
                 </HStack>
@@ -110,7 +110,7 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
         isOpen={isOpen}
         onClose={onClose}
         gameEvent={gameEvent}
-        isBonusMalus={isBonusMalus}
+        bonusMalus={bonusMalus}
       />
     </>
   );

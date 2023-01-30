@@ -6,7 +6,7 @@ import { GameResource } from './game-resource.entity';
 import { GameRoom } from './game-room.entity';
 import { GameCharacter } from './game-character.entity';
 import { Event } from './event.entity';
-import { IsBonusMalus } from './isBonusMalus.entity';
+import { BonusMalus } from './bonusMalus.entity';
 import { Resource } from './resource.entity';
 import { GameEvent } from './game-event.entity';
 import { ResourceUsed } from './resource-used.entity';
@@ -23,7 +23,7 @@ const entities = [
   GameRoom,
   GameCharacter,
   Event,
-  IsBonusMalus,
+  BonusMalus,
   GameEvent,
   ResourceUsed,
   ResourceProduced,
@@ -40,7 +40,7 @@ export {
   GameRoom,
   GameCharacter,
   Event,
-  IsBonusMalus,
+  BonusMalus,
   GameEvent,
   ResourceUsed,
   ResourceProduced,

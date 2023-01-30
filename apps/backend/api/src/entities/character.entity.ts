@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { GameCharacter } from './game-character.entity';
-import { IsBonusMalus } from './isBonusMalus.entity';
+import { BonusMalus } from './bonusMalus.entity';
 import { ResourceUsed } from './resource-used.entity';
 import { ResourceProduced } from './resource-produced.entity';
 import { Room } from './room.entity';
@@ -34,8 +34,8 @@ export class Character {
   @OneToMany(() => GameCharacter, (gameCharacter) => gameCharacter.character)
   gameCharacters: GameCharacter[];
 
-  @OneToMany(() => IsBonusMalus, (isBonusMalus) => isBonusMalus.character)
-  isBonusMalus: IsBonusMalus[];
+  @OneToMany(() => BonusMalus, (bonusMalus) => bonusMalus.character)
+  bonusMalus: BonusMalus[];
 
   @OneToMany(() => ResourceUsed, (resourceUsed) => resourceUsed.character)
   resourcesUsed: ResourceUsed[];

@@ -3,7 +3,7 @@ import { Character } from './character.entity';
 import { Event } from './event.entity';
 
 @Entity()
-export class IsBonusMalus {
+export class BonusMalus {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,9 +22,9 @@ export class IsBonusMalus {
   @Column()
   isBonus: boolean;
 
-  @ManyToOne(() => Event, (event) => event.isBonusMalus)
+  @ManyToOne(() => Event, (event) => event.bonusMalus)
   event: Event;
 
-  @ManyToOne(() => Character, (character) => character.isBonusMalus)
+  @ManyToOne(() => Character, (character) => character.bonusMalus)
   character: Character;
 }

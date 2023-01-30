@@ -1,4 +1,4 @@
-import { GameEvent, IsBonusMalus } from '@apps/backend-api';
+import { GameEvent, BonusMalus } from '@apps/backend-api';
 import {
   Badge,
   Box,
@@ -19,12 +19,12 @@ function EventModal({
   isOpen,
   onClose,
   gameEvent,
-  isBonusMalus,
+  bonusMalus,
 }: {
   isOpen: boolean;
   onClose: () => void;
   gameEvent: GameEvent;
-  isBonusMalus: IsBonusMalus[];
+  bonusMalus: BonusMalus[];
 }) {
   return (
     <Box>
@@ -76,17 +76,19 @@ function EventModal({
               </Center>
               <Center>
                 <Box mb="30%">
-                  {isBonusMalus && (
+                  {bonusMalus && (
                     <HStack>
-                      {isBonusMalus
-                        .filter((isBM) => isBM.event.id === gameEvent.event.id)
-                        .map((isBM) => (
+                      {bonusMalus
+                        .filter(
+                          (bonMal) => bonMal.event.id === gameEvent.event.id
+                        )
+                        .map((bonMal) => (
                           <BadgeResource
-                            key={isBM.id}
-                            color={isBM.isBonus ? `green.900` : `red.900`}
-                            image={isBM.character.image}
-                            alt={isBM.label}
-                            text={isBM.name}
+                            key={bonMal.id}
+                            color={bonMal.isBonus ? `green.900` : `red.900`}
+                            image={bonMal.character.image}
+                            alt={bonMal.label}
+                            text={bonMal.name}
                           />
                         ))}
                     </HStack>

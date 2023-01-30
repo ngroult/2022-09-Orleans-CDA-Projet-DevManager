@@ -1,8 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
 import { IsNotEmpty } from 'class-validator';
-import { CreateIsBonusMalusDto } from './create-is-bonus-malus.dto';
 
-export class UpdateIsBonusMalusDto extends PartialType(CreateIsBonusMalusDto) {
+export class CreateBonusMalusDto {
   @IsNotEmpty()
   name: string;
 
@@ -17,4 +15,10 @@ export class UpdateIsBonusMalusDto extends PartialType(CreateIsBonusMalusDto) {
 
   @IsNotEmpty()
   isBonus: boolean;
+
+  @IsNotEmpty()
+  eventId: number;
+
+  @IsNotEmpty()
+  characterId: number;
 }

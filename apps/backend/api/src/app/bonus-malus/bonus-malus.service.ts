@@ -1,30 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Character, IsBonusMalus } from 'src/entities';
+import { Character, BonusMalus } from 'src/entities';
 import { Repository, UpdateResult } from 'typeorm';
-import { CreateIsBonusMalusDto } from './dto/create-is-bonus-malus.dto';
-import { UpdateIsBonusMalusDto } from './dto/update-is-bonus-malus.dto';
+import { CreateBonusMalusDto } from './dto/create-bonus-malus.dto';
+import { UpdateBonusMalusDto } from './dto/update-bonus-malus.dto';
 
 @Injectable()
-export class IsBonusMalusService {
+export class BonusMalusService {
   constructor(
-    @InjectRepository(IsBonusMalus)
-    private isBonusMalusRepository: Repository<IsBonusMalus>,
+    @InjectRepository(BonusMalus)
+    private bonusMalusRepository: Repository<BonusMalus>,
     @InjectRepository(Event) private eventsRepository: Repository<Event>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
   ) {}
 
-  async create(createIsBonusMalusDto: CreateIsBonusMalusDto) {
+  async create(createBonusMalusDto: CreateBonusMalusDto) {
     const event = await this.eventsRepository
       .createQueryBuilder('event')
-      .where('event.id = :id', { id: createIsBonusMalusDto.eventId })
+      .where('event.id = :id', { id: createBonusMalusDto.eventId })
       .getOne();
 
     const character = await this.charactersRepository
       .createQueryBuilder('character')
       .where('evecharacternt.id = :id', {
-        id: createIsBonusMalusDto.characterId,
+        id: createBonusMalusDto.characterId,
       })
       .getOne();
 
@@ -33,9 +33,9 @@ export class IsBonusMalusService {
       errorCharacter?: string;
     } = {};
     if (event && character) {
-      this.isBonusMalusRepository.save({
-        event: { id: createIsBonusMalusDto.eventId },
-        character: { id: createIsBonusMalusDto.characterId },
+      this.bonusMalusRepository.save({
+        event: { id: createBonusMalusDto.eventId },
+        character: { id: createBonusMalusDto.characterId },
         quantity: 1000,
       });
 
@@ -51,13 +51,13 @@ export class IsBonusMalusService {
     }
   }
   async findAll() {
-    return this.isBonusMalusRepository.find({
+    return this.bonusMalusRepository.find({
       relations: { event: true, character: true },
     });
   }
 
-  async findOne(id: number): Promise<IsBonusMalus[]> {
-    return this.isBonusMalusRepository.find({
+  async findOne(id: number): Promise<BonusMalus[]> {
+    return this.bonusMalusRepository.find({
       select: ['id', 'name', 'type', 'label', 'rate', 'isBonus'],
       where: [{ id: id }],
       relations: { event: true, character: true },
@@ -66,12 +66,12 @@ export class IsBonusMalusService {
 
   async update(
     id: number,
-    updateIsBonusMalusDto: UpdateIsBonusMalusDto,
+    updateBonusMalusDto: UpdateBonusMalusDto,
   ): Promise<UpdateResult> {
-    return this.isBonusMalusRepository.update(id, updateIsBonusMalusDto);
+    return this.bonusMalusRepository.update(id, updateBonusMalusDto);
   }
 
   async remove(id: number): Promise<void> {
-    await this.isBonusMalusRepository.delete(id);
+    await this.bonusMalusRepository.delete(id);
   }
 }

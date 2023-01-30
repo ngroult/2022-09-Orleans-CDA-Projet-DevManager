@@ -6,7 +6,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 import { GameEvent } from './game-event.entity';
-import { IsBonusMalus } from './isBonusMalus.entity';
+import { BonusMalus } from './bonusMalus.entity';
 import { Room } from './room.entity';
 
 @Entity()
@@ -32,8 +32,8 @@ export class Event {
   @Column()
   duration: number;
 
-  @OneToMany(() => IsBonusMalus, (isBonusMalus) => isBonusMalus.event)
-  isBonusMalus: IsBonusMalus[];
+  @OneToMany(() => BonusMalus, (bonusMalus) => bonusMalus.event)
+  bonusMalus: BonusMalus[];
 
   @ManyToOne(() => Room, (room) => room.events)
   room: Room;
