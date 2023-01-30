@@ -23,7 +23,14 @@ export class AuthController {
   ) {}
 
   @Post('register')
-  async register(@Body() user: CreateUserDto): Promise<User> {
+  async register(@Body() user: CreateUserDto): Promise<
+    | User
+    | {
+        statusCode: number;
+        takenUsername?: { message: string };
+        registeredEmail?: { message: string };
+      }
+  > {
     return this.authService.register(user);
   }
 

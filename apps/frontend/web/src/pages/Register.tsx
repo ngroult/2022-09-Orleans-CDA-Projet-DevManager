@@ -15,15 +15,19 @@ import {
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
 function Register() {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverError, setServerError] = useState<{
+    takenUsername?: { message: string };
+    registeredEmail?: { message: string };
+    internalError?: { message: string };
+  } | null>(null);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -46,12 +50,27 @@ function Register() {
       const jsonResponse = await registerResponse.json();
 
       if (jsonResponse.statusCode === 400) {
-        setServerError(jsonResponse.message);
+        if (jsonResponse.takenUsername) {
+          setServerError((prev) => ({
+            ...prev,
+            takenUsername: { message: jsonResponse.takenUsername.message },
+          }));
+        }
+        if (jsonResponse.registeredEmail) {
+          setServerError((prev) => ({
+            ...prev,
+            registeredEmail: { message: jsonResponse.registeredEmail.message },
+          }));
+        }
       } else {
         navigate('/new-game');
       }
     } catch (err) {
-      setServerError('There seems to be an error, try again in a few minutes.');
+      setServerError({
+        internalError: {
+          message: 'There seems to be an error, try again in a few minutes.',
+        },
+      });
     }
   };
 
@@ -70,125 +89,166 @@ function Register() {
         </Text>
       </Flex>
 
-      <FormControl
-        display="flex"
+      <Flex
         flexDir="column"
         alignItems="center"
         justifyContent="center"
         p="2rem 2rem 0"
-        isInvalid={
-          errors.username || errors.email || errors.password ? true : false
-        }
+        w="100%"
       >
-        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
-          {'Username'}
-        </FormLabel>
-        <Input
-          maxW="400px"
-          placeholder="Create username..."
-          bgColor="#fff"
-          _placeholder={{ opacity: 0.3 }}
-          type="text"
-          {...register('username', {
-            required: 'The username is required',
-            minLength: {
-              value: 3,
-              message: 'Minimum length should be 3',
-            },
-            maxLength: {
-              value: 30,
-              message: 'Maximum length should be 30',
-            },
-            value: username,
-            onChange: (e) => {
-              setUsername(e.target.value);
-              console.log(errors);
-            },
-          })}
-        />
-        {errors.username ? (
-          <FormErrorMessage
-            m="0 0 -1rem"
-            h="1.8rem"
-          >{`${errors.username.message}`}</FormErrorMessage>
-        ) : (
-          <Box mb="-1rem" h="1.8rem"></Box>
-        )}
-
-        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
-          {'E-mail'}
-        </FormLabel>
-        <Input
-          maxW="400px"
-          placeholder="Enter your email..."
-          bgColor="#fff"
-          _placeholder={{ opacity: 0.3 }}
-          type="email"
-          {...register('email', {
-            required: 'The email is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Invalid email address',
-            },
-            minLength: {
-              value: 4,
-              message: 'Minimum length should be 4',
-            },
-            value: email,
-            onChange: (e) => setEmail(e.target.value),
-          })}
-        />
-        {errors.email ? (
-          <FormErrorMessage
-            m="0 0 -1rem"
-            h="1.8rem"
-          >{`${errors.email.message}`}</FormErrorMessage>
-        ) : (
-          <Box mb="-1rem" h="1.8rem"></Box>
-        )}
-
-        <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
-          {'Password'}
-        </FormLabel>
-        <InputGroup size="md" maxW="400px">
+        <FormControl
+          display="flex"
+          flexDir="column"
+          alignItems="center"
+          justifyContent="center"
+          isInvalid={
+            errors.username || serverError?.takenUsername ? true : false
+          }
+        >
+          <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+            {'Username'}
+          </FormLabel>
           <Input
             maxW="400px"
-            placeholder="Create your password..."
+            placeholder="Create username..."
             bgColor="#fff"
             _placeholder={{ opacity: 0.3 }}
-            type={isVisiblePassword ? 'text' : 'password'}
-            {...register('password', {
-              required: 'The password is required',
+            type="text"
+            {...register('username', {
+              required: 'The username is required',
               minLength: {
-                value: 6,
-                message: 'Minimum length should be 6',
+                value: 3,
+                message: 'Minimum length should be 3',
               },
               maxLength: {
-                value: 50,
-                message: 'Maximum length should be 50',
+                value: 30,
+                message: 'Maximum length should be 30',
               },
-              value: password,
-              onChange: (e) => setPassword(e.target.value),
+              value: username,
+              onChange: (e) => setUsername(e.target.value),
             })}
           />
-          <InputRightElement width="4.5rem">
-            <Button
-              h="1.75rem"
-              size="sm"
-              onClick={() => setIsVisiblePassword(!isVisiblePassword)}
-            >
-              {isVisiblePassword ? 'Hide' : 'Show'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-        {errors.password ? (
-          <FormErrorMessage
-            m="0 0 -1rem"
-            h="1.8rem"
-          >{`${errors.password.message}`}</FormErrorMessage>
-        ) : (
-          <Box mb="-1rem" h="1.8rem"></Box>
-        )}
+          {errors.username ? (
+            <FormErrorMessage
+              m="0 0 -1rem"
+              h="1.8rem"
+            >{`${errors.username.message}`}</FormErrorMessage>
+          ) : serverError?.takenUsername ? (
+            <FormErrorMessage
+              m="0 0 -1rem"
+              h="1.8rem"
+            >{`${serverError?.takenUsername.message}`}</FormErrorMessage>
+          ) : (
+            <Box mb="-1rem" h="1.8rem"></Box>
+          )}
+        </FormControl>
+
+        <FormControl
+          display="flex"
+          flexDir="column"
+          alignItems="center"
+          justifyContent="center"
+          isInvalid={
+            errors.email || serverError?.registeredEmail ? true : false
+          }
+        >
+          <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+            {'E-mail'}
+          </FormLabel>
+          <Input
+            maxW="400px"
+            placeholder="Enter your email..."
+            bgColor="#fff"
+            _placeholder={{ opacity: 0.3 }}
+            type="email"
+            {...register('email', {
+              required: 'The email is required',
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: 'Invalid email address',
+              },
+              minLength: {
+                value: 4,
+                message: 'Minimum length should be 4',
+              },
+              value: email,
+              onChange: (e) => setEmail(e.target.value),
+            })}
+          />
+          {errors.email ? (
+            <FormErrorMessage
+              m="0 0 -1rem"
+              h="1.8rem"
+            >{`${errors.email.message}`}</FormErrorMessage>
+          ) : serverError?.registeredEmail ? (
+            <FormErrorMessage
+              m="0 0 -1rem"
+              h="1.8rem"
+            >{`${serverError?.registeredEmail.message}`}</FormErrorMessage>
+          ) : (
+            <Box mb="-1rem" h="1.8rem"></Box>
+          )}
+        </FormControl>
+
+        <FormControl
+          display="flex"
+          flexDir="column"
+          alignItems="center"
+          justifyContent="center"
+          isInvalid={errors.password ? true : false}
+        >
+          <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+            {'Password'}
+          </FormLabel>
+          <InputGroup size="md" maxW="400px">
+            <Input
+              maxW="400px"
+              placeholder="Create your password..."
+              bgColor="#fff"
+              _placeholder={{ opacity: 0.3 }}
+              type={isVisiblePassword ? 'text' : 'password'}
+              {...register('password', {
+                required: 'The password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Minimum length should be 6',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Maximum length should be 50',
+                },
+                value: password,
+                onChange: (e) => setPassword(e.target.value),
+              })}
+            />
+            <InputRightElement width="4.5rem">
+              <Button
+                h="1.75rem"
+                size="sm"
+                me="2"
+                onClick={() => setIsVisiblePassword(!isVisiblePassword)}
+              >
+                {isVisiblePassword ? (
+                  <div>
+                    {'Hide'} <ViewOffIcon ms="0.5" />
+                  </div>
+                ) : (
+                  <div>
+                    {'Show'} <ViewIcon ms="0.5" />
+                  </div>
+                )}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          {errors.password ? (
+            <FormErrorMessage
+              m="0 0 -1rem"
+              h="1.8rem"
+            >{`${errors.password.message}`}</FormErrorMessage>
+          ) : (
+            <Box mb="-1rem" h="1.8rem"></Box>
+          )}
+        </FormControl>
 
         <Button
           w="13rem"
@@ -201,7 +261,7 @@ function Register() {
         >
           {'Create your account'}
         </Button>
-        {serverError !== null ? (
+        {serverError?.internalError ? (
           <Text
             color="var(--chakra-colors-red-500)"
             fontFamily="body"
@@ -209,10 +269,10 @@ function Register() {
             mt="-1rem"
             mb="1rem"
           >
-            {serverError}
+            {serverError?.internalError.message}
           </Text>
         ) : null}
-      </FormControl>
+      </Flex>
 
       <Divider borderColor="grey" width="75%" maxW="400px" />
 

@@ -5,17 +5,53 @@ import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from '../users/dto/login-user.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  public async register(user: CreateUserDto): Promise<User> {
+  public async register(user: CreateUserDto): Promise<
+    | User
+    | {
+        statusCode: number;
+        takenUsername?: { message: string };
+        registeredEmail?: { message: string };
+      }
+  > {
     user.password = await this.hash(user.password);
-    return this.usersService.create(user);
+    const usernameCount = await this.usersRepository.count({
+      where: {
+        username: user.username,
+      },
+    });
+    const emailCount = await this.usersRepository.count({
+      where: {
+        email: user.email,
+      },
+    });
+
+    const errors: {
+      statusCode: number;
+      takenUsername?: { message: string };
+      registeredEmail?: { message: string };
+    } = { statusCode: 400 };
+    if (usernameCount > 0) {
+      errors.takenUsername = { message: 'This username is already taken' };
+    }
+    if (emailCount > 0) {
+      errors.registeredEmail = { message: 'This email is already registered' };
+    }
+    if (usernameCount === 0 && emailCount === 0) {
+      return this.usersService.create(user);
+    } else {
+      return errors;
+    }
   }
 
   private hash(password: string): Promise<string> {
