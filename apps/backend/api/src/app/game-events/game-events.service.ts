@@ -30,7 +30,7 @@ export class GameEventsService {
     const errors: { errorGame?: string; errorEvent?: string } = {};
 
     if (game && event) {
-      this.gameEventsRepository.save({
+      await this.gameEventsRepository.save({
         game: { id: createGameEventDto.gameId },
         event: { id: createGameEventDto.eventId },
         quantity: 1000,

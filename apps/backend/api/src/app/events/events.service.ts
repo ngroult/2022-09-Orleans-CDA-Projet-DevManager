@@ -23,7 +23,7 @@ export class EventsService {
     } = {};
 
     if (room) {
-      this.eventsRepository.save({
+      await this.eventsRepository.save({
         room: { id: createEventDto.roomId },
         quantity: 1000,
       });

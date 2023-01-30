@@ -33,7 +33,7 @@ export class BonusMalusService {
       errorCharacter?: string;
     } = {};
     if (event && character) {
-      this.bonusMalusRepository.save({
+      await this.bonusMalusRepository.save({
         event: { id: createBonusMalusDto.eventId },
         character: { id: createBonusMalusDto.characterId },
         quantity: 1000,

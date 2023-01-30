@@ -30,7 +30,7 @@ export class ResourcesUsedService {
     const errors: { errorCharacter?: string; errorResource?: string } = {};
 
     if (character && resource) {
-      this.resourcesUsedRepository.save({
+      await this.resourcesUsedRepository.save({
         character: { id: createResourceUsedDto.characterId },
         resource: { id: createResourceUsedDto.resourceId },
         quantity: 1000,

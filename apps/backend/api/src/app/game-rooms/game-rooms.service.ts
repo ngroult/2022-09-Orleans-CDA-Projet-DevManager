@@ -30,7 +30,7 @@ export class GameRoomsService {
     const errors: { errorGame?: string; errorRoom?: string } = {};
 
     if (game && room) {
-      this.gameRoomsRepository.save({
+      await this.gameRoomsRepository.save({
         game: { id: createGameRoomDto.gameId },
         room: { id: createGameRoomDto.roomId },
         quantity: 1000,

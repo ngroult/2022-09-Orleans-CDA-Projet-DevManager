@@ -30,7 +30,7 @@ export class GameResourcesService {
     const errors: { errorGame?: string; errorResource?: string } = {};
 
     if (game && resource) {
-      this.gameResourcesRepository.save({
+      await this.gameResourcesRepository.save({
         game: { id: createGameResourceDto.gameId },
         resource: { id: createGameResourceDto.resourceId },
         quantity: 1000,

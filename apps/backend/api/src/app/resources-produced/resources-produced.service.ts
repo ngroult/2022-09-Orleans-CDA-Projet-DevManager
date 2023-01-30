@@ -32,7 +32,7 @@ export class ResourcesProducedService {
     const errors: { errorCharacter?: string; errorResource?: string } = {};
 
     if (character && resource) {
-      this.resourcesProducedRepository.save({
+      await this.resourcesProducedRepository.save({
         character: { id: createResourceProducedDto.characterId },
         resource: { id: createResourceProducedDto.resourceId },
         quantity: 1000,

@@ -23,7 +23,7 @@ export class CharactersService {
     const errors: { errorGame?: string; errorRoom?: string } = {};
 
     if (room) {
-      this.charactersRepository.save({
+      await this.charactersRepository.save({
         room: { id: createCharacterDto.roomId },
         quantity: 1000,
       });

@@ -33,7 +33,7 @@ export class GameCharactersService {
     } = {};
 
     if (game && character) {
-      this.gameCharactersRepository.save({
+      await this.gameCharactersRepository.save({
         game: { id: createGameCharacterDto.gameId },
         character: { id: createGameCharacterDto.characterId },
         quantity: 1000,
