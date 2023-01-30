@@ -10,12 +10,12 @@ import {
   Image,
   useDisclosure,
 } from '@chakra-ui/react';
-import { Room, GameEvent, BonusMalus } from '@apps/backend-api';
+import { Room, Event, BonusMalus } from '@apps/backend-api';
 import { useState, useEffect } from 'react';
 import EventModal from './popups/EventModal';
 import BadgeResource from './BadgeResource';
 
-function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
+function EventCard({ room, event }: { room: Room; event: Event }) {
   const [bonusMalus, setBonusMalus] = useState<BonusMalus[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -56,25 +56,20 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
           shadow="2xl"
           onClick={onOpen}
         >
-          <Image
-            m="auto"
-            mt="2.5"
-            src={gameEvent.event.image}
-            alt={gameEvent.event.name}
-          />
+          <Image m="auto" mt="2.5" src={event.image} alt={event.name} />
         </Box>
 
         <CardBody>
           <Flex alignItems="center" w="full" justifyContent="space-between">
             <Box>
               <Heading size="md" mt="1">
-                {gameEvent.event.name}
+                {event.name}
               </Heading>
 
               {bonusMalus && (
                 <HStack>
                   {bonusMalus
-                    .filter((bonMal) => bonMal.event.id === gameEvent.event.id)
+                    .filter((bonMal) => bonMal.event.id === event.id)
                     .map((bonMal) => (
                       <BadgeResource
                         key={bonMal.id}
@@ -91,7 +86,7 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
               <Badge fontSize="xl" borderRadius="full" bgColor="gold.200">
                 <Flex align="center">
                   <Image src="/dollar.png" alt="dollar" boxSize="30px" p="1" />
-                  {gameEvent.event.price}
+                  {event.price}
                 </Flex>
               </Badge>
               <Button
@@ -109,7 +104,7 @@ function EventCard({ room, gameEvent }: { room: Room; gameEvent: GameEvent }) {
       <EventModal
         isOpen={isOpen}
         onClose={onClose}
-        gameEvent={gameEvent}
+        event={event}
         bonusMalus={bonusMalus}
       />
     </>

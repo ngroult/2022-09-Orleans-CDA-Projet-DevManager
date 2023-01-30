@@ -7,11 +7,11 @@ export class GameEvent {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  startDate: Date;
+  @Column({ type: 'date' })
+  startDate: string;
 
-  @Column({ nullable: true })
-  endDate: Date;
+  @Column({ type: 'date' })
+  endDate: string;
 
   @ManyToOne(() => Event, (event) => event.gameEvents)
   event: Event;

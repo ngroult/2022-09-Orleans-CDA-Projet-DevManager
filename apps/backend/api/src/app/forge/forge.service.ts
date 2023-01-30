@@ -49,11 +49,11 @@ export class ForgeService {
 
   async create(): Promise<string> {
     const image1 = await this.imagesRepository.save({
-      name: 'profilePic1',
+      name: '/man4.png',
       category: 'profile',
     });
-    await this.imagesRepository.save({
-      name: 'gamePic1',
+    const image2 = await this.imagesRepository.save({
+      name: 'company7.png',
       category: 'game',
     });
 
@@ -66,11 +66,11 @@ export class ForgeService {
     });
 
     const game1 = await this.gamesRepository.save({
-      userId: user1.id,
       companyName: 'Twitter',
       ceo: 'Elon Musk',
       location: 'Paris, France',
-      idImage: 1,
+      userId: { id: user1.id },
+      image: { id: image2.id },
     });
 
     const room1 = await this.roomsRepository.save({
@@ -409,25 +409,6 @@ export class ForgeService {
       isBonus: false,
       event: { id: event3.id },
       character: { id: character3.id },
-    });
-
-    const gameEvent1 = await this.gameEventsRepository.save({
-      startDate: '',
-      endDate: '',
-      game: { id: game1.id },
-      event: { id: event1.id },
-    });
-    const gameEvent2 = await this.gameEventsRepository.save({
-      startDate: '',
-      endDate: '',
-      game: { id: game1.id },
-      event: { id: event2.id },
-    });
-    const gameEvent3 = await this.gameEventsRepository.save({
-      startDate: '',
-      endDate: '',
-      game: { id: game1.id },
-      event: { id: event3.id },
     });
 
     return 'OK';
