@@ -47,11 +47,11 @@ export class ForgeService {
 
   async create(): Promise<string> {
     const image1 = await this.imagesRepository.save({
-      name: '/man4.png',
+      name: 'profilePic1',
       category: 'profile',
     });
     const image2 = await this.imagesRepository.save({
-      name: 'company7.png',
+      name: 'gamePic1',
       category: 'game',
     });
 
