@@ -12,7 +12,6 @@
     "watch:env": "nodemon --watch ./.env --exec \"npm run env:cp\"",
     "dev:frontend:web": "npm run dev --workspace=apps/frontend/web",
     "dev:frontend:mobile": "npm run dev --workspace=apps/frontend/mobile",
-    "dev:frontend:admin": "npm run dev --workspace=apps/frontend/admin",
     "dev:tunnel": "npm run tunnel --workspace=apps/frontend/mobile",
     "dev:backend:api": "npm run dev --workspace=apps/backend/api",
     "dev:mobile": "npm run dev:frontend:mobile",
