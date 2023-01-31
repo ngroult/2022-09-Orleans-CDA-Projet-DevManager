@@ -36,6 +36,20 @@ const GameSettings = () => {
     }).then((response) => response.json());
   };
 
+  const updateGameSettings = () => {
+    fetch(`/api/games/${user!.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    }).then((response) => response.json());
+
+    setFormData({});
+  };
+
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+
   return (
     <>
       <Navbar />
@@ -116,18 +130,20 @@ const GameSettings = () => {
             <GameImageFiller
               selectedImage={selectedImage}
               setSelectedImage={setSelectedImage}
+              setFormData={setFormData}
             />
           }
           submitText="Save"
-          submitFunction={() => setCompanyImage(selectedImage)}
+          action={updateGameSettings}
         />
         <SlideUpModal
           isOpen={gameDetails.isOpen}
           onClose={gameDetails.onClose}
           pageColor="#D4B514"
           title="Edit the game details"
-          content={<GameDetailsFiller />}
+          content={<GameDetailsFiller setFormData={setFormData} />}
           submitText="Save"
+          action={updateGameSettings}
         />
         <SlideUpModal
           isOpen={resetGame.isOpen}

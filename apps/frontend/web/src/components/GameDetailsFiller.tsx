@@ -1,6 +1,15 @@
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 
-const GameDetailsFiller = () => {
+const GameDetailsFiller = ({
+  setFormData,
+}: {
+  setFormData: Dispatch<
+    SetStateAction<{
+      [key: string]: string;
+    }>
+  >;
+}) => {
   return (
     <InputGroup
       display="flex"
@@ -18,6 +27,9 @@ const GameDetailsFiller = () => {
         placeholder="My Company..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, companyName: e.target.value }))
+        }
       />
       <FormLabel htmlFor="ceo-name" textAlign="left" w="100%" m="0.5rem 0 0">
         {'CEO Name :'}
@@ -28,6 +40,9 @@ const GameDetailsFiller = () => {
         placeholder="Elon Musk..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, ceo: e.target.value }))
+        }
       />
       <FormLabel htmlFor="location" textAlign="left" w="100%" m="0.5rem 0 0">
         {'Location :'}
@@ -38,6 +53,9 @@ const GameDetailsFiller = () => {
         placeholder="Paris, France..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, location: e.target.value }))
+        }
       />
     </InputGroup>
   );
