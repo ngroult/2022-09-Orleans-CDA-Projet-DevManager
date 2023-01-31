@@ -3,7 +3,6 @@ import {
   Text,
   Flex,
   Image,
-  Grid,
   Button,
   VStack,
   HStack,
@@ -12,7 +11,6 @@ import {
   Center,
   Heading,
 } from '@chakra-ui/react';
-import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
