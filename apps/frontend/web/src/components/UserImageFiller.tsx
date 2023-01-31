@@ -1,4 +1,5 @@
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 const UserImageFiller = ({
   selectedImage,
@@ -9,6 +10,8 @@ const UserImageFiller = ({
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
+
+  useEffect;
 
   const options = [
     'man1',
