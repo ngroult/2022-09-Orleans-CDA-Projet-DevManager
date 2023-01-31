@@ -1,4 +1,5 @@
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 
 const UserImageFiller = ({
   selectedImage,
@@ -7,7 +8,11 @@ const UserImageFiller = ({
 }: {
   selectedImage: string;
   setSelectedImage: (value: string) => void;
-  setFormData: any;
+  setFormData: Dispatch<
+    SetStateAction<{
+      [key: string]: string;
+    }>
+  >;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
