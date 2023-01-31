@@ -1,5 +1,6 @@
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import fetchImages from '../utils/fetchImage';
 
 const UserImageFiller = ({
   selectedImage,
@@ -10,8 +11,16 @@ const UserImageFiller = ({
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
+  const [images, setImages] = useState([]);
 
-  useEffect;
+  useEffect(() => {
+    const imagesGet = async () => {
+      const data = await fetchImages('profile');
+      setImages(data);
+      console.log('data', data);
+    };
+    imagesGet();
+  }, []);
 
   const options = [
     'man1',
@@ -36,6 +45,13 @@ const UserImageFiller = ({
     'woman10',
   ];
 
+  let ferf: string[] = [];
+  images.forEach((image) => {
+    ferf.push(image.name);
+  });
+  console.log('ferf', ferf);
+  console.log('options', options);
+
   return (
     <Grid
       {...group}
@@ -44,7 +60,7 @@ const UserImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {options.map((value, index) => {
+      {ferf.map((value, index) => {
         const radioProps = getRadioProps({ value });
         const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
         return (
