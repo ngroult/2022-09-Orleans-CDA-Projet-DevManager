@@ -4,9 +4,10 @@ import { User } from './user.entity';
 import { Character } from './character.entity';
 import { GameResource } from './game-resource.entity';
 import { Resource } from './resource.entity';
+import { Image } from './image.entity';
 
-const entities = [Room, Game, Character, GameResource, User, Resource];
+const entities = [Room, Game, Character, GameResource, User, Resource, Image];
 
-export { Game, Room, User, Character, GameResource, Resource };
+export { Game, Room, User, Character, GameResource, Resource, Image };
 
 export default entities;
