@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   Text,
   Flex,
@@ -18,6 +18,7 @@ import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
+import AuthContext from '../contexts/AuthContext';
 const pageColor = 'gold';
 
 const GameSettings = () => {
@@ -26,6 +27,22 @@ const GameSettings = () => {
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
+
+  const { user } = useContext(AuthContext);
+
+  const updateGameSettings = () => {
+    fetch(`/api/games/${user!.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    }).then((response) => response.json());
+
+    setFormData({});
+  };
+
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
   return (
     <>
@@ -107,18 +124,20 @@ const GameSettings = () => {
             <GameImageFiller
               selectedImage={selectedImage}
               setSelectedImage={setSelectedImage}
+              setFormData={setFormData}
             />
           }
           submitText="Save"
-          submitFunction={() => setCompanyImage(selectedImage)}
+          action={updateGameSettings}
         />
         <SlideUpModal
           isOpen={gameDetails.isOpen}
           onClose={gameDetails.onClose}
           pageColor="#D4B514"
           title="Edit the game details"
-          content={<GameDetailsFiller />}
+          content={<GameDetailsFiller setFormData={setFormData} />}
           submitText="Save"
+          action={updateGameSettings}
         />
         <SlideUpModal
           isOpen={resetGame.isOpen}
@@ -127,6 +146,7 @@ const GameSettings = () => {
           title="Write your password to confirm you want to reset the game"
           content={<ResetGameFiller />}
           submitText="Reset"
+          action={updateGameSettings}
         />
       </Box>
     </>
