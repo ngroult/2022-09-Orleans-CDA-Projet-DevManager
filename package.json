@@ -12,6 +12,7 @@
     "watch:env": "nodemon --watch ./.env --exec \"npm run env:cp\"",
     "dev:frontend:web": "npm run dev --workspace=apps/frontend/web",
     "dev:frontend:mobile": "npm run dev --workspace=apps/frontend/mobile",
+    "dev:tunnel": "npm run tunnel --workspace=apps/frontend/mobile",
     "dev:backend:api": "npm run dev --workspace=apps/backend/api",
     "dev:mobile": "npm run dev:frontend:mobile",
     "dev:m": "npm run dev:mobile",
@@ -37,5 +38,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.3"
+  },
+  "optionalDependencies": {
+    "esbuild-linux-64": "^0.15.18"
   }
 }

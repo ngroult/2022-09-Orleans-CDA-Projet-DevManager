@@ -4,6 +4,7 @@ import { User } from '../../entities';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import * as argon2 from 'argon2';
 
 @Injectable()
 export class UsersService {
@@ -32,7 +33,14 @@ export class UsersService {
     });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  private hash(password: string): Promise<string> {
+    const hash = argon2.hash(password);
+    return hash;
+  }
+
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const hash = await this.hash(updateUserDto.password);
+    updateUserDto.password = hash;
     return this.usersRepository.update(id, updateUserDto);
   }
 

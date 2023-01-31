@@ -1,11 +1,18 @@
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 
 const GameImageFiller = ({
   selectedImage,
   setSelectedImage,
+  setFormData,
 }: {
   selectedImage: string;
   setSelectedImage: (value: string) => void;
+  setFormData: Dispatch<
+    SetStateAction<{
+      [key: string]: string;
+    }>
+  >;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup();
   const group = getRootProps();
@@ -25,7 +32,13 @@ const GameImageFiller = ({
         const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
         return (
           <Box as="label" key={index}>
-            <input {...getInputProps()} hidden />
+            <input
+              {...getInputProps()}
+              hidden
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, idImage: e.target.value }))
+              }
+            />
             <Box
               {...getCheckboxProps()}
               w="4.7rem"
