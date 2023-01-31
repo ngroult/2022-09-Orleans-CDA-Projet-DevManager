@@ -6,11 +6,11 @@ module.exports = {
   slug: 'mobile',
   version: '1.0.0',
   orientation: 'portrait',
-  icon: './assets/icon.png',
+  icon: './assets/developer-icon.png',
   userInterfaceStyle: 'light',
   splash: {
-    image: './assets/developer.gif',
-    resizeMode: 'contain',
+    image: './assets/developer-splash.png',
+    resizeMode: '50',
     backgroundColor: '#ffffff',
   },
   updates: {
@@ -22,12 +22,12 @@ module.exports = {
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './assets/adaptive-icon.png',
+      foregroundImage: './assets/developer-splash.png',
       backgroundColor: '#FFFFFF',
     },
   },
   web: {
-    favicon: './assets/favicon.png',
+    favicon: './assets/developer-icon.png',
   },
   extra: {
     API_HOST: process.env.VITE_API_HOST,
