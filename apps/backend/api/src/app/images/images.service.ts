@@ -12,7 +12,7 @@ export class ImagesService {
   ) {}
 
   async create(createImageDto: CreateImageDto): Promise<Image> {
-    return await this.imagesRepository.save(createImageDto);
+    return this.imagesRepository.save(createImageDto);
   }
 
   async findAll() {

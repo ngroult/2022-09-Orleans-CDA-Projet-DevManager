@@ -39,8 +39,6 @@ export class ForgeService {
     private eventsRepository: Repository<Event>,
     @InjectRepository(BonusMalus)
     private bonusMalusRepository: Repository<BonusMalus>,
-    @InjectRepository(GameEvent)
-    private gameEventsRepository: Repository<GameEvent>,
     @InjectRepository(ResourceUsed)
     private resourcesUsedRepository: Repository<ResourceUsed>,
     @InjectRepository(ResourceProduced)
@@ -69,7 +67,7 @@ export class ForgeService {
       companyName: 'Twitter',
       ceo: 'Elon Musk',
       location: 'Paris, France',
-      userId: { id: user1.id },
+      user: { id: user1.id },
       image: { id: image2.id },
     });
 

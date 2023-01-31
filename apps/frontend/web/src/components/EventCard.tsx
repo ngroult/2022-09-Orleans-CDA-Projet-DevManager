@@ -24,7 +24,7 @@ function EventCard({ room, event }: { room: Room; event: Event }) {
 
     const handleBonusMalus = async () => {
       try {
-        const res = await fetch(`/api/is-bonus-malus`, {
+        const res = await fetch(`/api/bonus-malus`, {
           method: 'GET',
           signal: abortController.signal,
         });

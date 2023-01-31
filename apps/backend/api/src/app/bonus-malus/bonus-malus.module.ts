@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BonusMalusService } from './bonus-malus.service';
 import { BonusMalusController } from './bonus-malus.controller';
-import { Character, Event, BonusMalus } from 'src/entities';
+import { Character, Event, BonusMalus } from '../../entities';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({

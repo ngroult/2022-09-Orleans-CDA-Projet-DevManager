@@ -12,7 +12,7 @@ export class RoomsService {
   ) {}
 
   async create(createRoomDto: CreateRoomDto) {
-    return await this.roomsRepository.save(createRoomDto);
+    return this.roomsRepository.save(createRoomDto);
   }
   async findAll() {
     return this.roomsRepository.find();

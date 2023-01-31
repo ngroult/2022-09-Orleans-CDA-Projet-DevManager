@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Character, BonusMalus } from 'src/entities';
+import { Character, BonusMalus } from '../../entities';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateBonusMalusDto } from './dto/create-bonus-malus.dto';
 import { UpdateBonusMalusDto } from './dto/update-bonus-malus.dto';

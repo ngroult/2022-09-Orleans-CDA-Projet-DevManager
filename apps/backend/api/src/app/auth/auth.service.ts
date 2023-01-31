@@ -17,7 +17,7 @@ export class AuthService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  public async register(user: CreateUserDto) {
+  public async register(user: CreateUserDto): Promise<User | RegisterResponse> {
     user.password = await this.hash(user.password);
     const usernameCount = await this.usersRepository.count({
       where: {

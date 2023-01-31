@@ -13,7 +13,7 @@ export class ResourcesService {
   ) {}
 
   async create(createResourceDto: CreateResourceDto) {
-    return await this.resourcesRepository.save(createResourceDto);
+    return this.resourcesRepository.save(createResourceDto);
   }
 
   async findAll() {

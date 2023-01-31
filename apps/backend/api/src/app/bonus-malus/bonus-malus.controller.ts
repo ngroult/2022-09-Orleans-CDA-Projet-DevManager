@@ -11,7 +11,7 @@ import { CreateBonusMalusDto } from './dto/create-bonus-malus.dto';
 import { UpdateBonusMalusDto } from './dto/update-bonus-malus.dto';
 import { BonusMalusService } from './bonus-malus.service';
 
-@Controller('is-bonus-malus')
+@Controller('bonus-malus')
 export class BonusMalusController {
   constructor(private readonly bonusMalusService: BonusMalusService) {}
 
