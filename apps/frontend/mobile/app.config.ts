@@ -9,7 +9,7 @@ module.exports = {
   icon: './assets/icon.png',
   userInterfaceStyle: 'light',
   splash: {
-    image: './assets/splash.png',
+    image: './assets/developer.gif',
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
   },
@@ -32,4 +32,5 @@ module.exports = {
   extra: {
     API_HOST: process.env.VITE_API_HOST,
   },
+  assets: ['./assets/fonts/'],
 };
