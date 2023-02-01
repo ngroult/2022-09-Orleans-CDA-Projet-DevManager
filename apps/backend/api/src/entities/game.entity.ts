@@ -39,7 +39,7 @@ export class Game {
 
   @DeleteDateColumn()
   deletedAt: Date;
-  
+
   @OneToMany(() => GameRoom, (gameRoom) => gameRoom.game)
   gameRooms: GameRoom[];
 
