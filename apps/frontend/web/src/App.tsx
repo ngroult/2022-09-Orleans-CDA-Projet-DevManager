@@ -37,8 +37,8 @@ const App = () => {
         console.error(err);
       }
     };
-    setIsLoadingUser(false);
     userLogin();
+    setIsLoadingUser(false);
     return () => {
       abortController.abort();
     };
