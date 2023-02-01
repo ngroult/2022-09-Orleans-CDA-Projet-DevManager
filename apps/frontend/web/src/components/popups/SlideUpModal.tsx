@@ -8,7 +8,6 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { ReactElement } from 'react';
-import { useActionData } from 'react-router-dom';
 
 const SlideUpModal = ({
   isOpen,

@@ -20,6 +20,7 @@ import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
+import { useToast } from '@chakra-ui/react';
 const pageColor = 'turquoise';
 
 const AccountSettings = () => {
@@ -31,11 +32,28 @@ const AccountSettings = () => {
   const deleteAccount = useDisclosure();
 
   const { user } = useContext(AuthContext);
+  const toast = useToast();
 
   const deleteUserAccount = () => {
-    fetch(`/api/users/${user!.id}`, {
-      method: 'DELETE',
-    }).then((response) => response.json());
+    try {
+      fetch(`/api/users/${user!.id}`, {
+        method: 'DELETE',
+      }).then((response) => response.json());
+      toast({
+        title: 'Account deleted.',
+        description: "We're sorry to see you go!",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'There was an error deleting your account.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (

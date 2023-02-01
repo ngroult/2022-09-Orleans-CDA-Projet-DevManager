@@ -19,6 +19,7 @@ import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
+import { useToast } from '@chakra-ui/react';
 const pageColor = 'gold';
 
 const GameSettings = () => {
@@ -29,11 +30,28 @@ const GameSettings = () => {
   const resetGame = useDisclosure();
 
   const { user } = useContext(AuthContext);
+  const toast = useToast();
 
   const deleteGame = () => {
-    fetch(`/api/games/${user!.id}`, {
-      method: 'DELETE',
-    }).then((response) => response.json());
+    try {
+      fetch(`/api/games/${user!.id}`, {
+        method: 'DELETE',
+      }).then((response) => response.json());
+      toast({
+        title: 'Game deleted.',
+        description: "We're sorry to see you go!",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'There was an error deleting your game.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   const updateGameSettings = () => {
