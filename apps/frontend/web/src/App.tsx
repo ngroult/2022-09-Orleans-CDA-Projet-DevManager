@@ -17,7 +17,7 @@ import Protected from './components/Protected';
 import { Box } from '@chakra-ui/react';
 
 const App = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setIsLoadingUser } = useContext(AuthContext);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -38,6 +38,7 @@ const App = () => {
       }
     };
     userLogin();
+    setIsLoadingUser(false);
     return () => {
       abortController.abort();
     };

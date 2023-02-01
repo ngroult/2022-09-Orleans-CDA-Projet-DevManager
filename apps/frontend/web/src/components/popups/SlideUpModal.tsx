@@ -16,7 +16,6 @@ const SlideUpModal = ({
   title,
   content,
   submitText,
-  submitFunction,
   action,
 }: {
   isOpen: boolean;
@@ -25,7 +24,6 @@ const SlideUpModal = ({
   title: string;
   content: ReactElement;
   submitText: string;
-  submitFunction?: () => void;
   action: () => void;
 }) => {
   return (
