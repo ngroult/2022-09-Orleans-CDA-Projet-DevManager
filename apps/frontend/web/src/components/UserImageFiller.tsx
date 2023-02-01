@@ -1,14 +1,20 @@
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
 const UserImageFiller = ({
   selectedImage,
   setSelectedImage,
+  setFormData,
 }: {
   selectedImage: string;
   setSelectedImage: (value: string) => void;
+  setFormData: Dispatch<
+    SetStateAction<{
+      [key: string]: string;
+    }>
+  >;
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     defaultValue: selectedImage,
