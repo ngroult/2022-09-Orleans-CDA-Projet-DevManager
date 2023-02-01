@@ -1,9 +1,10 @@
 const launch = async () => {
-  const axios = (await import('axios')).default;
   const chalk = (await import('chalk')).default;
 
   try {
-    const response = await axios.post('http://localhost:3333/api/forge');
+    const response = await fetch('http://localhost:3333/api/forge', {
+      method: 'POST',
+    });
     if (response.status === 201) {
       console.log(chalk.green('Success! Fake data inserted into database.'));
     } else {
