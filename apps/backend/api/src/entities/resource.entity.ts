@@ -1,5 +1,7 @@
 import { GameResource } from './game-resource.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ResourceUsed } from './resource-used.entity';
+import { ResourceProduced } from './resource-produced.entity';
 
 @Entity()
 export class Resource {
@@ -20,4 +22,13 @@ export class Resource {
 
   @OneToMany(() => GameResource, (gameResource) => gameResource.resource)
   gameResources: GameResource[];
+
+  @OneToMany(() => ResourceUsed, (resourceUsed) => resourceUsed.resource)
+  resourcesUsed: ResourceUsed[];
+
+  @OneToMany(
+    () => ResourceProduced,
+    (resourceProduced) => resourceProduced.resource,
+  )
+  resourcesProduced: ResourceProduced[];
 }

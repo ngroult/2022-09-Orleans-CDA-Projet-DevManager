@@ -1,18 +1,18 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateGameDto {
-  @IsNotEmpty()
-  idUser: number;
-
-  @IsNotEmpty()
+  @IsString()
   companyName: string;
 
-  @IsNotEmpty()
+  @IsString()
   ceo: string;
 
-  @IsNotEmpty()
+  @IsString()
   location: string;
 
-  @IsNotEmpty()
-  idImage: number;
+  @IsNumber()
+  imageId: number;
+
+  @IsNumber()
+  userId: number;
 }
