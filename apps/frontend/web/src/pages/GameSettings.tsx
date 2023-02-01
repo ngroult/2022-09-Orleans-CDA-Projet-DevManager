@@ -19,7 +19,7 @@ import Navbar from '../components/Navbar';
 const pageColor = 'gold';
 
 const GameSettings = () => {
-  const [companyImage, setCompanyImage] = useState('1');
+  const [companyImage, setCompanyImage] = useState('company1');
   const [selectedImage, setSelectedImage] = useState(companyImage);
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
@@ -44,7 +44,7 @@ const GameSettings = () => {
           >
             <Image
               w="5.5rem"
-              src={`/company${companyImage}.png`}
+              src={`/${companyImage}.png`}
               alt={`Image of ${companyImage}`}
               mt="2rem"
               mb="1rem"
