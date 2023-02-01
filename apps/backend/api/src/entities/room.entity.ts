@@ -1,4 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { GameRoom } from './game-room.entity';
+import { Event } from './event.entity';
+import { Character } from './character.entity';
 
 @Entity()
 export class Room {
@@ -11,6 +14,12 @@ export class Room {
   @Column('varchar', { length: 2000 })
   description: string;
 
+  @Column('varchar', { length: 200 })
+  image: string;
+
+  @Column('varchar', { length: 200 })
+  label: string;
+
   @Column('varchar', { length: 15 })
   color: string;
 
@@ -19,4 +28,13 @@ export class Room {
 
   @Column({ type: 'boolean' })
   isExpandable: boolean;
+
+  @OneToMany(() => GameRoom, (gameRoom) => gameRoom.room)
+  gameRooms: GameRoom[];
+
+  @OneToMany(() => Character, (character) => character.room)
+  characters: Character[];
+
+  @OneToMany(() => Event, (event) => event.room)
+  events: Event[];
 }

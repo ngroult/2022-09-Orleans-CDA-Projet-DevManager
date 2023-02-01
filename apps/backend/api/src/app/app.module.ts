@@ -11,8 +11,15 @@ import { CharactersModule } from './characters/character.module';
 import { ForgeModule } from './forge/forge.module';
 import { ResourcesModule } from './resources/resources.module';
 import { GameResourcesModule } from './game-resources/game-resources.module';
+import { ResourcesUsedModule } from './resources-used/resources-used.module';
+import { ResourcesProducedModule } from './resources-produced/resources-produced.module';
+import { GameEventsModule } from './game-events/game-events.module';
+import { EventsModule } from './events/events.module';
+import { BonusMalusModule } from './bonus-malus/bonus-malus.module';
+import { GameCharactersModule } from './game-characters/game-characters.module';
 import { ImagesModule } from './images/images.module';
 import entities from '../entities';
+import { GameRoomsModule } from './game-rooms/game-rooms.module';
 
 @Module({
   imports: [
@@ -41,7 +48,15 @@ import entities from '../entities';
     AuthModule,
     ResourcesModule,
     GameResourcesModule,
+    ResourcesUsedModule,
+    ResourcesProducedModule,
+    GameEventsModule,
+    EventsModule,
+    GameCharactersModule,
+    BonusMalusModule,
+    GameCharactersModule,
     ImagesModule,
+    GameRoomsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

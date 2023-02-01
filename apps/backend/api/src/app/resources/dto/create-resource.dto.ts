@@ -1,19 +1,18 @@
-import { IsNotEmpty } from 'class-validator';
-import { GameResource } from 'src/entities/game-resource.entity';
+import { IsString } from 'class-validator';
 
 export class CreateResourceDto {
-  @IsNotEmpty()
+  @IsString()
+  id: number;
+
+  @IsString()
   name: string;
 
-  @IsNotEmpty()
-  decription: string;
+  @IsString()
+  description: string;
 
-  @IsNotEmpty()
+  @IsString()
   image: string;
 
-  @IsNotEmpty()
+  @IsString()
   color: string;
-
-  @IsNotEmpty()
-  gameResources: GameResource[];
 }

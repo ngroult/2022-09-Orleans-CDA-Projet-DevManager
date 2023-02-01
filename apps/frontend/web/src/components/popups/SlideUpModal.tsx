@@ -17,6 +17,7 @@ const SlideUpModal = ({
   content,
   submitText,
   submitFunction,
+  action,
 }: {
   isOpen: boolean;
   onClose: () => void;
@@ -25,21 +26,22 @@ const SlideUpModal = ({
   content: ReactElement;
   submitText: string;
   submitFunction?: () => void;
+  action: () => void;
 }) => {
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      size="full"
+      size={{ base: 'full', xl: 'xl', lg: 'lg', md: 'lg', sm: 'full' }}
       motionPreset="slideInBottom"
     >
       <ModalContent
         p="1rem"
-        bg={`linear-gradient(${pageColor}33, ${pageColor}33), linear-gradient(#FFF, #FFF)`}
+        bg={`${pageColor}.200`}
         display="flex"
         flexDir="column"
       >
-        <ModalHeader textAlign="center" fontWeight="normal">
+        <ModalHeader textAlign="center" fontStyle="bold">
           {title}
         </ModalHeader>
         <ModalBody textAlign="center">
@@ -61,14 +63,14 @@ const SlideUpModal = ({
             </Button>
             <Button
               ml=".5rem"
-              bgColor={pageColor}
+              bgColor={`${pageColor}.900`}
               color="#FFF"
               fontWeight="normal"
               w="7rem"
               boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
               onClick={() => {
+                action();
                 onClose();
-                submitFunction();
               }}
             >
               {submitText}
@@ -76,9 +78,9 @@ const SlideUpModal = ({
           </Flex>
         </ModalBody>
         <Box w="calc(100% + 2rem)" m="2rem -1rem -1rem">
-          <Box h="4rem" bgColor={`${pageColor}33`}></Box>
-          <Box h="3rem" bgColor={`${pageColor}80`}></Box>
-          <Box h="2rem" bgColor={`${pageColor}FF`}></Box>
+          <Box h="4rem" bgColor={`${pageColor}.300`}></Box>
+          <Box h="3rem" bgColor={`${pageColor}.500`}></Box>
+          <Box h="2rem" bgColor={`${pageColor}.900`}></Box>
         </Box>
       </ModalContent>
     </Modal>

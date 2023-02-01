@@ -67,7 +67,7 @@ const App = () => {
           }
         />
         <Route
-          path="/game/:room"
+          path="/game/:label"
           element={
             <Protected>
               <Room />
