@@ -8,6 +8,9 @@ DELIMITER $$
 CREATE PROCEDURE `everyResource`(IN userId INT, IN gameId INT, OUT gameResource INT)
 BEGIN
     DECLARE resource_loop_done INT DEFAULT FALSE;
+    DECLARE resouceUsed INT;
+    DECLARE resourceProduced INT;
+    DECLARE characeterQuantity INT;
     DECLARE resourceId INT;
     DECLARE resourceQuantity INT;
     DECLARE cur_game_resource CURSOR FOR
@@ -28,9 +31,9 @@ BEGIN
             LEAVE resource_loop;
         END IF;
 
-        SELECT resourceId, resourceQuantity INTO gameResource;
+        SET gameResource = resourceQuantity;
         
-        CALL everyCharacter(userId, gameId, resourceId);
+        CALL everyCharacter(userId, gameId, resourceId, resouceUsed, resourceProduced, characeterQuantity);
 
     END LOOP;
     CLOSE cur_game_resource;
@@ -57,10 +60,6 @@ BEGIN
             ru.quantity AS usedQuantity,
             rp.resourceId AS resourceProducedId,
             rp.quantity AS producedQuantity
-            INTO 
-            characterQuantity, 
-            resouceUsed, 
-            resourceProduced;
         FROM
             game_character gc
             LEFT JOIN resource_used ru ON ru.characterId = gc.id AND ru.resourceId = resourceId
@@ -81,9 +80,12 @@ BEGIN
             LEAVE character_loop;
         END IF;
 
-        SELECT
+        SELECT 
+            characterId, 
             characterQuantity,
-            usedQuantity,
+            resourceUsedId, 
+            usedQuantity, 
+            resourceProducedId, 
             producedQuantity;
     END LOOP;
     CLOSE cur_character; 
@@ -98,6 +100,7 @@ BEGIN
     DECLARE game_loop_done INT DEFAULT FALSE;
     DECLARE userId INT;
     DECLARE gameId INT;
+    DECLARE gameResource INT;
     DECLARE cur_user_game CURSOR FOR
       SELECT
         u.id AS userId,
@@ -114,8 +117,10 @@ BEGIN
             LEAVE game_loop;
         END IF;
 
+        
+
         -- SELECT userId, gameId;
-        CALL everyResource(userId, gameId);
+        CALL everyResource(userId, gameId, gameResource);
 
     END LOOP;
     CLOSE cur_user_game;
