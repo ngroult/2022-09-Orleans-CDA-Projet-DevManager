@@ -24,13 +24,14 @@
     "dc:reset": "npm run dc:down && rm -rf deployment/db && npm run dc:up",
     "dcp:up": "docker compose -f ./deployment/docker-compose.prod.yml up -d --build",
     "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v",
-    "forge": "node apps/backend/api/src/app/forge/forge.launch.ts"
+    "forge": "npm run start --workspace=apps/tools/forge"
   },
   "workspaces": [
     "libs/typings",
     "apps/backend/api",
     "apps/frontend/web",
-    "apps/frontend/mobile"
+    "apps/frontend/mobile",
+    "apps/tools/forge"
   ],
   "devDependencies": {
     "@types/node": "^18.11.9",
