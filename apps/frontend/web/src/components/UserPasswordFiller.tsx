@@ -1,6 +1,15 @@
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 
-const UserPasswordFiller = () => {
+const UserPasswordFiller = ({
+  setFormData,
+}: {
+  setFormData: Dispatch<
+    SetStateAction<{
+      [key: string]: string;
+    }>
+  >;
+}) => {
   return (
     <InputGroup
       display="flex"
@@ -28,6 +37,9 @@ const UserPasswordFiller = () => {
         placeholder="New password..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        onChange={(e) =>
+          setFormData((prev) => ({ ...prev, password: e.target.value }))
+        }
       />
     </InputGroup>
   );

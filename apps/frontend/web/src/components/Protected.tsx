@@ -3,7 +3,11 @@ import { Navigate, useLocation } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 const Protected = ({ children }: { children: ReactNode }) => {
-  const { user } = useContext(AuthContext);
+  const { user, isLoadingUser } = useContext(AuthContext);
+  if (isLoadingUser) {
+    return null;
+  }
+
   const location = useLocation();
 
   if (!user) {
