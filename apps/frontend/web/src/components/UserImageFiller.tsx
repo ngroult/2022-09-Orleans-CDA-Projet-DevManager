@@ -43,7 +43,12 @@ const UserImageFiller = ({
   return (
     <Grid
       {...group}
-      templateColumns="repeat(3, 1fr)"
+      templateColumns={{
+        base: 'repeat(3, 1fr)',
+        xl: 'repeat(5, 1fr)',
+        lg: 'repeat(5, 1fr)',
+        md: 'repeat(5, 1fr)',
+      }}
       m="2rem auto"
       gap="1rem"
       maxW="400px"

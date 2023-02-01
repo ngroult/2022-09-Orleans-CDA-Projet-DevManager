@@ -20,8 +20,33 @@ export class RoomsService {
 
   async findOne(id: number): Promise<Room[]> {
     return this.roomsRepository.find({
-      select: ['id', 'name', 'description', 'color', 'price', 'isExpandable'],
+      select: [
+        'id',
+        'name',
+        'description',
+        'image',
+        'label',
+        'color',
+        'price',
+        'isExpandable',
+      ],
       where: [{ id: id }],
+    });
+  }
+
+  async findOneByLabel(label: string): Promise<Room[]> {
+    return this.roomsRepository.find({
+      select: [
+        'id',
+        'name',
+        'description',
+        'image',
+        'label',
+        'color',
+        'price',
+        'isExpandable',
+      ],
+      where: [{ label: label }],
     });
   }
 
