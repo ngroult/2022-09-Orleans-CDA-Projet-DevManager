@@ -8,7 +8,6 @@ import {
   useDisclosure,
   Box,
   Heading,
-  Center,
   Grid,
   GridItem,
 } from '@chakra-ui/react';
@@ -83,7 +82,9 @@ const AccountSettings = () => {
           >
             <VStack
               bgColor={`${pageColor}.200`}
-              boxSize={{ base: 'md', xl: 'xl' }}
+              boxSize={{ base: 'md', xl: 'xl', lg: 'lg' }}
+              w="auto"
+              h="auto"
               p="10"
             >
               <Text display={displayDesktop} as="b" fontSize="xl" mb="5">

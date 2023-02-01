@@ -15,7 +15,7 @@ const CompanyImageFiller = ({
   return (
     <Grid
       {...group}
-      templateColumns="repeat(3, 1fr)"
+      templateColumns="repeat(5, 1fr)"
       m="2rem auto"
       gap="1rem"
       maxW="400px"

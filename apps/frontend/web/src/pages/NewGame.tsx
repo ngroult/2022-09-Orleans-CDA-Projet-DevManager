@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  Text,
   Flex,
   Image,
-  Grid,
   Button,
   useDisclosure,
   FormControl,
   Input,
   FormLabel,
   FormErrorMessage,
+  Heading,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import CompanyImageFiller from '../components/CompanyImageFiller';
+const pageColor = 'purple';
 
 const NewGame = () => {
   const navigate = useNavigate();
@@ -66,26 +65,17 @@ const NewGame = () => {
 
   return (
     <>
-      <Flex flexDir="column" w="100%" h="100vh">
-        <Grid
-          w="100%"
-          h="70px"
-          autoFlow="column"
-          templateColumns="20% auto 20%"
-          alignItems="center"
-          justifyItems="center"
-        >
-          <HamburgerIcon boxSize="5" />
-          <Text color="#B03D99" fontSize="1.2rem">
-            {'New Game'}
-          </Text>
-        </Grid>
+      <Flex flexDir="column" bgColor={`${pageColor}.200`} minH="100vh">
         <Flex
           flexDir="column"
           alignItems="center"
-          bgColor="#B03D9933"
-          flexGrow="1"
+          py="3rem"
+          bgColor="#FFF"
+          w="100%"
         >
+          <Heading color={`${pageColor}.900`}>{'New Game'}</Heading>
+        </Flex>
+        <Flex flexDir="column" alignItems="center" flexGrow="1">
           <Image
             w="80px"
             src={`/company${companyImage}.png`}
@@ -94,13 +84,13 @@ const NewGame = () => {
           />
           <Button
             onClick={onOpen}
-            bgColor="#B03D99"
+            bgColor={`${pageColor}.900`}
             color="#FFF"
-            w="9rem"
+            w="auto"
             fontWeight="normal"
             boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
           >
-            {'Change avatar'}
+            {'Change your building'}
           </Button>
           <FormControl
             display="flex"
@@ -198,7 +188,7 @@ const NewGame = () => {
             </FormErrorMessage>
           </FormControl>
           <Button
-            bgColor="#B03D99"
+            bgColor={`${pageColor}.900`}
             color="#FFF"
             fontWeight="normal"
             my="2rem"
@@ -212,7 +202,7 @@ const NewGame = () => {
       <SlideUpModal
         isOpen={isOpen}
         onClose={onClose}
-        color="#B03D99"
+        pageColor={pageColor}
         title="Choose a new avatar"
         content={
           <CompanyImageFiller

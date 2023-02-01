@@ -95,6 +95,8 @@ const GameSettings = () => {
             <VStack
               bgColor={`${pageColor}.200`}
               boxSize={{ base: 'md', xl: 'xl' }}
+              w="auto"
+              h="auto"
               p="10"
             >
               <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
