@@ -53,9 +53,9 @@ const App = () => {
         <Route
           path="/new-game"
           element={
-            // <Protected>
-            <NewGame />
-            // </Protected>
+            <Protected>
+              <NewGame />
+            </Protected>
           }
         />
         <Route
