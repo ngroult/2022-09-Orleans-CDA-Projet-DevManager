@@ -4,11 +4,10 @@ import AuthContext from '../contexts/AuthContext';
 
 const Protected = ({ children }: { children: ReactNode }) => {
   const { user, isLoadingUser } = useContext(AuthContext);
+  const location = useLocation();
   if (isLoadingUser) {
     return null;
   }
-
-  const location = useLocation();
 
   if (!user) {
     return <Navigate to={'/login'} state={{ redirectTo: location.pathname }} />;

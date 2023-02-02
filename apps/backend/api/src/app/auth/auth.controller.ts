@@ -66,6 +66,6 @@ export class AuthController {
       secure: NODE_ENV === 'production',
       signed: true,
     });
-    return { status: 'OK' };
+    return { status: 'ok' };
   }
 }

@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DrawerNavbar from './DrawerNavbar';
 
 const iconsSize = '30px';
@@ -21,6 +21,18 @@ const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    try {
+      const response = await fetch('/api/auth/logout', { method: 'GET' });
+      const jsonResponse = await response.json();
+
+      if (jsonResponse.status === 'ok') {
+        navigate('/');
+      }
+    } catch (err) {}
+  };
 
   return (
     <>
@@ -133,19 +145,17 @@ const Navbar = () => {
               </Link>
             </Box>
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/">
-                <HStack>
-                  <Image
-                    alt="Logout"
-                    src="/logout.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
-                  )}
-                </HStack>
-              </Link>
+              <HStack style={{ cursor: 'pointer' }} onClick={() => logout()}>
+                <Image
+                  alt="Logout"
+                  src="/logout.png"
+                  h={iconsSize}
+                  w={iconsSize}
+                />
+                {isNavbarOpen && (
+                  <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
+                )}
+              </HStack>
             </Box>
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/assistance">

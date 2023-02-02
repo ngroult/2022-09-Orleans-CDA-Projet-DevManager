@@ -32,13 +32,12 @@ const App = () => {
 
         if (jsonResponse.message !== 'Unauthorized') {
           setUser(jsonResponse);
+        } else {
+          setIsLoadingUser(false);
         }
-      } catch (err) {
-        console.error(err);
-      }
+      } catch (err) {}
     };
     userLogin();
-    setIsLoadingUser(false);
     return () => {
       abortController.abort();
     };
