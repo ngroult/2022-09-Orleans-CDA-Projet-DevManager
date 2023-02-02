@@ -15,6 +15,7 @@ import AuthContext from './contexts/AuthContext';
 import { useContext, useEffect } from 'react';
 import Protected from './components/Protected';
 import { Box } from '@chakra-ui/react';
+import Admin from '../../admin/src/App';
 
 const App = () => {
   const { setUser, setIsLoadingUser } = useContext(AuthContext);
@@ -91,6 +92,24 @@ const App = () => {
             </Protected>
           }
         />
+
+        <Route
+          path="/admin/characters"
+          element={
+            <Protected>
+              <Admin />
+            </Protected>
+          }
+        />
+        <Route
+          path="/admin/*"
+          element={
+            <Protected>
+              <Login />
+            </Protected>
+          }
+        />
+
         <Route path="/about" element={<About />} />
         <Route path="/assistance" element={<Assistance />} />
         <Route path="*" element={<Page404 />} />
