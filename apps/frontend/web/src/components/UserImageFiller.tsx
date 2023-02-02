@@ -24,11 +24,11 @@ const UserImageFiller = ({
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const imagesGet = async () => {
+    const getImages = async () => {
       const data = await fetchImages('profile');
       setImages(data);
     };
-    imagesGet();
+    getImages();
   }, []);
 
   return (
