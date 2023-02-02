@@ -116,7 +116,7 @@ const Assistance = () => {
                 <Alert status="success" mt="5" display="flex" flexDir="row">
                   <Box flexGrow="1">
                     <AlertTitle display="flex" verticalAlign="alignSelf">
-                      {' Success!'}
+                      {'Success!'}
                     </AlertTitle>
                     <AlertDescription>
                       {'Your mail has been send'}
