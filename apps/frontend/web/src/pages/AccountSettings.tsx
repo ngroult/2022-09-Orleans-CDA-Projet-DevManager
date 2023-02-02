@@ -48,11 +48,11 @@ const AccountSettings = () => {
   const { user } = useContext(AuthContext);
   const toast = useToast();
 
-  const deleteUserAccount = () => {
+  const deleteUserAccount = async () => {
     try {
-      fetch(`/api/users/${user!.id}`, {
+      await fetch(`/api/users/${user!.id}`, {
         method: 'DELETE',
-      }).then((response) => response.json());
+      });
       toast({
         title: 'Account deleted.',
         description: "We're sorry to see you go!",

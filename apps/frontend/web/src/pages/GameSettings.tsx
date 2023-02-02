@@ -47,11 +47,11 @@ const GameSettings = () => {
   const { user } = useContext(AuthContext);
   const toast = useToast();
 
-  const deleteGame = () => {
+  const deleteGame = async () => {
     try {
-      fetch(`/api/games/${user!.id}`, {
+      await fetch(`/api/games/${user!.id}`, {
         method: 'DELETE',
-      }).then((response) => response.json());
+      });
       toast({
         title: 'Game deleted.',
         description: "We're sorry to see you go!",
