@@ -91,6 +91,7 @@ const App = () => {
             </Protected>
           }
         />
+
         <Route path="/about" element={<About />} />
         <Route path="/assistance" element={<Assistance />} />
         <Route path="*" element={<Page404 />} />
