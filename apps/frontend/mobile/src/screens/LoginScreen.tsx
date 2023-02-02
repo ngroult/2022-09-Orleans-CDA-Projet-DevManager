@@ -21,41 +21,55 @@ export default function LoginScreen({ navigation }) {
   const [serverError, setServerError] = useState<string | null>(null);
 
   const submitLogin = async () => {
-    if (errors?.username !== undefined) {
+    if (!username) {
       setErrors({
         ...errors,
         username: { message: 'Your username is required' },
       });
-    }
-    if (errors?.password !== undefined) {
+      return false;
+    } else if (!password) {
       setErrors({
         ...errors,
         password: { message: 'Your password is required' },
       });
-    }
+      return false;
+    } else {
+      // if (errors?.username !== undefined) {
+      //   setErrors({
+      //     ...errors,
+      //     username: { message: 'Your username is required' },
+      //   });
+      // }
+      // if (errors?.password !== undefined) {
+      //   setErrors({
+      //     ...errors,
+      //     password: { message: 'Your password is required' },
+      //   });
+      // }
 
-    if (errors === null) {
-      try {
-        const loginResponse = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        });
-        const jsonResponse = await loginResponse.json();
+      if (errors === null) {
+        try {
+          const loginResponse = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              username,
+              password,
+            }),
+          });
+          const jsonResponse = await loginResponse.json();
 
-        if (jsonResponse.status === 'KO') {
-          setServerError('Username and/or password is incorrect');
+          if (jsonResponse.status === 'KO') {
+            setServerError('Username and/or password is incorrect');
+          }
+          if (jsonResponse.status === 'OK') {
+            navigation.navigate('Overview');
+          }
+        } catch (err) {
+          setServerError(
+            'There seems to be an error, try again in a few minutes.'
+          );
         }
-        if (jsonResponse.status === 'OK') {
-          navigation.navigate('Overview');
-        }
-      } catch (err) {
-        setServerError(
-          'There seems to be an error, try again in a few minutes.'
-        );
       }
     }
   };
@@ -63,13 +77,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <Flex flex="1" backgroundColor="turquoise.200">
       <Flex align="center" justify="center" bgColor="#FFF" py="9">
-        <Heading
-          size="lg"
-          color="#000"
-          fontWeight="400"
-          fontFamily="heading"
-          mb="5"
-        >
+        <Heading size="lg" color="#000" fontWeight="400" mb="5">
           {'DevManager'}
         </Heading>
         <Heading color="turquoise.900" fontWeight="medium" size="lg">
