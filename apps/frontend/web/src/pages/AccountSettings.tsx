@@ -19,6 +19,7 @@ import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
+import { useToast } from '@chakra-ui/react';
 const pageColor = 'turquoise';
 const displayDesktop = {
   base: 'none',
@@ -43,7 +44,31 @@ const AccountSettings = () => {
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
+
   const { user } = useContext(AuthContext);
+  const toast = useToast();
+
+  const deleteUserAccount = async () => {
+    try {
+      await fetch(`/api/users/${user!.id}`, {
+        method: 'DELETE',
+      });
+      toast({
+        title: 'Account deleted.',
+        description: "We're sorry to see you go!",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'There was an error deleting your account.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
 
   const updateUserSettings = () => {
     fetch(`/api/users/${user!.id}`, {
@@ -240,7 +265,7 @@ const AccountSettings = () => {
           title="Write your password to confirm you want to delete your account"
           content={<DeleteAccountFiller />}
           submitText="Delete"
-          action={updateUserSettings}
+          action={deleteUserAccount}
         />
       </Box>
     </>

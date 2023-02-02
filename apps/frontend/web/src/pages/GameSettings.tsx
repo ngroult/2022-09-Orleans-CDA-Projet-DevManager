@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 import {
   Text,
   Flex,
@@ -19,6 +19,7 @@ import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
+import { useToast } from '@chakra-ui/react';
 const pageColor = 'gold';
 const displayDesktop = {
   base: 'none',
@@ -44,6 +45,29 @@ const GameSettings = () => {
   const resetGame = useDisclosure();
 
   const { user } = useContext(AuthContext);
+  const toast = useToast();
+
+  const deleteGame = async () => {
+    try {
+      await fetch(`/api/games/${user!.id}`, {
+        method: 'DELETE',
+      });
+      toast({
+        title: 'Game deleted.',
+        description: "We're sorry to see you go!",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'There was an error deleting your game.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
 
   const updateGameSettings = () => {
     fetch(`/api/games/${user!.id}`, {
@@ -220,7 +244,7 @@ const GameSettings = () => {
           title="Write your password to confirm you want to reset the game"
           content={<ResetGameFiller />}
           submitText="Reset"
-          action={updateGameSettings}
+          action={deleteGame}
         />
       </Box>
     </>

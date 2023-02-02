@@ -9,6 +9,7 @@ import {
   OneToMany,
   CreateDateColumn,
   PrimaryGeneratedColumn,
+  DeleteDateColumn,
 } from 'typeorm';
 import { GameEvent } from './game-event.entity';
 import { Image } from './image.entity';
@@ -35,6 +36,9 @@ export class Game {
 
   @OneToMany(() => GameResource, (gameResource) => gameResource.game)
   gameResources: GameResource[];
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @OneToMany(() => GameRoom, (gameRoom) => gameRoom.game)
   gameRooms: GameRoom[];
