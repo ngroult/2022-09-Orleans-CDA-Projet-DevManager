@@ -30,9 +30,7 @@ function EventCard({ room, event }: { room: Room; event: Event }) {
         });
         const jsonResponse = await res.json();
         setBonusMalus(jsonResponse);
-      } catch (e) {
-        console.log('error handleIsBonusMalus : ' + e);
-      }
+      } catch (err) {}
     };
     handleBonusMalus();
 

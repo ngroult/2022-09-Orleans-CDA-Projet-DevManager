@@ -45,9 +45,7 @@ function CharacterCard({
         });
         const jsonResponse = await res.json();
         setResourcesUsed(jsonResponse);
-      } catch (e) {
-        console.log('error handleResourcesUsed : ' + e);
-      }
+      } catch (err) {}
     };
     const handleResourcesProduced = async () => {
       try {
@@ -57,9 +55,7 @@ function CharacterCard({
         });
         const jsonResponse = await res.json();
         setResourcesProduced(jsonResponse);
-      } catch (e) {
-        console.log('error handleResourcesProduced : ' + e);
-      }
+      } catch (err) {}
     };
 
     handleResourcesUsed();
