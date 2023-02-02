@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 import {
   Text,
   Flex,
@@ -18,6 +18,7 @@ import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
+import { useToast } from '@chakra-ui/react';
 const pageColor = 'turquoise';
 const displayDesktop = {
   base: 'none',
@@ -42,7 +43,44 @@ const AccountSettings = () => {
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
+
   const { user } = useContext(AuthContext);
+  const toast = useToast();
+
+  const deleteUserAccount = async () => {
+    try {
+      await fetch(`/api/users/${user!.id}`, {
+        method: 'DELETE',
+      });
+      toast({
+        title: 'Account deleted.',
+        description: "We're sorry to see you go!",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'There was an error deleting your account.',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const updateUserSettings = () => {
+    fetch(`/api/users/${user!.id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(formData),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    }).then((response) => response.json());
+
+    setFormData({});
+  };
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
   return (
     <>
@@ -210,40 +248,44 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={userImage.isOpen}
           onClose={userImage.onClose}
-          pageColor={pageColor}
+          pageColor="#42B7B4"
           title="Choose a new avatar"
           content={
             <UserImageFiller
               selectedImage={selectedImage}
               setSelectedImage={setSelectedImage}
+              setFormData={setFormData}
             />
           }
           submitText="Save"
-          submitFunction={() => setGamerImage(selectedImage)}
+          action={updateUserSettings}
         />
         <SlideUpModal
           isOpen={userContact.isOpen}
           onClose={userContact.onClose}
-          pageColor={pageColor}
+          pageColor="#42B7B4"
           title="Edit your contact details"
-          content={<UserContactFiller />}
+          content={<UserContactFiller setFormData={setFormData} />}
           submitText="Save"
+          action={updateUserSettings}
         />
         <SlideUpModal
           isOpen={userPassword.isOpen}
           onClose={userPassword.onClose}
-          pageColor={pageColor}
+          pageColor="#42B7B4"
           title="Edit your password"
-          content={<UserPasswordFiller />}
+          content={<UserPasswordFiller setFormData={setFormData} />}
           submitText="Save"
+          action={updateUserSettings}
         />
         <SlideUpModal
           isOpen={deleteAccount.isOpen}
           onClose={deleteAccount.onClose}
-          pageColor="pink"
+          pageColor="#42B7B4"
           title="Write your password to confirm you want to delete your account"
           content={<DeleteAccountFiller />}
           submitText="Delete"
+          action={deleteUserAccount}
         />
       </Flex>
     </>

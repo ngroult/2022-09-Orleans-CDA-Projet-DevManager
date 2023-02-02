@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import SlideUpModal from '../components/popups/SlideUpModal';
-import CompanyImageFiller from '../components/CompanyImageFiller';
+import GameImageFiller from '../components/GameImageFiller';
 const pageColor = 'purple';
 
 const NewGame = () => {
@@ -25,7 +25,7 @@ const NewGame = () => {
     formState: { errors },
   } = useForm();
 
-  const [companyImage, setCompanyImage] = useState('1');
+  const [companyImage, setCompanyImage] = useState('company1');
   const [selectedImage, setSelectedImage] = useState(companyImage);
   const [companyName, setCompanyName] = useState('');
   const [ceo, setCeo] = useState('');
@@ -78,7 +78,7 @@ const NewGame = () => {
         <Flex flexDir="column" alignItems="center" flexGrow="1">
           <Image
             w="80px"
-            src={`/company${companyImage}.png`}
+            src={`/${companyImage}.png`}
             alt={`Image of the company ${companyImage}`}
             m="2rem 0 1rem"
           />
@@ -205,7 +205,7 @@ const NewGame = () => {
         pageColor={pageColor}
         title="Choose a new avatar"
         content={
-          <CompanyImageFiller
+          <GameImageFiller
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
           />

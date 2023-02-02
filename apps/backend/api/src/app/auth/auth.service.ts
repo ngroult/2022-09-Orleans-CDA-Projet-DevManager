@@ -3,7 +3,7 @@ import { UsersService } from '../users/users.service';
 import { User } from '../../entities';
 import * as argon2 from 'argon2';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import { RegisterUserDto } from '../users/dto/register-user.dto';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -17,7 +17,9 @@ export class AuthService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  public async register(user: CreateUserDto): Promise<User | RegisterResponse> {
+  public async register(
+    user: RegisterUserDto,
+  ): Promise<User | RegisterResponse> {
     user.password = await this.hash(user.password);
     const usernameCount = await this.usersRepository.count({
       where: {
@@ -38,7 +40,8 @@ export class AuthService {
       errors.registeredEmail = { message: 'This email is already registered' };
     }
     if (usernameCount === 0 && emailCount === 0) {
-      return this.usersService.create(user);
+      const newUser = { ...user, image: 1 };
+      return this.usersService.create(newUser);
     } else {
       return errors;
     }

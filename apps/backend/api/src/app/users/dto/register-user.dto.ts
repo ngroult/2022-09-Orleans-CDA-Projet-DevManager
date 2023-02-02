@@ -1,12 +1,6 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  Length,
-} from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
-export class CreateUserDto {
+export class RegisterUserDto {
   @IsNotEmpty()
   @IsString()
   @Length(3, 30, {
@@ -24,7 +18,4 @@ export class CreateUserDto {
     message: 'Your password must be between 6 and 50 characters length',
   })
   password: string;
-
-  @IsNumber()
-  imageId?: number;
 }

@@ -74,12 +74,13 @@ const About = () => {
             </Text>
           </Box>
         </Box>
-        <Center>
-          <Box mt={{ base: '10', md: '40' }} mb="10" as="u">
-            <a href="https://www.flaticon.com/fr/" target="_blank">
-              {'Icons Flaticon : Icon reference on this link'}
-            </a>
-          </Box>
+        <Center mt={{ base: '10', md: '40' }} mb="10" as="u">
+          <a href="https://www.flaticon.com/fr/" target="_blank">
+            {'Icons Flaticon : Icon reference on this link'}
+          </a>
+        </Center>
+        <Center mb="10" as="u">
+          <Link to="/admin">admin</Link>
         </Center>
       </Box>
     </>
