@@ -24,7 +24,8 @@
     "dc:reset": "npm run dc:down && rm -rf deployment/db && npm run dc:up",
     "dcp:up": "docker compose -f ./deployment/docker-compose.prod.yml up -d --build",
     "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v",
-    "forge": "npm run start --workspace=apps/tools/forge"
+    "forge": "npm run start --workspace=apps/tools/forge",
+    "i:reset": "rm -rf node_modules apps/backend/api/node_modules apps/frontend/web/node_modules apps/frontend/mobile/node_modules apps/frontend/admin/node_modules apps/tools/forge/node_modules && npm i"
   },
   "workspaces": [
     "libs/typings",
