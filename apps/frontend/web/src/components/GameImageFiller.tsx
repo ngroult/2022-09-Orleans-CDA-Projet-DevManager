@@ -24,11 +24,11 @@ const GameImageFiller = ({
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    const imagesGet = async () => {
+    const getImages = async () => {
       const data = await fetchImages('game');
       setImages(data);
     };
-    imagesGet();
+    getImages();
   }, []);
 
   return (
