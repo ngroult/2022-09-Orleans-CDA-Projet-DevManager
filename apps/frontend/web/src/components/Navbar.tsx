@@ -1,3 +1,5 @@
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Box,
   HStack,
@@ -10,8 +12,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../contexts/AuthContext';
 import DrawerNavbar from './DrawerNavbar';
 
 const iconsSize = '30px';
@@ -22,6 +23,7 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
   const logout = async () => {
     try {
@@ -29,6 +31,7 @@ const Navbar = () => {
       const jsonResponse = await response.json();
 
       if (jsonResponse.status === 'ok') {
+        setUser(null);
         navigate('/');
       }
     } catch (err) {}
