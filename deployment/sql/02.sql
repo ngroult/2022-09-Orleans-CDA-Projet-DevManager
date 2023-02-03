@@ -3,6 +3,8 @@ USE `devmanager`;
 DROP PROCEDURE IF EXISTS `everyMinute`;
 DROP PROCEDURE IF EXISTS `everyResource`;
 DROP PROCEDURE IF EXISTS `everyCharacter`;
+
+DROP EVENT IF EXISTS `doEveryMinute`;
 --
 DELIMITER $$
 CREATE PROCEDURE `everyResource`(IN userId INT, IN gameId INT)
@@ -46,6 +48,12 @@ BEGIN
     DECLARE resourceProducedId INT;
     DECLARE usedQuantity INT;
     DECLARE producedQuantity INT;
+    DECLARE isBonus INT;
+    DECLARE isBonusId INT;
+    DECLARE isBonusType VARCHAR(255);
+    DECLARE bonusRate INT;
+    DECLARE eventId INT;
+    DECLARE gameEventId INT;
     DECLARE cur_character CURSOR FOR
         SELECT
             gc.characterId AS characterId,
@@ -53,11 +61,19 @@ BEGIN
             ru.resourceId AS resourceUsedId,
             ru.quantity AS usedQuantity,
             rp.resourceId AS resourceProducedId,
-            rp.quantity AS producedQuantity
+            rp.quantity AS producedQuantity,
+            bm.id AS isBonusId,
+            bm.isBonus AS isBonus,
+            bm.type AS isBonusType,
+            bm.rate AS bonusRate,
+            bm.eventId AS eventId,
+            ge.id AS gameEventId
         FROM
             game_character gc
             LEFT JOIN resource_used ru ON ru.characterId = gc.id AND ru.resourceId = resourceId
             LEFT JOIN resource_produced rp ON rp.characterId = gc.id AND rp.resourceId = resourceId
+            LEFT JOIN bonus_malus bm ON bm.characterId = gc.id AND bm.type = "production"
+            LEFT JOIN game_event ge ON ge.eventId = bm.eventId AND ge.gameId = gameId AND NOW() BETWEEN ge.startDate AND ge.endDate
         WHERE gc.gameId = gameId;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET character_loop_done = TRUE;
 
@@ -71,23 +87,39 @@ BEGIN
             resourceUsedId,
             usedQuantity,
             resourceProducedId,
-            producedQuantity;
+            producedQuantity,
+            isBonusId,
+            isBonus,
+            isBonusType,
+            bonusRate,
+            eventId,
+            gameEventId;
         IF character_loop_done THEN
             LEAVE character_loop;
         END IF;
 
-        IF producedQuantity IS NOT NULL THEN 
-            SET @newQuantity = @newQuantity + characterQuantity * producedQuantity;
+        SELECT resourceId, resourceQuantity;
+
+        IF producedQuantity IS NOT NULL THEN
+            IF gameEventId IS NOT NULL AND isBonus IS TRUE THEN
+                SET @newQuantity = @newQuantity + (characterQuantity * producedQuantity * (bonusRate / 100));
+            ELSE 
+                SET @newQuantity = @newQuantity + characterQuantity * producedQuantity;
+            END IF;
         END IF;
 
-        IF usedQuantity IS NOT NULL THEN 
-            SET @newQuantity = @newQuantity - characterQuantity * usedQuantity;
+        IF usedQuantity IS NOT NULL THEN
+            IF gameEventId IS NOT NULL AND isBonus IS FALSE THEN
+                SET @newQuantity = @newQuantity + (characterQuantity * usedQuantity * (bonusRate / 100));
+            ELSE 
+                SET @newQuantity = @newQuantity + characterQuantity * usedQuantity;
+            END IF;
         END IF;
 
         IF @newQuantity < 0 THEN 
-            SET @newQuantity =0;
+            SET @newQuantity = 0;
         END IF;
-
+        
         UPDATE game_resource SET quantity = @newQuantity WHERE `gameId` = gameId AND `resourceId` = resourceId;
            
     END LOOP;
@@ -125,6 +157,8 @@ BEGIN
 END$$
 DELIMITER ;
 --
+
+CALL everyMinute();
 
 CREATE EVENT `doEveryMinute` 
 ON SCHEDULE EVERY 1 MINUTE 
