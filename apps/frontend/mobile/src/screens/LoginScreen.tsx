@@ -46,7 +46,6 @@ export default function LoginScreen({ navigation }) {
         }),
       });
       const jsonResponse = await loginResponse.json();
-      console.log(jsonResponse);
 
       if (jsonResponse.status === 'KO') {
         setServerError('Username and/or password is incorrect');
@@ -56,7 +55,6 @@ export default function LoginScreen({ navigation }) {
         navigation.navigate('Overview');
       }
     } catch (err) {
-      console.log(err);
       setServerError('There seems to be an error, try again in a few minutes.');
     }
   };
