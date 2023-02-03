@@ -12,7 +12,6 @@ import {
   Event,
   BonusMalus,
   GameResource,
-  GameEvent,
   ResourceUsed,
   ResourceProduced,
 } from '../../entities';
@@ -421,7 +420,7 @@ export class ForgeService {
       companyName: 'WCS',
       ceo: 'John Doe',
       location: 'Orléans, France',
-      user: { id: user1.id },
+      user: { id: user2.id },
       image: { id: image2.id },
     });
 
