@@ -1,22 +1,38 @@
 import {
   Box,
   HStack,
-  Heading,
   Center,
   Image,
   Text,
-  Grid,
+  IconButton,
   Flex,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Room } from '@apps/backend-api';
 
 const NavbarRooms = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
   const paddingLeftIcons: string = '15px';
+  const [rooms, setRooms] = useState<Room[]>([]);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    fetch('/api/rooms', {
+      method: 'GET',
+      signal: abortController.signal,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setRooms(data);
+      });
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   return (
     <>
@@ -38,33 +54,21 @@ const NavbarRooms = () => {
           justifyContent="space-around"
         >
           <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/:room">
+            <Link to="/game/overview">
               <HStack>
                 <Image src="/overview.png" h={iconsSize} w={iconsSize} />
               </HStack>
             </Link>
           </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/open_space.png" h={iconsSize} w={iconsSize} />
-              </HStack>
-            </Link>
-          </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/offices.png" h={iconsSize} w={iconsSize} />
-              </HStack>
-            </Link>
-          </Box>
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/break_room.png" h={iconsSize} w={iconsSize} />
-              </HStack>
-            </Link>
-          </Box>
+          {rooms.map((room) => (
+            <Box key={room.id} pl={paddingLeftIcons} pt={paddingBetweenIcons}>
+              <Link to={`/game/${room.label}`} state={{ room }}>
+                <HStack>
+                  <Image src={room.image} h={iconsSize} w={iconsSize} />
+                </HStack>
+              </Link>
+            </Box>
+          ))}
         </Flex>
       </Box>
     </>

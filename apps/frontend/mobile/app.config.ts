@@ -22,12 +22,12 @@ module.exports = {
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: './assets/developer-icon.png',
+      foregroundImage: './assets/developer-splash.png',
       backgroundColor: '#FFFFFF',
     },
   },
   web: {
-    favicon: './assets/favicon.png',
+    favicon: './assets/developer-icon.png',
   },
   extra: {
     API_HOST: process.env.VITE_API_HOST,

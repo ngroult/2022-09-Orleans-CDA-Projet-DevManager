@@ -12,7 +12,7 @@ export class UsersService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     return this.usersRepository.save(createUserDto);
   }
 
@@ -45,7 +45,7 @@ export class UsersService {
   }
 
   remove(id: number) {
-    return this.usersRepository.delete(id);
+    return this.usersRepository.softDelete(id);
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {

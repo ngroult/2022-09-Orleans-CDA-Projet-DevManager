@@ -1,12 +1,12 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNumber } from 'class-validator';
 
 export class CreateGameResourceDto {
-  @IsNotEmpty()
+  @IsNumber()
   quantity: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   gameId: number;
 
-  @IsNotEmpty()
+  @IsNumber()
   resourceId: number;
 }

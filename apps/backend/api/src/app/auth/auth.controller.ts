@@ -13,7 +13,7 @@ import { Response } from 'express';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { CreateUserDto } from '../users/dto/create-user.dto';
+import { RegisterUserDto } from '../users/dto/register-user.dto';
 import { RegisterResponse } from '@libs/typings';
 
 @Controller('auth')
@@ -25,9 +25,9 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body() user: CreateUserDto,
+    @Body() registerUserDto: RegisterUserDto,
   ): Promise<User | RegisterResponse> {
-    return this.authService.register(user);
+    return this.authService.register(registerUserDto);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -66,6 +66,6 @@ export class AuthController {
       secure: NODE_ENV === 'production',
       signed: true,
     });
-    return { status: 'OK' };
+    return { status: 'ok' };
   }
 }

@@ -1,4 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Game } from './game.entity';
 import { User } from './user.entity';
 
 @Entity()
@@ -14,4 +15,7 @@ export class Image {
 
   @OneToMany(() => User, (user) => user.image)
   users: User[];
+
+  @OneToMany(() => Game, (game) => game.image)
+  games: Game[];
 }

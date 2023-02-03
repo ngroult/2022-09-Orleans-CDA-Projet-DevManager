@@ -1,15 +1,32 @@
 import { User } from '@apps/backend-api';
-import { createContext, useState, useMemo, ReactNode } from 'react';
+import { createContext, useState, useMemo, ReactNode, useEffect } from 'react';
 
 const AuthContext = createContext<{
-  user?: User;
-  setUser: (user: User) => void;
-}>({ user: undefined, setUser: () => {} });
+  user?: User | null;
+  setUser: (user: User | null) => void;
+  isLoadingUser: boolean;
+  setIsLoadingUser: (value: boolean) => void;
+}>({
+  user: null,
+  setUser: () => {},
+  isLoadingUser: true,
+  setIsLoadingUser: () => {},
+});
 
 const AuthProvider = (props: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
+  useEffect(() => {
+    if (user) {
+      setIsLoadingUser(false);
+    }
+  }, [user]);
+
+  const value = useMemo(
+    () => ({ user, setUser, isLoadingUser, setIsLoadingUser }),
+    [user, setUser, isLoadingUser, setIsLoadingUser]
+  );
 
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>

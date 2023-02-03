@@ -17,7 +17,7 @@ import Protected from './components/Protected';
 import { Box } from '@chakra-ui/react';
 
 const App = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, setIsLoadingUser } = useContext(AuthContext);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -32,10 +32,10 @@ const App = () => {
 
         if (jsonResponse.message !== 'Unauthorized') {
           setUser(jsonResponse);
+        } else {
+          setIsLoadingUser(false);
         }
-      } catch (err) {
-        console.error(err);
-      }
+      } catch (err) {}
     };
     userLogin();
     return () => {
@@ -67,7 +67,7 @@ const App = () => {
           }
         />
         <Route
-          path="/game/:room"
+          path="/game/:label"
           element={
             <Protected>
               <Room />
@@ -90,6 +90,7 @@ const App = () => {
             </Protected>
           }
         />
+
         <Route path="/about" element={<About />} />
         <Route path="/assistance" element={<Assistance />} />
         <Route path="*" element={<Page404 />} />

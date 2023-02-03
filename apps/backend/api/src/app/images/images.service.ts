@@ -1,31 +1,43 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Image } from '../../entities/image.entity';
-import { Repository } from 'typeorm';
-// import { CreateImageDto } from './dto/create-image.dto';
-// import { UpdateImageDto } from './dto/update-image.dto';
+import { Repository, UpdateResult } from 'typeorm';
+import { CreateImageDto } from './dto/create-image.dto';
+import { UpdateImageDto } from './dto/update-image.dto';
 
 @Injectable()
 export class ImagesService {
   constructor(
     @InjectRepository(Image) private imagesRepository: Repository<Image>,
   ) {}
-  findAllByCategory(category: string) {
+
+  async create(createImageDto: CreateImageDto): Promise<Image> {
+    return this.imagesRepository.save(createImageDto);
+  }
+
+  async findAll() {
+    return this.imagesRepository.find();
+  }
+
+  async findAllByCategory(category: string) {
     return this.imagesRepository.findBy({ category });
   }
-  // create(createImageDto: CreateImageDto) {
-  //   return 'This action adds a new image';
-  // }
 
-  // findAll() {
-  //   return `This action returns all images`;
-  // }
+  findOne(id: number): Promise<Image[]> {
+    return this.imagesRepository.find({
+      select: ['name', 'category'],
+      where: [{ id: id }],
+    });
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} image`;
-  // }
+  async update(
+    id: number,
+    updateImageDto: UpdateImageDto,
+  ): Promise<UpdateResult> {
+    return this.imagesRepository.update(id, updateImageDto);
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} image`;
-  // }
+  async remove(id: number): Promise<void> {
+    await this.imagesRepository.delete(id);
+  }
 }
