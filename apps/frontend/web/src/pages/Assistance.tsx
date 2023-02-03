@@ -14,9 +14,12 @@ import {
   AlertDescription,
   CloseButton,
   FormErrorMessage,
+  Flex,
+  VStack,
 } from '@chakra-ui/react';
 import { BaseSyntheticEvent, useState } from 'react';
 import Navbar from '../components/Navbar';
+const pageColor = 'turquoise';
 
 const Assistance = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -39,87 +42,95 @@ const Assistance = () => {
   return (
     <>
       <Navbar />
-      <Box
-        bgColor="#D9F1F0"
-        h="100vh"
-        w="100vw"
-        position="absolute"
-        top="0"
-        margin="auto"
-        zIndex="-1"
+      <Flex
+        flexDir="column"
+        bgColor={{
+          base: `${pageColor}.200`,
+          xl: 'white',
+          lg: `${pageColor}.200`,
+          md: `${pageColor}.200`,
+          sm: `${pageColor}.200`,
+        }}
+        minH="100vh"
+        alignItems="center"
       >
-        <Center>
-          <Heading mt="10" fontSize="5xl">
+        <Flex
+          flexDir="column"
+          alignItems="center"
+          py="3rem"
+          bgColor="#FFF"
+          w="100%"
+        >
+          <Heading fontSize="3xl" color={`${pageColor}.900`}>
             {'Assistance'}
           </Heading>
-        </Center>
+        </Flex>
         <Center>
-          <Image
-            src="/assistance.png"
-            boxSize={{ base: '100px', lg: '150px' }}
-            mt="10"
-          />
-        </Center>
-        <Center>
-          <Box w={{ base: '60%', md: '60%' }} mt="20">
-            <FormControl isRequired>
-              <FormLabel mb="0">{'E-mail'}</FormLabel>
-              <Input
-                type="email"
-                bgColor="white"
-                value={inputEmail}
-                placeholder="johndoe@mail.com"
-                onChange={handleInputChangeEmail}
-              />
-              {!isErrorEmail ? null : (
-                <FormErrorMessage>{'Email is required.'}</FormErrorMessage>
-              )}
-              <FormLabel mt="2" mb="0">
-                {'Title'}
-              </FormLabel>
-              <Input
-                type="text"
-                bgColor="white"
-                placeholder="Lag"
-                value={inputTitle}
-                onChange={handleInputChangeTitle}
-              />
-              {!isErrorTitle ? null : (
-                <FormErrorMessage>{'Title is required.'}</FormErrorMessage>
-              )}
-              <FormLabel mt="2" mb="0">
-                {'Message'}
-              </FormLabel>
-              <Textarea
-                bgColor="white"
-                placeholder="Your text"
-                value={inputMessage}
-                onChange={handleInputChangeMessage}
-              />
-              {!isErrorMessage ? null : (
-                <FormErrorMessage>{'Title is required.'}</FormErrorMessage>
-              )}
-            </FormControl>
-            {isOpen ? (
-              <Alert status="success" mt="5" display="flex" flexDir="row">
-                <Box flexGrow="1">
-                  <AlertTitle display="flex" verticalAlign="alignSelf">
-                    {' Success!'}
-                  </AlertTitle>
-                  <AlertDescription>
-                    {'Your mail has been send'}
-                  </AlertDescription>
-                </Box>
-                <CloseButton
-                  alignSelf="flex-start"
-                  position="relative"
-                  right={-1}
-                  top={-1}
-                  onClick={onClose}
+          <Box
+            bgColor={`${pageColor}.200`}
+            boxSize={{ base: 'sm', xl: 'xl' }}
+            p="10"
+          >
+            <VStack>
+              <Image src="/assistance.png" w="5.5rem" mt="10" />
+
+              <FormControl isRequired>
+                <FormLabel mb="0">{'E-mail'}</FormLabel>
+                <Input
+                  type="email"
+                  bgColor="white"
+                  value={inputEmail}
+                  placeholder="johndoe@mail.com"
+                  onChange={handleInputChangeEmail}
                 />
-              </Alert>
-            ) : null}
-            <Center>
+                {!isErrorEmail ? null : (
+                  <FormErrorMessage>{'Email is required.'}</FormErrorMessage>
+                )}
+                <FormLabel mt="2" mb="0">
+                  {'Title'}
+                </FormLabel>
+                <Input
+                  type="text"
+                  bgColor="white"
+                  placeholder="Lag"
+                  value={inputTitle}
+                  onChange={handleInputChangeTitle}
+                />
+                {!isErrorTitle ? null : (
+                  <FormErrorMessage>{'Title is required.'}</FormErrorMessage>
+                )}
+                <FormLabel mt="2" mb="0">
+                  {'Message'}
+                </FormLabel>
+                <Textarea
+                  bgColor="white"
+                  placeholder="Your text"
+                  value={inputMessage}
+                  onChange={handleInputChangeMessage}
+                />
+                {!isErrorMessage ? null : (
+                  <FormErrorMessage>{'Title is required.'}</FormErrorMessage>
+                )}
+              </FormControl>
+              {isOpen ? (
+                <Alert status="success" mt="5" display="flex" flexDir="row">
+                  <Box flexGrow="1">
+                    <AlertTitle display="flex" verticalAlign="alignSelf">
+                      {'Success!'}
+                    </AlertTitle>
+                    <AlertDescription>
+                      {'Your mail has been send'}
+                    </AlertDescription>
+                  </Box>
+                  <CloseButton
+                    alignSelf="flex-start"
+                    position="relative"
+                    right={-1}
+                    top={-1}
+                    onClick={onClose}
+                  />
+                </Alert>
+              ) : null}
               <Button
                 w="50%"
                 boxShadow="xl"
@@ -133,10 +144,10 @@ const Assistance = () => {
               >
                 {'Send'}
               </Button>
-            </Center>
+            </VStack>
           </Box>
         </Center>
-      </Box>
+      </Flex>
     </>
   );
 };
