@@ -41,29 +41,19 @@ DELIMITER $$
 CREATE PROCEDURE `everyCharacter`(IN userId INT, IN gameId INT, IN resourceId INT, IN resourceQuantity INT)
 BEGIN 
     DECLARE character_loop_done INT DEFAULT FALSE;
-    DECLARE characterId INT;
     DECLARE characterQuantity INT;
-    DECLARE resourceUsedId INT;
-    DECLARE resourceProducedId INT;
     DECLARE usedQuantity INT;
     DECLARE producedQuantity INT;
     DECLARE isBonus INT;
-    DECLARE isBonusId INT;
     DECLARE bonusRate INT;
-    DECLARE eventId INT;
     DECLARE gameEventId INT;
     DECLARE cur_character CURSOR FOR
         SELECT
-            gc.characterId AS characterId,
             gc.quantity AS characterQuantity,
-            ru.resourceId AS resourceUsedId,
             ru.quantity AS usedQuantity,
-            rp.resourceId AS resourceProducedId,
             rp.quantity AS producedQuantity,
-            bm.id AS isBonusId,
             bm.isBonus AS isBonus,
             bm.rate AS bonusRate,
-            bm.eventId AS eventId,
             ge.id AS gameEventId
         FROM
             game_character gc
@@ -79,16 +69,11 @@ BEGIN
     OPEN cur_character;
     character_loop: LOOP
         FETCH cur_character INTO
-            characterId,
             characterQuantity,
-            resourceUsedId,
             usedQuantity,
-            resourceProducedId,
             producedQuantity,
-            isBonusId,
             isBonus,
             bonusRate,
-            eventId,
             gameEventId;
         IF character_loop_done THEN
             LEAVE character_loop;
