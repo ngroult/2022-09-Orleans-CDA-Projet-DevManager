@@ -25,7 +25,7 @@ const RoomPage = () => {
         });
         const jsonResponse = await res.json();
         setThisRoom(jsonResponse[0]);
-      } catch (err) {}
+      } catch {}
     };
     handleRoom();
 
@@ -45,7 +45,7 @@ const RoomPage = () => {
         });
         const jsonResponse = await res.json();
         setCharacters(jsonResponse);
-      } catch (err) {}
+      } catch {}
     };
     handleCharacters();
 
@@ -57,7 +57,7 @@ const RoomPage = () => {
         });
         const jsonResponse = await res.json();
         setEvents(jsonResponse);
-      } catch (err) {}
+      } catch {}
     };
     handleEvents();
 
