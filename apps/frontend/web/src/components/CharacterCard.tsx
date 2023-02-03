@@ -33,6 +33,44 @@ function CharacterCard({
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const [quantity, setQuantity] = useState(0);
+  // const [addedCharacter, setAddedCharacter] = useState("");
+
+  const addCharacter = async () => {
+    const data = {
+      id: gameCharacter.id,
+      quantity: gameCharacter.quantity + 1,
+    };
+
+    try {
+      const rawResponse = await fetch(
+        `/api/game-characters/${gameCharacter.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const jsonResponse = await rawResponse.json();
+      console.log(data);
+      if (rawResponse.ok) {
+        if (jsonResponse.status === 'ok') {
+          console.log('ça marche !!!!!');
+        } else {
+          if (jsonResponse.errorResource) {
+            console.error(jsonResponse.errorCharacter);
+          }
+          if (jsonResponse.errorGame) {
+            console.error(jsonResponse.errorGame);
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -156,6 +194,7 @@ function CharacterCard({
                 size="lg"
                 color="white"
                 ml="5"
+                onClick={addCharacter}
               >
                 {'+ 1'}
               </Button>
