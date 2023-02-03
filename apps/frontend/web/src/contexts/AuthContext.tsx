@@ -2,19 +2,19 @@ import { User } from '@apps/backend-api';
 import { createContext, useState, useMemo, ReactNode, useEffect } from 'react';
 
 const AuthContext = createContext<{
-  user?: User;
-  setUser: (user: User) => void;
+  user?: User | null;
+  setUser: (user: User | null) => void;
   isLoadingUser: boolean;
   setIsLoadingUser: (value: boolean) => void;
 }>({
-  user: undefined,
+  user: null,
   setUser: () => {},
   isLoadingUser: true,
   setIsLoadingUser: () => {},
 });
 
 const AuthProvider = (props: { children: ReactNode }) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState<boolean>(true);
 
   useEffect(() => {

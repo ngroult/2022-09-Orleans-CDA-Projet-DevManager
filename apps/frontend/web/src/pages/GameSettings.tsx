@@ -5,10 +5,8 @@ import {
   Image,
   Button,
   VStack,
-  HStack,
   useDisclosure,
   Box,
-  Center,
   Heading,
   Grid,
   GridItem,
@@ -77,7 +75,6 @@ const GameSettings = () => {
         'Content-type': 'application/json; charset=UTF-8',
       },
     }).then((response) => response.json());
-
     setFormData({});
   };
 
@@ -86,13 +83,28 @@ const GameSettings = () => {
   return (
     <>
       <Navbar />
-      <Box position="absolute" top="0" margin="auto" w="100%">
-        <Center>
-          <Heading mt="10" mb="10" color={`${pageColor}.900`}>
-            {'Game Setting'}
-          </Heading>
-        </Center>
-        <Flex w="100%" h={{ base: '100vh', xl: 'auto' }}>
+      <Flex
+        flexDir="column"
+        bgColor={{
+          base: `${pageColor}.200`,
+          xl: 'white',
+          lg: `${pageColor}.200`,
+          md: `${pageColor}.200`,
+          sm: `${pageColor}.200`,
+        }}
+        minH="100vh"
+        alignItems="center"
+      >
+        <Flex
+          flexDir="column"
+          alignItems="center"
+          py="3rem"
+          bgColor="#FFF"
+          w="100%"
+        >
+          <Heading color={`${pageColor}.900`}>{'Game Setting'}</Heading>
+        </Flex>
+        <Flex w="100%">
           <Flex
             justifyContent="space-around"
             bgColor={{
@@ -104,7 +116,13 @@ const GameSettings = () => {
             }}
             flexGrow="1"
           >
-            <VStack bgColor={`${pageColor}.200`} p="8vh">
+            <VStack
+              bgColor={`${pageColor}.200`}
+              boxSize={{ base: 'md', xl: 'xl' }}
+              w="auto"
+              h="auto"
+              p="10"
+            >
               <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
                 {`Change your informations`}
               </Text>
@@ -197,6 +215,7 @@ const GameSettings = () => {
                 <GameImageFiller
                   selectedImage={selectedImage}
                   setSelectedImage={setSelectedImage}
+                  setFormData={setFormData}
                 />
                 <Button
                   display={displayDesktop}
@@ -246,7 +265,7 @@ const GameSettings = () => {
           submitText="Reset"
           action={deleteGame}
         />
-      </Box>
+      </Flex>
     </>
   );
 };

@@ -25,9 +25,7 @@ const RoomPage = () => {
         });
         const jsonResponse = await res.json();
         setThisRoom(jsonResponse[0]);
-      } catch (e) {
-        console.log('error handleRoom : ' + e);
-      }
+      } catch {}
     };
     handleRoom();
 
@@ -47,9 +45,7 @@ const RoomPage = () => {
         });
         const jsonResponse = await res.json();
         setCharacters(jsonResponse);
-      } catch (e) {
-        console.log('error handleCharacters : ' + e);
-      }
+      } catch {}
     };
     handleCharacters();
 
@@ -61,9 +57,7 @@ const RoomPage = () => {
         });
         const jsonResponse = await res.json();
         setEvents(jsonResponse);
-      } catch (e) {
-        console.log('error handleGameEvents : ' + e);
-      }
+      } catch {}
     };
     handleEvents();
 
