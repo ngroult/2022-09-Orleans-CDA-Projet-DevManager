@@ -187,7 +187,7 @@ function Login() {
           </Button>
           {serverError !== null ? (
             <Text
-              color="var(--chakra-colors-red-500)"
+              color="red.500"
               fontFamily="body"
               fontSize="0.87rem"
               mt="-1rem"
