@@ -15,7 +15,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import SlideUpModal from '../components/popups/SlideUpModal';
-import CompanyImageFiller from '../components/CompanyImageFiller';
+import GameImageFiller from '../components/GameImageFiller';
 
 const NewGame = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const NewGame = () => {
     formState: { errors },
   } = useForm();
 
-  const [companyImage, setCompanyImage] = useState('1');
+  const [companyImage, setCompanyImage] = useState('company1');
   const [selectedImage, setSelectedImage] = useState(companyImage);
   const [companyName, setCompanyName] = useState('');
   const [ceo, setCeo] = useState('');
@@ -88,7 +88,7 @@ const NewGame = () => {
         >
           <Image
             w="80px"
-            src={`/company${companyImage}.png`}
+            src={`/${companyImage}.png`}
             alt={`Image of the company ${companyImage}`}
             m="2rem 0 1rem"
           />
@@ -215,7 +215,7 @@ const NewGame = () => {
         color="#B03D99"
         title="Choose a new avatar"
         content={
-          <CompanyImageFiller
+          <GameImageFiller
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
           />

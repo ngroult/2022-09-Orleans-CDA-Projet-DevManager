@@ -45,7 +45,7 @@ export class UsersService {
   }
 
   remove(id: number) {
-    return this.usersRepository.delete(id);
+    return this.usersRepository.softDelete(id);
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {

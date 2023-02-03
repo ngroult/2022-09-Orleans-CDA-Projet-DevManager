@@ -92,10 +92,17 @@ function Login() {
           p="2rem 2rem 0"
           isInvalid={errors.username || errors.password ? true : false}
         >
-          <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          <FormLabel
+            htmlFor="username"
+            textAlign="left"
+            m="1rem 0 0"
+            w="100%"
+            maxW="400px"
+          >
             {'Username'}
           </FormLabel>
           <Input
+            id="username"
             maxW="400px"
             placeholder="Enter username..."
             bgColor="#fff"
@@ -116,11 +123,18 @@ function Login() {
             <Box mb="-1rem" h="1.8rem"></Box>
           )}
 
-          <FormLabel textAlign="left" m="1rem 0 0" w="100%" maxW="400px">
+          <FormLabel
+            htmlFor="password"
+            textAlign="left"
+            m="1rem 0 0"
+            w="100%"
+            maxW="400px"
+          >
             {'Password'}
           </FormLabel>
           <InputGroup size="md" maxW="400px">
             <Input
+              id="password"
               maxW="400px"
               placeholder="Enter password..."
               bgColor="#fff"

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Refine } from '@pankod/refine-core';
 import {
   notificationProvider,
@@ -20,6 +18,7 @@ const CustomRouterComponent = () => <RouterComponent basename="/admin" />;
 
 function App() {
   const API_URL = 'http://localhost/api';
+
   return (
     <ChakraProvider theme={refineTheme}>
       <Refine

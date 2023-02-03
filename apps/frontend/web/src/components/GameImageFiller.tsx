@@ -1,5 +1,7 @@
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState, Dispatch, SetStateAction } from 'react';
+import fetchImages from '../utils/fetchImage';
+import RadioCard from './RadioCard';
 
 const GameImageFiller = ({
   selectedImage,
@@ -14,10 +16,20 @@ const GameImageFiller = ({
     }>
   >;
 }) => {
-  const { getRootProps, getRadioProps } = useRadioGroup();
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    defaultValue: selectedImage,
+    onChange: (value) => setSelectedImage(value),
+  });
   const group = getRootProps();
+  const [images, setImages] = useState([]);
 
-  const options = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+  useEffect(() => {
+    const getImages = async () => {
+      const data = await fetchImages('game');
+      setImages(data);
+    };
+    getImages();
+  }, []);
 
   return (
     <Grid
@@ -27,38 +39,9 @@ const GameImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {options.map((value, index) => {
-        const radioProps = getRadioProps({ value });
-        const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
-        return (
-          <Box as="label" key={index}>
-            <input
-              {...getInputProps()}
-              hidden
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, idImage: e.target.value }))
-              }
-            />
-            <Box
-              {...getCheckboxProps()}
-              w="4.7rem"
-              opacity={
-                selectedImage === getInputProps().value
-                  ? '1'
-                  : state.isChecked
-                  ? '1'
-                  : '0.2'
-              }
-              cursor="pointer"
-            >
-              <Image
-                src={`/company${getInputProps().value}.png`}
-                alt={`Image of ${getInputProps().value}`}
-                onClick={() => setSelectedImage(getInputProps().value)}
-              />
-            </Box>
-          </Box>
-        );
+      {images.map((value: { name: string }, index) => {
+        const radio = getRadioProps({ value: value.name });
+        return <RadioCard key={index} {...radio} />;
       })}
     </Grid>
   );
