@@ -3,7 +3,6 @@ USE `devmanager`;
 DROP PROCEDURE IF EXISTS `everyMinute`;
 DROP PROCEDURE IF EXISTS `everyResource`;
 DROP PROCEDURE IF EXISTS `everyCharacter`;
-
 DROP EVENT IF EXISTS `doEveryMinute`;
 --
 DELIMITER $$
@@ -50,7 +49,6 @@ BEGIN
     DECLARE producedQuantity INT;
     DECLARE isBonus INT;
     DECLARE isBonusId INT;
-    DECLARE isBonusType VARCHAR(255);
     DECLARE bonusRate INT;
     DECLARE eventId INT;
     DECLARE gameEventId INT;
@@ -64,7 +62,6 @@ BEGIN
             rp.quantity AS producedQuantity,
             bm.id AS isBonusId,
             bm.isBonus AS isBonus,
-            bm.type AS isBonusType,
             bm.rate AS bonusRate,
             bm.eventId AS eventId,
             ge.id AS gameEventId
@@ -90,15 +87,12 @@ BEGIN
             producedQuantity,
             isBonusId,
             isBonus,
-            isBonusType,
             bonusRate,
             eventId,
             gameEventId;
         IF character_loop_done THEN
             LEAVE character_loop;
         END IF;
-
-        SELECT resourceId, resourceQuantity;
 
         IF producedQuantity IS NOT NULL THEN
             IF gameEventId IS NOT NULL AND isBonus IS TRUE THEN
@@ -157,8 +151,6 @@ BEGIN
 END$$
 DELIMITER ;
 --
-
-CALL everyMinute();
 
 CREATE EVENT `doEveryMinute` 
 ON SCHEDULE EVERY 1 MINUTE 
