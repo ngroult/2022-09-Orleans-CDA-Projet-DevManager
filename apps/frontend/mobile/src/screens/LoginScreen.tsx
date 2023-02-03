@@ -8,68 +8,64 @@ import {
   Button,
   Flex,
   Divider,
+  Box,
 } from 'native-base';
+import { useForm, Controller } from 'react-hook-form';
 
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
-  const [errors, setErrors] = useState<{
-    username?: { message: string };
-    password?: { message: string };
-  } | null>(null);
+  // const [errors, setErrors] = useState<{
+  //   username?: { message: string };
+  //   password?: { message: string };
+  // } | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const submitLogin = async () => {
-    if (!username) {
-      setErrors({
-        ...errors,
-        username: { message: 'Your username is required' },
-      });
-      return false;
-    } else if (!password) {
-      setErrors({
-        ...errors,
-        password: { message: 'Your password is required' },
-      });
-      return false;
-    } else {
-      // if (errors?.username !== undefined) {
-      //   setErrors({
-      //     ...errors,
-      //     username: { message: 'Your username is required' },
-      //   });
-      // }
-      // if (errors?.password !== undefined) {
-      //   setErrors({
-      //     ...errors,
-      //     password: { message: 'Your password is required' },
-      //   });
-      // }
+    console.log('username : ', username);
+    console.log(errors);
 
-      if (errors === null) {
-        try {
-          const loginResponse = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              username,
-              password,
-            }),
-          });
-          const jsonResponse = await loginResponse.json();
+    // if (username === '') {
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     username: { message: 'Your username is required' },
+    //   }));
+    // }
+    // if (password === '') {
+    //   setErrors((prev) => ({
+    //     ...prev,
+    //     password: { message: 'Your password is required' },
+    //   }));
+    // }
+    if (username !== '' && password !== '') {
+      try {
+        const loginResponse = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        });
+        const jsonResponse = await loginResponse.json();
 
-          if (jsonResponse.status === 'KO') {
-            setServerError('Username and/or password is incorrect');
-          }
-          if (jsonResponse.status === 'OK') {
-            navigation.navigate('Overview');
-          }
-        } catch (err) {
-          setServerError(
-            'There seems to be an error, try again in a few minutes.'
-          );
+        if (jsonResponse.status === 'KO') {
+          setServerError('Username and/or password is incorrect');
         }
+        if (jsonResponse.status === 'OK') {
+          navigation.navigate('Overview');
+        }
+      } catch (err) {
+        setServerError(
+          'There seems to be an error, try again in a few minutes.'
+        );
       }
     }
   };
@@ -95,15 +91,30 @@ export default function LoginScreen({ navigation }) {
               {'Username'}
             </Text>
           </FormControl.Label>
-          <Input
-            fontSize="md"
-            w="100%"
-            backgroundColor="#FFF"
-            variant="unstyled"
-            borderRadius="8"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+          <Controller
+            control={control}
+            name="username"
+            rules={{ required: true }}
+            render={({ field: { value, onChange, onBlur } }) => (
+              <Input
+                fontSize="md"
+                w="100%"
+                backgroundColor="#FFF"
+                variant="unstyled"
+                borderRadius="8"
+                value={username}
+                onBlur={onBlur}
+                onChangeText={(value) => setUsername(value)}
+              />
+            )}
           />
+          {errors?.username ? (
+            <FormControl.ErrorMessage>
+              {errors?.username.message}
+            </FormControl.ErrorMessage>
+          ) : (
+            <Box mt="8">Boîte de test</Box>
+          )}
         </FormControl>
 
         <FormControl
@@ -123,9 +134,14 @@ export default function LoginScreen({ navigation }) {
             variant="unstyled"
             borderRadius="8"
             type={isVisiblePassword ? 'text' : 'password'}
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
           />
+          {errors?.password ? (
+            <FormControl.ErrorMessage>
+              {errors?.password.message}
+            </FormControl.ErrorMessage>
+          ) : (
+            <Box mt="8"></Box>
+          )}
         </FormControl>
 
         <Button
@@ -133,7 +149,7 @@ export default function LoginScreen({ navigation }) {
           w="150"
           borderRadius="8"
           backgroundColor="turquoise.900"
-          onPress={() => submitLogin()}
+          onPress={handleSubmit(submitLogin)}
         >
           {'Sign in'}
         </Button>
