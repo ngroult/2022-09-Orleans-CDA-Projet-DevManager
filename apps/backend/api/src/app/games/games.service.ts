@@ -45,8 +45,9 @@ export class GamesService {
     }
   }
 
-  async findAll() {
+  async findAll(gameId: number) {
     return this.gamesRepository.find({
+      where: { id: gameId },
       relations: {
         user: true,
         image: true,

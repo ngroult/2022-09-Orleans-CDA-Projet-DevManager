@@ -46,6 +46,7 @@ const GameSettings = () => {
   const [gameInfos, setGameInfos] = useState<Game>();
   const { user } = useContext(AuthContext);
   const toast = useToast();
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
   const deleteGame = async () => {
     try {
@@ -83,24 +84,26 @@ const GameSettings = () => {
   useEffect(() => {
     const abortController = new AbortController();
 
-    const displayGameInfos = async () => {
-      try {
-        const res = await fetch(`/api/games/1`, {
-          method: 'GET',
-          signal: abortController.signal,
-        });
-        const jsonResponse = await res.json();
-        setGameInfos(jsonResponse);
-      } catch {}
+    const displayGameInfos = () => {
+      fetch(`/api/games`, {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        signal: abortController.signal,
+      }).then((response) =>
+        response.json().then((data) => {
+          setGameInfos(data[0]);
+          console.log(data[0]);
+        })
+      );
     };
-    console.log('gameInfos : ' + gameInfos);
+
     displayGameInfos();
     return () => {
       abortController.abort();
     };
-  }, []);
-
-  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+  }, [setFormData]);
 
   return (
     <>
@@ -126,170 +129,176 @@ const GameSettings = () => {
         >
           <Heading color={`${pageColor}.900`}>{'Game Setting'}</Heading>
         </Flex>
-        <Flex w="100%">
-          <Flex
-            justifyContent="space-around"
-            bgColor={{
-              base: `${pageColor}.200`,
-              xl: 'white',
-              lg: `${pageColor}.200`,
-              md: `${pageColor}.200`,
-              sm: `${pageColor}.200`,
-            }}
-            flexGrow="1"
-          >
-            <VStack
-              bgColor={`${pageColor}.200`}
-              boxSize={{ base: 'md', xl: 'xl' }}
-              w="auto"
-              h="auto"
-              p="10"
-            >
-              <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
-                {`Change your informations`}
-              </Text>
-              <Image
-                display={displayMobile}
-                w="5.5rem"
-                src={`/${companyImage}.png`}
-                alt={`Image of ${companyImage}`}
-                mt="2rem"
-                mb="1rem"
-              />
-              <Button
-                display={displayMobile}
-                onClick={gameImage.onOpen}
-                bgColor={`${pageColor}.900`}
-                color="#FFF"
-                mb={marginTopButton}
-                w="8rem"
-                fontWeight="normal"
-                boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+        {gameInfos ? (
+          <>
+            <Flex w="100%">
+              <Flex
+                justifyContent="space-around"
+                bgColor={{
+                  base: `${pageColor}.200`,
+                  xl: 'white',
+                  lg: `${pageColor}.200`,
+                  md: `${pageColor}.200`,
+                  sm: `${pageColor}.200`,
+                }}
+                flexGrow="1"
               >
-                {'Modify'}
-              </Button>
-              <Grid templateColumns="repeat(1, 1fr)">
-                <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Company name:'}</Text>
-                </GridItem>
-                <GridItem>
-                  <Editable
-                    textAlign="center"
-                    bgColor="white"
-                    rounded="10px"
-                    boxShadow="sm"
-                    py="1"
-                    px="4"
-                    border="1px"
-                    borderColor="gray.200"
-                    defaultValue="Your company name"
-                    fontSize="lg"
-                    isPreviewFocusable={false}
-                  >
-                    {gameInfos?.companyName}
-                  </Editable>
-                </GridItem>
-                <GridItem mt={marginTopButton}>
-                  <Text as="b">{'CEO:'}</Text>
-                </GridItem>
-                <GridItem>
-                  <Editable
-                    textAlign="center"
-                    bgColor="white"
-                    rounded="10px"
-                    boxShadow="sm"
-                    py="1"
-                    px="4"
-                    border="1px"
-                    borderColor="gray.200"
-                    defaultValue="Your CEO name"
-                    fontSize="lg"
-                    isPreviewFocusable={false}
-                  >
-                    {gameInfos?.ceo}
-                  </Editable>
-                </GridItem>
-                <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Location:'}</Text>
-                </GridItem>
-                <GridItem>
-                  <Editable
-                    textAlign="center"
-                    bgColor="white"
-                    rounded="10px"
-                    boxShadow="sm"
-                    py="1"
-                    px="4"
-                    border="1px"
-                    borderColor="gray.200"
-                    defaultValue="Your location"
-                    fontSize="lg"
-                    isPreviewFocusable={false}
-                  >
-                    {gameInfos?.location}
-                  </Editable>
-                </GridItem>
-                <GridItem my={marginTopButton}>
+                <VStack
+                  bgColor={`${pageColor}.200`}
+                  boxSize={{ base: 'md', xl: 'xl' }}
+                  w="auto"
+                  h="auto"
+                  p="10"
+                >
+                  <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
+                    {`Change your informations`}
+                  </Text>
+                  <Image
+                    display={displayMobile}
+                    w="5.5rem"
+                    src={`/${companyImage}.png`}
+                    alt={`Image of ${companyImage}`}
+                    mt="2rem"
+                    mb="1rem"
+                  />
                   <Button
-                    onClick={gameDetails.onOpen}
-                    boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                    display={displayMobile}
+                    onClick={gameImage.onOpen}
                     bgColor={`${pageColor}.900`}
                     color="#FFF"
-                    w="13rem"
+                    mb={marginTopButton}
+                    w="8rem"
                     fontWeight="normal"
-                  >
-                    {'Edit game details'}
-                  </Button>
-                </GridItem>
-                <GridItem my={marginTopButton}>
-                  <Button
-                    onClick={resetGame.onOpen}
                     boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-                    mt="2rem"
-                    bgColor="pink.900"
-                    color="#FFF"
-                    w="13rem"
-                    fontWeight="normal"
                   >
-                    {'Reset the game'}
+                    {'Modify'}
                   </Button>
-                </GridItem>
-              </Grid>
-            </VStack>
+                  <Grid templateColumns="repeat(1, 1fr)">
+                    <GridItem mt={marginTopButton}>
+                      <Text as="b">{'Company name:'}</Text>
+                    </GridItem>
+                    <GridItem>
+                      <Editable
+                        textAlign="center"
+                        bgColor="white"
+                        rounded="10px"
+                        boxShadow="sm"
+                        py="1"
+                        px="4"
+                        border="1px"
+                        borderColor="gray.200"
+                        defaultValue="Your company name"
+                        fontSize="lg"
+                        isPreviewFocusable={false}
+                      >
+                        {gameInfos.companyName}
+                      </Editable>
+                    </GridItem>
+                    <GridItem mt={marginTopButton}>
+                      <Text as="b">{'CEO:'}</Text>
+                    </GridItem>
+                    <GridItem>
+                      <Editable
+                        textAlign="center"
+                        bgColor="white"
+                        rounded="10px"
+                        boxShadow="sm"
+                        py="1"
+                        px="4"
+                        border="1px"
+                        borderColor="gray.200"
+                        defaultValue="Your CEO name"
+                        fontSize="lg"
+                        isPreviewFocusable={false}
+                      >
+                        {gameInfos.ceo}
+                      </Editable>
+                    </GridItem>
+                    <GridItem mt={marginTopButton}>
+                      <Text as="b">{'Location:'}</Text>
+                    </GridItem>
+                    <GridItem>
+                      <Editable
+                        textAlign="center"
+                        bgColor="white"
+                        rounded="10px"
+                        boxShadow="sm"
+                        py="1"
+                        px="4"
+                        border="1px"
+                        borderColor="gray.200"
+                        defaultValue="Your location"
+                        fontSize="lg"
+                        isPreviewFocusable={false}
+                      >
+                        {gameInfos.location}
+                      </Editable>
+                    </GridItem>
+                    <GridItem my={marginTopButton}>
+                      <Button
+                        onClick={gameDetails.onOpen}
+                        boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                        bgColor={`${pageColor}.900`}
+                        color="#FFF"
+                        w="13rem"
+                        fontWeight="normal"
+                      >
+                        {'Edit game details'}
+                      </Button>
+                    </GridItem>
+                    <GridItem my={marginTopButton}>
+                      <Button
+                        onClick={resetGame.onOpen}
+                        boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                        mt="2rem"
+                        bgColor="pink.900"
+                        color="#FFF"
+                        w="13rem"
+                        fontWeight="normal"
+                      >
+                        {'Reset the game'}
+                      </Button>
+                    </GridItem>
+                  </Grid>
+                </VStack>
 
-            <Box
-              boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-              rounded="5px"
-              display={displayDesktop}
-              p="8vh"
-            >
-              <VStack>
-                <Image
-                  display={displayDesktop}
-                  w="5.5rem"
-                  src={`/company${companyImage}.png`}
-                  alt={`Image of ${companyImage}`}
-                />
-                <GameImageFiller
-                  selectedImage={selectedImage}
-                  setSelectedImage={setSelectedImage}
-                  setFormData={setFormData}
-                />
-                <Button
-                  display={displayDesktop}
-                  onClick={gameImage.onOpen}
-                  bgColor={`${pageColor}.900`}
-                  color="#FFF"
-                  w="8rem"
-                  fontWeight="normal"
+                <Box
                   boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                  rounded="5px"
+                  display={displayDesktop}
+                  p="8vh"
                 >
-                  {'Modify'}
-                </Button>
-              </VStack>
-            </Box>
-          </Flex>
-        </Flex>
+                  <VStack>
+                    <Image
+                      display={displayDesktop}
+                      w="5.5rem"
+                      src={`/company${companyImage}.png`}
+                      alt={`Image of ${companyImage}`}
+                    />
+                    <GameImageFiller
+                      selectedImage={selectedImage}
+                      setSelectedImage={setSelectedImage}
+                      setFormData={setFormData}
+                    />
+                    <Button
+                      display={displayDesktop}
+                      onClick={gameImage.onOpen}
+                      bgColor={`${pageColor}.900`}
+                      color="#FFF"
+                      w="8rem"
+                      fontWeight="normal"
+                      boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                    >
+                      {'Modify'}
+                    </Button>
+                  </VStack>
+                </Box>
+              </Flex>
+            </Flex>
+          </>
+        ) : (
+          <></>
+        )}
         <SlideUpModal
           isOpen={gameImage.isOpen}
           onClose={gameImage.onClose}

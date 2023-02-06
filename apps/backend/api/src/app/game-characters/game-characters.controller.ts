@@ -30,9 +30,11 @@ export class GameCharactersController {
     return this.gameCharactersService.findAll(gameId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gameCharactersService.findOne(+id);
+  findOne(@Param('id') id: string, @Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameCharactersService.findOne(+id, gameId);
   }
 
   @Patch(':id')

@@ -24,6 +24,7 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
+        // console.log(jsonResponse);
         setGameRoom(jsonResponse);
       } catch {}
     };
@@ -57,7 +58,7 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        console.log(jsonResponse);
+        // console.log(jsonResponse);
         setGameEvents(jsonResponse);
       } catch {}
     };
@@ -66,7 +67,7 @@ const RoomPage = () => {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [label]);
 
   return (
     <Box>

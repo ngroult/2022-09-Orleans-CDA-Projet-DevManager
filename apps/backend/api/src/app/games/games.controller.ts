@@ -47,7 +47,7 @@ export class GamesController {
   @Get()
   findAll(@Req() req) {
     const gameId = req.signedCookies['game'];
-    return this.gamesService.findAll();
+    return this.gamesService.findAll(gameId);
   }
 
   @Get(':id')
