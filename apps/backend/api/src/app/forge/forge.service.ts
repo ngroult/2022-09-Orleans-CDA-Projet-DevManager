@@ -48,12 +48,125 @@ export class ForgeService {
   ) {}
 
   async create(): Promise<string> {
-    const image1 = await this.imagesRepository.save({
-      name: 'profilePic1',
+    const profileImage1 = await this.imagesRepository.save({
+      name: 'man1',
       category: 'profile',
     });
-    const image2 = await this.imagesRepository.save({
-      name: 'gamePic1',
+    const profileImage2 = await this.imagesRepository.save({
+      name: 'man2',
+      category: 'profile',
+    });
+    const profileImage3 = await this.imagesRepository.save({
+      name: 'man3',
+      category: 'profile',
+    });
+    const profileImage4 = await this.imagesRepository.save({
+      name: 'man4',
+      category: 'profile',
+    });
+    const profileImage5 = await this.imagesRepository.save({
+      name: 'man5',
+      category: 'profile',
+    });
+    const profileImage6 = await this.imagesRepository.save({
+      name: 'man6',
+      category: 'profile',
+    });
+    const profileImage7 = await this.imagesRepository.save({
+      name: 'man7',
+      category: 'profile',
+    });
+    const profileImage8 = await this.imagesRepository.save({
+      name: 'man8',
+      category: 'profile',
+    });
+    const profileImage9 = await this.imagesRepository.save({
+      name: 'man9',
+      category: 'profile',
+    });
+    const profileImage10 = await this.imagesRepository.save({
+      name: 'man10',
+      category: 'profile',
+    });
+    const profileImage11 = await this.imagesRepository.save({
+      name: 'woman1',
+      category: 'profile',
+    });
+    const profileImage12 = await this.imagesRepository.save({
+      name: 'woman2',
+      category: 'profile',
+    });
+    const profileImage13 = await this.imagesRepository.save({
+      name: 'woman3',
+      category: 'profile',
+    });
+    const profileImage14 = await this.imagesRepository.save({
+      name: 'woman4',
+      category: 'profile',
+    });
+    const profileImage15 = await this.imagesRepository.save({
+      name: 'woman5',
+      category: 'profile',
+    });
+    const profileImage16 = await this.imagesRepository.save({
+      name: 'woman6',
+      category: 'profile',
+    });
+    const profileImage17 = await this.imagesRepository.save({
+      name: 'woman7',
+      category: 'profile',
+    });
+    const profileImage18 = await this.imagesRepository.save({
+      name: 'woman8',
+      category: 'profile',
+    });
+    const profileImage19 = await this.imagesRepository.save({
+      name: 'woman9',
+      category: 'profile',
+    });
+    const profileImage20 = await this.imagesRepository.save({
+      name: 'woman10',
+      category: 'profile',
+    });
+
+    const companyImage1 = await this.imagesRepository.save({
+      name: 'company1',
+      category: 'game',
+    });
+    const companyImage2 = await this.imagesRepository.save({
+      name: 'company2',
+      category: 'game',
+    });
+    const companyImage3 = await this.imagesRepository.save({
+      name: 'company3',
+      category: 'game',
+    });
+    const companyImage4 = await this.imagesRepository.save({
+      name: 'company4',
+      category: 'game',
+    });
+    const companyImage5 = await this.imagesRepository.save({
+      name: 'company5',
+      category: 'game',
+    });
+    const companyImage6 = await this.imagesRepository.save({
+      name: 'company6',
+      category: 'game',
+    });
+    const companyImage7 = await this.imagesRepository.save({
+      name: 'company7',
+      category: 'game',
+    });
+    const companyImage8 = await this.imagesRepository.save({
+      name: 'company8',
+      category: 'game',
+    });
+    const companyImage9 = await this.imagesRepository.save({
+      name: 'company9',
+      category: 'game',
+    });
+    const companyImage10 = await this.imagesRepository.save({
+      name: 'company10',
       category: 'game',
     });
 
@@ -62,7 +175,7 @@ export class ForgeService {
       email: 'john.doe@email.com',
       password:
         '$argon2id$v=19$m=65536,t=3,p=4$xIIZNxgDY6IMB8y6pKDFeg$evIcTxHMeyMp67wpQaRKTz65jygd3TQuuLPjp3d+vPQ',
-      image: { id: image1.id },
+      image: { id: profileImage1.id },
     });
 
     const game1 = await this.gamesRepository.save({
@@ -70,7 +183,7 @@ export class ForgeService {
       ceo: 'Elon Musk',
       location: 'Paris, France',
       user: { id: user1.id },
-      image: { id: image2.id },
+      image: { id: companyImage1.id },
     });
 
     const room1 = await this.roomsRepository.save({
@@ -416,7 +529,7 @@ export class ForgeService {
       email: 'johndoe@email.com',
       password:
         '$argon2id$v=19$m=65536,t=3,p=4$lfmnpKgxG5RlzolmWHtziQ$ESTdyDWAQMW7jayuGLv9ZVco7sSOAfDEZ0vV7qaHR4Y',
-      image: { id: image1.id },
+      image: { id: profileImage1.id },
     });
 
     const game2 = await this.gamesRepository.save({
@@ -424,7 +537,7 @@ export class ForgeService {
       ceo: 'John Doe',
       location: 'Orléans, France',
       user: { id: user2.id },
-      image: { id: image2.id },
+      image: { id: profileImage2.id },
     });
 
     const gameResource21 = await this.gameResourcesRepository.save({

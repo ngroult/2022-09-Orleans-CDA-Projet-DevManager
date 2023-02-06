@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 module.exports = {
-  name: 'mobile',
+  name: 'DevManager',
   slug: 'mobile',
   version: '1.0.0',
   orientation: 'portrait',

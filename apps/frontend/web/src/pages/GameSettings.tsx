@@ -71,14 +71,16 @@ const GameSettings = () => {
   };
 
   const updateGameSettings = () => {
-    fetch(`/api/games/1`, {
-      method: 'PATCH',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    }).then((response) => response.json());
-    setFormData({});
+    if (gameInfos != undefined && gameInfos.id !== 0) {
+      fetch(`/api/games/${gameInfos.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(formData),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }).then((response) => response.json());
+      setFormData({});
+    }
   };
 
   useEffect(() => {
@@ -156,8 +158,8 @@ const GameSettings = () => {
                   <Image
                     display={displayMobile}
                     w="5.5rem"
-                    src={`/${companyImage}.png`}
-                    alt={`Image of ${companyImage}`}
+                    src={`/${gameInfos.image.name}.png`}
+                    alt={`Image of ${gameInfos.image.name}`}
                     mt="2rem"
                     mb="1rem"
                   />
@@ -272,7 +274,7 @@ const GameSettings = () => {
                     <Image
                       display={displayDesktop}
                       w="5.5rem"
-                      src={`/company${companyImage}.png`}
+                      src={`/${companyImage}.png`}
                       alt={`Image of ${companyImage}`}
                     />
                     <GameImageFiller
@@ -282,12 +284,15 @@ const GameSettings = () => {
                     />
                     <Button
                       display={displayDesktop}
-                      onClick={gameImage.onOpen}
+                      ml=".5rem"
                       bgColor={`${pageColor}.900`}
                       color="#FFF"
-                      w="8rem"
+                      w="7rem"
                       fontWeight="normal"
                       boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                      onClick={() => {
+                        updateGameSettings();
+                      }}
                     >
                       {'Modify'}
                     </Button>

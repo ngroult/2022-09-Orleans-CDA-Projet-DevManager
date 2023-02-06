@@ -104,22 +104,22 @@ export default function App() {
         await SplashScreen.preventAutoHideAsync();
 
         await Font.loadAsync({
-          Orbitron_400Regular: require('./assets/fonts/orbitron/Orbitron_400Regular.ttf'),
-          Orbitron_500Medium: require('./assets/fonts/orbitron/Orbitron_500Medium.ttf'),
-          Orbitron_600SemiBold: require('./assets/fonts/orbitron/Orbitron_600SemiBold.ttf'),
-          Orbitron_700Bold: require('./assets/fonts/orbitron/Orbitron_700Bold.ttf'),
-          Orbitron_800ExtraBold: require('./assets/fonts/orbitron/Orbitron_800ExtraBold.ttf'),
-          Orbitron_900Black: require('./assets/fonts/orbitron/Orbitron_900Black.ttf'),
-          ChakraPetch_300Light_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_300Light_Italic.ttf'),
-          ChakraPetch_300Light: require('./assets/fonts/chakra-petch/ChakraPetch_300Light.ttf'),
-          ChakraPetch_400Regular_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_400Regular_Italic.ttf'),
-          ChakraPetch_400Regular: require('./assets/fonts/chakra-petch/ChakraPetch_400Regular.ttf'),
-          ChakraPetch_500Medium_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_500Medium_Italic.ttf'),
-          ChakraPetch_500Medium: require('./assets/fonts/chakra-petch/ChakraPetch_500Medium.ttf'),
-          ChakraPetch_600SemiBold_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_600SemiBold_Italic.ttf'),
-          ChakraPetch_600SemiBold: require('./assets/fonts/chakra-petch/ChakraPetch_600SemiBold.ttf'),
-          ChakraPetch_700Bold_Italic: require('./assets/fonts/chakra-petch/ChakraPetch_700Bold_Italic.ttf'),
-          ChakraPetch_700Bold: require('./assets/fonts/chakra-petch/ChakraPetch_700Bold.ttf'),
+          Orbitron_400Regular: require('../assets/fonts/orbitron/Orbitron_400Regular.ttf'),
+          Orbitron_500Medium: require('../assets/fonts/orbitron/Orbitron_500Medium.ttf'),
+          Orbitron_600SemiBold: require('../assets/fonts/orbitron/Orbitron_600SemiBold.ttf'),
+          Orbitron_700Bold: require('../assets/fonts/orbitron/Orbitron_700Bold.ttf'),
+          Orbitron_800ExtraBold: require('../assets/fonts/orbitron/Orbitron_800ExtraBold.ttf'),
+          Orbitron_900Black: require('../assets/fonts/orbitron/Orbitron_900Black.ttf'),
+          ChakraPetch_300Light_Italic: require('../assets/fonts/chakra-petch/ChakraPetch_300Light_Italic.ttf'),
+          ChakraPetch_300Light: require('../assets/fonts/chakra-petch/ChakraPetch_300Light.ttf'),
+          ChakraPetch_400Regular_Italic: require('../assets/fonts/chakra-petch/ChakraPetch_400Regular_Italic.ttf'),
+          ChakraPetch_400Regular: require('../assets/fonts/chakra-petch/ChakraPetch_400Regular.ttf'),
+          ChakraPetch_500Medium_Italic: require('../assets/fonts/chakra-petch/ChakraPetch_500Medium_Italic.ttf'),
+          ChakraPetch_500Medium: require('../assets/fonts/chakra-petch/ChakraPetch_500Medium.ttf'),
+          ChakraPetch_600SemiBold_Italic: require('../assets/fonts/chakra-petch/ChakraPetch_600SemiBold_Italic.ttf'),
+          ChakraPetch_600SemiBold: require('../assets/fonts/chakra-petch/ChakraPetch_600SemiBold.ttf'),
+          ChakraPetch_700Bold_Italic: require('../assets/fonts/chakra-petch/ChakraPetch_700Bold_Italic.ttf'),
+          ChakraPetch_700Bold: require('../assets/fonts/chakra-petch/ChakraPetch_700Bold.ttf'),
         });
 
         await new Promise((resolve) => setTimeout(resolve, 2000));

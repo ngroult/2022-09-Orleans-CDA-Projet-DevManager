@@ -238,7 +238,7 @@ const AccountSettings = () => {
                   <Button
                     onClick={deleteAccount.onOpen}
                     boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-                    bgColor="pink.900"
+                    bgColor={`${pageColor}.900`}
                     color="#FFF"
                     w="13rem"
                     fontWeight="normal"
@@ -269,13 +269,15 @@ const AccountSettings = () => {
                   setFormData={setFormData}
                 />
                 <Button
-                  display={displayDesktop}
-                  onClick={userImage.onOpen}
+                  ml=".5rem"
                   bgColor={`${pageColor}.900`}
                   color="#FFF"
-                  w="8rem"
                   fontWeight="normal"
+                  w="7rem"
                   boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                  onClick={() => {
+                    updateUserSettings();
+                  }}
                 >
                   {'Modify'}
                 </Button>
@@ -286,7 +288,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={userImage.isOpen}
           onClose={userImage.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Choose a new avatar"
           content={
             <UserImageFiller
@@ -301,7 +303,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={userContact.isOpen}
           onClose={userContact.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Edit your contact details"
           content={<UserContactFiller setFormData={setFormData} />}
           submitText="Save"
@@ -310,7 +312,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={userPassword.isOpen}
           onClose={userPassword.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Edit your password"
           content={<UserPasswordFiller setFormData={setFormData} />}
           submitText="Save"
@@ -319,7 +321,7 @@ const AccountSettings = () => {
         <SlideUpModal
           isOpen={deleteAccount.isOpen}
           onClose={deleteAccount.onClose}
-          pageColor="#42B7B4"
+          pageColor={pageColor}
           title="Write your password to confirm you want to delete your account"
           content={<DeleteAccountFiller />}
           submitText="Delete"

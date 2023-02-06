@@ -48,7 +48,7 @@ const App = () => {
   }, []);
 
   return (
-    <Box w="100vw" h="100vh">
+    <Box>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
