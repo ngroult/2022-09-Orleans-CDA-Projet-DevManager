@@ -51,12 +51,13 @@ export class GameCharactersService {
     }
   }
 
-  async findAll(): Promise<GameCharacter[]> {
+  async findAll(gameId: number): Promise<GameCharacter[]> {
     return await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
+      .where('game.id = :gameId', { gameId })
       .getMany();
   }
 

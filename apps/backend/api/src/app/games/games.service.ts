@@ -57,7 +57,7 @@ export class GamesService {
   async findOne(id: number): Promise<Game[]> {
     return this.gamesRepository.find({
       select: ['companyName', 'ceo', 'location'],
-      where: [{ id: id }],
+      where: { id: id },
     });
   }
 
@@ -70,5 +70,12 @@ export class GamesService {
 
   async remove(id: number): Promise<void> {
     await this.gamesRepository.softDelete(id);
+  }
+
+  async findByUser(id: number) {
+    return this.gamesRepository.findOne({
+      select: ['id'],
+      where: { user: { id } },
+    });
   }
 }

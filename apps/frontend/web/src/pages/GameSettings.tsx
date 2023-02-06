@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   Text,
   Flex,
@@ -10,6 +10,7 @@ import {
   Heading,
   Grid,
   GridItem,
+  Editable,
 } from '@chakra-ui/react';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
@@ -18,6 +19,7 @@ import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
 import { useToast } from '@chakra-ui/react';
+import { Game } from '@apps/backend-api';
 const pageColor = 'gold';
 const displayDesktop = {
   base: 'none',
@@ -41,7 +43,7 @@ const GameSettings = () => {
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
-
+  const [gameInfos, setGameInfos] = useState<Game>();
   const { user } = useContext(AuthContext);
   const toast = useToast();
 
@@ -68,7 +70,7 @@ const GameSettings = () => {
   };
 
   const updateGameSettings = () => {
-    fetch(`/api/games/${user!.id}`, {
+    fetch(`/api/games/1`, {
       method: 'PATCH',
       body: JSON.stringify(formData),
       headers: {
@@ -77,6 +79,26 @@ const GameSettings = () => {
     }).then((response) => response.json());
     setFormData({});
   };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    const displayGameInfos = async () => {
+      try {
+        const res = await fetch(`/api/games/1`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameInfos(jsonResponse);
+      } catch {}
+    };
+    console.log('gameInfos : ' + gameInfos);
+    displayGameInfos();
+    return () => {
+      abortController.abort();
+    };
+  }, []);
 
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
@@ -148,28 +170,64 @@ const GameSettings = () => {
               </Button>
               <Grid templateColumns="repeat(1, 1fr)">
                 <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Company name :'}</Text>
+                  <Text as="b">{'Company name:'}</Text>
                 </GridItem>
                 <GridItem>
-                  <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {'My Company'}
-                  </Text>
+                  <Editable
+                    textAlign="center"
+                    bgColor="white"
+                    rounded="10px"
+                    boxShadow="sm"
+                    py="1"
+                    px="4"
+                    border="1px"
+                    borderColor="gray.200"
+                    defaultValue="Your company name"
+                    fontSize="lg"
+                    isPreviewFocusable={false}
+                  >
+                    {gameInfos?.companyName}
+                  </Editable>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
-                  <Text as="b">{'CEO name :'}</Text>
+                  <Text as="b">{'CEO:'}</Text>
                 </GridItem>
                 <GridItem>
-                  <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {'Elon Musk'}
-                  </Text>
+                  <Editable
+                    textAlign="center"
+                    bgColor="white"
+                    rounded="10px"
+                    boxShadow="sm"
+                    py="1"
+                    px="4"
+                    border="1px"
+                    borderColor="gray.200"
+                    defaultValue="Your CEO name"
+                    fontSize="lg"
+                    isPreviewFocusable={false}
+                  >
+                    {gameInfos?.ceo}
+                  </Editable>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Location :'}</Text>
+                  <Text as="b">{'Location:'}</Text>
                 </GridItem>
                 <GridItem>
-                  <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {'Paris, France'}
-                  </Text>
+                  <Editable
+                    textAlign="center"
+                    bgColor="white"
+                    rounded="10px"
+                    boxShadow="sm"
+                    py="1"
+                    px="4"
+                    border="1px"
+                    borderColor="gray.200"
+                    defaultValue="Your location"
+                    fontSize="lg"
+                    isPreviewFocusable={false}
+                  >
+                    {gameInfos?.location}
+                  </Editable>
                 </GridItem>
                 <GridItem my={marginTopButton}>
                   <Button

@@ -14,6 +14,7 @@ import {
   GameResource,
   ResourceUsed,
   ResourceProduced,
+  GameEvent,
 } from '../../entities';
 import { Repository } from 'typeorm';
 
@@ -42,6 +43,8 @@ export class ForgeService {
     private resourcesUsedRepository: Repository<ResourceUsed>,
     @InjectRepository(ResourceProduced)
     private resourcesProducedRepository: Repository<ResourceProduced>,
+    @InjectRepository(GameEvent)
+    private gameEventsRepository: Repository<GameEvent>,
   ) {}
 
   async create(): Promise<string> {
@@ -74,7 +77,7 @@ export class ForgeService {
       name: 'Open Space',
       description: 'Open Space Description',
       image: '/open_space.png',
-      label: 'open_space',
+      label: 'open-space',
       color: 'purple',
       price: 5000,
       isExpandable: true,
@@ -92,7 +95,7 @@ export class ForgeService {
       name: 'Break Room',
       description: 'Break Room Description',
       image: '/break_room.png',
-      label: 'break_room',
+      label: 'break-room',
       color: 'gold',
       price: 10000,
       isExpandable: false,
@@ -503,6 +506,43 @@ export class ForgeService {
       room: { id: room2.id },
       character: { id: character6.id },
       quantity: 0,
+    });
+
+    const gameEvent1 = await this.gameEventsRepository.save({
+      startDate: '1970-01-01 00:00',
+      endDate: '1970-01-01 00:00',
+      event: { id: event1.id },
+      game: { id: game1.id },
+    });
+    const gameEvent2 = await this.gameEventsRepository.save({
+      startDate: '1970-01-01 00:00',
+      endDate: '1970-01-01 00:00',
+      event: { id: event2.id },
+      game: { id: game1.id },
+    });
+    const gameEvent3 = await this.gameEventsRepository.save({
+      startDate: '1970-01-01 00:00',
+      endDate: '1970-01-01 00:00',
+      event: { id: event3.id },
+      game: { id: game1.id },
+    });
+    const gameEvent4 = await this.gameEventsRepository.save({
+      startDate: '1970-01-01 00:00',
+      endDate: '1970-01-01 00:00',
+      event: { id: event1.id },
+      game: { id: game2.id },
+    });
+    const gameEvent5 = await this.gameEventsRepository.save({
+      startDate: '1970-01-01 00:00',
+      endDate: '1970-01-01 00:00',
+      event: { id: event2.id },
+      game: { id: game2.id },
+    });
+    const gameEvent6 = await this.gameEventsRepository.save({
+      startDate: '1970-01-01 00:00',
+      endDate: '1970-01-01 00:00',
+      event: { id: event3.id },
+      game: { id: game2.id },
     });
 
     return 'OK';

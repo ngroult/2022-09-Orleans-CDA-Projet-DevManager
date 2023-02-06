@@ -48,8 +48,9 @@ export class GameRoomsService {
     }
   }
 
-  async findAll() {
+  async findAll(gameId: number) {
     return this.gameRoomsRepository.find({
+      where: { game: { id: gameId } },
       relations: { game: true, room: true },
     });
   }
@@ -60,6 +61,16 @@ export class GameRoomsService {
       where: [{ id: id }],
       relations: { game: true, room: true },
     });
+  }
+
+  async findOneByLabel(label: string, gameId: number) {
+    return await this.gameRoomsRepository
+      .createQueryBuilder('gameRoom')
+      .leftJoinAndSelect('gameRoom.game', 'game')
+      .leftJoinAndSelect('gameRoom.room', 'room')
+      .where('room.label = :label', { label })
+      .where('game.id = :gameId', { gameId })
+      .getOne();
   }
 
   async update(

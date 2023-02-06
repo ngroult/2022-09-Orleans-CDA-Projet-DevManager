@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { GameRoomsService } from './game-rooms.service';
 import { CreateGameRoomDto } from './dto/create-game-room.dto';
 import { UpdateGameRoomDto } from './dto/update-game-room.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('game-rooms')
 export class GameRoomsController {
@@ -20,14 +23,22 @@ export class GameRoomsController {
     return this.gameRoomsService.create(createGameRoomDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.gameRoomsService.findAll();
+  findAll(@Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameRoomsService.findAll(gameId);
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gameRoomsService.findOne(+id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('by-label/:label')
+  findOneByLabel(@Param('label') label: string, @Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameRoomsService.findOneByLabel(label, gameId);
   }
 
   @Patch(':id')

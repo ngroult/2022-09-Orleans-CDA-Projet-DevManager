@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import {
   GameCharacter,
-  Room,
+  GameRoom,
   ResourceUsed,
   ResourceProduced,
 } from '@apps/backend-api';
@@ -23,10 +23,10 @@ import BadgeResource from './BadgeResource';
 
 function CharacterCard({
   gameCharacter,
-  room,
+  gameRoom,
 }: {
   gameCharacter: GameCharacter;
-  room: Room;
+  gameRoom: GameRoom;
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
   const [resourcesProduced, setResourcesProduced] = useState<
@@ -36,41 +36,41 @@ function CharacterCard({
   // const [quantity, setQuantity] = useState(0);
   // const [addedCharacter, setAddedCharacter] = useState("");
 
-  const addCharacter = async () => {
-    const data = {
-      id: gameCharacter.id,
-      quantity: gameCharacter.quantity + 1,
-    };
+  // const addCharacter = async () => {
+  //   const data = {
+  //     id: gameCharacter.id,
+  //     quantity: gameCharacter.quantity + 1,
+  //   };
 
-    try {
-      const rawResponse = await fetch(
-        `/api/game-characters/${gameCharacter.id}`,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      const jsonResponse = await rawResponse.json();
-      console.log(data);
-      if (rawResponse.ok) {
-        if (jsonResponse.status === 'ok') {
-          console.log('ça marche !!!!!');
-        } else {
-          if (jsonResponse.errorResource) {
-            console.error(jsonResponse.errorCharacter);
-          }
-          if (jsonResponse.errorGame) {
-            console.error(jsonResponse.errorGame);
-          }
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //   try {
+  //     const rawResponse = await fetch(
+  //       `/api/game-characters/${gameCharacter.id}`,
+  //       {
+  //         method: 'PATCH',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(data),
+  //       }
+  //     );
+  //     const jsonResponse = await rawResponse.json();
+  //     console.log(data);
+  //     if (rawResponse.ok) {
+  //       if (jsonResponse.status === 'ok') {
+  //         console.log('ça marche !!!!!');
+  //       } else {
+  //         if (jsonResponse.errorResource) {
+  //           console.error(jsonResponse.errorCharacter);
+  //         }
+  //         if (jsonResponse.errorGame) {
+  //           console.error(jsonResponse.errorGame);
+  //         }
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -109,13 +109,13 @@ function CharacterCard({
       <Card
         direction={{ base: 'column', sm: 'row' }}
         overflow="hidden"
-        bg={`${room.color}.500`}
+        bg={`${gameRoom.room.color}.500`}
         w="100%"
       >
         <Box
           borderRightRadius="10px"
           boxSize="10%"
-          bg={`${room.color}.900`}
+          bg={`${gameRoom.room.color}.900`}
           shadow="2xl"
           onClick={onOpen}
         >
@@ -185,12 +185,12 @@ function CharacterCard({
                 </Flex>
               </Badge>
               <Button
-                bg={`${room.color}.900`}
+                bg={`${gameRoom.room.color}.900`}
                 boxShadow="2xl"
                 size="lg"
                 color="white"
                 ml="5"
-                onClick={addCharacter}
+                // onClick={addCharacter}
               >
                 {'+ 1'}
               </Button>
