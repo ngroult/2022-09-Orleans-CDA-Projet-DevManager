@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import {
   Text,
   Flex,
@@ -18,7 +18,10 @@ import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
 import { useToast } from '@chakra-ui/react';
+import { Game } from '@apps/backend-api';
+
 const pageColor = 'gold';
+const marginTopButton = '1rem';
 const displayDesktop = {
   base: 'none',
   xl: 'flex',
@@ -33,17 +36,30 @@ const displayMobile = {
   md: 'flex',
   sm: 'flex',
 };
-const marginTopButton = '1rem';
 
 const GameSettings = () => {
-  const [companyImage, setCompanyImage] = useState('21');
-  const [selectedImage, setSelectedImage] = useState(companyImage);
-  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+  const { user } = useContext(AuthContext);
+  const [gameData, setGameData] = useState<Game>();
+  const [pendingGameData, setPendingGameData] = useState<Game>();
+
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
-  const { user } = useContext(AuthContext);
   const toast = useToast();
+
+  useEffect(() => {
+    const getGameData = async () => {
+      if (user) {
+        const response = await fetch(`/api/users/${user.id}/games/`);
+        const jsonResponse = await response.json();
+        const data = jsonResponse[0];
+
+        setGameData(data);
+        setPendingGameData(data);
+      }
+    };
+    getGameData();
+  }, []);
 
   const deleteGame = async () => {
     try {
@@ -54,14 +70,14 @@ const GameSettings = () => {
         title: 'Game deleted.',
         description: "We're sorry to see you go!",
         status: 'error',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
     } catch (error) {
       toast({
         title: 'There was an error deleting your game.',
         status: 'error',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       });
     }
@@ -69,20 +85,36 @@ const GameSettings = () => {
 
   const updateGameSettings = async () => {
     try {
-      const update = await fetch(`/api/games/${user!.id}`, {
+      const response = await fetch(`/api/games/${user!.id}`, {
         method: 'PATCH',
-        body: JSON.stringify({ image: { id: parseInt(selectedImage, 10) } }),
+        body: JSON.stringify(pendingGameData),
         headers: { 'Content-type': 'application/json' },
       });
-      const jsonUpdate = await update.json();
 
-      if (jsonUpdate.statusCode !== 500) {
-        console.log(jsonUpdate);
-        setCompanyImage(selectedImage);
+      if (response.status === 200) {
+        setGameData(pendingGameData);
+        toast({
+          title: 'Informations updated.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
       } else {
-        console.log(jsonUpdate);
+        console.log(response);
       }
-    } catch {}
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const closeGameDetailsModal = () => {
+    gameDetails.onClose();
+    setPendingGameData((prev) => ({
+      ...prev,
+      companyName: gameData.companyName,
+      ceo: gameData.ceo,
+      location: gameData.location,
+    }));
   };
 
   return (
@@ -131,11 +163,12 @@ const GameSettings = () => {
               <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
                 {`Change your informations`}
               </Text>
+
               <Image
                 display={displayMobile}
                 w="5.5rem"
-                src={`/${companyImage}.png`}
-                alt={`Image of ${companyImage}`}
+                src={`/game-icons/${gameData?.image.id}.png`}
+                alt={`Image of ${gameData?.image}`}
                 mt="2rem"
                 mb="1rem"
               />
@@ -151,13 +184,14 @@ const GameSettings = () => {
               >
                 {'Modify'}
               </Button>
+
               <Grid templateColumns="repeat(1, 1fr)">
                 <GridItem mt={marginTopButton}>
                   <Text as="b">{'Company name :'}</Text>
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {'My Company'}
+                    {gameData?.companyName}
                   </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
@@ -165,7 +199,7 @@ const GameSettings = () => {
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {'Elon Musk'}
+                    {gameData?.ceo}
                   </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
@@ -173,7 +207,7 @@ const GameSettings = () => {
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {'Paris, France'}
+                    {gameData?.location}
                   </Text>
                 </GridItem>
                 <GridItem my={marginTopButton}>
@@ -214,13 +248,12 @@ const GameSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/game-icons/${companyImage}.png`}
-                  alt={`Image of ${companyImage}`}
+                  src={`/game-icons/${gameData?.image.id}.png`}
+                  alt={`Image of ${gameData?.image}`}
                 />
                 <GameImageFiller
-                  selectedImage={selectedImage}
-                  setSelectedImage={setSelectedImage}
-                  setFormData={setFormData}
+                  pendingGameData={pendingGameData}
+                  setPendingGameData={setPendingGameData}
                 />
                 <Button
                   ml=".5rem"
@@ -229,9 +262,7 @@ const GameSettings = () => {
                   fontWeight="normal"
                   w="7rem"
                   boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
-                  onClick={() => {
-                    updateGameSettings();
-                  }}
+                  onClick={() => updateGameSettings()}
                 >
                   {'Modify'}
                 </Button>
@@ -246,9 +277,8 @@ const GameSettings = () => {
           title="Choose a new avatar"
           content={
             <GameImageFiller
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
-              setFormData={setFormData}
+              pendingGameData={pendingGameData}
+              setPendingGameData={setPendingGameData}
             />
           }
           submitText="Save"
@@ -256,10 +286,15 @@ const GameSettings = () => {
         />
         <SlideUpModal
           isOpen={gameDetails.isOpen}
-          onClose={gameDetails.onClose}
+          onClose={closeGameDetailsModal}
           pageColor={pageColor}
           title="Edit the game details"
-          content={<GameDetailsFiller setFormData={setFormData} />}
+          content={
+            <GameDetailsFiller
+              pendingGameData={pendingGameData}
+              setPendingGameData={setPendingGameData}
+            />
+          }
           submitText="Save"
           action={updateGameSettings}
         />

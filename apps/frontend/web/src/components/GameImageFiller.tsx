@@ -1,31 +1,17 @@
+import { Game } from '@apps/backend-api';
 import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
-const GameImageFiller = ({
-  selectedImage,
-  setSelectedImage,
-  setFormData,
-}: {
-  selectedImage: string;
-  setSelectedImage: (value: string) => void;
-  setFormData: Dispatch<
-    SetStateAction<{
-      [key: string]: string;
-    }>
-  >;
-}) => {
-  const [images, setImages] = useState([]);
+type Props = {
+  pendingGameData: Game;
+  setPendingGameData: (value: Game) => void;
+};
 
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    defaultValue: selectedImage,
-    onChange: (value) => {
-      setSelectedImage(value);
-      console.log(selectedImage);
-    },
-  });
-  const group = getRootProps();
+const GameImageFiller = ({ pendingGameData, setPendingGameData }: Props) => {
+  const [images, setImages] = useState([]);
+  const { getRootProps, getRadioProps } = useRadioGroup();
 
   useEffect(() => {
     const getImages = async () => {
@@ -37,7 +23,7 @@ const GameImageFiller = ({
 
   return (
     <Grid
-      {...group}
+      {...getRootProps()}
       templateColumns="repeat(3, 1fr)"
       m="2rem auto"
       gap="1rem"
@@ -51,7 +37,7 @@ const GameImageFiller = ({
           <RadioCard
             key={index}
             imageName={image.name}
-            setSelectedImage={setSelectedImage}
+            setPendingGameData={setPendingGameData}
             {...radioProps}
           />
         );

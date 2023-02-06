@@ -33,6 +33,19 @@ export class UsersService {
     });
   }
 
+  async findAllGames(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: [{ id: id }],
+      relations: ['games', 'games.image'],
+    });
+
+    if (!user) {
+      return [];
+    } else {
+      return user.games;
+    }
+  }
+
   private hash(password: string): Promise<string> {
     const hash = argon2.hash(password);
     return hash;

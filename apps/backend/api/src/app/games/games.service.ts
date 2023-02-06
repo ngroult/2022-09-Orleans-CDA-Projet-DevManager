@@ -16,20 +16,20 @@ export class GamesService {
   async create(createGameDto: CreateGameDto) {
     const image = await this.imagesRepository
       .createQueryBuilder('image')
-      .where('image.id = :id', { id: createGameDto.imageId })
+      .where('image.id = :id', { id: createGameDto.image.id })
       .getOne();
 
     const user = await this.usersRepository
       .createQueryBuilder('user')
-      .where('user.id = :id', { id: createGameDto.userId })
+      .where('user.id = :id', { id: createGameDto.user.id })
       .getOne();
 
     const errors: { errorImage?: string; errorUser?: string } = {};
 
     if (image && user) {
       await this.gamesRepository.save({
-        image: { id: createGameDto.imageId },
-        user: { id: createGameDto.userId },
+        image: { id: createGameDto.image.id },
+        user: { id: createGameDto.user.id },
         quantity: 1000,
       });
 
@@ -61,15 +61,16 @@ export class GamesService {
     });
   }
 
-  async update(id: number, updateGameDto: UpdateGameDto): Promise<string> {
+  async update(
+    id: number,
+    updateGameDto: UpdateGameDto,
+  ): Promise<{ status: string }> {
     const update = await this.gamesRepository.update(id, updateGameDto);
 
-    // console.log(update);
-
-    if (update) {
-      return 'ok';
+    if (update.affected > 0) {
+      return { status: 'ok' };
     } else {
-      return 'ko';
+      return { status: 'ko' };
     }
   }
 

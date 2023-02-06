@@ -1,4 +1,6 @@
-import { IsNumber, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsString, ValidateNested } from 'class-validator';
+import { Image, User } from 'src/entities';
 
 export class CreateGameDto {
   @IsString()
@@ -10,9 +12,11 @@ export class CreateGameDto {
   @IsString()
   location: string;
 
-  @IsNumber()
-  imageId: number;
+  @ValidateNested()
+  @Type(() => Image)
+  image: Image;
 
-  @IsNumber()
-  userId: number;
+  @ValidateNested()
+  @Type(() => User)
+  user: User;
 }
