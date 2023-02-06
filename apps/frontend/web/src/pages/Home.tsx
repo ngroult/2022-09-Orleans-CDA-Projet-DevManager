@@ -24,14 +24,14 @@ const Home = () => {
       </Center>
       <Center>
         <Heading color="#42B7B4" size="3xl">
-          {'Dev Manager'}
+          {'DevManager'}
         </Heading>
       </Center>
       <Center>
         <Box w="500px" display="flex" align="center" mt="5rem" mb="5rem">
           <Text color="black" m="5px">
             {
-              'Welcome to DevManager! The first game that you can manage a full crew of a dev compagny! With a style 2D, and a gameplay simple and intuitive'
+              'Welcome to DevManager! The first game where you can manage a full crew of a dev company! With a 2D style , and a simple and intuitive gameplay'
             }
           </Text>
         </Box>
@@ -45,7 +45,7 @@ const Home = () => {
             fontWeight="normal"
             w={{ base: '5rem', sm: '12rem' }}
           >
-            {'Sign in'}
+            {'Login'}
           </Button>
         </Link>
         <Link to="/register">
