@@ -209,7 +209,7 @@ const GameSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/company${companyImage}.png`}
+                  src={`/${companyImage}.png`}
                   alt={`Image of ${companyImage}`}
                 />
                 <GameImageFiller
@@ -218,13 +218,15 @@ const GameSettings = () => {
                   setFormData={setFormData}
                 />
                 <Button
-                  display={displayDesktop}
-                  onClick={gameImage.onOpen}
+                  ml=".5rem"
                   bgColor={`${pageColor}.900`}
                   color="#FFF"
-                  w="8rem"
                   fontWeight="normal"
+                  w="7rem"
                   boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                  onClick={() => {
+                    updateGameSettings();
+                  }}
                 >
                   {'Modify'}
                 </Button>

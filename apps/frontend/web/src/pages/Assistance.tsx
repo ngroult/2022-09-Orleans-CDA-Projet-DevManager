@@ -134,7 +134,7 @@ const Assistance = () => {
               <Button
                 w="50%"
                 boxShadow="xl"
-                bgColor="#42B7B4"
+                bgColor={`${pageColor}.900`}
                 mt="5"
                 color="white"
                 fontFamily="Chakra Petch"
