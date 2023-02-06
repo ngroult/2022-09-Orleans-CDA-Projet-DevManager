@@ -16,16 +16,20 @@ const GameImageFiller = ({
     }>
   >;
 }) => {
+  const [images, setImages] = useState([]);
+
   const { getRootProps, getRadioProps } = useRadioGroup({
     defaultValue: selectedImage,
-    onChange: (value) => setSelectedImage(value),
+    onChange: (value) => {
+      setSelectedImage(value);
+      console.log(selectedImage);
+    },
   });
   const group = getRootProps();
-  const [images, setImages] = useState([]);
 
   useEffect(() => {
     const getImages = async () => {
-      const data = await fetchImages('game');
+      const data = await fetchImages('company');
       setImages(data);
     };
     getImages();
@@ -39,9 +43,18 @@ const GameImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {images.map((value: { name: string }, index) => {
-        const radio = getRadioProps({ value: value.name });
-        return <RadioCard key={index} {...radio} />;
+      {images.map((image: { id: string; name: string }, index) => {
+        const radioProps = getRadioProps({
+          value: image.id,
+        });
+        return (
+          <RadioCard
+            key={index}
+            imageName={image.name}
+            setSelectedImage={setSelectedImage}
+            {...radioProps}
+          />
+        );
       })}
     </Grid>
   );

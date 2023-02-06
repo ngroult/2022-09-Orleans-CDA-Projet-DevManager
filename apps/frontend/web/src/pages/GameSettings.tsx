@@ -36,12 +36,12 @@ const displayMobile = {
 const marginTopButton = '1rem';
 
 const GameSettings = () => {
-  const [companyImage, setCompanyImage] = useState('company1');
+  const [companyImage, setCompanyImage] = useState('21');
   const [selectedImage, setSelectedImage] = useState(companyImage);
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
   const resetGame = useDisclosure();
-
   const { user } = useContext(AuthContext);
   const toast = useToast();
 
@@ -67,18 +67,23 @@ const GameSettings = () => {
     }
   };
 
-  const updateGameSettings = () => {
-    fetch(`/api/games/${user!.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    }).then((response) => response.json());
-    setFormData({});
-  };
+  const updateGameSettings = async () => {
+    try {
+      const update = await fetch(`/api/games/${user!.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ image: { id: parseInt(selectedImage, 10) } }),
+        headers: { 'Content-type': 'application/json' },
+      });
+      const jsonUpdate = await update.json();
 
-  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+      if (jsonUpdate.statusCode !== 500) {
+        console.log(jsonUpdate);
+        setCompanyImage(selectedImage);
+      } else {
+        console.log(jsonUpdate);
+      }
+    } catch {}
+  };
 
   return (
     <>
@@ -102,7 +107,7 @@ const GameSettings = () => {
           bgColor="#FFF"
           w="100%"
         >
-          <Heading color={`${pageColor}.900`}>{'Game Setting'}</Heading>
+          <Heading color={`${pageColor}.900`}>{'Game Settings'}</Heading>
         </Flex>
         <Flex w="100%">
           <Flex
@@ -209,7 +214,7 @@ const GameSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/company${companyImage}.png`}
+                  src={`/game-icons/${companyImage}.png`}
                   alt={`Image of ${companyImage}`}
                 />
                 <GameImageFiller
@@ -218,13 +223,15 @@ const GameSettings = () => {
                   setFormData={setFormData}
                 />
                 <Button
-                  display={displayDesktop}
-                  onClick={gameImage.onOpen}
+                  ml=".5rem"
                   bgColor={`${pageColor}.900`}
                   color="#FFF"
-                  w="8rem"
                   fontWeight="normal"
+                  w="7rem"
                   boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
+                  onClick={() => {
+                    updateGameSettings();
+                  }}
                 >
                   {'Modify'}
                 </Button>

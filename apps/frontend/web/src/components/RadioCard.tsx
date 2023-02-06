@@ -1,8 +1,14 @@
 import { Box, Image, useRadio, UseRadioProps } from '@chakra-ui/react';
 
-function RadioCard(props: UseRadioProps | undefined) {
-  const { getInputProps, getCheckboxProps, state } = useRadio(props);
-
+function RadioCard({
+  imageName,
+  setSelectedImage,
+  ...radioProps
+}: {
+  imageName: string;
+  setSelectedImage: (value: string) => void;
+}) {
+  const { getInputProps, getCheckboxProps, state } = useRadio(radioProps);
   const input = getInputProps();
   const checkbox = getCheckboxProps();
 
@@ -15,7 +21,14 @@ function RadioCard(props: UseRadioProps | undefined) {
         opacity={state.isChecked ? '1' : '0.2'}
         cursor="pointer"
       >
-        <Image src={`/${input.value}.png`} alt={`Image of ${input.value}`} />
+        <Image
+          src={`/game-icons/${input.value}.png`}
+          alt={`Image of ${imageName}`}
+          onClick={() => {
+            setSelectedImage(input.value);
+            console.log(state);
+          }}
+        />
       </Box>
     </Box>
   );
