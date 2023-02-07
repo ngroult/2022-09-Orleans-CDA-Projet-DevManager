@@ -1,21 +1,34 @@
-import { Game } from '@apps/backend-api';
+import { Game, User } from '@apps/backend-api';
 import { Box, Image, useRadio } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 function RadioCard({
   imageName,
+  setPendingUserData,
   setPendingGameData,
   ...radioProps
 }: {
   imageName: string;
-  setPendingGameData: (value: Game) => void;
+  setPendingUserData?: Dispatch<SetStateAction<Partial<User>>>;
+  setPendingGameData?: Dispatch<SetStateAction<Partial<Game>>>;
 }) {
   const { state, getInputProps, getCheckboxProps } = useRadio(radioProps);
   const input = getInputProps();
 
-  useEffect(() => {
-    console.log(getCheckboxProps());
-  }, []);
+  const clickImage = () => {
+    if (setPendingUserData) {
+      setPendingUserData((prev: Partial<User>) => ({
+        ...prev,
+        image: { id: input.value },
+      }));
+    }
+    if (setPendingGameData) {
+      setPendingGameData((prev: Partial<Game>) => ({
+        ...prev,
+        image: { id: input.value },
+      }));
+    }
+  };
 
   return (
     <Box as="label">
@@ -25,12 +38,7 @@ function RadioCard({
         w="4.7rem"
         opacity={state.isChecked ? '1' : '0.2'}
         cursor="pointer"
-        onClick={() =>
-          setPendingGameData((prev) => ({
-            ...prev,
-            image: { id: input.value },
-          }))
-        }
+        onClick={clickImage}
       >
         <Image
           src={`/game-icons/${input.value}.png`}

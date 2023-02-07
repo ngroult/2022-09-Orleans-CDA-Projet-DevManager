@@ -119,8 +119,12 @@ const NewGame = () => {
               {...register('companyName', {
                 required: 'The name of the company is required',
                 minLength: {
-                  value: 4,
-                  message: 'Minimum length should be 4',
+                  value: 3,
+                  message: 'Minimum length should be 3',
+                },
+                maxLength: {
+                  value: 30,
+                  message: 'Maximum length should be 30',
                 },
                 value: companyName,
                 onChange: (e) => setCompanyName(e.target.value),
@@ -148,8 +152,12 @@ const NewGame = () => {
               {...register('ceo', {
                 required: 'The name of the CEO is required',
                 minLength: {
-                  value: 4,
-                  message: 'Minimum length should be 4',
+                  value: 3,
+                  message: 'Minimum length should be 3',
+                },
+                maxLength: {
+                  value: 30,
+                  message: 'Maximum length should be 30',
                 },
                 value: ceo,
                 onChange: (e) => setCeo(e.target.value),
@@ -176,8 +184,12 @@ const NewGame = () => {
               {...register('location', {
                 required: 'The location is required',
                 minLength: {
-                  value: 4,
-                  message: 'Minimum length should be 4',
+                  value: 3,
+                  message: 'Minimum length should be 3',
+                },
+                maxLength: {
+                  value: 30,
+                  message: 'Maximum length should be 30',
                 },
                 value: location,
                 onChange: (e) => setLocation(e.target.value),

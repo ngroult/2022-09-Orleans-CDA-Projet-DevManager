@@ -8,14 +8,14 @@ export class Image {
   id: number;
 
   @Column('varchar', { length: 200 })
-  name: string;
+  name?: string;
 
   @Column('varchar', { length: 200 })
-  category: string;
+  category?: string;
 
   @OneToMany(() => User, (user) => user.image)
-  users: User[];
+  users?: User[];
 
   @OneToMany(() => Game, (game) => game.image)
-  games: Game[];
+  games?: Game[];
 }

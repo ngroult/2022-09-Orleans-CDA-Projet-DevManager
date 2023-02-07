@@ -1,12 +1,14 @@
 import { Game } from '@apps/backend-api';
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { Dispatch, SetStateAction } from 'react';
 
-type Props = {
-  pendingGameData: Game;
-  setPendingGameData: (value: Game) => void;
-};
-
-const GameDetailsFiller = ({ pendingGameData, setPendingGameData }: Props) => {
+const GameDetailsFiller = ({
+  pendingGameData,
+  setPendingGameData,
+}: {
+  pendingGameData: Partial<Game>;
+  setPendingGameData: Dispatch<SetStateAction<Partial<Game>>>;
+}) => {
   return (
     <InputGroup
       display="flex"
@@ -30,9 +32,9 @@ const GameDetailsFiller = ({ pendingGameData, setPendingGameData }: Props) => {
         placeholder="My Company..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
-        value={pendingGameData.companyName}
+        value={pendingGameData?.companyName}
         onChange={(e) =>
-          setPendingGameData((prev) => ({
+          setPendingGameData((prev: Partial<Game>) => ({
             ...prev,
             companyName: e.target.value,
           }))
@@ -53,9 +55,12 @@ const GameDetailsFiller = ({ pendingGameData, setPendingGameData }: Props) => {
         placeholder="Elon Musk..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
-        value={pendingGameData.ceo}
+        value={pendingGameData?.ceo}
         onChange={(e) =>
-          setPendingGameData((prev) => ({ ...prev, ceo: e.target.value }))
+          setPendingGameData((prev: Partial<Game>) => ({
+            ...prev,
+            ceo: e.target.value,
+          }))
         }
       />
       <FormLabel
@@ -73,9 +78,12 @@ const GameDetailsFiller = ({ pendingGameData, setPendingGameData }: Props) => {
         placeholder="Paris, France..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
-        value={pendingGameData.location}
+        value={pendingGameData?.location}
         onChange={(e) =>
-          setPendingGameData((prev) => ({ ...prev, location: e.target.value }))
+          setPendingGameData((prev: Partial<Game>) => ({
+            ...prev,
+            location: e.target.value,
+          }))
         }
       />
     </InputGroup>

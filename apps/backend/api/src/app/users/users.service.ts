@@ -27,9 +27,9 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return this.usersRepository.find({
-      select: ['username', 'email', 'password'],
+    return this.usersRepository.findOne({
       where: [{ id: id }],
+      relations: ['image'],
     });
   }
 
@@ -51,10 +51,22 @@ export class UsersService {
     return hash;
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
-    const hash = await this.hash(updateUserDto.password);
-    updateUserDto.password = hash;
-    return this.usersRepository.update(id, updateUserDto);
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<{ status: string }> {
+    if (updateUserDto.password) {
+      const hash = await this.hash(updateUserDto.password);
+      updateUserDto.password = hash;
+    }
+
+    const update = await this.usersRepository.update(id, updateUserDto);
+
+    if (update.affected > 0) {
+      return { status: 'ok' };
+    } else {
+      return { status: 'ko' };
+    }
   }
 
   remove(id: number) {

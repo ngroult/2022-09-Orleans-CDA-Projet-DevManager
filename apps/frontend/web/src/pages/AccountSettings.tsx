@@ -1,4 +1,6 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { User } from '@apps/backend-api';
+import AuthContext from '../contexts/AuthContext';
 import {
   Text,
   Flex,
@@ -11,15 +13,17 @@ import {
   Grid,
   GridItem,
 } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react';
+
 import SlideUpModal from '../components/popups/SlideUpModal';
 import UserImageFiller from '../components/UserImageFiller';
 import UserContactFiller from '../components/UserContactFiller';
 import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
 import Navbar from '../components/Navbar';
-import AuthContext from '../contexts/AuthContext';
-import { useToast } from '@chakra-ui/react';
+
 const pageColor = 'turquoise';
+const marginTopButton = '1rem';
 const displayDesktop = {
   base: 'none',
   xl: 'flex',
@@ -34,18 +38,32 @@ const displayMobile = {
   md: 'flex',
   sm: 'flex',
 };
-const marginTopButton = '1rem';
 
 const AccountSettings = () => {
-  const [gamerImage, setGamerImage] = useState('man1');
-  const [selectedImage, setSelectedImage] = useState(gamerImage);
+  const { user } = useContext(AuthContext);
+  const [userData, setUserData] = useState<Partial<User>>({});
+  const [pendingUserData, setPendingUserData] = useState<Partial<User>>({});
+
   const userImage = useDisclosure();
   const userContact = useDisclosure();
   const userPassword = useDisclosure();
   const deleteAccount = useDisclosure();
-
-  const { user } = useContext(AuthContext);
   const toast = useToast();
+
+  useEffect(() => {
+    const getUserData = async () => {
+      if (user) {
+        const response = await fetch(`/api/users/${user.id}/`);
+        const data = await response.json();
+
+        console.log('User', data);
+
+        setUserData(data);
+        setPendingUserData(data);
+      }
+    };
+    getUserData();
+  }, []);
 
   const deleteUserAccount = async () => {
     try {
@@ -69,18 +87,31 @@ const AccountSettings = () => {
     }
   };
 
-  const updateUserSettings = () => {
-    fetch(`/api/users/${user!.id}`, {
-      method: 'PATCH',
-      body: JSON.stringify(formData),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    }).then((response) => response.json());
+  const updateUserSettings = async () => {
+    try {
+      const response = await fetch(`/api/users/${user!.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(pendingUserData),
+        headers: {
+          'Content-type': 'application/json',
+        },
+      });
 
-    setFormData({});
+      if (response.ok) {
+        setUserData(pendingUserData);
+        toast({
+          title: 'Informations updated.',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        console.log(response);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
-  const [formData, setFormData] = useState<{ [key: string]: any }>({});
 
   return (
     <>
@@ -128,11 +159,12 @@ const AccountSettings = () => {
               <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
                 {`Change your informations`}
               </Text>
+
               <Image
                 display={displayMobile}
                 w="5.5rem"
-                src={`/${gamerImage}.png`}
-                alt={`Image of ${gamerImage}`}
+                src={`/game-icons/${userData?.image?.id}.png`}
+                alt={`Image of ${userData?.image?.name}`}
                 mt="2rem"
                 mb="1rem"
               />
@@ -148,13 +180,14 @@ const AccountSettings = () => {
               >
                 {'Modify'}
               </Button>
+
               <Grid templateColumns="repeat(1, 1fr)">
                 <GridItem mt={marginTopButton}>
                   <Text as="b">{'Username:'}</Text>
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {user?.username}
+                    {userData?.username}
                   </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
@@ -162,15 +195,7 @@ const AccountSettings = () => {
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {user?.email}
-                  </Text>
-                </GridItem>
-                <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Password:'}</Text>
-                </GridItem>
-                <GridItem>
-                  <Text bgColor="white" rounded="5px" py="1" px="4">
-                    {user?.password}
+                    {userData?.email}
                   </Text>
                 </GridItem>
                 <GridItem my={marginTopButton}>
@@ -222,15 +247,11 @@ const AccountSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/${gamerImage}.png`}
-                  alt={`Image of ${gamerImage}`}
+                  src={`/game-icons/${userData?.image?.id}.png`}
+                  alt={`Image of ${userData?.image?.name}`}
                   mb="2rem"
                 />
-                <UserImageFiller
-                  selectedImage={selectedImage}
-                  setSelectedImage={setSelectedImage}
-                  setFormData={setFormData}
-                />
+                <UserImageFiller setPendingUserData={setPendingUserData} />
                 <Button
                   ml=".5rem"
                   bgColor={`${pageColor}.900`}
@@ -250,25 +271,30 @@ const AccountSettings = () => {
         </Flex>
         <SlideUpModal
           isOpen={userImage.isOpen}
-          onClose={userImage.onClose}
+          onClose={() => {
+            userImage.onClose();
+            setPendingUserData(userData);
+          }}
           pageColor={pageColor}
           title="Choose a new avatar"
-          content={
-            <UserImageFiller
-              selectedImage={selectedImage}
-              setSelectedImage={setSelectedImage}
-              setFormData={setFormData}
-            />
-          }
+          content={<UserImageFiller setPendingUserData={setPendingUserData} />}
           submitText="Save"
           action={updateUserSettings}
         />
         <SlideUpModal
           isOpen={userContact.isOpen}
-          onClose={userContact.onClose}
+          onClose={() => {
+            userContact.onClose();
+            setPendingUserData(userData);
+          }}
           pageColor={pageColor}
           title="Edit your contact details"
-          content={<UserContactFiller setFormData={setFormData} />}
+          content={
+            <UserContactFiller
+              pendingUserData={pendingUserData}
+              setPendingUserData={setPendingUserData}
+            />
+          }
           submitText="Save"
           action={updateUserSettings}
         />
@@ -277,7 +303,9 @@ const AccountSettings = () => {
           onClose={userPassword.onClose}
           pageColor={pageColor}
           title="Edit your password"
-          content={<UserPasswordFiller setFormData={setFormData} />}
+          content={
+            <UserPasswordFiller setPendingUserData={setPendingUserData} />
+          }
           submitText="Save"
           action={updateUserSettings}
         />

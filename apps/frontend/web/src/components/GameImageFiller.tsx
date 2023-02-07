@@ -1,15 +1,14 @@
 import { Game } from '@apps/backend-api';
-import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { Grid, useRadioGroup } from '@chakra-ui/react';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
-type Props = {
-  pendingGameData: Game;
-  setPendingGameData: (value: Game) => void;
-};
-
-const GameImageFiller = ({ pendingGameData, setPendingGameData }: Props) => {
+const GameImageFiller = ({
+  setPendingGameData,
+}: {
+  setPendingGameData: Dispatch<SetStateAction<Partial<Game>>>;
+}) => {
   const [images, setImages] = useState([]);
   const { getRootProps, getRadioProps } = useRadioGroup();
 

@@ -39,8 +39,8 @@ const displayMobile = {
 
 const GameSettings = () => {
   const { user } = useContext(AuthContext);
-  const [gameData, setGameData] = useState<Game>();
-  const [pendingGameData, setPendingGameData] = useState<Game>();
+  const [gameData, setGameData] = useState<Partial<Game>>({});
+  const [pendingGameData, setPendingGameData] = useState<Partial<Game>>({});
 
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();
@@ -91,7 +91,7 @@ const GameSettings = () => {
         headers: { 'Content-type': 'application/json' },
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         setGameData(pendingGameData);
         toast({
           title: 'Informations updated.',
@@ -105,16 +105,6 @@ const GameSettings = () => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const closeGameDetailsModal = () => {
-    gameDetails.onClose();
-    setPendingGameData((prev) => ({
-      ...prev,
-      companyName: gameData.companyName,
-      ceo: gameData.ceo,
-      location: gameData.location,
-    }));
   };
 
   return (
@@ -167,8 +157,8 @@ const GameSettings = () => {
               <Image
                 display={displayMobile}
                 w="5.5rem"
-                src={`/game-icons/${gameData?.image.id}.png`}
-                alt={`Image of ${gameData?.image}`}
+                src={`/game-icons/${gameData?.image?.id}.png`}
+                alt={`Image of ${gameData?.image?.name}`}
                 mt="2rem"
                 mb="1rem"
               />
@@ -248,13 +238,10 @@ const GameSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/game-icons/${gameData?.image.id}.png`}
-                  alt={`Image of ${gameData?.image}`}
+                  src={`/game-icons/${gameData?.image?.id}.png`}
+                  alt={`Image of ${gameData?.image?.name}`}
                 />
-                <GameImageFiller
-                  pendingGameData={pendingGameData}
-                  setPendingGameData={setPendingGameData}
-                />
+                <GameImageFiller setPendingGameData={setPendingGameData} />
                 <Button
                   ml=".5rem"
                   bgColor={`${pageColor}.900`}
@@ -272,21 +259,22 @@ const GameSettings = () => {
         </Flex>
         <SlideUpModal
           isOpen={gameImage.isOpen}
-          onClose={gameImage.onClose}
+          onClose={() => {
+            gameImage.onClose();
+            setPendingGameData(gameData);
+          }}
           pageColor={pageColor}
           title="Choose a new avatar"
-          content={
-            <GameImageFiller
-              pendingGameData={pendingGameData}
-              setPendingGameData={setPendingGameData}
-            />
-          }
+          content={<GameImageFiller setPendingGameData={setPendingGameData} />}
           submitText="Save"
           action={updateGameSettings}
         />
         <SlideUpModal
           isOpen={gameDetails.isOpen}
-          onClose={closeGameDetailsModal}
+          onClose={() => {
+            gameDetails.onClose();
+            setPendingGameData(gameData);
+          }}
           pageColor={pageColor}
           title="Edit the game details"
           content={
