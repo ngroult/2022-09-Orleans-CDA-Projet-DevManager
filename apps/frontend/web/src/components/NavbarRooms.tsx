@@ -1,13 +1,4 @@
-import {
-  Box,
-  HStack,
-  Center,
-  Image,
-  Text,
-  IconButton,
-  Flex,
-} from '@chakra-ui/react';
-import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
+import { Box, HStack, Image, Flex } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Room } from '@apps/backend-api';

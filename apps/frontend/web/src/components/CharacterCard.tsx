@@ -24,15 +24,46 @@ import BadgeResource from './BadgeResource';
 function CharacterCard({
   gameCharacter,
   room,
+  quantityAddCharacters,
 }: {
   gameCharacter: GameCharacter;
   room: Room;
+  quantityAddCharacters: number;
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
   const [resourcesProduced, setResourcesProduced] = useState<
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // const quantityAddCharacters = 1;
+
+  const newQuantity = () => {
+    return (gameCharacter.quantity += quantityAddCharacters);
+  };
+
+  const addCharacter = async () => {
+    const data = {
+      id: gameCharacter.id,
+      quantity: gameCharacter.quantity + 1,
+    };
+
+    try {
+      const rawResponse = await fetch(
+        `/api/game-characters/${gameCharacter.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ quantity: newQuantity() }),
+        }
+      );
+      const jsonResponse = await rawResponse.json();
+      console.log(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -92,10 +123,12 @@ function CharacterCard({
         <CardBody>
           <Flex alignItems="center" w="full" justifyContent="space-between">
             <Box>
-              <Heading size="md" mt="1">
-                {gameCharacter.character.name}
-              </Heading>
-
+              <HStack>
+                <Heading size="md" mt="1">
+                  {gameCharacter.character.name}
+                </Heading>
+                <Text>{gameCharacter.quantity}</Text>
+              </HStack>
               {resourcesUsed && resourcesProduced && (
                 <HStack>
                   {resourcesProduced
@@ -152,8 +185,9 @@ function CharacterCard({
                 size="lg"
                 color="white"
                 ml="5"
+                onClick={addCharacter}
               >
-                {'+ 1'}
+                {`+ ${quantityAddCharacters}`}
               </Button>
             </Box>
           </Flex>
