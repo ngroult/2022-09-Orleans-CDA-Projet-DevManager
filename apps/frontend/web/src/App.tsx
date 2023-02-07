@@ -32,6 +32,10 @@ const App = () => {
 
         if (jsonResponse.message !== 'Unauthorized') {
           setUser(jsonResponse);
+          await fetch('/api/games/id', {
+            method: 'GET',
+            signal: abortController.signal,
+          });
         } else {
           setIsLoadingUser(false);
         }

@@ -49,8 +49,9 @@ export class GamesService {
     return await this.gamesRepository.save(createGameDto);
   }
 
-  async findAll() {
+  async findAll(gameId: number) {
     return this.gamesRepository.find({
+      where: { id: gameId },
       relations: {
         user: true,
         image: true,
@@ -61,7 +62,7 @@ export class GamesService {
   async findOne(id: number): Promise<Game[]> {
     return this.gamesRepository.find({
       select: ['companyName', 'ceo', 'location'],
-      where: [{ id: id }],
+      where: { id },
     });
   }
 
@@ -80,5 +81,12 @@ export class GamesService {
 
   async remove(id: number): Promise<void> {
     await this.gamesRepository.softDelete(id);
+  }
+
+  async findByUser(id: number) {
+    return this.gamesRepository.findOne({
+      select: ['id'],
+      where: { user: { id } },
+    });
   }
 }

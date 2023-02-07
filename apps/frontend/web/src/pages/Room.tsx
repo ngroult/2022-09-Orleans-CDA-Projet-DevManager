@@ -3,15 +3,15 @@ import NavbarRooms from '../components/NavbarRooms';
 import ResourcesBar from '../components/ResourcesBar';
 import { Box, Flex, VStack, Image } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { Room, GameCharacter, Event } from '@apps/backend-api';
+import { GameRoom, GameCharacter, GameEvent } from '@apps/backend-api';
 import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard';
 import EventCard from '../components/EventCard';
 
 const RoomPage = () => {
-  const [characters, setCharacters] = useState<GameCharacter[]>([]);
-  const [thisRoom, setThisRoom] = useState<Room>();
-  const [events, setEvents] = useState<Event[]>([]);
+  const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
+  const [gameRoom, setGameRoom] = useState<GameRoom>();
+  const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
 
   const { label } = useParams();
 
@@ -19,12 +19,12 @@ const RoomPage = () => {
     const abortController = new AbortController();
     const handleRoom = async () => {
       try {
-        const res = await fetch(`/api/rooms/by-label/${label}`, {
+        const res = await fetch(`/api/game-rooms/by-label/${label}`, {
           method: 'GET',
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        setThisRoom(jsonResponse[0]);
+        setGameRoom(jsonResponse);
       } catch {}
     };
     handleRoom();
@@ -44,19 +44,19 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        setCharacters(jsonResponse);
+        setGameCharacters(jsonResponse);
       } catch {}
     };
     handleCharacters();
 
     const handleEvents = async () => {
       try {
-        const res = await fetch(`/api/events`, {
+        const res = await fetch(`/api/game-events`, {
           method: 'GET',
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        setEvents(jsonResponse);
+        setGameEvents(jsonResponse);
       } catch {}
     };
     handleEvents();
@@ -78,25 +78,31 @@ const RoomPage = () => {
         >
           <Image src="/overview.jpg" alt="overview" />
         </Box>
-        {thisRoom && events && (
-          <Box bgColor={`${thisRoom.color}.200`} p="50px">
+        {gameRoom && gameEvents && gameCharacters && (
+          <Box bgColor={`${gameRoom.room.color}.200`} p="50px">
             <VStack>
-              {characters
+              {gameCharacters
                 .filter(
                   (gameCharacter) =>
-                    thisRoom.id === gameCharacter.character.room.id
+                    gameRoom.room.id === gameCharacter.character.room.id
                 )
                 .map((gameCharacter) => (
                   <CharacterCard
                     key={gameCharacter.character.id}
                     gameCharacter={gameCharacter}
-                    room={thisRoom}
+                    gameRoom={gameRoom}
                   />
                 ))}
-              {events
-                .filter((event) => thisRoom.id === event.room.id)
-                .map((event) => (
-                  <EventCard key={event.id} event={event} room={thisRoom} />
+              {gameEvents
+                .filter(
+                  (gameEvent) => gameRoom.room.id === gameEvent.event.room.id
+                )
+                .map((gameEvent) => (
+                  <EventCard
+                    key={gameEvent.id}
+                    gameEvent={gameEvent}
+                    gameRoom={gameRoom}
+                  />
                 ))}
             </VStack>
           </Box>

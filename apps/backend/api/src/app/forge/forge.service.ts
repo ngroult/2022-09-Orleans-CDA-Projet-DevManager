@@ -12,9 +12,9 @@ import {
   Event,
   BonusMalus,
   GameResource,
-  GameEvent,
   ResourceUsed,
   ResourceProduced,
+  GameEvent,
 } from '../../entities';
 import { Repository } from 'typeorm';
 import * as argon2 from 'argon2';
@@ -44,9 +44,13 @@ export class ForgeService {
     private resourcesUsedRepository: Repository<ResourceUsed>,
     @InjectRepository(ResourceProduced)
     private resourcesProducedRepository: Repository<ResourceProduced>,
+    @InjectRepository(GameEvent)
+    private gameEventsRepository: Repository<GameEvent>,
   ) {}
 
   async create(): Promise<string> {
+    // IMAGE
+
     const images = [
       {
         name: 'man1',
@@ -177,6 +181,8 @@ export class ForgeService {
       });
     }
 
+    // USER
+
     const users = [
       {
         username: 'azerty',
@@ -212,6 +218,8 @@ export class ForgeService {
         image: { id: imageId },
       });
     }
+
+    // GAME
 
     const games = [
       {
@@ -253,6 +261,8 @@ export class ForgeService {
         image: { id: imageId },
       });
     }
+
+    // ROOM
 
     const rooms = [
       {
@@ -303,6 +313,8 @@ export class ForgeService {
         isExpandable,
       });
     }
+
+    // CHARACTER
 
     const characters = [
       {
@@ -373,6 +385,8 @@ export class ForgeService {
       });
     }
 
+    // EVENT
+
     const events = [
       {
         name: 'Hackathon',
@@ -423,6 +437,8 @@ export class ForgeService {
       });
     }
 
+    // RESOURCE
+
     const resources = [
       {
         name: 'DevDollars',
@@ -465,6 +481,8 @@ export class ForgeService {
       });
     }
 
+    // GAME RESOURCE
+
     const gameResources = [
       {
         quantity: 1257,
@@ -500,6 +518,8 @@ export class ForgeService {
         resource: { id: resourceId },
       });
     }
+
+    // RESOURCE USED
 
     const resourcesUsed = [
       {
@@ -542,6 +562,8 @@ export class ForgeService {
       });
     }
 
+    // RESOURCE PRODUCED
+
     const resourcesProduced = [
       {
         quantity: 100,
@@ -583,6 +605,8 @@ export class ForgeService {
       });
     }
 
+    // GAME ROOM
+
     const gameRooms = [
       {
         gameId: 1,
@@ -612,6 +636,8 @@ export class ForgeService {
         totalSize,
       });
     }
+
+    // GAME CHARACTER
 
     const gameCharacters = [
       {
@@ -660,6 +686,58 @@ export class ForgeService {
         quantity,
       });
     }
+
+    // GAME EVENT
+
+    const gameEvents = [
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        event: 1,
+        gameId: 1,
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: 2,
+        gameId: 1,
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: 3,
+        gameId: 1,
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: 1,
+        gameId: 2,
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: 2,
+        gameId: 2,
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: 3,
+        gameId: 2,
+      },
+    ];
+
+    for (const { startDate, endDate, eventId, gameId } of gameEvents) {
+      await this.gameEventsRepository.save({
+        startDate,
+        endDate,
+        event: { id: eventId },
+        game: { id: gameId },
+      });
+    }
+
+    // BONUS MALUS
 
     const bonusMalus = [
       {
