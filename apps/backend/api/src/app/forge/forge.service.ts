@@ -185,28 +185,34 @@ export class ForgeService {
 
     const users = [
       {
-        username: 'azerty',
-        email: 'azerty@azerty.com',
-        password: 'azerty',
+        username: 'John Doe',
+        email: 'john.doe@email.com',
+        password: 'password',
         imageId: 1,
       },
       {
-        username: 'XXdemonSlayer',
-        email: 'demon.slayer@email.com',
+        username: 'azerty',
+        email: 'azerty@email.com',
         password: 'password',
         imageId: 2,
       },
       {
-        username: 'Patrick',
-        email: 'patrick@email.com',
+        username: 'qwerty',
+        email: 'qwerty@email.com',
         password: 'password',
         imageId: 3,
       },
       {
-        username: 'Baba',
-        email: 'baba@email.com',
+        username: 'okerty',
+        email: 'okerty@email.com',
         password: 'password',
         imageId: 4,
+      },
+      {
+        username: 'imerty',
+        email: 'imerty@email.com',
+        password: 'password',
+        imageId: 5,
       },
     ];
 
@@ -224,31 +230,38 @@ export class ForgeService {
     const games = [
       {
         companyName: 'Twitter',
-        ceo: 'Elon Musk',
-        location: 'Paris, France',
+        ceo: 'Edith Piaf',
+        location: 'San Francisco, USA',
         userId: 1,
         imageId: 1,
       },
       {
         companyName: 'AirBnB',
-        ceo: 'Sylvain Ripoll',
-        location: 'Orléans, France',
+        ceo: 'Abraham Lincoln',
+        location: 'Berlin, Germany',
         userId: 2,
         imageId: 2,
       },
       {
         companyName: 'Sodebo',
-        ceo: 'Corentin Delalande',
-        location: 'Houston, Texas, USA',
+        ceo: 'Nelson Mandela',
+        location: 'Houston, USA',
         userId: 3,
         imageId: 3,
       },
       {
-        companyName: 'Mairie de Saint-Amand-sur-Fion',
-        ceo: 'Jean Neymar',
-        location: 'Saint-Amand-sur-Fion, France',
+        companyName: 'Thales',
+        ceo: 'Marilyn Monroe',
+        location: 'London, United-Kingdom',
         userId: 4,
         imageId: 4,
+      },
+      {
+        companyName: 'Air France',
+        ceo: 'Gérard Larcher',
+        location: 'Paris, France',
+        userId: 5,
+        imageId: 5,
       },
     ];
 

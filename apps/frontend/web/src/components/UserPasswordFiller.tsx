@@ -46,7 +46,6 @@ const UserPasswordFiller = ({
         placeholder="New password..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
-        onChange={() => {}}
       />
     </InputGroup>
   );

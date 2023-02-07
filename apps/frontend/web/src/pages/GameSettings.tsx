@@ -99,12 +99,8 @@ const GameSettings = () => {
           duration: 2000,
           isClosable: true,
         });
-      } else {
-        console.log(response);
       }
-    } catch (err) {
-      console.log(err);
-    }
+    } catch {}
   };
 
   return (
