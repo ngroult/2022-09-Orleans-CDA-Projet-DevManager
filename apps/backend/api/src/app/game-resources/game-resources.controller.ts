@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { GameResourcesService } from './game-resources.service';
 import { CreateGameResourceDto } from './dto/create-game-resource.dto';
 import { UpdateGameResourceDto } from './dto/update-game-resource.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('game-resources')
 export class GameResourcesController {
@@ -20,9 +23,11 @@ export class GameResourcesController {
     return this.gameResourcesService.create(createGameResourceDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  findAll() {
-    return this.gameResourcesService.findAll();
+  findAll(@Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameResourcesService.findAll(gameId);
   }
 
   @Get(':id')

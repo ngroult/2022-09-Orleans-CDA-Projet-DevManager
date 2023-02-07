@@ -48,12 +48,13 @@ export class GameEventsService {
     }
   }
 
-  async findAll() {
+  async findAll(gameId: number) {
     return await this.gameEventsRepository
       .createQueryBuilder('gameEvent')
       .leftJoinAndSelect('gameEvent.game', 'game')
       .leftJoinAndSelect('gameEvent.event', 'event')
       .leftJoinAndSelect('event.room', 'room')
+      .where('game.id = :gameId', { gameId })
       .getMany();
   }
 
