@@ -127,9 +127,7 @@ const Leaderboard = () => {
                       </Td>
                       <Td>{leaderboard.user.username}</Td>
                       <Td>{leaderboard.companyName}</Td>
-                      <Td>
-                        {'$'} {gameResource[0].quantity}
-                      </Td>
+                      <Td>{`$ ${gameResource[0].quantity}`}</Td>
                     </Tr>
                   </Tbody>
                 ))}
