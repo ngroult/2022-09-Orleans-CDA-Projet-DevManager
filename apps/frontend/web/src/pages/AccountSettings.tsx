@@ -10,7 +10,6 @@ import {
   Heading,
   Grid,
   GridItem,
-  Editable,
 } from '@chakra-ui/react';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import UserImageFiller from '../components/UserImageFiller';
@@ -154,61 +153,25 @@ const AccountSettings = () => {
                   <Text as="b">{'Username:'}</Text>
                 </GridItem>
                 <GridItem>
-                  <Editable
-                    textAlign="center"
-                    bgColor="white"
-                    rounded="10px"
-                    boxShadow="sm"
-                    py="1"
-                    px="4"
-                    border="1px"
-                    borderColor="gray.200"
-                    defaultValue="Your username"
-                    fontSize="lg"
-                    isPreviewFocusable={false}
-                  >
+                  <Text bgColor="white" rounded="5px" py="1" px="4">
                     {user?.username}
-                  </Editable>
+                  </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
                   <Text as="b">{'E-mail:'}</Text>
                 </GridItem>
                 <GridItem>
-                  <Editable
-                    textAlign="center"
-                    bgColor="white"
-                    rounded="10px"
-                    boxShadow="sm"
-                    py="1"
-                    px="4"
-                    border="1px"
-                    borderColor="gray.200"
-                    defaultValue="Your email"
-                    fontSize="lg"
-                    isPreviewFocusable={false}
-                  >
+                  <Text bgColor="white" rounded="5px" py="1" px="4">
                     {user?.email}
-                  </Editable>
+                  </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
                   <Text as="b">{'Password:'}</Text>
                 </GridItem>
                 <GridItem>
-                  <Editable
-                    textAlign="center"
-                    bgColor="white"
-                    rounded="10px"
-                    boxShadow="sm"
-                    py="1"
-                    px="4"
-                    border="1px"
-                    borderColor="gray.200"
-                    defaultValue="Your password"
-                    fontSize="lg"
-                    isPreviewFocusable={false}
-                  >
+                  <Text bgColor="white" rounded="5px" py="1" px="4">
                     {user?.password}
-                  </Editable>
+                  </Text>
                 </GridItem>
                 <GridItem my={marginTopButton}>
                   <Button
