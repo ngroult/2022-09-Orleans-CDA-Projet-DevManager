@@ -334,13 +334,13 @@ export class ForgeService {
     });
     // Coffee used by Recruiters
     await this.resourcesUsedRepository.save({
-      quantity: 1,
+      quantity: 2,
       resource: { id: resource3.id },
       character: { id: character4.id },
     });
     // Coffee used by Salesman
     await this.resourcesUsedRepository.save({
-      quantity: 1,
+      quantity: 2,
       resource: { id: resource3.id },
       character: { id: character5.id },
     });
@@ -365,25 +365,25 @@ export class ForgeService {
     });
     // DevDollars produced by Lead Dev
     await this.resourcesProducedRepository.save({
-      quantity: 100,
+      quantity: 150,
       resource: { id: resource1.id },
       character: { id: character3.id },
     });
     // Energic drinks produced by Delivery man
     await this.resourcesProducedRepository.save({
-      quantity: 1,
+      quantity: 2,
       resource: { id: resource2.id },
       character: { id: character6.id },
     });
     // Coffee produced by Interns
     await this.resourcesProducedRepository.save({
-      quantity: 1,
+      quantity: 2,
       resource: { id: resource3.id },
       character: { id: character1.id },
     });
     // Contracts produced by Salesman
     await this.resourcesProducedRepository.save({
-      quantity: 1,
+      quantity: 2,
       resource: { id: resource4.id },
       character: { id: character5.id },
     });
