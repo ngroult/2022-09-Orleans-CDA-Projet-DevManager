@@ -5,12 +5,22 @@ import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
 const GameImageFiller = ({
+  pendingGameData,
   setPendingGameData,
 }: {
+  pendingGameData: Partial<Game>;
   setPendingGameData: Dispatch<SetStateAction<Partial<Game>>>;
 }) => {
   const [images, setImages] = useState([]);
-  const { getRootProps, getRadioProps } = useRadioGroup();
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    value: `${pendingGameData?.image?.id}`,
+    onChange: (value: string) =>
+      setPendingGameData((prev: Partial<Game>) => ({
+        ...prev,
+        image: { id: parseInt(value, 10) },
+      })),
+  });
 
   useEffect(() => {
     const getImages = async () => {
@@ -30,16 +40,9 @@ const GameImageFiller = ({
     >
       {images.map((image: { id: string; name: string }, index) => {
         const radioProps = getRadioProps({
-          value: image.id,
+          value: `${image.id}`,
         });
-        return (
-          <RadioCard
-            key={index}
-            imageName={image.name}
-            setPendingGameData={setPendingGameData}
-            {...radioProps}
-          />
-        );
+        return <RadioCard key={index} imageName={image.name} {...radioProps} />;
       })}
     </Grid>
   );

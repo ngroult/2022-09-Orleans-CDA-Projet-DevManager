@@ -56,8 +56,6 @@ const AccountSettings = () => {
         const response = await fetch(`/api/users/${user.id}/`);
         const data = await response.json();
 
-        console.log('User', data);
-
         setUserData(data);
         setPendingUserData(data);
       }
@@ -251,7 +249,10 @@ const AccountSettings = () => {
                   alt={`Image of ${userData?.image?.name}`}
                   mb="2rem"
                 />
-                <UserImageFiller setPendingUserData={setPendingUserData} />
+                <UserImageFiller
+                  pendingUserData={pendingUserData}
+                  setPendingUserData={setPendingUserData}
+                />
                 <Button
                   ml=".5rem"
                   bgColor={`${pageColor}.900`}
@@ -277,7 +278,12 @@ const AccountSettings = () => {
           }}
           pageColor={pageColor}
           title="Choose a new avatar"
-          content={<UserImageFiller setPendingUserData={setPendingUserData} />}
+          content={
+            <UserImageFiller
+              pendingUserData={pendingUserData}
+              setPendingUserData={setPendingUserData}
+            />
+          }
           submitText="Save"
           action={updateUserSettings}
         />

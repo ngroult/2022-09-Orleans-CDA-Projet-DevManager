@@ -241,7 +241,10 @@ const GameSettings = () => {
                   src={`/game-icons/${gameData?.image?.id}.png`}
                   alt={`Image of ${gameData?.image?.name}`}
                 />
-                <GameImageFiller setPendingGameData={setPendingGameData} />
+                <GameImageFiller
+                  pendingGameData={pendingGameData}
+                  setPendingGameData={setPendingGameData}
+                />
                 <Button
                   ml=".5rem"
                   bgColor={`${pageColor}.900`}
@@ -265,7 +268,12 @@ const GameSettings = () => {
           }}
           pageColor={pageColor}
           title="Choose a new avatar"
-          content={<GameImageFiller setPendingGameData={setPendingGameData} />}
+          content={
+            <GameImageFiller
+              pendingGameData={pendingGameData}
+              setPendingGameData={setPendingGameData}
+            />
+          }
           submitText="Save"
           action={updateGameSettings}
         />

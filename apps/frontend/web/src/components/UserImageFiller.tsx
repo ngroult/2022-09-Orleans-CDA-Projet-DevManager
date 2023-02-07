@@ -5,12 +5,22 @@ import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
 const UserImageFiller = ({
+  pendingUserData,
   setPendingUserData,
 }: {
+  pendingUserData: Partial<User>;
   setPendingUserData: Dispatch<SetStateAction<Partial<User>>>;
 }) => {
   const [images, setImages] = useState([]);
-  const { getRootProps, getRadioProps } = useRadioGroup();
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    value: `${pendingUserData?.image?.id}`,
+    onChange: (value: string) =>
+      setPendingUserData((prev: Partial<User>) => ({
+        ...prev,
+        image: { id: parseInt(value, 10) },
+      })),
+  });
 
   useEffect(() => {
     const getImages = async () => {
@@ -34,15 +44,8 @@ const UserImageFiller = ({
       maxW="400px"
     >
       {images.map((image: { id: string; name: string }, index) => {
-        const radioProps = getRadioProps({ value: image.id });
-        return (
-          <RadioCard
-            key={index}
-            imageName={image.name}
-            setPendingUserData={setPendingUserData}
-            {...radioProps}
-          />
-        );
+        const radioProps = getRadioProps({ value: `${image.id}` });
+        return <RadioCard key={index} imageName={image.name} {...radioProps} />;
       })}
     </Grid>
   );
