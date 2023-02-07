@@ -1,6 +1,17 @@
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsString, Length, ValidateNested } from 'class-validator';
-import { Image, User } from 'src/entities';
+import {
+  IsInt,
+  IsNotEmpty,
+  IsString,
+  Length,
+  ValidateNested,
+} from 'class-validator';
+
+class IdDto {
+  @IsNotEmpty()
+  @IsInt({ message: 'Invalid user' })
+  id: number;
+}
 
 export class CreateGameDto {
   @IsNotEmpty()
@@ -25,10 +36,10 @@ export class CreateGameDto {
   location: string;
 
   @ValidateNested()
-  @Type(() => Image)
-  image: Image;
+  @Type(() => IdDto)
+  image: IdDto;
 
   @ValidateNested()
-  @Type(() => User)
-  user: User;
+  @Type(() => IdDto)
+  user: IdDto;
 }

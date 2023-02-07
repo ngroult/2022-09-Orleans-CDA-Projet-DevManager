@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Flex,
@@ -14,18 +14,21 @@ import {
 import { useNavigate } from 'react-router-dom';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
+import AuthContext from '../contexts/AuthContext';
 const pageColor = 'purple';
 
 const NewGame = () => {
   const navigate = useNavigate();
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const { user } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const [companyImage, setCompanyImage] = useState('company1');
+  const [companyImage, setCompanyImage] = useState('21');
   const [selectedImage, setSelectedImage] = useState(companyImage);
   const [companyName, setCompanyName] = useState('');
   const [ceo, setCeo] = useState('');
@@ -37,21 +40,23 @@ const NewGame = () => {
     location: string;
   }) => {
     const dataForm = {
-      idUser: 1,
       companyName: values.companyName,
       ceo: values.ceo,
       location: values.location,
-      idImage: parseInt(companyImage, 10),
+      user: { id: user?.id },
+      image: { id: parseInt(companyImage, 10) },
     };
 
     try {
-      const response = await fetch('/api/games', {
+      const response = await fetch('/api/games/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataForm),
       });
+
+      console.log('response', response);
 
       if (response.ok) {
         return navigate('/game/overview');
@@ -78,7 +83,7 @@ const NewGame = () => {
         <Flex flexDir="column" alignItems="center" flexGrow="1">
           <Image
             w="80px"
-            src={`/${companyImage}.png`}
+            src={`/game-icons/${companyImage}.png`}
             alt={`Image of the company ${companyImage}`}
             m="2rem 0 1rem"
           />
@@ -223,7 +228,7 @@ const NewGame = () => {
           />
         }
         submitText="Save"
-        submitFunction={() => setCompanyImage(selectedImage)}
+        action={() => setCompanyImage(selectedImage)}
       />
     </>
   );

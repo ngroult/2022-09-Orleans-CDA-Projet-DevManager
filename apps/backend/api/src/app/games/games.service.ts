@@ -13,36 +13,40 @@ export class GamesService {
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
+  // async create(createGameDto: CreateGameDto) {
+  //   const image = await this.imagesRepository
+  //     .createQueryBuilder('image')
+  //     .where('image.id = :id', { id: createGameDto.image.id })
+  //     .getOne();
+
+  //   const user = await this.usersRepository
+  //     .createQueryBuilder('user')
+  //     .where('user.id = :id', { id: createGameDto.user.id })
+  //     .getOne();
+
+  //   const errors: { errorImage?: string; errorUser?: string } = {};
+
+  //   if (image && user) {
+  //     await this.gamesRepository.save({
+  //       image: { id: createGameDto.image.id },
+  //       user: { id: createGameDto.user.id },
+  //       quantity: 1000,
+  //     });
+
+  //     return { status: 'ok' };
+  //   } else {
+  //     if (image === null)
+  //       errors.errorImage =
+  //         'There is no row with the id of table "image" you try to insert in the table "game".';
+  //     if (user === null)
+  //       errors.errorUser =
+  //         'There is no row with the id of table "user" you try to insert in the table "game".';
+  //     return errors;
+  //   }
+  // }
+
   async create(createGameDto: CreateGameDto) {
-    const image = await this.imagesRepository
-      .createQueryBuilder('image')
-      .where('image.id = :id', { id: createGameDto.image.id })
-      .getOne();
-
-    const user = await this.usersRepository
-      .createQueryBuilder('user')
-      .where('user.id = :id', { id: createGameDto.user.id })
-      .getOne();
-
-    const errors: { errorImage?: string; errorUser?: string } = {};
-
-    if (image && user) {
-      await this.gamesRepository.save({
-        image: { id: createGameDto.image.id },
-        user: { id: createGameDto.user.id },
-        quantity: 1000,
-      });
-
-      return { status: 'ok' };
-    } else {
-      if (image === null)
-        errors.errorImage =
-          'There is no row with the id of table "image" you try to insert in the table "game".';
-      if (user === null)
-        errors.errorUser =
-          'There is no row with the id of table "user" you try to insert in the table "game".';
-      return errors;
-    }
+    return await this.gamesRepository.save(createGameDto);
   }
 
   async findAll() {

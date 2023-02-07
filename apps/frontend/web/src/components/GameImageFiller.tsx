@@ -7,20 +7,15 @@ import RadioCard from './RadioCard';
 const GameImageFiller = ({
   pendingGameData,
   setPendingGameData,
+  selectedImage,
+  setSelectedImage,
 }: {
-  pendingGameData: Partial<Game>;
-  setPendingGameData: Dispatch<SetStateAction<Partial<Game>>>;
+  pendingGameData?: Partial<Game>;
+  setPendingGameData?: Dispatch<SetStateAction<Partial<Game>>>;
+  selectedImage?: string;
+  setSelectedImage?: Dispatch<SetStateAction<string>>;
 }) => {
   const [images, setImages] = useState([]);
-
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    value: `${pendingGameData?.image?.id}`,
-    onChange: (value: string) =>
-      setPendingGameData((prev: Partial<Game>) => ({
-        ...prev,
-        image: { id: parseInt(value, 10) },
-      })),
-  });
 
   useEffect(() => {
     const getImages = async () => {
@@ -29,6 +24,25 @@ const GameImageFiller = ({
     };
     getImages();
   }, []);
+
+  const radioGroup = setPendingGameData
+    ? {
+        value: `${pendingGameData?.image?.id}`,
+        onChange: (value: string) => {
+          setPendingGameData((prev: Partial<Game>) => ({
+            ...prev,
+            image: { id: parseInt(value, 10) },
+          }));
+        },
+      }
+    : {
+        value: `${selectedImage}`,
+        onChange: (value: string) => {
+          if (setSelectedImage) setSelectedImage(value);
+        },
+      };
+
+  const { getRootProps, getRadioProps } = useRadioGroup(radioGroup);
 
   return (
     <Grid
