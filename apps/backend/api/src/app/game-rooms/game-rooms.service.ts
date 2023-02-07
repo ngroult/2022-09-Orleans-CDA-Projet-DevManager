@@ -58,7 +58,7 @@ export class GameRoomsService {
   async findOne(id: number): Promise<GameRoom[]> {
     return this.gameRoomsRepository.find({
       select: ['size', 'totalSize'],
-      where: [{ id: id }],
+      where: { id },
       relations: { game: true, room: true },
     });
   }

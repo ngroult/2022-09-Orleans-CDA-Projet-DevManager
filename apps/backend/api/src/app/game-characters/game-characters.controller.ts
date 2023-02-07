@@ -14,6 +14,7 @@ import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('game-characters')
 export class GameCharactersController {
   constructor(private readonly gameCharactersService: GameCharactersService) {}
@@ -23,14 +24,12 @@ export class GameCharactersController {
     return this.gameCharactersService.create(createGameCharacterDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Req() req) {
     const gameId = req.signedCookies['game'];
     return this.gameCharactersService.findAll(gameId);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string, @Req() req) {
     const gameId = req.signedCookies['game'];

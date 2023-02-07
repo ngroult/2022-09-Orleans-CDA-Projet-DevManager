@@ -58,7 +58,7 @@ export class GamesService {
   async findOne(id: number): Promise<Game[]> {
     return this.gamesRepository.find({
       select: ['companyName', 'ceo', 'location'],
-      where: { id: id },
+      where: { id },
     });
   }
 

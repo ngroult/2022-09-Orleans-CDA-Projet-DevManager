@@ -51,7 +51,7 @@ export class GamesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string, @Req() req) {
+  findOne(@Param('id') id: string) {
     return this.gamesService.findOne(+id);
   }
 
