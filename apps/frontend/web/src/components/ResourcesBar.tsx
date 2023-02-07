@@ -15,8 +15,10 @@ import {
 import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
 import ModalResources from './ModalResources';
-import { GameResource } from '@apps/backend-api';
+import { GameCharacter, GameResource, Room } from '@apps/backend-api';
 import DrawerResources from './DrawerResources';
+import { useParams } from 'react-router-dom';
+import { count } from 'console';
 
 const ResourcesBar = () => {
   const {
@@ -31,6 +33,45 @@ const ResourcesBar = () => {
   } = useDisclosure();
 
   const [resources, setResources] = useState<GameResource[]>([]);
+  const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
+  const [gameRoom, setGameRoom] = useState<Room>();
+
+  const { label } = useParams();
+
+  const countSizeCharacters = () => {
+    let sizeAllCharacters = 0;
+    if (gameRoom && gameCharacters) {
+      for (let i = 0; i < gameCharacters.length; i++) {
+        if (gameRoom.id === gameCharacters[i].character.room.id) {
+          if (gameCharacters[i].quantity != 0) {
+            sizeAllCharacters +=
+              gameCharacters[i].quantity * gameCharacters[i].character.size;
+          }
+        }
+      }
+    }
+    return sizeAllCharacters;
+  };
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const handleRoom = async () => {
+      try {
+        const res = await fetch(`/api/rooms/by-label/${label}`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameRoom(jsonResponse[0]);
+        countSizeCharacters();
+      } catch {}
+    };
+    handleRoom();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [label]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -43,6 +84,18 @@ const ResourcesBar = () => {
       .then((data) => {
         setResources(data);
       });
+
+    const handleCharacters = async () => {
+      try {
+        const res = await fetch(`/api/game-characters`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameCharacters(jsonResponse);
+      } catch {}
+    };
+    handleCharacters();
     return () => {
       abortController.abort();
     };
@@ -58,24 +111,28 @@ const ResourcesBar = () => {
           <Box>{'My Company'}</Box>
         </HStack>
         <Spacer display={{ base: 'none', md: 'flex' }} />
-        <VStack display={{ base: 'none', md: 'flex' }}>
-          <Box>{'Remaining'}</Box>
-          <HStack>
-            <Box>{'50'}</Box>
-            <Box boxSize="30px">
-              <Image src="/area.png" />
-            </Box>
-          </HStack>
-        </VStack>
-        <VStack display={{ base: 'none', md: 'flex' }}>
-          <Box>{'Total'}</Box>
-          <HStack>
-            <Box>{'110'}</Box>
-            <Box boxSize="30px">
-              <Image src="/area.png" />
-            </Box>
-          </HStack>
-        </VStack>
+        {gameRoom && (
+          <>
+            <VStack display={{ base: 'none', md: 'flex' }}>
+              <Box>{'Remaining'}</Box>
+              <HStack>
+                <Box>{countSizeCharacters()}</Box>
+                <Box boxSize="30px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </VStack>
+            <VStack display={{ base: 'none', md: 'flex' }}>
+              <Box>{'Total'}</Box>
+              <HStack>
+                {/* <Box>{gameRoom.}</Box> */}
+                <Box boxSize="30px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </VStack>
+          </>
+        )}
         <Spacer display={{ base: 'none', md: 'flex' }} />
         <HStack>
           <Box>

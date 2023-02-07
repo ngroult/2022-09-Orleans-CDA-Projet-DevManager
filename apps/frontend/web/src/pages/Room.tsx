@@ -21,7 +21,6 @@ const RoomPage = () => {
   const [thisRoom, setThisRoom] = useState<Room>();
   const [events, setEvents] = useState<Event[]>([]);
   const [quantityAddCharacters, setQuantityAddCharacters] = useState(1);
-  // const quantityAddCharacters = 1;
   const { label } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -96,8 +95,9 @@ const RoomPage = () => {
                 color="white"
                 boxShadow="2xl"
                 onClick={onOpen}
+                display="flex"
+                justifyContent="end"
               >
-                {' '}
                 {`+ ${quantityAddCharacters}`}
               </Button>
               <VStack>

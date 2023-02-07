@@ -41,9 +41,7 @@ function CharacterModal({
       defaultValue: quantityAddCharacters,
       min: 1,
       max: 100,
-      onChange: (e) => {
-        setQuantityAddCharacters(e);
-      },
+      onChange: (e) => setQuantityAddCharacters(e),
     });
 
   const inc = getIncrementButtonProps();
@@ -56,14 +54,17 @@ function CharacterModal({
         <ModalContent bg={`${color}.200`}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>
-            <Text>{'How many people would you add ?'}</Text>
             <HStack maxW="320px">
               <Button bg={`${color}.900`} color="white" {...inc}>{`+`}</Button>
               <Input {...input} bgColor="white" />
               <Button bg={`${color}.900`} {...dec}>{`-`}</Button>
             </HStack>
             <Center>
-              <Button bg={`${color}.900`} color="white">{`Confirm`}</Button>
+              <Button
+                onClick={onClose}
+                bg={`${color}.900`}
+                color="white"
+              >{`Confirm`}</Button>
             </Center>
           </ModalBody>
         </ModalContent>

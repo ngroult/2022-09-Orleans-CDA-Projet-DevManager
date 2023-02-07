@@ -35,7 +35,6 @@ function CharacterCard({
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const quantityAddCharacters = 1;
 
   const newQuantity = () => {
     return (gameCharacter.quantity += quantityAddCharacters);
@@ -58,11 +57,7 @@ function CharacterCard({
           body: JSON.stringify({ quantity: newQuantity() }),
         }
       );
-      const jsonResponse = await rawResponse.json();
-      console.log(data);
-    } catch (err) {
-      console.error(err);
-    }
+    } catch (err) {}
   };
 
   useEffect(() => {
