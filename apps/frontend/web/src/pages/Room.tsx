@@ -107,9 +107,6 @@ const RoomPage = () => {
             </VStack>
           </Box>
         )}
-        {/* {gameRoom && gameCharacters ?
-        <Box bgColor={`${gameRoom.room.color}.200`} p="50px"></Box>
-        : <></>} */}
       </Flex>
     </Box>
   );
