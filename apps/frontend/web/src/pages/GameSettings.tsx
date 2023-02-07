@@ -96,7 +96,6 @@ const GameSettings = () => {
       }).then((response) =>
         response.json().then((data) => {
           setGameInfos(data[0]);
-          console.log(data[0]);
         })
       );
     };

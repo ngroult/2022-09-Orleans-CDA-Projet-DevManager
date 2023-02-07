@@ -152,7 +152,6 @@ function CharacterCard({
                 size="lg"
                 color="white"
                 ml="5"
-                // onClick={addCharacter}
               >
                 {'+ 1'}
               </Button>
