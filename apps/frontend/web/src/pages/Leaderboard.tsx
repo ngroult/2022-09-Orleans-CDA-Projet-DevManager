@@ -15,11 +15,12 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { Game } from '@apps/backend-api';
+import { Game, GameResource } from '@apps/backend-api';
 import Navbar from '../components/Navbar';
 
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState<Game[]>([]);
+  const [gameResource, setGameResource] = useState<GameResource[]>([]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -29,6 +30,12 @@ const Leaderboard = () => {
       .then((data) => {
         setLeaderboard(data);
       });
+    fetch('/api/game-resources', { method: 'GET' })
+      .then((response) => response.json())
+      .then((response) => {
+        setGameResource(response);
+      });
+
     return () => {
       abortController.abort();
     };
@@ -88,8 +95,8 @@ const Leaderboard = () => {
                   <Tr>
                     <Th>{'N°'}</Th>
                     <Th>{'Player'}</Th>
-                    <Th>{'Ceo Name'}</Th>
                     <Th>{'Company'}</Th>
+                    <Th>{'Point'}</Th>
                   </Tr>
                 </Thead>
                 {leaderboard.map((leaderboard) => (
@@ -119,8 +126,8 @@ const Leaderboard = () => {
                         )}
                       </Td>
                       <Td>{leaderboard.user.username}</Td>
-                      <Td>{leaderboard.ceo}</Td>
                       <Td>{leaderboard.companyName}</Td>
+                      <Td>{`$${gameResource[0].quantity}`}</Td>
                     </Tr>
                   </Tbody>
                 ))}
