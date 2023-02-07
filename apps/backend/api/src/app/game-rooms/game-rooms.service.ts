@@ -64,12 +64,13 @@ export class GameRoomsService {
   }
 
   async findOneByLabel(label: string, gameId: number) {
+    console.log(gameId);
     return await this.gameRoomsRepository
       .createQueryBuilder('gameRoom')
       .leftJoinAndSelect('gameRoom.game', 'game')
       .leftJoinAndSelect('gameRoom.room', 'room')
       .where('room.label = :label', { label })
-      .where('game.id = :gameId', { gameId })
+      .andWhere('game.id = :gameId', { gameId })
       .getOne();
   }
 

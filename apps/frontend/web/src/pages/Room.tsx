@@ -24,7 +24,6 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        // console.log(jsonResponse);
         setGameRoom(jsonResponse);
       } catch {}
     };
@@ -45,7 +44,6 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        console.log(jsonResponse);
         setGameCharacters(jsonResponse);
       } catch {}
     };
@@ -58,7 +56,6 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        // console.log(jsonResponse);
         setGameEvents(jsonResponse);
       } catch {}
     };
@@ -81,7 +78,7 @@ const RoomPage = () => {
         >
           <Image src="/overview.jpg" alt="overview" />
         </Box>
-        {gameRoom && gameEvents && (
+        {gameRoom && gameEvents && gameCharacters && (
           <Box bgColor={`${gameRoom.room.color}.200`} p="50px">
             <VStack>
               {gameCharacters

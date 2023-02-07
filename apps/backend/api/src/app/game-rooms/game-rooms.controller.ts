@@ -27,8 +27,10 @@ export class GameRoomsController {
   @Get()
   findAll(@Req() req) {
     const gameId = req.signedCookies['game'];
+    console.log(gameId);
     return this.gameRoomsService.findAll(gameId);
   }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gameRoomsService.findOne(+id);

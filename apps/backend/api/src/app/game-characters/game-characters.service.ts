@@ -61,14 +61,14 @@ export class GameCharactersService {
       .getMany();
   }
 
-  async findOne(id: number, gameId): Promise<GameCharacter> {
+  async findOne(id: number, gameId: number): Promise<GameCharacter> {
     return await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
       .where('gameCharacter.id = :id', { id })
-      .where('game.id = :gameId', { gameId })
+      .andWhere('game.id = :gameId', { gameId })
       .getOne();
   }
 
