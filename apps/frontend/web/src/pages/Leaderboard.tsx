@@ -30,10 +30,10 @@ const Leaderboard = () => {
       .then((data) => {
         setLeaderboard(data);
       });
-    fetch('api/game-resources', { method: 'GET' })
-      .then((data1) => data1.json())
-      .then((data1) => {
-        setGameResource(data1);
+    fetch('/api/game-resources', { method: 'GET' })
+      .then((response) => response.json())
+      .then((response) => {
+        setGameResource(response);
       });
 
     return () => {
@@ -127,7 +127,7 @@ const Leaderboard = () => {
                       </Td>
                       <Td>{leaderboard.user.username}</Td>
                       <Td>{leaderboard.companyName}</Td>
-                      <Td>{`$ ${gameResource[0].quantity}`}</Td>
+                      <Td>{`$${gameResource[0].quantity}`}</Td>
                     </Tr>
                   </Tbody>
                 ))}
