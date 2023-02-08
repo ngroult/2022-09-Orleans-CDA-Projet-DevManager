@@ -13,12 +13,11 @@ BEGIN
     DECLARE resourceQuantity INT;
     DECLARE cur_game_resource CURSOR FOR
         SELECT
-            gr.id AS resourceId,
+            gr.resourceId AS resourceId,
             gr.quantity AS resourceQuantity
         FROM
-            game g
-            INNER JOIN game_resource gr ON g.id = gr.gameId
-        WHERE g.id = gameId;
+            game_resource gr
+        WHERE gr.gameId = gameId;
         
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET resource_loop_done = TRUE;
 
@@ -99,7 +98,7 @@ BEGIN
             SET @newQuantity = 0;
         END IF;
         
-        UPDATE game_resource SET quantity = @newQuantity WHERE `gameId` = gameId AND `resourceId` = resourceId;
+        UPDATE game_resource SET quantity = @newQuantity WHERE `gameResource`.`gameId` = gameId AND `gameResource`.`resourceId` = resourceId;
            
     END LOOP;
     CLOSE cur_character; 
