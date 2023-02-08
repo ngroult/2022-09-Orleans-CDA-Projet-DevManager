@@ -15,10 +15,9 @@ import {
 import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
 import ModalResources from './ModalResources';
-import { GameCharacter, GameResource, Room } from '@apps/backend-api';
+import { GameCharacter, GameResource, GameRoom } from '@apps/backend-api';
 import DrawerResources from './DrawerResources';
 import { useParams } from 'react-router-dom';
-import { count } from 'console';
 
 const ResourcesBar = () => {
   const {
@@ -34,7 +33,7 @@ const ResourcesBar = () => {
 
   const [resources, setResources] = useState<GameResource[]>([]);
   const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
-  const [gameRoom, setGameRoom] = useState<Room>();
+  const [gameRoom, setGameRoom] = useState<GameRoom>();
 
   const { label } = useParams();
 
@@ -49,6 +48,17 @@ const ResourcesBar = () => {
           }
         }
       }
+      if (sizeAllCharacters > gameRoom.size) {
+        fetch(`/api/game-rooms/${gameRoom.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            size: sizeAllCharacters,
+          }),
+        });
+      }
     }
     return sizeAllCharacters;
   };
@@ -57,12 +67,12 @@ const ResourcesBar = () => {
     const abortController = new AbortController();
     const handleRoom = async () => {
       try {
-        const res = await fetch(`/api/rooms/by-label/${label}`, {
+        const res = await fetch(`/api/game-rooms/by-label/${label}`, {
           method: 'GET',
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-        setGameRoom(jsonResponse[0]);
+        setGameRoom(jsonResponse);
         countSizeCharacters();
       } catch {}
     };
@@ -116,7 +126,7 @@ const ResourcesBar = () => {
             <VStack display={{ base: 'none', md: 'flex' }}>
               <Box>{'Remaining'}</Box>
               <HStack>
-                <Box>{countSizeCharacters()}</Box>
+                <Box>{gameRoom.size}</Box>
                 <Box boxSize="30px">
                   <Image src="/area.png" />
                 </Box>
@@ -125,7 +135,7 @@ const ResourcesBar = () => {
             <VStack display={{ base: 'none', md: 'flex' }}>
               <Box>{'Total'}</Box>
               <HStack>
-                {/* <Box>{gameRoom.}</Box> */}
+                <Box>{gameRoom.totalSize}</Box>
                 <Box boxSize="30px">
                   <Image src="/area.png" />
                 </Box>
