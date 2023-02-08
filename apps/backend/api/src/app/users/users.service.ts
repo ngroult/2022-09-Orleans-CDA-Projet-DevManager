@@ -51,22 +51,19 @@ export class UsersService {
     return hash;
   }
 
-  async update(
-    id: number,
-    updateUserDto: UpdateUserDto,
-  ): Promise<{ status: string }> {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     if (updateUserDto.password) {
       const hash = await this.hash(updateUserDto.password);
       updateUserDto.password = hash;
     }
 
     const update = await this.usersRepository.update(id, updateUserDto);
+    const game = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['image'],
+    });
 
-    if (update.affected > 0) {
-      return { status: 'ok' };
-    } else {
-      return { status: 'ko' };
-    }
+    return game;
   }
 
   remove(id: number) {

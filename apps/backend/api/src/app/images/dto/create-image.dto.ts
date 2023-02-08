@@ -5,5 +5,8 @@ export class CreateImageDto {
   name: string;
 
   @IsString()
+  description: string;
+
+  @IsString()
   category: string;
 }

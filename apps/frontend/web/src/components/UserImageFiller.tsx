@@ -14,7 +14,7 @@ const UserImageFiller = ({
   const [images, setImages] = useState([]);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
-    value: `${pendingUserData?.image?.id}`,
+    value: pendingUserData?.image?.id.toString(),
     onChange: (value: string) =>
       setPendingUserData((prev: Partial<User>) => ({
         ...prev,
@@ -24,7 +24,7 @@ const UserImageFiller = ({
 
   useEffect(() => {
     const getImages = async () => {
-      const data = await fetchImages('user');
+      const data = await fetchImages('profile');
       setImages(data);
     };
     getImages();
@@ -43,10 +43,19 @@ const UserImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {images.map((image: { id: string; name: string }, index) => {
-        const radioProps = getRadioProps({ value: `${image.id}` });
-        return <RadioCard key={index} imageName={image.name} {...radioProps} />;
-      })}
+      {images.map(
+        (image: { id: number; name: string; description: string }, index) => {
+          const radioProps = getRadioProps({ value: image.id.toString() });
+          return (
+            <RadioCard
+              key={index}
+              imgPath={image.name}
+              imgAlt={image.description}
+              {...radioProps}
+            />
+          );
+        }
+      )}
     </Grid>
   );
 };

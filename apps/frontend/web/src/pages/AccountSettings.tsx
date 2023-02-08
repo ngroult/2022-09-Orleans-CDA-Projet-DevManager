@@ -87,16 +87,17 @@ const AccountSettings = () => {
 
   const updateUserSettings = async () => {
     try {
-      const response = await fetch(`/api/users/${user!.id}`, {
+      const req = await fetch(`/api/users/${user!.id}`, {
         method: 'PATCH',
         body: JSON.stringify(pendingUserData),
         headers: {
           'Content-type': 'application/json',
         },
       });
+      const res = await req.json();
 
-      if (response.ok) {
-        setUserData(pendingUserData);
+      if (req.ok) {
+        setUserData(res);
         toast({
           title: 'Informations updated.',
           status: 'success',
@@ -157,8 +158,8 @@ const AccountSettings = () => {
               <Image
                 display={displayMobile}
                 w="5.5rem"
-                src={`/game-icons/${userData?.image?.id}.png`}
-                alt={`Image of ${userData?.image?.name}`}
+                src={`/${userData?.image?.name}.png`}
+                alt={`Image of ${userData?.image?.description}`}
                 mt="2rem"
                 mb="1rem"
               />
@@ -241,8 +242,8 @@ const AccountSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/game-icons/${userData?.image?.id}.png`}
-                  alt={`Image of ${userData?.image?.name}`}
+                  src={`/${userData?.image?.name}.png`}
+                  alt={`Image of ${userData?.image?.description}`}
                   mb="2rem"
                 />
                 <UserImageFiller

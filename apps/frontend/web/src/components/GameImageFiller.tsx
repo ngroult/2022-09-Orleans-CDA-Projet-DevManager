@@ -1,4 +1,4 @@
-import { Game } from '@apps/backend-api';
+import { Game, Image } from '@apps/backend-api';
 import { Grid, useRadioGroup } from '@chakra-ui/react';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
@@ -27,7 +27,7 @@ const GameImageFiller = ({
 
   const radioGroup = setPendingGameData
     ? {
-        value: `${pendingGameData?.image?.id}`,
+        value: pendingGameData?.image?.id.toString(),
         onChange: (value: string) => {
           setPendingGameData((prev: Partial<Game>) => ({
             ...prev,
@@ -52,12 +52,21 @@ const GameImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {images.map((image: { id: string; name: string }, index) => {
-        const radioProps = getRadioProps({
-          value: `${image.id}`,
-        });
-        return <RadioCard key={index} imageName={image.name} {...radioProps} />;
-      })}
+      {images.map(
+        (image: { id: number; name: string; description: string }, index) => {
+          const radioProps = getRadioProps({
+            value: image.id.toString(),
+          });
+          return (
+            <RadioCard
+              key={index}
+              imgPath={image.name}
+              imgAlt={image.description}
+              {...radioProps}
+            />
+          );
+        }
+      )}
     </Grid>
   );
 };

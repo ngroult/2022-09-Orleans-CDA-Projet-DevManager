@@ -25,7 +25,7 @@ export class ImagesService {
 
   findOne(id: number): Promise<Image[]> {
     return this.imagesRepository.find({
-      select: ['name', 'category'],
+      select: ['name', 'description', 'category'],
       where: [{ id: id }],
     });
   }

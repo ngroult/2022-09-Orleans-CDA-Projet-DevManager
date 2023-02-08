@@ -11,6 +11,9 @@ export class Image {
   name?: string;
 
   @Column('varchar', { length: 200 })
+  description?: string;
+
+  @Column('varchar', { length: 200 })
   category?: string;
 
   @OneToMany(() => User, (user) => user.image)

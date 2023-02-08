@@ -28,7 +28,7 @@ const NewGame = () => {
     formState: { errors },
   } = useForm();
 
-  const [companyImage, setCompanyImage] = useState('21');
+  const [companyImage, setCompanyImage] = useState('man1');
   const [selectedImage, setSelectedImage] = useState(companyImage);
   const [companyName, setCompanyName] = useState('');
   const [ceo, setCeo] = useState('');
@@ -83,7 +83,7 @@ const NewGame = () => {
         <Flex flexDir="column" alignItems="center" flexGrow="1">
           <Image
             w="80px"
-            src={`/game-icons/${companyImage}.png`}
+            src={`/${companyImage}.png`}
             alt={`Image of the company ${companyImage}`}
             m="2rem 0 1rem"
           />

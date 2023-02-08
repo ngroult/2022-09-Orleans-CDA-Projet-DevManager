@@ -32,17 +32,14 @@ export class GamesService {
     });
   }
 
-  async update(
-    id: number,
-    updateGameDto: UpdateGameDto,
-  ): Promise<{ status: string }> {
+  async update(id: number, updateGameDto: UpdateGameDto) {
     const update = await this.gamesRepository.update(id, updateGameDto);
+    const game = await this.gamesRepository.findOne({
+      where: { id },
+      relations: ['image'],
+    });
 
-    if (update.affected > 0) {
-      return { status: 'ok' };
-    } else {
-      return { status: 'ko' };
-    }
+    return game;
   }
 
   async remove(id: number): Promise<void> {

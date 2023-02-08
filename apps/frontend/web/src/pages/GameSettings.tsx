@@ -50,7 +50,7 @@ const GameSettings = () => {
   useEffect(() => {
     const getGameData = async () => {
       if (user) {
-        const response = await fetch(`/api/users/${user.id}/games/`);
+        const response = await fetch(`/api/users/${user.id}/games`);
         const jsonResponse = await response.json();
         const data = jsonResponse[0];
 
@@ -63,7 +63,7 @@ const GameSettings = () => {
 
   const deleteGame = async () => {
     try {
-      await fetch(`/api/games/${user!.id}`, {
+      await fetch(`/api/games/${pendingGameData.id}`, {
         method: 'DELETE',
       });
       toast({
@@ -85,14 +85,15 @@ const GameSettings = () => {
 
   const updateGameSettings = async () => {
     try {
-      const response = await fetch(`/api/games/${user!.id}`, {
+      const req = await fetch(`/api/games/${pendingGameData.id}`, {
         method: 'PATCH',
         body: JSON.stringify(pendingGameData),
         headers: { 'Content-type': 'application/json' },
       });
+      const res = await req.json();
 
-      if (response.ok) {
-        setGameData(pendingGameData);
+      if (req.ok) {
+        setGameData(res);
         toast({
           title: 'Informations updated.',
           status: 'success',
@@ -153,8 +154,8 @@ const GameSettings = () => {
               <Image
                 display={displayMobile}
                 w="5.5rem"
-                src={`/game-icons/${gameData?.image?.id}.png`}
-                alt={`Image of ${gameData?.image?.name}`}
+                src={`/${gameData?.image?.name}.png`}
+                alt={`Image of ${gameData?.image?.description}`}
                 mt="2rem"
                 mb="1rem"
               />
@@ -234,8 +235,8 @@ const GameSettings = () => {
                 <Image
                   display={displayDesktop}
                   w="5.5rem"
-                  src={`/game-icons/${gameData?.image?.id}.png`}
-                  alt={`Image of ${gameData?.image?.name}`}
+                  src={`/${gameData?.image?.name}.png`}
+                  alt={`Image of ${gameData?.image?.description}`}
                 />
                 <GameImageFiller
                   pendingGameData={pendingGameData}
