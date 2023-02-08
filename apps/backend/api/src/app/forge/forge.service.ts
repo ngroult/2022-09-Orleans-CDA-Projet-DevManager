@@ -306,35 +306,35 @@ export class ForgeService {
         companyName: 'Twitter',
         ceo: 'Edith Piaf',
         location: 'Sydney, Australia',
-        userId: 1,
+        userId: user1.id,
         imageId: image21.id,
       },
       {
         companyName: 'AirBnB',
         ceo: 'Abraham Lincoln',
         location: 'Berlin, Germany',
-        userId: 2,
+        userId: user2.id,
         imageId: image22.id,
       },
       {
         companyName: 'Sodebo',
         ceo: 'Nelson Mandela',
         location: 'Houston, USA',
-        userId: 3,
+        userId: user3.id,
         imageId: image23.id,
       },
       {
         companyName: 'Thales',
         ceo: 'Marilyn Monroe',
         location: 'London, United-Kingdom',
-        userId: 4,
+        userId: user4.id,
         imageId: image24.id,
       },
       {
         companyName: 'Air France',
         ceo: 'Gérard Larcher',
         location: 'Paris, France',
-        userId: 5,
+        userId: user5.id,
         imageId: image25.id,
       },
     ];
@@ -656,32 +656,32 @@ export class ForgeService {
 
     const resourcesUsed = [
       {
-        quantity: 12,
+        quantity: 1,
         resourceId: resource2.id, // Energy drinks
         characterId: character3.id, // Lead developers
       },
       {
-        quantity: 1564,
+        quantity: 1,
         resourceId: resource3.id, // Coffees
         characterId: character2.id, // Developers
       },
       {
-        quantity: 1564,
+        quantity: 2,
         resourceId: resource3.id, // Coffees
         characterId: character4.id, // Recruiters
       },
       {
-        quantity: 1564,
+        quantity: 2,
         resourceId: resource3.id, // Coffees
         characterId: character5.id, // Salesman
       },
       {
-        quantity: 1564,
+        quantity: 1,
         resourceId: resource4.id, // Contracts
         characterId: character3.id, // Lead developers
       },
       {
-        quantity: 1564,
+        quantity: 1,
         resourceId: resource5.id, // Delivery orders
         characterId: character6.id, // Delivery man
       },
@@ -715,27 +715,27 @@ export class ForgeService {
         characterId: character2.id, // Developers
       },
       {
-        quantity: 100,
+        quantity: 150,
         resourceId: resource1.id, // DevDollars
         characterId: character2.id, // Lead developers
       },
       {
-        quantity: 100,
+        quantity: 2,
         resourceId: resource2.id, // Energy drinks
         characterId: character6.id, // Delivery man
       },
       {
-        quantity: 100,
+        quantity: 2,
         resourceId: resource3.id, // Coffees
         characterId: character1.id, // Interns
       },
       {
-        quantity: 100,
+        quantity: 2,
         resourceId: resource4.id, // Contracts
         characterId: character5.id, // Salesman
       },
       {
-        quantity: 100,
+        quantity: 1,
         resourceId: resource5.id, // Delivery orders
         characterId: character4.id, // Recruiters
       },
@@ -767,19 +767,19 @@ export class ForgeService {
       {
         gameId: game1.id,
         roomId: room1.id,
-        size: 40,
+        size: 0,
         totalSize: 110,
       },
       {
         gameId: game1.id,
         roomId: room2.id,
-        size: 20,
+        size: 0,
         totalSize: 60,
       },
       {
         gameId: game1.id,
         roomId: room3.id,
-        size: 51,
+        size: 0,
         totalSize: 80,
       },
     ];
@@ -807,37 +807,37 @@ export class ForgeService {
         gameId: game1.id,
         roomId: room1.id,
         characterId: character1.id,
-        quantity: 2,
+        quantity: 0,
       },
       {
         gameId: game1.id,
         roomId: room1.id,
         characterId: character2.id,
-        quantity: 3,
+        quantity: 0,
       },
       {
         gameId: game1.id,
         roomId: room1.id,
         characterId: character3.id,
-        quantity: 3,
+        quantity: 0,
       },
       {
         gameId: game1.id,
         roomId: room2.id,
         characterId: character4.id,
-        quantity: 3,
+        quantity: 0,
       },
       {
         gameId: game1.id,
         roomId: room1.id,
         characterId: character5.id,
-        quantity: 3,
+        quantity: 0,
       },
       {
         gameId: game1.id,
         roomId: room1.id,
         characterId: character6.id,
-        quantity: 3,
+        quantity: 0,
       },
     ];
 
