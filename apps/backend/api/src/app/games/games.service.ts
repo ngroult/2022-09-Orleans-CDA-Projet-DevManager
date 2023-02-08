@@ -55,6 +55,14 @@ export class GamesService {
     });
   }
 
+  async verifyGame(id: number) {
+    return await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.user', 'user')
+      .where('user.id = :id', { id: id })
+      .getOne();
+  }
+
   async findOne(id: number): Promise<Game[]> {
     return this.gamesRepository.find({
       select: ['companyName', 'ceo', 'location'],

@@ -55,6 +55,11 @@ export class GamesController {
     return this.gamesService.findOne(+id);
   }
 
+  @Get('/verify/:id')
+  verifyGame(@Param('id') id: string) {
+    return this.gamesService.verifyGame(+id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
     return this.gamesService.update(+id, updateGameDto);
