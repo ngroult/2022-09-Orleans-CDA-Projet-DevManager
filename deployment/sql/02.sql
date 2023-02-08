@@ -16,7 +16,7 @@ BEGIN
             gr.resourceId AS resourceId,
             gr.quantity AS resourceQuantity
         FROM
-            game g
+            game_resource gr
         WHERE gr.gameId = gameId;
         
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET resource_loop_done = TRUE;
