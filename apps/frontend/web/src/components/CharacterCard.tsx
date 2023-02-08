@@ -21,7 +21,7 @@ import {
 import { useState, useEffect } from 'react';
 import CharacterModal from './popups/CharacterModal';
 import BadgeResource from './BadgeResource';
-import UserContactFiller from './UserContactFiller';
+import { useToast } from '@chakra-ui/react';
 
 function CharacterCard({
   gameCharacter,
@@ -39,6 +39,7 @@ function CharacterCard({
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const newQuantity = () => {
     return (gameCharacter.quantity += quantityAddCharacters);
@@ -80,6 +81,13 @@ function CharacterCard({
     }
     if (resUsed.length === 1 && gameRes.length === 1) {
       if (resUsed[0].quantity > gameRes[0].quantity) {
+        toast({
+          title: 'Resource Used',
+          description: `You don't have any ${gameRes[0].resource.name}!`,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
         return false;
       } else {
         return true;
@@ -90,6 +98,13 @@ function CharacterCard({
           if (gameCharacter.character.id === resUsed[i].character.id) {
             if (resUsed[i].resource.id === gameRes[j].resource.id) {
               if (resUsed[i].quantity > gameRes[j].quantity) {
+                toast({
+                  title: 'Resource Used',
+                  description: `You don't have any ${gameRes[j].resource.name}!`,
+                  status: 'error',
+                  duration: 9000,
+                  isClosable: true,
+                });
                 return false;
               }
             }
@@ -102,6 +117,7 @@ function CharacterCard({
 
   let remainingDevDollars: number[] = [];
   const verifyDevDollars = () => {
+    let missingDevDollars = 0;
     for (let j = 0; j < gameResources.length; j++) {
       if (gameResources[j].resource.name === 'DevDollars') {
         if (gameCharacter.character.price <= gameResources[j].quantity) {
@@ -110,9 +126,20 @@ function CharacterCard({
             gameResources[j].quantity - gameCharacter.character.price
           );
           return true;
+        } else {
+          missingDevDollars =
+            gameCharacter.character.price - gameResources[j].quantity;
         }
       }
     }
+    toast({
+      title: 'Resource Used',
+      description: `It missing you ${missingDevDollars} DevDollars!`,
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+    });
+    return false;
   };
 
   const countRemainingResources = async () => {
@@ -155,9 +182,6 @@ function CharacterCard({
           body: JSON.stringify({ quantity: newQuantity() }),
         });
         countRemainingResources();
-      } else {
-        console.log("it's sad");
-        //TODO envoyer des toasts
       }
     } catch (err) {}
   };
