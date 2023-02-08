@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import {
   GameCharacter,
-  Room,
+  GameRoom,
   ResourceUsed,
   ResourceProduced,
   GameResource,
@@ -25,12 +25,12 @@ import UserContactFiller from './UserContactFiller';
 
 function CharacterCard({
   gameCharacter,
-  room,
+  gameRoom,
   quantityAddCharacters,
   gameResources,
 }: {
   gameCharacter: GameCharacter;
-  room: Room;
+  gameRoom: GameRoom;
   quantityAddCharacters: number;
   gameResources: GameResource[];
 }) {
@@ -199,13 +199,13 @@ function CharacterCard({
       <Card
         direction={{ base: 'column', sm: 'row' }}
         overflow="hidden"
-        bg={`${room.color}.500`}
+        bg={`${gameRoom.room.color}.500`}
         w="100%"
       >
         <Box
           borderRightRadius="10px"
           boxSize="10%"
-          bg={`${room.color}.900`}
+          bg={`${gameRoom.room.color}.900`}
           shadow="2xl"
           onClick={onOpen}
         >
@@ -277,7 +277,7 @@ function CharacterCard({
                 </Flex>
               </Badge>
               <Button
-                bg={`${room.color}.900`}
+                bg={`${gameRoom.room.color}.900`}
                 boxShadow="2xl"
                 size="lg"
                 color="white"

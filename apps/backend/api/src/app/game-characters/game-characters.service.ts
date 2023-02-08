@@ -51,22 +51,24 @@ export class GameCharactersService {
     }
   }
 
-  async findAll(): Promise<GameCharacter[]> {
+  async findAll(gameId: number): Promise<GameCharacter[]> {
     return await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
+      .where('game.id = :gameId', { gameId })
       .getMany();
   }
 
-  async findOne(id: number): Promise<GameCharacter> {
+  async findOne(id: number, gameId: number): Promise<GameCharacter> {
     return await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
       .where('gameCharacter.id = :id', { id })
+      .andWhere('game.id = :gameId', { gameId })
       .getOne();
   }
 

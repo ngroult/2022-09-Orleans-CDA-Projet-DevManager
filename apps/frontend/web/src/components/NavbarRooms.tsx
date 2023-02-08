@@ -1,24 +1,24 @@
 import { Box, HStack, Image, Flex } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Room } from '@apps/backend-api';
+import { GameRoom } from '@apps/backend-api';
 
 const NavbarRooms = () => {
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
   const paddingLeftIcons: string = '15px';
-  const [rooms, setRooms] = useState<Room[]>([]);
+  const [gameRooms, setGameRooms] = useState<GameRoom[]>([]);
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch('/api/rooms', {
+    fetch('/api/game-rooms', {
       method: 'GET',
       signal: abortController.signal,
     })
       .then((data) => data.json())
       .then((data) => {
-        setRooms(data);
+        setGameRooms(data);
       });
     return () => {
       abortController.abort();
@@ -51,11 +51,19 @@ const NavbarRooms = () => {
               </HStack>
             </Link>
           </Box>
-          {rooms.map((room) => (
-            <Box key={room.id} pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-              <Link to={`/game/${room.label}`} state={{ room }}>
+          {gameRooms.map((gameRoom) => (
+            <Box
+              key={gameRoom.id}
+              pl={paddingLeftIcons}
+              pt={paddingBetweenIcons}
+            >
+              <Link to={`/game/${gameRoom.room.label}`} state={{ gameRoom }}>
                 <HStack>
-                  <Image src={room.image} h={iconsSize} w={iconsSize} />
+                  <Image
+                    src={gameRoom.room.image}
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
                 </HStack>
               </Link>
             </Box>

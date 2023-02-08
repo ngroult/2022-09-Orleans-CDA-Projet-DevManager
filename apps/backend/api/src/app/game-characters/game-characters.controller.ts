@@ -6,11 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { GameCharactersService } from './game-characters.service';
 import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('game-characters')
 export class GameCharactersController {
   constructor(private readonly gameCharactersService: GameCharactersService) {}
@@ -21,13 +25,15 @@ export class GameCharactersController {
   }
 
   @Get()
-  findAll() {
-    return this.gameCharactersService.findAll();
+  findAll(@Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameCharactersService.findAll(gameId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.gameCharactersService.findOne(+id);
+  findOne(@Param('id') id: string, @Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameCharactersService.findOne(+id, gameId);
   }
 
   @Patch(':id')
