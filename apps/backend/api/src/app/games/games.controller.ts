@@ -50,9 +50,19 @@ export class GamesController {
     return this.gamesService.findAll(gameId);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/all')
+  findAllForReal() {
+    return this.gamesService.findAllForReal();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gamesService.findOne(+id);
+  }
+  @Get('/user/:id')
+  findOneByUser(@Param('id') id: string) {
+    return this.gamesService.findByUser(+id);
   }
 
   @Patch(':id')

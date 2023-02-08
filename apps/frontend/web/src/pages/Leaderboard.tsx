@@ -14,32 +14,47 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Game, GameResource } from '@apps/backend-api';
 import Navbar from '../components/Navbar';
+import AuthContext from '../contexts/AuthContext';
+import { User } from '@libs/typings';
 
 const Leaderboard = () => {
-  const [leaderboard, setLeaderboard] = useState<Game[]>([]);
-  const [gameResource, setGameResource] = useState<GameResource[]>([]);
+  const { user } = useContext(AuthContext);
+
+  const [games, setGames] = useState<any>([]);
+  const [actualUser, setActualUser] = useState<any>([]);
 
   useEffect(() => {
+    console.table('user', user?.id);
     const abortController = new AbortController();
 
-    fetch('/api/games', { method: 'GET', signal: abortController.signal })
+    fetch('/api/game-resources/all', {
+      method: 'GET',
+      signal: abortController.signal,
+    })
       .then((data) => data.json())
       .then((data) => {
-        setLeaderboard(data);
+        setGames(data);
       });
-    fetch('/api/game-resources', { method: 'GET' })
-      .then((response) => response.json())
-      .then((response) => {
-        setGameResource(response);
+    fetch(`/api/game-resources/details/${user?.id}`, {
+      method: 'GET',
+      signal: abortController.signal,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setActualUser(data);
       });
-
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    console.table('games', games);
+    console.table('actualUser', actualUser);
+  }, [actualUser]);
 
   return (
     <>
@@ -65,14 +80,20 @@ const Leaderboard = () => {
                   >
                     <Flex>
                       <Image src="/badge.png" boxSize="10" mr="2" alt="Badge" />
-                      {'Your rank'}
+                      {user?.username}
+                      <Image
+                        src={`${actualUser?.game?.user.image.name}.png`}
+                        boxSize="10"
+                        mr="2"
+                        alt={`${actualUser?.game?.user.image.name}.png`}
+                      />
                     </Flex>
                   </Heading>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
                     {'2500 / 1 500 000'}
                   </Text>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    {'$ 1 030 spent'}
+                    {actualUser.quantity}$$
                   </Text>
                 </Box>
               </Flex>
@@ -83,11 +104,11 @@ const Leaderboard = () => {
           <Divider mt="5" w="60"></Divider>
         </Center>
         <Center>
-          <Heading as="h2" size="l" mt="10">
+          <Heading as="h2" size="l" pt="10" pb="10">
             {'World ranking'}
           </Heading>
         </Center>
-        <TableContainer>
+        <TableContainer pb="10">
           <Center>
             <Box w={{ base: '100%', lg: '80%', md: '80%', sm: '80%' }}>
               <Table variant="striped" size="sm">
@@ -99,35 +120,56 @@ const Leaderboard = () => {
                     <Th>{'Point'}</Th>
                   </Tr>
                 </Thead>
-                {leaderboard.map((leaderboard) => (
-                  <Tbody key={leaderboard.id}>
+                {games.map((game: any, index: number) => (
+                  <Tbody key={game.id}>
                     <Tr>
                       <Td>
-                        {leaderboard.id === 1 ? (
+                        {index === 0 ? (
                           <Image
                             src="/medal_gold.png"
                             boxSize="7"
                             alt="Medal gold"
                           />
-                        ) : leaderboard.id === 2 ? (
+                        ) : index === 1 ? (
                           <Image
                             src="/medal_silver.png"
                             boxSize="7"
                             alt="Medal silver"
                           />
-                        ) : leaderboard.id === 3 ? (
+                        ) : index === 2 ? (
                           <Image
                             src="/medal_bronze.png"
                             boxSize="7"
                             alt="Medal bronze"
                           />
                         ) : (
-                          `${leaderboard.id}`
+                          `${game.id}`
                         )}
                       </Td>
-                      <Td>{leaderboard.user.username}</Td>
-                      <Td>{leaderboard.companyName}</Td>
-                      <Td>{`$${gameResource[0].quantity}`}</Td>
+                      <Td>
+                        <Flex align={'center'}>
+                          {game.game.user.username}
+                          <Image
+                            src={`${game.game.user.image.name}.png`}
+                            alt={`${game.game.user.image.name}`}
+                            w="8%"
+                            ml={'2rem'}
+                          />
+                        </Flex>
+                      </Td>
+                      <Td>
+                        <Flex align={'center'}>
+                          {game.game.companyName}
+                          <Image
+                            src={`${game.game.image.name}.png`}
+                            alt={`${game.game.image.name}`}
+                            w="8%"
+                            ml={'2rem'}
+                          />
+                        </Flex>
+                      </Td>
+
+                      <Td>{`${game.quantity}$$`}</Td>
                     </Tr>
                   </Tbody>
                 ))}

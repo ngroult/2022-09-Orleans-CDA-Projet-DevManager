@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
     <>
-      <Box w={isNavbarOpen ? '220px' : '60px'} position="absolute" zIndex="999">
+      <Box w={isNavbarOpen ? '220px' : '60px'} position="fixed" zIndex="999">
         <Box w="60px" h="80px" left="0" top="0">
           <Center>
             <IconButton

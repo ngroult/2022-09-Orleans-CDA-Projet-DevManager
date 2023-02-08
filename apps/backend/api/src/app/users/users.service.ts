@@ -17,7 +17,9 @@ export class UsersService {
   }
 
   findAll() {
-    return this.usersRepository.find();
+    return this.usersRepository.find({
+      relations: { image: true },
+    });
   }
 
   findLeaderboard() {
@@ -28,6 +30,7 @@ export class UsersService {
 
   findOne(id: number) {
     return this.usersRepository.find({
+      relations: { image: true },
       select: ['username', 'email', 'password'],
       where: [{ id: id }],
     });

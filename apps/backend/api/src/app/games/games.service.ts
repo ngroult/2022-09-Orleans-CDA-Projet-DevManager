@@ -45,7 +45,7 @@ export class GamesService {
     }
   }
 
-  async findAll(gameId: number) {
+  async findAll(gameId: number): Promise<Game[]> {
     return this.gamesRepository.find({
       where: { id: gameId },
       relations: {
@@ -53,6 +53,15 @@ export class GamesService {
         image: true,
       },
     });
+  }
+
+  async findAllForReal() {
+    return await this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.image', 'gameImage')
+      .leftJoinAndSelect('game.user', 'user')
+      .leftJoinAndSelect('user.image', 'image')
+      .getMany();
   }
 
   async findOne(id: number): Promise<Game[]> {
