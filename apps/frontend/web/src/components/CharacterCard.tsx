@@ -16,19 +16,23 @@ import {
   Room,
   ResourceUsed,
   ResourceProduced,
+  GameResource,
 } from '@apps/backend-api';
 import { useState, useEffect } from 'react';
 import CharacterModal from './popups/CharacterModal';
 import BadgeResource from './BadgeResource';
+import UserContactFiller from './UserContactFiller';
 
 function CharacterCard({
   gameCharacter,
   room,
   quantityAddCharacters,
+  gameResources,
 }: {
   gameCharacter: GameCharacter;
   room: Room;
   quantityAddCharacters: number;
+  gameResources: GameResource[];
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
   const [resourcesProduced, setResourcesProduced] = useState<
@@ -40,23 +44,121 @@ function CharacterCard({
     return (gameCharacter.quantity += quantityAddCharacters);
   };
 
-  const addCharacter = async () => {
-    const data = {
-      id: gameCharacter.id,
-      quantity: gameCharacter.quantity + 1,
-    };
+  const findResourcesUsed = () => {
+    let res: ResourceUsed[] = [];
+    for (let i = 0; i < resourcesUsed.length; i++) {
+      if (gameCharacter.character.id === resourcesUsed[i].character.id) {
+        res.push(resourcesUsed[i]);
+      } else {
+      }
+    }
+    return res;
+  };
 
+  const findGameResourceCharacter = () => {
+    let resUsed = findResourcesUsed();
+    let gameRes: GameResource[] = [];
+    if (resUsed.length >= 1) {
+      for (let i = 0; i < resUsed.length; i++) {
+        for (let j = 0; j < gameResources.length; j++) {
+          if (gameCharacter.character.id === resUsed[i].character.id) {
+            if (resUsed[i].resource.id === gameResources[j].resource.id) {
+              gameRes.push(gameResources[j]);
+            }
+          }
+        }
+      }
+    }
+    return gameRes;
+  };
+
+  const verifyResourcesUsed = () => {
+    const resUsed = findResourcesUsed();
+    const gameRes = findGameResourceCharacter();
+    if (resUsed.length === 0 && gameRes.length === 0) {
+      return true;
+    }
+    if (resUsed.length === 1 && gameRes.length === 1) {
+      if (resUsed[0].quantity > gameRes[0].quantity) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      for (let i = 0; i < resUsed.length; i++) {
+        for (let j = 0; j < gameRes.length; j++) {
+          if (gameCharacter.character.id === resUsed[i].character.id) {
+            if (resUsed[i].resource.id === gameRes[j].resource.id) {
+              if (resUsed[i].quantity > gameRes[j].quantity) {
+                return false;
+              }
+            }
+          }
+        }
+      }
+    }
+    return true;
+  };
+
+  let remainingDevDollars: number[] = [];
+  const verifyDevDollars = () => {
+    for (let j = 0; j < gameResources.length; j++) {
+      if (gameResources[j].resource.name === 'DevDollars') {
+        if (gameCharacter.character.price <= gameResources[j].quantity) {
+          remainingDevDollars.push(j + 1);
+          remainingDevDollars.push(
+            gameResources[j].quantity - gameCharacter.character.price
+          );
+          return true;
+        }
+      }
+    }
+  };
+
+  const countRemainingResources = async () => {
     try {
-      const rawResponse = await fetch(
-        `/api/game-characters/${gameCharacter.id}`,
-        {
+      const resUsed = findResourcesUsed();
+      const gameRes = findGameResourceCharacter();
+      await fetch(`/api/game-resources/${remainingDevDollars[0]}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity: remainingDevDollars[1] }),
+      });
+      if (resUsed.length >= 1 && gameRes.length >= 1) {
+        for (let i = 0; i < resUsed.length; i++) {
+          for (let j = 0; j < gameRes.length; j++) {
+            await fetch(`/api/game-resources/${gameRes[i].id}`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                quantity: gameRes[j].quantity - resUsed[i].quantity,
+              }),
+            });
+          }
+        }
+      }
+    } catch (err) {}
+  };
+
+  const addCharacter = async () => {
+    try {
+      if (verifyResourcesUsed() && verifyDevDollars()) {
+        await fetch(`/api/game-characters/${gameCharacter.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ quantity: newQuantity() }),
-        }
-      );
+        });
+        countRemainingResources();
+      } else {
+        console.log("it's sad");
+        //TODO envoyer des toasts
+      }
     } catch (err) {}
   };
 

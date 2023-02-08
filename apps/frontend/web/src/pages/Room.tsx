@@ -10,7 +10,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { Room, GameCharacter, Event } from '@apps/backend-api';
+import { Room, GameCharacter, Event, GameResource } from '@apps/backend-api';
 import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard';
 import EventCard from '../components/EventCard';
@@ -23,6 +23,7 @@ const RoomPage = () => {
   const [quantityAddCharacters, setQuantityAddCharacters] = useState(1);
   const { label } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [gameResources, setGameResources] = useState<GameResource[]>([]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -70,6 +71,18 @@ const RoomPage = () => {
     };
     handleEvents();
 
+    const handleResources = async () => {
+      try {
+        const res = await fetch(`/api/game-resources`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameResources(jsonResponse);
+      } catch {}
+    };
+    handleResources();
+
     return () => {
       abortController.abort();
     };
@@ -88,7 +101,7 @@ const RoomPage = () => {
           >
             <Image src="/overview.jpg" alt="overview" />
           </Box>
-          {thisRoom && events && (
+          {thisRoom && events && characters && (
             <Box bgColor={`${thisRoom.color}.200`} p="50px">
               <Button
                 bgColor={`${thisRoom.color}.900`}
@@ -112,6 +125,7 @@ const RoomPage = () => {
                       gameCharacter={gameCharacter}
                       room={thisRoom}
                       quantityAddCharacters={quantityAddCharacters}
+                      gameResources={gameResources}
                     />
                   ))}
                 {events
