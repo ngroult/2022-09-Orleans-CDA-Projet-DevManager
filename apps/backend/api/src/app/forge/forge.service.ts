@@ -607,27 +607,27 @@ export class ForgeService {
 
     const gameResources = [
       {
-        quantity: 1257,
+        quantity: 0,
         gameId: game1.id,
         resourceId: resource1.id,
       },
       {
-        quantity: 1951,
+        quantity: 0,
         gameId: game1.id,
         resourceId: resource2.id,
       },
       {
-        quantity: 2752,
+        quantity: 0,
         gameId: game1.id,
         resourceId: resource3.id,
       },
       {
-        quantity: 275,
+        quantity: 0,
         gameId: game1.id,
         resourceId: resource4.id,
       },
       {
-        quantity: 25,
+        quantity: 0,
         gameId: game1.id,
         resourceId: resource5.id,
       },
