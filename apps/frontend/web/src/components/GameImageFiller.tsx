@@ -1,47 +1,72 @@
-import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { Game, Image } from '@apps/backend-api';
+import { Grid, useRadioGroup } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
 const GameImageFiller = ({
-  selectedImage,
-  setSelectedImage,
-  setFormData,
+  pendingGameData,
+  setPendingGameData,
+  selectedImageId,
+  setSelectedImageId,
 }: {
-  selectedImage: string;
-  setSelectedImage: (value: string) => void;
-  setFormData: Dispatch<
-    SetStateAction<{
-      [key: string]: string;
-    }>
-  >;
+  pendingGameData?: DeepPartial<Game>;
+  setPendingGameData?: Dispatch<SetStateAction<DeepPartial<Game>>>;
+  selectedImageId?: number;
+  setSelectedImageId?: Dispatch<SetStateAction<number | undefined>>;
 }) => {
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    defaultValue: selectedImage,
-    onChange: (value) => setSelectedImage(value),
-  });
-  const group = getRootProps();
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
     const getImages = async () => {
-      const data = await fetchImages('game');
+      const data = await fetchImages('company');
       setImages(data);
     };
     getImages();
   }, []);
 
+  const radioGroup1 = {
+    value: pendingGameData?.image?.id?.toString(),
+    onChange: (value: string) => {
+      if (setPendingGameData)
+        setPendingGameData((prev: DeepPartial<Game>) => ({
+          ...prev,
+          image: { id: parseInt(value, 10) },
+        }));
+    },
+  };
+
+  const radioGroup2 = {
+    value: selectedImageId?.toString(),
+    onChange: (value: string) => {
+      if (setSelectedImageId) setSelectedImageId(parseInt(value, 10));
+    },
+  };
+
+  const { getRootProps, getRadioProps } = useRadioGroup(
+    setPendingGameData ? radioGroup1 : radioGroup2
+  );
+
   return (
     <Grid
-      {...group}
+      {...getRootProps()}
       templateColumns="repeat(3, 1fr)"
       m="2rem auto"
       gap="1rem"
       maxW="400px"
     >
-      {images.map((value: { name: string }, index) => {
-        const radio = getRadioProps({ value: value.name });
-        return <RadioCard key={index} {...radio} />;
+      {images.map((image, index) => {
+        const radioProps = getRadioProps({ value: image.id.toString() });
+
+        return (
+          <RadioCard
+            key={index}
+            imgPath={image.name}
+            imgAlt={image.description}
+            {...radioProps}
+          />
+        );
       })}
     </Grid>
   );

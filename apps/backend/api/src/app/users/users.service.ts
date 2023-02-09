@@ -27,10 +27,23 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return this.usersRepository.find({
-      select: ['username', 'email', 'password'],
-      where: [{ id: id }],
+    return this.usersRepository.findOne({
+      where: [{ id }],
+      relations: ['image'],
     });
+  }
+
+  async findAllGames(id: number) {
+    const user = await this.usersRepository.findOne({
+      where: [{ id: id }],
+      relations: ['games', 'games.image'],
+    });
+
+    if (!user) {
+      return [];
+    } else {
+      return user.games;
+    }
   }
 
   private hash(password: string): Promise<string> {
@@ -39,9 +52,18 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    const hash = await this.hash(updateUserDto.password);
-    updateUserDto.password = hash;
-    return this.usersRepository.update(id, updateUserDto);
+    if (updateUserDto.password) {
+      const hash = await this.hash(updateUserDto.password);
+      updateUserDto.password = hash;
+    }
+
+    const update = await this.usersRepository.update(id, updateUserDto);
+    const game = await this.usersRepository.findOne({
+      where: { id },
+      relations: ['image'],
+    });
+
+    return game;
   }
 
   remove(id: number) {
