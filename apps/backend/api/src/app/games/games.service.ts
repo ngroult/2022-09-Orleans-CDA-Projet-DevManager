@@ -56,11 +56,11 @@ export class GamesService {
   }
 
   async findAllForReal() {
-    return await this.gamesRepository
+    return this.gamesRepository
       .createQueryBuilder('game')
-      .leftJoinAndSelect('game.image', 'gameImage')
-      .leftJoinAndSelect('game.user', 'user')
-      .leftJoinAndSelect('user.image', 'image')
+      .innerJoinAndSelect('game.image', 'gameImage')
+      .innerJoinAndSelect('game.user', 'user')
+      .innerJoinAndSelect('user.image', 'image')
       .getMany();
   }
 
@@ -82,7 +82,7 @@ export class GamesService {
     await this.gamesRepository.softDelete(id);
   }
 
-  async findByUser(id: number) {
+  async findOneByUser(id: number) {
     return this.gamesRepository.findOne({
       select: ['id'],
       where: { user: { id } },

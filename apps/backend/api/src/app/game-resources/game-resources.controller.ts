@@ -31,13 +31,13 @@ export class GameResourcesController {
   }
   @UseGuards(JwtAuthGuard)
   @Get('/all')
-  findRessourcesUserGame() {
-    return this.gameResourcesService.findRessourcesUserGame();
+  findResourcesUserGame() {
+    return this.gameResourcesService.findResourcesUserGame();
   }
   @UseGuards(JwtAuthGuard)
   @Get('/details/:id')
-  findRessourcesUserGameByUser(@Param('id') id: string) {
-    return this.gameResourcesService.findRessourcesUserGameByUser(+id);
+  findResourcesUserGameByUserId(@Param('id') id: string) {
+    return this.gameResourcesService.findResourcesUserGameByUserId(+id);
   }
 
   @Get(':id')

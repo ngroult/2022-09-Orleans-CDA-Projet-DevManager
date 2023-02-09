@@ -27,7 +27,6 @@ const Leaderboard = () => {
   const [actualUser, setActualUser] = useState<any>([]);
 
   useEffect(() => {
-    console.table('user', user?.id);
     const abortController = new AbortController();
 
     fetch('/api/game-resources/all', {
@@ -50,11 +49,6 @@ const Leaderboard = () => {
       abortController.abort();
     };
   }, [user]);
-
-  useEffect(() => {
-    console.table('games', games);
-    console.table('actualUser', actualUser);
-  }, [actualUser]);
 
   return (
     <>
@@ -85,7 +79,7 @@ const Leaderboard = () => {
                         src={`${actualUser?.game?.user.image.name}.png`}
                         boxSize="10"
                         mr="2"
-                        alt={`${actualUser?.game?.user.image.name}.png`}
+                        alt="profil picture"
                       />
                     </Flex>
                   </Heading>
@@ -128,19 +122,19 @@ const Leaderboard = () => {
                           <Image
                             src="/medal_gold.png"
                             boxSize="7"
-                            alt="Medal gold"
+                            alt="gold Medal "
                           />
                         ) : index === 1 ? (
                           <Image
                             src="/medal_silver.png"
                             boxSize="7"
-                            alt="Medal silver"
+                            alt="silver Medal "
                           />
                         ) : index === 2 ? (
                           <Image
                             src="/medal_bronze.png"
                             boxSize="7"
-                            alt="Medal bronze"
+                            alt="bronze Medal "
                           />
                         ) : (
                           `${game.id}`
@@ -151,7 +145,7 @@ const Leaderboard = () => {
                           {game.game.user.username}
                           <Image
                             src={`${game.game.user.image.name}.png`}
-                            alt={`${game.game.user.image.name}`}
+                            alt="profil picture"
                             w="8%"
                             ml={'2rem'}
                           />
@@ -162,7 +156,7 @@ const Leaderboard = () => {
                           {game.game.companyName}
                           <Image
                             src={`${game.game.image.name}.png`}
-                            alt={`${game.game.image.name}`}
+                            alt="game picture"
                             w="8%"
                             ml={'2rem'}
                           />

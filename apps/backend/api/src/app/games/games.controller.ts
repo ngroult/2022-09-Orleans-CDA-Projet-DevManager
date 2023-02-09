@@ -28,7 +28,7 @@ export class GamesController {
   @Get('id')
   async gameId(@Res({ passthrough: true }) response: Response, @Req() req) {
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
-    const game = await this.gamesService.findByUser(req.user.id);
+    const game = await this.gamesService.findOneByUser(req.user.id);
     response.cookie('game', game.id, {
       httpOnly: true,
       sameSite: true,
@@ -62,7 +62,7 @@ export class GamesController {
   }
   @Get('/user/:id')
   findOneByUser(@Param('id') id: string) {
-    return this.gamesService.findByUser(+id);
+    return this.gamesService.findOneByUser(+id);
   }
 
   @Patch(':id')

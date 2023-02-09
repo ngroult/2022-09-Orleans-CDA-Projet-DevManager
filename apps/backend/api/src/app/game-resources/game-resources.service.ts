@@ -55,26 +55,26 @@ export class GameResourcesService {
     });
   }
 
-  async findRessourcesUserGame() {
-    return await this.gameResourcesRepository
+  async findResourcesUserGame() {
+    return this.gameResourcesRepository
       .createQueryBuilder('gameResource')
-      .leftJoinAndSelect('gameResource.game', 'game')
-      .leftJoinAndSelect('game.image', 'gameImage')
-      .leftJoinAndSelect('game.user', 'user')
-      .leftJoinAndSelect('user.image', 'userImage')
+      .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('game.image', 'gameImage')
+      .innerJoinAndSelect('game.user', 'user')
+      .innerJoinAndSelect('user.image', 'userImage')
       .where('gameResource.resourceId = 1')
       .orderBy('gameResource.quantity', 'DESC')
       .limit(100)
       .getMany();
   }
 
-  async findRessourcesUserGameByUser(id: number) {
-    return await this.gameResourcesRepository
+  async findResourcesUserGameByUserId(id: number) {
+    return this.gameResourcesRepository
       .createQueryBuilder('gameResource')
-      .leftJoinAndSelect('gameResource.game', 'game')
-      .leftJoinAndSelect('game.image', 'gameImage')
-      .leftJoinAndSelect('game.user', 'user')
-      .leftJoinAndSelect('user.image', 'userImage')
+      .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('game.image', 'gameImage')
+      .innerJoinAndSelect('game.user', 'user')
+      .innerJoinAndSelect('user.image', 'userImage')
       .where('user.id = :id', { id })
       .getOne();
   }

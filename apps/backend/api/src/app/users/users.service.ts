@@ -30,7 +30,6 @@ export class UsersService {
 
   findOne(id: number) {
     return this.usersRepository.find({
-      relations: { image: true },
       select: ['username', 'email', 'password'],
       where: [{ id: id }],
     });
