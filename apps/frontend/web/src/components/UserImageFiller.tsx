@@ -1,27 +1,26 @@
-import { Box, Image, Grid, useRadioGroup, useRadio } from '@chakra-ui/react';
+import { User } from '@apps/backend-api';
+import { Grid, useRadioGroup } from '@chakra-ui/react';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
 
 const UserImageFiller = ({
-  selectedImage,
-  setSelectedImage,
-  setFormData,
+  pendingUserData,
+  setPendingUserData,
 }: {
-  selectedImage: string;
-  setSelectedImage: (value: string) => void;
-  setFormData: Dispatch<
-    SetStateAction<{
-      [key: string]: string;
-    }>
-  >;
+  pendingUserData: Partial<User>;
+  setPendingUserData: Dispatch<SetStateAction<Partial<User>>>;
 }) => {
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    defaultValue: selectedImage,
-    onChange: (value) => setSelectedImage(value),
-  });
-  const group = getRootProps();
   const [images, setImages] = useState([]);
+
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    value: pendingUserData?.image?.id.toString(),
+    onChange: (value: string) =>
+      setPendingUserData((prev: Partial<User>) => ({
+        ...prev,
+        image: { id: parseInt(value, 10) },
+      })),
+  });
 
   useEffect(() => {
     const getImages = async () => {
@@ -33,7 +32,7 @@ const UserImageFiller = ({
 
   return (
     <Grid
-      {...group}
+      {...getRootProps()}
       templateColumns={{
         base: 'repeat(3, 1fr)',
         xl: 'repeat(5, 1fr)',
@@ -44,10 +43,19 @@ const UserImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {images.map((value: { name: string }, index) => {
-        const radio = getRadioProps({ value: value.name });
-        return <RadioCard key={index} {...radio} />;
-      })}
+      {images.map(
+        (image: { id: number; name: string; description: string }, index) => {
+          const radioProps = getRadioProps({ value: image.id.toString() });
+          return (
+            <RadioCard
+              key={index}
+              imgPath={image.name}
+              imgAlt={image.description}
+              {...radioProps}
+            />
+          );
+        }
+      )}
     </Grid>
   );
 };

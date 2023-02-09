@@ -1,21 +1,27 @@
-import { Box, Image, useRadio, UseRadioProps } from '@chakra-ui/react';
+import { Box, Image, useRadio } from '@chakra-ui/react';
 
-function RadioCard(props: UseRadioProps | undefined) {
-  const { getInputProps, getCheckboxProps, state } = useRadio(props);
-
+function RadioCard({
+  imgPath,
+  imgAlt,
+  ...radioProps
+}: {
+  imgPath: string;
+  imgAlt: string;
+}) {
+  const { getInputProps, getCheckboxProps } = useRadio(radioProps);
   const input = getInputProps();
-  const checkbox = getCheckboxProps();
 
   return (
     <Box as="label">
       <input {...input} hidden />
       <Box
-        {...checkbox}
+        {...getCheckboxProps()}
         w="4.7rem"
-        opacity={state.isChecked ? '1' : '0.2'}
+        opacity="0.2"
+        _checked={{ opacity: '1' }}
         cursor="pointer"
       >
-        <Image src={`/${input.value}.png`} alt={`Image of ${input.value}`} />
+        <Image src={`/${imgPath}.png`} alt={`Image of ${imgAlt}`} />
       </Box>
     </Box>
   );

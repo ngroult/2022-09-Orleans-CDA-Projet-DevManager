@@ -1,14 +1,14 @@
+import { Game } from '@apps/backend-api';
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 import { Dispatch, SetStateAction } from 'react';
 
 const GameDetailsFiller = ({
-  setFormData,
+  pendingGameData,
+  setPendingGameData,
 }: {
-  setFormData: Dispatch<
-    SetStateAction<{
-      [key: string]: string;
-    }>
-  >;
+  pendingGameData: DeepPartial<Game>;
+  setPendingGameData: Dispatch<SetStateAction<DeepPartial<Game>>>;
 }) => {
   return (
     <InputGroup
@@ -18,7 +18,13 @@ const GameDetailsFiller = ({
       m="2rem 0 1rem 0"
       p="0 1.5rem"
     >
-      <FormLabel htmlFor="company-name" textAlign="left" w="100%" m="0">
+      <FormLabel
+        htmlFor="company-name"
+        textAlign="left"
+        w="100%"
+        maxW="400px"
+        m="0"
+      >
         {'Company name :'}
       </FormLabel>
       <Input
@@ -27,11 +33,21 @@ const GameDetailsFiller = ({
         placeholder="My Company..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        value={pendingGameData?.companyName}
         onChange={(e) =>
-          setFormData((prev) => ({ ...prev, companyName: e.target.value }))
+          setPendingGameData((prev: DeepPartial<Game>) => ({
+            ...prev,
+            companyName: e.target.value,
+          }))
         }
       />
-      <FormLabel htmlFor="ceo-name" textAlign="left" w="100%" m="0.5rem 0 0">
+      <FormLabel
+        htmlFor="ceo-name"
+        textAlign="left"
+        w="100%"
+        maxW="400px"
+        m="0.5rem 0 0"
+      >
         {'CEO Name :'}
       </FormLabel>
       <Input
@@ -40,11 +56,21 @@ const GameDetailsFiller = ({
         placeholder="Elon Musk..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        value={pendingGameData?.ceo}
         onChange={(e) =>
-          setFormData((prev) => ({ ...prev, ceo: e.target.value }))
+          setPendingGameData((prev: DeepPartial<Game>) => ({
+            ...prev,
+            ceo: e.target.value,
+          }))
         }
       />
-      <FormLabel htmlFor="location" textAlign="left" w="100%" m="0.5rem 0 0">
+      <FormLabel
+        htmlFor="location"
+        textAlign="left"
+        w="100%"
+        maxW="400px"
+        m="0.5rem 0 0"
+      >
         {'Location :'}
       </FormLabel>
       <Input
@@ -53,8 +79,12 @@ const GameDetailsFiller = ({
         placeholder="Paris, France..."
         bgColor="#fff"
         _placeholder={{ opacity: 0.3 }}
+        value={pendingGameData?.location}
         onChange={(e) =>
-          setFormData((prev) => ({ ...prev, location: e.target.value }))
+          setPendingGameData((prev: DeepPartial<Game>) => ({
+            ...prev,
+            location: e.target.value,
+          }))
         }
       />
     </InputGroup>

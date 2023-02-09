@@ -23,10 +23,10 @@ export class ImagesService {
     return this.imagesRepository.findBy({ category });
   }
 
-  findOne(id: number): Promise<Image[]> {
-    return this.imagesRepository.find({
-      select: ['name', 'category'],
-      where: [{ id: id }],
+  findOne(id: number): Promise<Image> {
+    return this.imagesRepository.findOne({
+      select: ['id', 'name', 'description', 'category'],
+      where: [{ id }],
     });
   }
 

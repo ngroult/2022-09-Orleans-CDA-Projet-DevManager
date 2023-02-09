@@ -6,6 +6,7 @@ import {
   ModalHeader,
   Box,
   Flex,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import { ReactElement } from 'react';
 
@@ -33,6 +34,7 @@ const SlideUpModal = ({
       size={{ base: 'full', xl: 'xl', lg: 'lg', md: 'lg', sm: 'full' }}
       motionPreset="slideInBottom"
     >
+      <ModalOverlay />
       <ModalContent
         p="1rem"
         bg={`${pageColor}.200`}
@@ -78,7 +80,11 @@ const SlideUpModal = ({
         <Box w="calc(100% + 2rem)" m="2rem -1rem -1rem">
           <Box h="4rem" bgColor={`${pageColor}.300`}></Box>
           <Box h="3rem" bgColor={`${pageColor}.500`}></Box>
-          <Box h="2rem" bgColor={`${pageColor}.900`}></Box>
+          <Box
+            h="2rem"
+            bgColor={`${pageColor}.900`}
+            borderRadius="0 0 0.375rem 0.375rem"
+          ></Box>
         </Box>
       </ModalContent>
     </Modal>
