@@ -49,7 +49,7 @@ const Overview = () => {
   };
 
   return (
-    <>
+    <Box h="100vh">
       <ResourcesBar />
       <Navbar />
       <NavbarRooms />
@@ -89,7 +89,7 @@ const Overview = () => {
           </HStack>
         </Box>
       </Center>
-    </>
+    </Box>
   );
 };
 
