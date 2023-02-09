@@ -45,15 +45,8 @@ export class GamesController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Req() req) {
-    const gameId = req.signedCookies['game'];
-    return this.gamesService.findAll(gameId);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('/all')
-  findAllForReal() {
-    return this.gamesService.findAllForReal();
+  findAll() {
+    return this.gamesService.findAll();
   }
 
   @Get(':id')

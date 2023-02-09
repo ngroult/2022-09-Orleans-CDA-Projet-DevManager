@@ -45,23 +45,8 @@ export class GamesService {
     }
   }
 
-  async findAll(gameId: number): Promise<Game[]> {
-    return this.gamesRepository.find({
-      where: { id: gameId },
-      relations: {
-        user: true,
-        image: true,
-      },
-    });
-  }
-
-  async findAllForReal() {
-    return this.gamesRepository
-      .createQueryBuilder('game')
-      .innerJoinAndSelect('game.image', 'gameImage')
-      .innerJoinAndSelect('game.user', 'user')
-      .innerJoinAndSelect('user.image', 'image')
-      .getMany();
+  async findAll() {
+    return this.gamesRepository.find();
   }
 
   async findOne(id: number): Promise<Game[]> {
