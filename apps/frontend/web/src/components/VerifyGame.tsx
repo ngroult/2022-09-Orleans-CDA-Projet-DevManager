@@ -1,6 +1,5 @@
-import { log } from 'console';
 import { useContext, ReactNode, useState, useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
 
 const VerifyGame = ({
@@ -11,7 +10,6 @@ const VerifyGame = ({
   gameRequired: boolean;
 }) => {
   const { user, isLoadingUser } = useContext(AuthContext);
-  const location = useLocation();
 
   const [game, setGame] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
