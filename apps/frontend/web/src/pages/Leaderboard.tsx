@@ -15,16 +15,19 @@ import {
   Tr,
 } from '@chakra-ui/react';
 import { useState, useEffect, useContext } from 'react';
-import { Game, GameResource } from '@apps/backend-api';
+import { GameResource } from '@apps/backend-api';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
-import { DeepPartial, User } from '@libs/typings';
+import { DeepPartial } from '@libs/typings';
 
 const Leaderboard = () => {
   const { user } = useContext(AuthContext);
 
-  const [games, setGames] = useState<DeepPartial<GameResource[]>>([]);
-  const [actualUser, setActualUser] = useState<DeepPartial<GameResource>>();
+  const [gamesResources, setGamesResources] = useState<
+    DeepPartial<GameResource[]>
+  >([]);
+  const [userGameResources, setUserGameResources] =
+    useState<DeepPartial<GameResource>>();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -35,7 +38,7 @@ const Leaderboard = () => {
     })
       .then((data) => data.json())
       .then((data) => {
-        setGames(data);
+        setGamesResources(data);
       });
     fetch(`/api/game-resources/details/${user?.id}`, {
       method: 'GET',
@@ -43,7 +46,7 @@ const Leaderboard = () => {
     })
       .then((data) => data.json())
       .then((data) => {
-        setActualUser(data);
+        setUserGameResources(data);
       });
     return () => {
       abortController.abort();
@@ -76,7 +79,7 @@ const Leaderboard = () => {
                       <Image src="/badge.png" boxSize="10" mr="2" alt="Badge" />
                       {user?.username}
                       <Image
-                        src={`${actualUser?.game?.user?.image?.name}.png`}
+                        src={`${userGameResources?.game?.user?.image?.name}.png`}
                         boxSize="10"
                         mr="2"
                         alt="profil picture"
@@ -87,7 +90,7 @@ const Leaderboard = () => {
                     {'2500 / 1 500 000'}
                   </Text>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    {actualUser?.quantity}$$
+                    {userGameResources?.quantity}$$
                   </Text>
                 </Box>
               </Flex>
@@ -114,9 +117,9 @@ const Leaderboard = () => {
                     <Th>{'Point'}</Th>
                   </Tr>
                 </Thead>
-                {games?.map(
-                  (game: DeepPartial<GameResource>, index: number) => (
-                    <Tbody key={game.id}>
+                {gamesResources?.map(
+                  (gameResources: DeepPartial<GameResource>, index: number) => (
+                    <Tbody key={gameResources.id}>
                       <Tr>
                         <Td>
                           {index === 0 ? (
@@ -138,15 +141,15 @@ const Leaderboard = () => {
                               alt="bronze Medal "
                             />
                           ) : (
-                            `${game.id}`
+                            index + 1
                           )}
                         </Td>
                         <Td>
                           <Flex align={'center'}>
-                            {game?.game?.user?.username}
+                            {gameResources?.game?.user?.username}
                             <Image
-                              src={`${game?.game?.user?.image?.name}.png`}
-                              alt="profil picture"
+                              src={`${gameResources?.game?.user?.image?.name}.png`}
+                              alt="Profile picture"
                               w="8%"
                               ml={'2rem'}
                             />
@@ -154,9 +157,9 @@ const Leaderboard = () => {
                         </Td>
                         <Td>
                           <Flex align={'center'}>
-                            {game?.game?.companyName}
+                            {gameResources?.game?.companyName}
                             <Image
-                              src={`${game?.game?.image?.name}.png`}
+                              src={`${gameResources?.game?.image?.name}.png`}
                               alt="game picture"
                               w="8%"
                               ml={'2rem'}
@@ -164,7 +167,7 @@ const Leaderboard = () => {
                           </Flex>
                         </Td>
 
-                        <Td>{`${game.quantity}$$`}</Td>
+                        <Td>{`${gameResources.quantity}$$`}</Td>
                       </Tr>
                     </Tbody>
                   )
