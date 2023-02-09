@@ -40,7 +40,7 @@ const NewGame = () => {
   });
   const [selectedImageId, setSelectedImageId] = useState<number>();
 
-  const insertImageIntoGameData = async (id: number) => {
+  const insertImageIntoGameData = async (id: number | undefined) => {
     if (id) {
       const req = await fetch(`/api/images/${id}`, {
         method: 'GET',
