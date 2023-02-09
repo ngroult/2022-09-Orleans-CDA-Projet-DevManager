@@ -48,7 +48,7 @@ function CharacterCard({
           quantity: 1,
         }),
       });
-    } catch (e) {}
+    } catch {}
   };
 
   useEffect(() => {
