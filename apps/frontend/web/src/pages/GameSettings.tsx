@@ -19,6 +19,7 @@ import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
 import { useToast } from '@chakra-ui/react';
 import { Game } from '@apps/backend-api';
+import { DeepPartial } from '@libs/typings';
 
 const pageColor = 'gold';
 const marginTopButton = '1rem';
@@ -39,8 +40,8 @@ const displayMobile = {
 
 const GameSettings = () => {
   const { user } = useContext(AuthContext);
-  const [gameData, setGameData] = useState<Partial<Game>>({});
-  const [pendingGameData, setPendingGameData] = useState<Partial<Game>>({});
+  const [gameData, setGameData] = useState<DeepPartial<Game>>({});
+  const [pendingGameData, setPendingGameData] = useState<DeepPartial<Game>>({});
 
   const gameImage = useDisclosure();
   const gameDetails = useDisclosure();

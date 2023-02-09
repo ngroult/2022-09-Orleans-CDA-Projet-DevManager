@@ -28,7 +28,7 @@ export class UsersService {
 
   findOne(id: number) {
     return this.usersRepository.findOne({
-      where: [{ id: id }],
+      where: [{ id }],
       relations: ['image'],
     });
   }

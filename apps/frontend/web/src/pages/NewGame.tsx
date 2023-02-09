@@ -10,11 +10,14 @@ import {
   FormLabel,
   FormErrorMessage,
   Heading,
+  Box,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import AuthContext from '../contexts/AuthContext';
+import { Game } from '@apps/backend-api';
+import { DeepPartial } from '@libs/typings';
 const pageColor = 'purple';
 
 const NewGame = () => {
@@ -28,44 +31,44 @@ const NewGame = () => {
     formState: { errors },
   } = useForm();
 
-  const [companyImage, setCompanyImage] = useState('man1');
-  const [selectedImage, setSelectedImage] = useState(companyImage);
-  const [companyName, setCompanyName] = useState('');
-  const [ceo, setCeo] = useState('');
-  const [location, setLocation] = useState('');
+  const [gameData, setGameData] = useState<DeepPartial<Game>>({
+    companyName: '',
+    ceo: '',
+    location: '',
+    image: { id: 21, name: 'company1', description: 'Ordinary house' },
+    user: { id: user!.id },
+  });
+  const [selectedImageId, setSelectedImageId] = useState(21);
 
-  const startNewGame = async (values: {
-    companyName: string;
-    ceo: string;
-    location: string;
-  }) => {
-    const dataForm = {
-      companyName: values.companyName,
-      ceo: values.ceo,
-      location: values.location,
-      user: { id: user?.id },
-      image: { id: parseInt(companyImage, 10) },
-    };
+  const insertImageIntoGameData = async (id: number) => {
+    const req = await fetch(`/api/images/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const res = await req.json();
 
+    setGameData((prev: DeepPartial<Game>) => ({
+      ...prev,
+      image: res,
+    }));
+  };
+
+  const startNewGame = async () => {
     try {
-      const response = await fetch('/api/games/', {
+      const req = await fetch('/api/games/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(dataForm),
+        body: JSON.stringify(gameData),
       });
 
-      console.log('response', response);
-
-      if (response.ok) {
+      if (req.ok) {
         return navigate('/game/overview');
-      } else {
-        throw new Error(response.statusText);
       }
-    } catch (err) {
-      console.error(err);
-    }
+    } catch {}
   };
 
   return (
@@ -83,8 +86,8 @@ const NewGame = () => {
         <Flex flexDir="column" alignItems="center" flexGrow="1">
           <Image
             w="80px"
-            src={`/${companyImage}.png`}
-            alt={`Image of the company ${companyImage}`}
+            src={`/${gameData?.image?.name}.png`}
+            alt={`Image of the company ${gameData?.image?.description}`}
             m="2rem 0 1rem"
           />
           <Button
@@ -102,9 +105,7 @@ const NewGame = () => {
             flexDir="column"
             alignItems="center"
             px="2rem"
-            isInvalid={
-              errors.companyName || errors.ceo || errors.location ? true : false
-            }
+            isInvalid={errors.companyName ? true : false}
           >
             <FormLabel
               htmlFor="companyName"
@@ -131,14 +132,31 @@ const NewGame = () => {
                   value: 30,
                   message: 'Maximum length should be 30',
                 },
-                value: companyName,
-                onChange: (e) => setCompanyName(e.target.value),
+                value: gameData.companyName,
+                onChange: (e) =>
+                  setGameData((prev: DeepPartial<Game>) => ({
+                    ...prev,
+                    companyName: e.target.value,
+                  })),
               })}
             />
-            <FormErrorMessage>
-              {`${errors.companyName && errors.companyName.message}`}
-            </FormErrorMessage>
+            {errors.companyName ? (
+              <FormErrorMessage
+                m="0 0 -1rem"
+                h="1.8rem"
+              >{`${errors.companyName.message}`}</FormErrorMessage>
+            ) : (
+              <Box mb="-1rem" h="1.8rem"></Box>
+            )}
+          </FormControl>
 
+          <FormControl
+            display="flex"
+            flexDir="column"
+            alignItems="center"
+            px="2rem"
+            isInvalid={errors.ceo ? true : false}
+          >
             <FormLabel
               htmlFor="ceo"
               textAlign="left"
@@ -164,14 +182,31 @@ const NewGame = () => {
                   value: 30,
                   message: 'Maximum length should be 30',
                 },
-                value: ceo,
-                onChange: (e) => setCeo(e.target.value),
+                value: gameData.ceo,
+                onChange: (e) =>
+                  setGameData((prev: DeepPartial<Game>) => ({
+                    ...prev,
+                    ceo: e.target.value,
+                  })),
               })}
             />
-            <FormErrorMessage>
-              {`${errors.ceo && errors.ceo.message}`}
-            </FormErrorMessage>
+            {errors.ceo ? (
+              <FormErrorMessage
+                m="0 0 -1rem"
+                h="1.8rem"
+              >{`${errors.ceo.message}`}</FormErrorMessage>
+            ) : (
+              <Box mb="-1rem" h="1.8rem"></Box>
+            )}
+          </FormControl>
 
+          <FormControl
+            display="flex"
+            flexDir="column"
+            alignItems="center"
+            px="2rem"
+            isInvalid={errors.location ? true : false}
+          >
             <FormLabel
               htmlFor="location"
               textAlign="left"
@@ -196,14 +231,24 @@ const NewGame = () => {
                   value: 30,
                   message: 'Maximum length should be 30',
                 },
-                value: location,
-                onChange: (e) => setLocation(e.target.value),
+                value: gameData.location,
+                onChange: (e) =>
+                  setGameData((prev: DeepPartial<Game>) => ({
+                    ...prev,
+                    location: e.target.value,
+                  })),
               })}
             />
-            <FormErrorMessage>
-              {`${errors.location && errors.location.message}`}
-            </FormErrorMessage>
+            {errors.location ? (
+              <FormErrorMessage
+                m="0 0 -1rem"
+                h="1.8rem"
+              >{`${errors.location.message}`}</FormErrorMessage>
+            ) : (
+              <Box mb="-1rem" h="1.8rem"></Box>
+            )}
           </FormControl>
+
           <Button
             bgColor={`${pageColor}.900`}
             color="#FFF"
@@ -223,12 +268,12 @@ const NewGame = () => {
         title="Choose a new avatar"
         content={
           <GameImageFiller
-            selectedImage={selectedImage}
-            setSelectedImage={setSelectedImage}
+            selectedImageId={selectedImageId}
+            setSelectedImageId={setSelectedImageId}
           />
         }
         submitText="Save"
-        action={() => setCompanyImage(selectedImage)}
+        action={() => insertImageIntoGameData(selectedImageId)}
       />
     </>
   );

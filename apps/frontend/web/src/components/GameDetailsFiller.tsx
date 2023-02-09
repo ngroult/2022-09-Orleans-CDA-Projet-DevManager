@@ -1,13 +1,14 @@
 import { Game } from '@apps/backend-api';
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 import { Dispatch, SetStateAction } from 'react';
 
 const GameDetailsFiller = ({
   pendingGameData,
   setPendingGameData,
 }: {
-  pendingGameData: Partial<Game>;
-  setPendingGameData: Dispatch<SetStateAction<Partial<Game>>>;
+  pendingGameData: DeepPartial<Game>;
+  setPendingGameData: Dispatch<SetStateAction<DeepPartial<Game>>>;
 }) => {
   return (
     <InputGroup
@@ -34,7 +35,7 @@ const GameDetailsFiller = ({
         _placeholder={{ opacity: 0.3 }}
         value={pendingGameData?.companyName}
         onChange={(e) =>
-          setPendingGameData((prev: Partial<Game>) => ({
+          setPendingGameData((prev: DeepPartial<Game>) => ({
             ...prev,
             companyName: e.target.value,
           }))
@@ -57,7 +58,7 @@ const GameDetailsFiller = ({
         _placeholder={{ opacity: 0.3 }}
         value={pendingGameData?.ceo}
         onChange={(e) =>
-          setPendingGameData((prev: Partial<Game>) => ({
+          setPendingGameData((prev: DeepPartial<Game>) => ({
             ...prev,
             ceo: e.target.value,
           }))
@@ -80,7 +81,7 @@ const GameDetailsFiller = ({
         _placeholder={{ opacity: 0.3 }}
         value={pendingGameData?.location}
         onChange={(e) =>
-          setPendingGameData((prev: Partial<Game>) => ({
+          setPendingGameData((prev: DeepPartial<Game>) => ({
             ...prev,
             location: e.target.value,
           }))

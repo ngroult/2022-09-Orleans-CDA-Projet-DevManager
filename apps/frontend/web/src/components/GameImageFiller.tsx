@@ -1,5 +1,6 @@
-import { Game, Image } from '@apps/backend-api';
+import { Game } from '@apps/backend-api';
 import { Grid, useRadioGroup } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
 import RadioCard from './RadioCard';
@@ -7,13 +8,13 @@ import RadioCard from './RadioCard';
 const GameImageFiller = ({
   pendingGameData,
   setPendingGameData,
-  selectedImage,
-  setSelectedImage,
+  selectedImageId,
+  setSelectedImageId,
 }: {
-  pendingGameData?: Partial<Game>;
-  setPendingGameData?: Dispatch<SetStateAction<Partial<Game>>>;
-  selectedImage?: string;
-  setSelectedImage?: Dispatch<SetStateAction<string>>;
+  pendingGameData?: DeepPartial<Game>;
+  setPendingGameData?: Dispatch<SetStateAction<DeepPartial<Game>>>;
+  selectedImageId?: number;
+  setSelectedImageId?: Dispatch<SetStateAction<number>>;
 }) => {
   const [images, setImages] = useState([]);
 
@@ -25,24 +26,27 @@ const GameImageFiller = ({
     getImages();
   }, []);
 
-  const radioGroup = setPendingGameData
-    ? {
-        value: pendingGameData?.image?.id.toString(),
-        onChange: (value: string) => {
-          setPendingGameData((prev: Partial<Game>) => ({
-            ...prev,
-            image: { id: parseInt(value, 10) },
-          }));
-        },
-      }
-    : {
-        value: `${selectedImage}`,
-        onChange: (value: string) => {
-          if (setSelectedImage) setSelectedImage(value);
-        },
-      };
+  const radioGroup1 = {
+    value: pendingGameData?.image?.id?.toString(),
+    onChange: (value: string) => {
+      if (setPendingGameData)
+        setPendingGameData((prev: DeepPartial<Game>) => ({
+          ...prev,
+          image: { id: parseInt(value, 10) },
+        }));
+    },
+  };
 
-  const { getRootProps, getRadioProps } = useRadioGroup(radioGroup);
+  const radioGroup2 = {
+    value: selectedImageId?.toString(),
+    onChange: (value: string) => {
+      if (setSelectedImageId) setSelectedImageId(parseInt(value, 10));
+    },
+  };
+
+  const { getRootProps, getRadioProps } = useRadioGroup(
+    setPendingGameData ? radioGroup1 : radioGroup2
+  );
 
   return (
     <Grid
