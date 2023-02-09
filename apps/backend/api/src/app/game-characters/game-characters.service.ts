@@ -22,9 +22,9 @@ export class GameCharactersService {
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
     @InjectRepository(GameRoom)
-    private gameRoomssRepository: Repository<GameRoom>,
+    private gameRoomsRepository: Repository<GameRoom>,
     @InjectRepository(GameResource)
-    private gameResourcessRepository: Repository<GameResource>,
+    private gameResourcesRepository: Repository<GameResource>,
   ) {}
 
   async create(createGameCharacterDto: CreateGameCharacterDto) {
@@ -123,13 +123,13 @@ export class GameCharactersService {
           gameChar.quantity + addGameCharacterDto.quantity;
         const newQuantityDevDollars =
           gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
-        await this.gameRoomssRepository.update(
+        await this.gameRoomsRepository.update(
           gameChar.character.room.gameRooms[0].id,
           {
             size: countSizeGameRoom,
           },
         );
-        await this.gameResourcessRepository.update(
+        await this.gameResourcesRepository.update(
           gameChar.game.gameResources[0].id,
           { quantity: newQuantityDevDollars },
         );
