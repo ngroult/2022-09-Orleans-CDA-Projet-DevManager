@@ -41,156 +41,26 @@ function CharacterCard({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const newQuantity = () => {
-    return (gameCharacter.quantity += quantityAddCharacters);
-  };
+  // const newQuantity = () => {
+  //   if(quantityAddCharacters > 1)
+  //   gameCharacter.quantity
+  //   return (gameCharacter.quantity += quantityAddCharacters);
+  // };
 
-  const findResourcesUsed = () => {
-    let res: ResourceUsed[] = [];
-    for (let i = 0; i < resourcesUsed.length; i++) {
-      if (gameCharacter.character.id === resourcesUsed[i].character.id) {
-        res.push(resourcesUsed[i]);
-      } else {
-      }
-    }
-    return res;
-  };
-
-  const findGameResourceCharacter = () => {
-    let resUsed = findResourcesUsed();
-    let gameRes: GameResource[] = [];
-    if (resUsed.length >= 1) {
-      for (let i = 0; i < resUsed.length; i++) {
-        for (let j = 0; j < gameResources.length; j++) {
-          if (gameCharacter.character.id === resUsed[i].character.id) {
-            if (resUsed[i].resource.id === gameResources[j].resource.id) {
-              gameRes.push(gameResources[j]);
-            }
-          }
-        }
-      }
-    }
-    return gameRes;
-  };
-
-  const verifyResourcesUsed = () => {
-    const resUsed = findResourcesUsed();
-    const gameRes = findGameResourceCharacter();
-    if (resUsed.length === 0 && gameRes.length === 0) {
-      return true;
-    }
-    if (resUsed.length === 1 && gameRes.length === 1) {
-      if (resUsed[0].quantity > gameRes[0].quantity) {
-        toast({
-          title: 'Resource Used',
-          description: `You don't have any ${gameRes[0].resource.name}!`,
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        });
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      for (let i = 0; i < resUsed.length; i++) {
-        for (let j = 0; j < gameRes.length; j++) {
-          if (gameCharacter.character.id === resUsed[i].character.id) {
-            if (resUsed[i].resource.id === gameRes[j].resource.id) {
-              if (resUsed[i].quantity > gameRes[j].quantity) {
-                toast({
-                  title: 'Resource Used',
-                  description: `You don't have any ${gameRes[j].resource.name}!`,
-                  status: 'error',
-                  duration: 9000,
-                  isClosable: true,
-                });
-                return false;
-              }
-            }
-          }
-        }
-      }
-    }
-    return true;
-  };
-
-  let remainingDevDollars: number[] = [];
-  const verifyDevDollars = () => {
-    let missingDevDollars = 0;
-    for (let j = 0; j < gameResources.length; j++) {
-      if (gameResources[j].resource.name === 'DevDollars') {
-        if (gameCharacter.character.price <= gameResources[j].quantity) {
-          remainingDevDollars.push(j + 1);
-          remainingDevDollars.push(
-            gameResources[j].quantity - gameCharacter.character.price
-          );
-          return true;
-        } else {
-          missingDevDollars =
-            gameCharacter.character.price - gameResources[j].quantity;
-        }
-      }
-    }
-    toast({
-      title: 'Resource Used',
-      description: `It missing you ${missingDevDollars} DevDollars!`,
-      status: 'error',
-      duration: 9000,
-      isClosable: true,
-    });
-    return false;
-  };
-
-  const countRemainingResources = async () => {
+  const addCharacters = async () => {
     try {
-      const resUsed = findResourcesUsed();
-      const gameRes = findGameResourceCharacter();
-      await fetch(`/api/game-resources/${remainingDevDollars[0]}`, {
+      await fetch(`/api/game-characters/add-by-id/${gameCharacter.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ quantity: remainingDevDollars[1] }),
+        body: JSON.stringify({
+          quantity: quantityAddCharacters,
+        }),
       });
-      if (resUsed.length >= 1 && gameRes.length >= 1) {
-        for (let i = 0; i < resUsed.length; i++) {
-          for (let j = 0; j < gameRes.length; j++) {
-            await fetch(`/api/game-resources/${gameRes[i].id}`, {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                quantity: gameRes[j].quantity - resUsed[i].quantity,
-              }),
-            });
-          }
-        }
-      }
-    } catch (err) {}
-  };
-
-  const addCharacter = async () => {
-    try {
-      if (verifyResourcesUsed() && verifyDevDollars()) {
-        await fetch(`/api/game-characters/${gameCharacter.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ quantity: newQuantity() }),
-        });
-        toast({
-          title: `Hire ${gameCharacter.character.name}`,
-          description: `Congratulations, you hire : ${gameCharacter.character.name}!`,
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        });
-        countRemainingResources();
-      }
-    } catch (err) {}
+    } catch (e) {
+      console.log('erreuuuuur');
+    }
   };
 
   useEffect(() => {
@@ -313,7 +183,7 @@ function CharacterCard({
                 size="lg"
                 color="white"
                 ml="5"
-                onClick={addCharacter}
+                onClick={addCharacters}
               >
                 {`+ ${quantityAddCharacters}`}
               </Button>

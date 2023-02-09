@@ -13,6 +13,7 @@ import { GameCharactersService } from './game-characters.service';
 import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AddGameCharacterDto } from './dto/add-game-character.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('game-characters')
@@ -47,5 +48,19 @@ export class GameCharactersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.gameCharactersService.remove(+id);
+  }
+
+  @Patch('/add-by-id/:idGameCharacter')
+  addCharacter(
+    @Param('idGameCharacter') idGameCharacter: string,
+    @Body() addGameCharacterDto: AddGameCharacterDto,
+    @Req() req,
+  ) {
+    const gameId = req.signedCookies['game'];
+    return this.gameCharactersService.addCharacter(
+      gameId,
+      +idGameCharacter,
+      addGameCharacterDto,
+    );
   }
 }

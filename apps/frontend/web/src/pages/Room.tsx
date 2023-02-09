@@ -106,7 +106,7 @@ const RoomPage = () => {
           >
             <Image src="/overview.jpg" alt="overview" />
           </Box>
-          {gameRoom && gameEvents && gameCharacters && gameCharacters && (
+          {gameRoom && gameEvents && gameCharacters && (
             <Box bgColor={`${gameRoom.room.color}.200`} p="50px">
               <Button
                 bgColor={`${gameRoom.room.color}.900`}
