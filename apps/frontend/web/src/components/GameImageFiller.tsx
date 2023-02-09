@@ -1,4 +1,4 @@
-import { Game } from '@apps/backend-api';
+import { Game, Image } from '@apps/backend-api';
 import { Grid, useRadioGroup } from '@chakra-ui/react';
 import { DeepPartial } from '@libs/typings';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
@@ -14,9 +14,9 @@ const GameImageFiller = ({
   pendingGameData?: DeepPartial<Game>;
   setPendingGameData?: Dispatch<SetStateAction<DeepPartial<Game>>>;
   selectedImageId?: number;
-  setSelectedImageId?: Dispatch<SetStateAction<number>>;
+  setSelectedImageId?: Dispatch<SetStateAction<number | undefined>>;
 }) => {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
     const getImages = async () => {
@@ -56,21 +56,18 @@ const GameImageFiller = ({
       gap="1rem"
       maxW="400px"
     >
-      {images.map(
-        (image: { id: number; name: string; description: string }, index) => {
-          const radioProps = getRadioProps({
-            value: image.id.toString(),
-          });
-          return (
-            <RadioCard
-              key={index}
-              imgPath={image.name}
-              imgAlt={image.description}
-              {...radioProps}
-            />
-          );
-        }
-      )}
+      {images.map((image, index) => {
+        const radioProps = getRadioProps({ value: image.id.toString() });
+
+        return (
+          <RadioCard
+            key={index}
+            imgPath={image.name}
+            imgAlt={image.description}
+            {...radioProps}
+          />
+        );
+      })}
     </Grid>
   );
 };

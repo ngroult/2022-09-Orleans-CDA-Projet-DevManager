@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   Flex,
@@ -18,6 +18,7 @@ import GameImageFiller from '../components/GameImageFiller';
 import AuthContext from '../contexts/AuthContext';
 import { Game } from '@apps/backend-api';
 import { DeepPartial } from '@libs/typings';
+import fetchImages from '../utils/fetchImage';
 const pageColor = 'purple';
 
 const NewGame = () => {
@@ -35,24 +36,25 @@ const NewGame = () => {
     companyName: '',
     ceo: '',
     location: '',
-    image: { id: 21, name: 'company1', description: 'Ordinary house' },
     user: { id: user!.id },
   });
-  const [selectedImageId, setSelectedImageId] = useState(21);
+  const [selectedImageId, setSelectedImageId] = useState<number>();
 
   const insertImageIntoGameData = async (id: number) => {
-    const req = await fetch(`/api/images/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const res = await req.json();
+    if (id) {
+      const req = await fetch(`/api/images/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const res = await req.json();
 
-    setGameData((prev: DeepPartial<Game>) => ({
-      ...prev,
-      image: res,
-    }));
+      setGameData((prev: DeepPartial<Game>) => ({
+        ...prev,
+        image: res,
+      }));
+    }
   };
 
   const startNewGame = async () => {
@@ -70,6 +72,19 @@ const NewGame = () => {
       }
     } catch {}
   };
+
+  useEffect(() => {
+    const getImages = async () => {
+      const data = await fetchImages('company');
+
+      setGameData((prev: DeepPartial<Game>) => ({
+        ...prev,
+        image: data[0],
+      }));
+      setSelectedImageId(data[0].id);
+    };
+    getImages();
+  }, []);
 
   return (
     <>
