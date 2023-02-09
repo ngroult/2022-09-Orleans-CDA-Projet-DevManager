@@ -59,9 +59,8 @@ const App = () => {
           path="/new-game"
           element={
             <Protected>
-              <VerifyGame needAGame={false}>
-                <NewGame />
-              </VerifyGame>
+              <NewGame />
+              game{' '}
             </Protected>
           }
         />

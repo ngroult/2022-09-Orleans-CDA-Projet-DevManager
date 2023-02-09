@@ -56,11 +56,11 @@ export class GamesService {
   }
 
   async verifyGame(id: number) {
-    return await this.gamesRepository
+    return this.gamesRepository
       .createQueryBuilder('game')
       .leftJoinAndSelect('game.user', 'user')
       .where('user.id = :id', { id: id })
-      .getOne();
+      .getCount();
   }
 
   async findOne(id: number): Promise<Game[]> {

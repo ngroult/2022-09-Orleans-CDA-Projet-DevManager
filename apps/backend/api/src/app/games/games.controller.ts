@@ -56,8 +56,9 @@ export class GamesController {
   }
 
   @Get('/verify/:id')
-  verifyGame(@Param('id') id: string) {
-    return this.gamesService.verifyGame(+id);
+  async verifyGame(@Param('id') id: string) {
+    const count = await this.gamesService.verifyGame(+id);
+    return { count };
   }
 
   @Patch(':id')
