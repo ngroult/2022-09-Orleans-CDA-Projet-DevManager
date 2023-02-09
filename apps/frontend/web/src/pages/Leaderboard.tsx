@@ -18,13 +18,13 @@ import { useState, useEffect, useContext } from 'react';
 import { Game, GameResource } from '@apps/backend-api';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
-import { User } from '@libs/typings';
+import { DeepPartial, User } from '@libs/typings';
 
 const Leaderboard = () => {
   const { user } = useContext(AuthContext);
 
-  const [games, setGames] = useState<any>([]);
-  const [actualUser, setActualUser] = useState<any>([]);
+  const [games, setGames] = useState<DeepPartial<GameResource[]>>([]);
+  const [actualUser, setActualUser] = useState<DeepPartial<GameResource>>();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -76,7 +76,7 @@ const Leaderboard = () => {
                       <Image src="/badge.png" boxSize="10" mr="2" alt="Badge" />
                       {user?.username}
                       <Image
-                        src={`${actualUser?.game?.user.image.name}.png`}
+                        src={`${actualUser?.game?.user?.image?.name}.png`}
                         boxSize="10"
                         mr="2"
                         alt="profil picture"
@@ -87,7 +87,7 @@ const Leaderboard = () => {
                     {'2500 / 1 500 000'}
                   </Text>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    {actualUser.quantity}$$
+                    {actualUser?.quantity}$$
                   </Text>
                 </Box>
               </Flex>
@@ -114,59 +114,61 @@ const Leaderboard = () => {
                     <Th>{'Point'}</Th>
                   </Tr>
                 </Thead>
-                {games.map((game: any, index: number) => (
-                  <Tbody key={game.id}>
-                    <Tr>
-                      <Td>
-                        {index === 0 ? (
-                          <Image
-                            src="/medal_gold.png"
-                            boxSize="7"
-                            alt="gold Medal "
-                          />
-                        ) : index === 1 ? (
-                          <Image
-                            src="/medal_silver.png"
-                            boxSize="7"
-                            alt="silver Medal "
-                          />
-                        ) : index === 2 ? (
-                          <Image
-                            src="/medal_bronze.png"
-                            boxSize="7"
-                            alt="bronze Medal "
-                          />
-                        ) : (
-                          `${game.id}`
-                        )}
-                      </Td>
-                      <Td>
-                        <Flex align={'center'}>
-                          {game.game.user.username}
-                          <Image
-                            src={`${game.game.user.image.name}.png`}
-                            alt="profil picture"
-                            w="8%"
-                            ml={'2rem'}
-                          />
-                        </Flex>
-                      </Td>
-                      <Td>
-                        <Flex align={'center'}>
-                          {game.game.companyName}
-                          <Image
-                            src={`${game.game.image.name}.png`}
-                            alt="game picture"
-                            w="8%"
-                            ml={'2rem'}
-                          />
-                        </Flex>
-                      </Td>
+                {games?.map(
+                  (game: DeepPartial<GameResource>, index: number) => (
+                    <Tbody key={game.id}>
+                      <Tr>
+                        <Td>
+                          {index === 0 ? (
+                            <Image
+                              src="/medal_gold.png"
+                              boxSize="7"
+                              alt="gold Medal "
+                            />
+                          ) : index === 1 ? (
+                            <Image
+                              src="/medal_silver.png"
+                              boxSize="7"
+                              alt="silver Medal "
+                            />
+                          ) : index === 2 ? (
+                            <Image
+                              src="/medal_bronze.png"
+                              boxSize="7"
+                              alt="bronze Medal "
+                            />
+                          ) : (
+                            `${game.id}`
+                          )}
+                        </Td>
+                        <Td>
+                          <Flex align={'center'}>
+                            {game?.game?.user?.username}
+                            <Image
+                              src={`${game?.game?.user?.image?.name}.png`}
+                              alt="profil picture"
+                              w="8%"
+                              ml={'2rem'}
+                            />
+                          </Flex>
+                        </Td>
+                        <Td>
+                          <Flex align={'center'}>
+                            {game?.game?.companyName}
+                            <Image
+                              src={`${game?.game?.image?.name}.png`}
+                              alt="game picture"
+                              w="8%"
+                              ml={'2rem'}
+                            />
+                          </Flex>
+                        </Td>
 
-                      <Td>{`${game.quantity}$$`}</Td>
-                    </Tr>
-                  </Tbody>
-                ))}
+                        <Td>{`${game.quantity}$$`}</Td>
+                      </Tr>
+                    </Tbody>
+                  )
+                )}
               </Table>
             </Box>
           </Center>
