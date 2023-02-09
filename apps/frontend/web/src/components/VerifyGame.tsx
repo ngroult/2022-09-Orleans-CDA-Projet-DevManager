@@ -11,7 +11,7 @@ const VerifyGame = ({
 }) => {
   const { user, isLoadingUser } = useContext(AuthContext);
 
-  const [game, setGame] = useState<number>(0);
+  const [hasAGame, setHasAGame] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const VerifyGame = ({
     })
       .then((data) => data.json())
       .then((data) => {
-        setGame(data.count);
+        setHasAGame(data.count);
         setIsLoading(false);
       });
     return () => {
@@ -34,9 +34,9 @@ const VerifyGame = ({
   if (isLoading) {
     return null;
   }
-  if (game && !gameRequired) {
+  if (hasAGame && !gameRequired) {
     return <Navigate to={'/game/overview'} />;
-  } else if (!game && gameRequired) {
+  } else if (!hasAGame && gameRequired) {
     return <Navigate to={'/new-game'} />;
   }
   return <>{children}</>;
