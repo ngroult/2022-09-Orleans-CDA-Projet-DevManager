@@ -50,7 +50,7 @@ const ResourcesBar = () => {
 
   return (
     <Box position="absolute" top="0">
-      <Flex minWidth="max-content" gap="2" px="80px">
+      <Flex minWidth="max-content" gap="2" pl="80px">
         <HStack display={{ base: 'none', md: 'flex' }}>
           <Box boxSize="30px">
             <Image src="/company4.png" placeholder="my_company" />
@@ -80,7 +80,13 @@ const ResourcesBar = () => {
         <HStack>
           <Box>
             <HStack>
-              <Grid templateColumns="repeat(5, 1fr)" gap={2}>
+              <Grid
+                templateColumns={{
+                  base: 'repeat(3, 1fr)',
+                  lg: 'repeat(5, 1fr)',
+                }}
+                gap={2}
+              >
                 {resources.map((resource) => (
                   <GridItem
                     key={resource.id}
@@ -122,7 +128,7 @@ const ResourcesBar = () => {
           />
         </HStack>
       </Flex>
-      <Flex minWidth="max-content" alignItems="center" gap="2" px="80px">
+      <Flex minWidth="max-content" alignItems="center" gap="2" pl="80px">
         <HStack py="10px" display={{ base: 'flex', md: 'none', sm: 'flex' }}>
           <Box boxSize="30px">
             <Image src="/company4.png" placeholder="my_company" />

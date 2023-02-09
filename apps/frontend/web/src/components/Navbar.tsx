@@ -39,7 +39,7 @@ const Navbar = () => {
 
   return (
     <>
-      <Box w={isNavbarOpen ? '220px' : '60px'} position="absolute" zIndex="999">
+      <Box w={isNavbarOpen ? '220px' : '60px'} position="fixed" zIndex="999">
         <Box w="60px" h="80px" left="0" top="0">
           <Center>
             <IconButton
@@ -133,6 +133,21 @@ const Navbar = () => {
               </Link>
             </Box>
             <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+              <Link to="/assistance">
+                <HStack>
+                  <Image
+                    alt="Assistance"
+                    src="/assistance.png"
+                    h={iconsSize}
+                    w={iconsSize}
+                  />
+                  {isNavbarOpen && (
+                    <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
+                  )}
+                </HStack>
+              </Link>
+            </Box>
+            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
               <Link to="/about">
                 <HStack>
                   <Image
@@ -159,21 +174,6 @@ const Navbar = () => {
                   <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
                 )}
               </HStack>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/assistance">
-                <HStack>
-                  <Image
-                    alt="Assistance"
-                    src="/assistance.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
-                  )}
-                </HStack>
-              </Link>
             </Box>
           </Grid>
         </Box>

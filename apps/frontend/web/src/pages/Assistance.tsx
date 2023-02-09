@@ -72,9 +72,9 @@ const Assistance = () => {
             p="10"
           >
             <VStack>
-              <Image src="/assistance.png" w="5.5rem" mt="10" />
+              <Image src="/assistance.png" w="5.5rem" mt="3" />
 
-              <FormControl isRequired>
+              <FormControl w="80%" isRequired>
                 <FormLabel mb="0">{'E-mail'}</FormLabel>
                 <Input
                   type="email"
