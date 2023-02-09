@@ -181,6 +181,13 @@ function CharacterCard({
           },
           body: JSON.stringify({ quantity: newQuantity() }),
         });
+        toast({
+          title: `Hire ${gameCharacter.character.name}`,
+          description: `Congratulations, you hire : ${gameCharacter.character.name}!`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
         countRemainingResources();
       }
     } catch (err) {}

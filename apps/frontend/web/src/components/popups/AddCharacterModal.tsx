@@ -2,25 +2,15 @@ import {
   Badge,
   Box,
   Center,
-  Flex,
-  Heading,
-  Image,
   Modal,
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  Text,
   HStack,
   Button,
   Input,
   useNumberInput,
 } from '@chakra-ui/react';
-// import {
-//   GameCharacter,
-//   ResourceUsed,
-//   ResourceProduced,
-// } from '@apps/backend-api';
-// import BadgeResource from '../BadgeResource';
 
 function CharacterModal({
   isOpen,
