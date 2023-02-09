@@ -60,7 +60,6 @@ const App = () => {
           element={
             <Protected>
               <NewGame />
-              game{' '}
             </Protected>
           }
         />
