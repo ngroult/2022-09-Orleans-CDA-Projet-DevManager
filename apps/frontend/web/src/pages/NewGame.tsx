@@ -57,7 +57,7 @@ const NewGame = () => {
 
   const startNewGame = async () => {
     try {
-      const req = await fetch('/api/games/', {
+      const req = await fetch('/api/games', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
