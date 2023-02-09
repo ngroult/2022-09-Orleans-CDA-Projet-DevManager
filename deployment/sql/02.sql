@@ -98,7 +98,7 @@ BEGIN
             SET @newQuantity = 0;
         END IF;
         
-        UPDATE game_resource SET quantity = @newQuantity WHERE `gameResource`.`gameId` = gameId AND `gameResource`.`resourceId` = resourceId;
+        UPDATE game_resource SET quantity = @newQuantity WHERE `game_resource`.`gameId` = gameId AND `game_resource`.`resourceId` = resourceId;
            
     END LOOP;
     CLOSE cur_character; 
