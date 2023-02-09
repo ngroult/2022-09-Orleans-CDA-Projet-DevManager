@@ -21,17 +21,14 @@ import {
 import { useState, useEffect } from 'react';
 import CharacterModal from './popups/CharacterModal';
 import BadgeResource from './BadgeResource';
-import { useToast } from '@chakra-ui/react';
 
 function CharacterCard({
   gameCharacter,
   gameRoom,
-  quantityAddCharacters,
   gameResources,
 }: {
   gameCharacter: GameCharacter;
   gameRoom: GameRoom;
-  quantityAddCharacters: number;
   gameResources: GameResource[];
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
@@ -39,13 +36,6 @@ function CharacterCard({
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
-
-  // const newQuantity = () => {
-  //   if(quantityAddCharacters > 1)
-  //   gameCharacter.quantity
-  //   return (gameCharacter.quantity += quantityAddCharacters);
-  // };
 
   const addCharacters = async () => {
     try {
@@ -55,12 +45,10 @@ function CharacterCard({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          quantity: quantityAddCharacters,
+          quantity: 1,
         }),
       });
-    } catch (e) {
-      console.log('erreuuuuur');
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -185,7 +173,7 @@ function CharacterCard({
                 ml="5"
                 onClick={addCharacters}
               >
-                {`+ ${quantityAddCharacters}`}
+                {`+ 1`}
               </Button>
             </Box>
           </Flex>
