@@ -55,14 +55,19 @@ const Navbar = () => {
 
         <Box
           display={{ base: 'none', sm: 'inline-block' }}
-          boxShadow="inner"
+          boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
           bg="blue.200"
           h="100vh"
           position="absolute"
           top="0"
           left="0"
         >
-          <Box bg="blue.500" w={isNavbarOpen ? '220px' : '60px'} h="80px">
+          <Box
+            boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
+            bg="blue.500"
+            w={isNavbarOpen ? '220px' : '60px'}
+            h="80px"
+          >
             {isNavbarOpen && (
               <Center>
                 <Heading fontSize="xl" pt="25px">

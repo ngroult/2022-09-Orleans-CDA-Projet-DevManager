@@ -28,7 +28,7 @@ const NavbarRooms = () => {
   return (
     <>
       <Box
-        boxShadow="inner"
+        boxShadow="rgb(0 0 0) 5px 1px 15px -10px inset"
         bg="blue.200"
         w={{ base: '100%', sm: '60px' }}
         h={{ base: '60px', sm: '100vh' }}
@@ -37,9 +37,12 @@ const NavbarRooms = () => {
         bottom={{ base: '0', sm: 'initial' }}
         right={{ sm: '0' }}
         left={{ base: '0', sm: 'initial' }}
-        overflow="scroll"
       >
-        <Box bg="blue.500" h={{ base: '0px', sm: '80px' }} />
+        <Box
+          boxShadow="rgb(0 0 0) 5px 1px 15px -10px inset"
+          bg="blue.500"
+          h={{ base: '0px', sm: '80px' }}
+        />
         <Flex
           flexDir={{ base: 'row', sm: 'column' }}
           justifyContent="space-around"
