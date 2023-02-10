@@ -49,17 +49,10 @@ export class GameResourcesService {
   }
 
   async findAll(gameId: number) {
-    const data = await this.gameResourcesRepository.find({
+    return await this.gameResourcesRepository.find({
       where: { game: { id: gameId } },
       relations: { game: true, resource: true },
-    });
-
-    return data.sort((a: GameResource, b: GameResource): number => {
-      if (a.resource.order < b.resource.order) return -1;
-      else if (a.resource.order === b.resource.order) {
-        if (a.resource.name < b.resource.name) return -1;
-        else return 1;
-      } else return 1;
+      order: { resource: { order: 'ASC' } },
     });
   }
 

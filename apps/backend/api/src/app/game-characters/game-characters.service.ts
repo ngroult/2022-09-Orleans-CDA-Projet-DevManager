@@ -63,21 +63,14 @@ export class GameCharactersService {
   }
 
   async findAll(gameId: number): Promise<GameCharacter[]> {
-    const data = await this.gameCharactersRepository
+    return await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
       .where('game.id = :gameId', { gameId })
+      .orderBy('character.order', 'ASC')
       .getMany();
-
-    return data.sort((a: GameCharacter, b: GameCharacter): number => {
-      if (a.character.order < b.character.order) return -1;
-      else if (a.character.order === b.character.order) {
-        if (a.character.price < b.character.price) return -1;
-        else return 1;
-      } else return 1;
-    });
   }
 
   async findOne(id: number, gameId: number): Promise<GameCharacter> {

@@ -49,21 +49,14 @@ export class GameEventsService {
   }
 
   async findAll(gameId: number) {
-    const data = await this.gameEventsRepository
+    return await this.gameEventsRepository
       .createQueryBuilder('gameEvent')
       .leftJoinAndSelect('gameEvent.game', 'game')
       .leftJoinAndSelect('gameEvent.event', 'event')
       .leftJoinAndSelect('event.room', 'room')
       .where('game.id = :gameId', { gameId })
+      .orderBy('event.order', 'ASC')
       .getMany();
-
-    return data.sort((a: GameEvent, b: GameEvent): number => {
-      if (a.event.order < b.event.order) return -1;
-      else if (a.event.order === b.event.order) {
-        if (a.event.price < b.event.price) return -1;
-        else return 1;
-      } else return 1;
-    });
   }
 
   async findOne(id: number): Promise<GameEvent> {
