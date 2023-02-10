@@ -28,6 +28,9 @@ export class Character {
   @Column()
   price: number;
 
+  @Column({ type: 'int', width: 3 })
+  order: number;
+
   @Column()
   size: number;
 

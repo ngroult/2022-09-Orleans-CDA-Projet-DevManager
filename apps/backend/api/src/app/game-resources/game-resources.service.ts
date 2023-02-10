@@ -52,6 +52,7 @@ export class GameResourcesService {
     return this.gameResourcesRepository.find({
       where: { game: { id: gameId } },
       relations: { game: true, resource: true },
+      order: { resource: { order: 'ASC' } },
     });
   }
 

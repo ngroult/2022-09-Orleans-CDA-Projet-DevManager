@@ -52,6 +52,7 @@ export class GameRoomsService {
     return this.gameRoomsRepository.find({
       where: { game: { id: gameId } },
       relations: { game: true, room: true },
+      order: { room: { order: 'ASC' } },
     });
   }
 
@@ -64,7 +65,7 @@ export class GameRoomsService {
   }
 
   async findOneByLabel(label: string, gameId: number) {
-    return await this.gameRoomsRepository
+    return this.gameRoomsRepository
       .createQueryBuilder('gameRoom')
       .leftJoinAndSelect('gameRoom.game', 'game')
       .leftJoinAndSelect('gameRoom.room', 'room')

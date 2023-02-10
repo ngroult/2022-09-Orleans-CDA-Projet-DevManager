@@ -17,9 +17,7 @@ const NavbarRooms = () => {
       signal: abortController.signal,
     })
       .then((data) => data.json())
-      .then((data) => {
-        setGameRooms(data);
-      });
+      .then((data) => setGameRooms(data));
     return () => {
       abortController.abort();
     };

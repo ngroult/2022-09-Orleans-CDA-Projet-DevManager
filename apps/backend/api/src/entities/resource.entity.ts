@@ -20,6 +20,9 @@ export class Resource {
   @Column('varchar', { length: 50 })
   color: string;
 
+  @Column({ type: 'int', width: 3 })
+  order: number;
+
   @OneToMany(() => GameResource, (gameResource) => gameResource.resource)
   gameResources: GameResource[];
 

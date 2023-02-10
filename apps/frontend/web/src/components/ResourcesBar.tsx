@@ -65,9 +65,7 @@ const ResourcesBar = () => {
       signal: abortController.signal,
     })
       .then((data) => data.json())
-      .then((data) => {
-        setResources(data);
-      });
+      .then((data) => setResources(data));
 
     const handleCharacters = async () => {
       try {

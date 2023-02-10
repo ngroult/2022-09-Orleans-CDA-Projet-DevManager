@@ -252,32 +252,32 @@ export class ForgeService {
 
     const users = [
       {
-        username: 'John Doe',
-        email: 'john.doe@email.com',
+        username: 'user1',
+        email: 'user1@email.com',
         password: 'password',
         imageId: image1.id,
       },
       {
-        username: 'azerty',
-        email: 'azerty@email.com',
+        username: 'user2',
+        email: 'user2@email.com',
         password: 'password',
         imageId: image2.id,
       },
       {
-        username: 'qwerty',
-        email: 'qwerty@email.com',
+        username: 'user3',
+        email: 'user3@email.com',
         password: 'password',
         imageId: image3.id,
       },
       {
-        username: 'okerty',
-        email: 'okerty@email.com',
+        username: 'user4',
+        email: 'user4@email.com',
         password: 'password',
         imageId: image4.id,
       },
       {
-        username: 'imerty',
-        email: 'imerty@email.com',
+        username: 'user5',
+        email: 'user5@email.com',
         password: 'password',
         imageId: image5.id,
       },
@@ -332,7 +332,7 @@ export class ForgeService {
       },
       {
         companyName: 'Air France',
-        ceo: 'Gérard Larcher',
+        ceo: 'Cyril Hanouna',
         location: 'Paris, France',
         userId: user5.id,
         imageId: image25.id,
@@ -366,6 +366,7 @@ export class ForgeService {
         label: 'open-space',
         color: 'purple',
         price: 5000,
+        order: 1,
         isExpandable: true,
       },
       {
@@ -375,6 +376,7 @@ export class ForgeService {
         label: 'offices',
         color: 'turquoise',
         price: 7500,
+        order: 2,
         isExpandable: true,
       },
       {
@@ -384,6 +386,7 @@ export class ForgeService {
         label: 'break-room',
         color: 'gold',
         price: 10000,
+        order: 3,
         isExpandable: false,
       },
     ];
@@ -396,6 +399,7 @@ export class ForgeService {
       label,
       color,
       price,
+      order,
       isExpandable,
     } of rooms) {
       roomsPromises.push(
@@ -406,39 +410,43 @@ export class ForgeService {
           label,
           color,
           price,
+          order,
           isExpandable,
         }),
       );
     }
 
-    const [room1, room2, room3] = await Promise.all(roomsPromises);
+    const [openSpace, offices, breakRoom] = await Promise.all(roomsPromises);
 
     // CHARACTER
 
     const characters = [
       {
-        name: 'Inter',
+        name: 'Intern',
         description: 'Intern description',
         image: '/intern.png',
         price: 1,
+        order: 1,
         size: 1,
-        roomId: room1.id,
+        roomId: openSpace.id, // OpenSpace
       },
       {
         name: 'Developer',
         description: 'Developer description',
         image: '/developer.png',
         price: 100,
+        order: 2,
         size: 5,
-        roomId: room1.id,
+        roomId: openSpace.id, // OpenSpace
       },
       {
         name: 'Lead developer',
         description: 'Lead developer description',
         image: '/lead_dev.png',
         price: 1000,
+        order: 3,
         size: 15,
-        roomId: room1.id,
+        roomId: openSpace.id, // OpenSpace
       },
       {
         name: 'Recruiter',
@@ -446,7 +454,8 @@ export class ForgeService {
         image: '/recruiter.png',
         price: 5000,
         size: 5,
-        roomId: room2.id,
+        order: 4,
+        roomId: offices.id, // Offices
       },
       {
         name: 'Salesman',
@@ -454,7 +463,8 @@ export class ForgeService {
         image: '/salesman.png',
         price: 5000,
         size: 5,
-        roomId: room2.id,
+        order: 5,
+        roomId: offices.id, // Offices
       },
       {
         name: 'Delivery man',
@@ -462,7 +472,8 @@ export class ForgeService {
         image: '/delivery_man.png',
         price: 7500,
         size: 5,
-        roomId: room2.id,
+        order: 6,
+        roomId: offices.id, // Offices
       },
     ];
 
@@ -473,6 +484,7 @@ export class ForgeService {
       image,
       price,
       size,
+      order,
       roomId,
     } of characters) {
       charactersPromises.push(
@@ -482,19 +494,14 @@ export class ForgeService {
           image,
           price,
           size,
+          order,
           room: { id: roomId },
         }),
       );
     }
 
-    const [
-      character1,
-      character2,
-      character3,
-      character4,
-      character5,
-      character6,
-    ] = await Promise.all(charactersPromises);
+    const [intern, developer, leadDeveloper, recruiter, salesman, deliveryMan] =
+      await Promise.all(charactersPromises);
 
     // EVENT
 
@@ -505,8 +512,9 @@ export class ForgeService {
         label: 'hackathon',
         image: '/hackathon.png',
         price: 1000,
+        order: 1,
         duration: 600,
-        roomId: room3.id,
+        roomId: breakRoom.id, // Break room
       },
       {
         name: 'Talent Week',
@@ -514,8 +522,9 @@ export class ForgeService {
         label: 'talent_week',
         image: '/talent_week.png',
         price: 10000,
+        order: 2,
         duration: 1800,
-        roomId: room3.id,
+        roomId: breakRoom.id, // Break room
       },
       {
         name: 'Job Dating',
@@ -523,8 +532,9 @@ export class ForgeService {
         label: 'job_dating',
         image: '/job_dating.png',
         price: 20000,
+        order: 3,
         duration: 1200,
-        roomId: room3.id,
+        roomId: breakRoom.id, // Break room
       },
     ];
 
@@ -535,6 +545,7 @@ export class ForgeService {
       label,
       image,
       price,
+      order,
       duration,
       roomId,
     } of events) {
@@ -545,13 +556,16 @@ export class ForgeService {
           label,
           image,
           price,
+          order,
           duration,
           room: { id: roomId },
         }),
       );
     }
 
-    const [event1, event2, event3] = await Promise.all(eventsPromises);
+    const [hackathon, talentWeek, jobDating] = await Promise.all(
+      eventsPromises,
+    );
 
     // RESOURCE
 
@@ -561,129 +575,86 @@ export class ForgeService {
         description: 'DevDollars Description',
         image: '/dollar.png',
         color: 'gold.200',
-      },
-      {
-        name: 'Energic drinks',
-        description: 'Energic drinks Description',
-        image: '/soda.png',
-        color: 'turquoise.200',
+        order: 1,
       },
       {
         name: 'Coffees',
         description: 'Coffees Description',
         image: '/coffee.png',
         color: 'brown.200',
+        order: 2,
+      },
+      {
+        name: 'Energic drinks',
+        description: 'Energic drinks Description',
+        image: '/soda.png',
+        color: 'turquoise.200',
+        order: 3,
       },
       {
         name: 'Contracts',
         description: 'Contracts Description',
         image: '/contract.png',
         color: 'blue.100',
+        order: 4,
       },
       {
         name: 'Delivery orders',
         description: 'Delivery orders Description',
         image: '/delivery_order.png',
         color: 'brown.500',
+        order: 5,
       },
     ];
 
     const resourcesPromises = [];
-    for (const { name, description, image, color } of resources) {
+    for (const { name, description, image, color, order } of resources) {
       resourcesPromises.push(
         this.resourcesRepository.save({
           name,
           description,
           image,
           color,
+          order,
         }),
       );
     }
 
-    const [resource1, resource2, resource3, resource4, resource5] =
+    const [devDollars, coffees, energyDrinks, contracts, deliveryOrders] =
       await Promise.all(resourcesPromises);
-
-    // GAME RESOURCE
-
-    const gameResources = [
-      {
-        quantity: 1010,
-        gameId: game1.id,
-        resourceId: resource1.id,
-      },
-      {
-        quantity: 0,
-        gameId: game1.id,
-        resourceId: resource2.id,
-      },
-      {
-        quantity: 0,
-        gameId: game1.id,
-        resourceId: resource3.id,
-      },
-      {
-        quantity: 0,
-        gameId: game1.id,
-        resourceId: resource4.id,
-      },
-      {
-        quantity: 0,
-        gameId: game1.id,
-        resourceId: resource5.id,
-      },
-    ];
-
-    const gameResourcesPromises = [];
-    for (const { quantity, gameId, resourceId } of gameResources) {
-      resourcesPromises.push(
-        this.gameResourcesRepository.save({
-          quantity,
-          game: { id: gameId },
-          resource: { id: resourceId },
-        }),
-      );
-    }
-
-    const [
-      gameResource1,
-      gameResource2,
-      gameResource3,
-      gameResource4,
-      gameResource5,
-    ] = await Promise.all(gameResourcesPromises);
 
     // RESOURCE USED
 
     const resourcesUsed = [
       {
         quantity: 1,
-        resourceId: resource2.id, // Energy drinks
-        characterId: character3.id, // Lead developers
+        resourceId: energyDrinks.id, // Energy drinks
+        characterId: leadDeveloper.id, // Lead developers
       },
       {
         quantity: 1,
-        resourceId: resource3.id, // Coffees
-        characterId: character2.id, // Developers
+        resourceId: coffees.id, // Coffees
+        characterId: developer.id, // Developers
       },
       {
         quantity: 2,
-        resourceId: resource3.id, // Coffees
-        characterId: character4.id, // Recruiters
+        resourceId: coffees.id, // Coffees
+        characterId: recruiter.id, // Recruiters
       },
       {
         quantity: 2,
-        resourceId: resource3.id, // Coffees
-        characterId: character5.id, // Salesman
+        resourceId: coffees.id, // Coffees
+        characterId: salesman.id, // Salesman
       },
       {
         quantity: 1,
-        resourceId: resource4.id, // Contracts
-        characterId: character3.id, // Lead developers
+        resourceId: contracts.id, // Contracts
+        characterId: leadDeveloper.id, // Lead developers
       },
       {
         quantity: 1,
-        resourceId: resource5.id, // Delivery orders
-        characterId: character6.id, // Delivery man
+        resourceId: deliveryOrders.id, // Delivery orders
+        characterId: deliveryMan.id, // Delivery man
       },
     ];
 
@@ -698,46 +669,40 @@ export class ForgeService {
       );
     }
 
-    const [
-      resourceUsed1,
-      resourceUsed2,
-      resourceUsed3,
-      resourceUsed4,
-      resourceUsed5,
-    ] = await Promise.all(resourcesUsedPromises);
+    await Promise.all(resourcesUsedPromises);
 
     // RESOURCE PRODUCED
 
     const resourcesProduced = [
       {
         quantity: 100,
-        resourceId: resource1.id, // DevDollars
-        characterId: character2.id, // Developers
+        resourceId: devDollars.id, // DevDollars
+        characterId: developer.id, // Developers
       },
       {
         quantity: 150,
-        resourceId: resource1.id, // DevDollars
-        characterId: character2.id, // Lead developers
+        resourceId: devDollars.id, // DevDollars
+        characterId: leadDeveloper.id, // Lead developers
       },
       {
         quantity: 2,
-        resourceId: resource2.id, // Energy drinks
-        characterId: character6.id, // Delivery man
+        resourceId: energyDrinks.id, // Energy drinks
+        characterId: deliveryMan.id, // Delivery man
       },
       {
         quantity: 2,
-        resourceId: resource3.id, // Coffees
-        characterId: character1.id, // Interns
+        resourceId: coffees.id, // Coffees
+        characterId: intern.id, // Interns
       },
       {
         quantity: 2,
-        resourceId: resource4.id, // Contracts
-        characterId: character5.id, // Salesman
+        resourceId: contracts.id, // Contracts
+        characterId: salesman.id, // Salesman
       },
       {
         quantity: 1,
-        resourceId: resource5.id, // Delivery orders
-        characterId: character4.id, // Recruiters
+        resourceId: deliveryOrders.id, // Delivery orders
+        characterId: recruiter.id, // Recruiters
       },
     ];
 
@@ -752,33 +717,241 @@ export class ForgeService {
       );
     }
 
-    const [
-      resourceProduced1,
-      resourceProduced2,
-      resourceProduced3,
-      resourceProduced4,
-      resourceProduced5,
-      resourceProduced6,
-    ] = await Promise.all(resourcesProducedPromises);
+    await Promise.all(resourcesProducedPromises);
+
+    // GAME RESOURCE
+
+    const gameResources = [
+      {
+        quantity: 1010,
+        gameId: game1.id, // Game 1
+        resourceId: devDollars.id, // DevDollars
+      },
+      {
+        quantity: 0,
+        gameId: game1.id, // Game 1
+        resourceId: energyDrinks.id, // Energy drinks
+      },
+      {
+        quantity: 0,
+        gameId: game1.id, // Game 1
+        resourceId: coffees.id, // Coffees
+      },
+      {
+        quantity: 0,
+        gameId: game1.id, // Game 1
+        resourceId: contracts.id, // Contracts
+      },
+      {
+        quantity: 0,
+        gameId: game1.id, // Game 1
+        resourceId: deliveryOrders.id, // Delivery orders
+      },
+      {
+        quantity: 1010,
+        gameId: game2.id, // Game 2
+        resourceId: devDollars.id, // DevDollars
+      },
+      {
+        quantity: 0,
+        gameId: game2.id, // Game 2
+        resourceId: energyDrinks.id, // Energy drinks
+      },
+      {
+        quantity: 0,
+        gameId: game2.id, // Game 2
+        resourceId: coffees.id, // Coffees
+      },
+      {
+        quantity: 0,
+        gameId: game2.id, // Game 2
+        resourceId: contracts.id, // Contracts
+      },
+      {
+        quantity: 0,
+        gameId: game2.id, // Game 2
+        resourceId: deliveryOrders.id, // Delivery orders
+      },
+      {
+        quantity: 1010,
+        gameId: game3.id, // Game 3
+        resourceId: devDollars.id, // DevDollars
+      },
+      {
+        quantity: 0,
+        gameId: game3.id, // Game 3
+        resourceId: energyDrinks.id, // Energy drinks
+      },
+      {
+        quantity: 0,
+        gameId: game3.id, // Game 3
+        resourceId: coffees.id, // Coffees
+      },
+      {
+        quantity: 0,
+        gameId: game3.id, // Game 3
+        resourceId: contracts.id, // Contracts
+      },
+      {
+        quantity: 0,
+        gameId: game3.id, // Game 3
+        resourceId: deliveryOrders.id, // Delivery orders
+      },
+      {
+        quantity: 1010,
+        gameId: game4.id, // Game 4
+        resourceId: devDollars.id, // DevDollars
+      },
+      {
+        quantity: 0,
+        gameId: game4.id, // Game 4
+        resourceId: energyDrinks.id, // Energy drinks
+      },
+      {
+        quantity: 0,
+        gameId: game4.id, // Game 4
+        resourceId: coffees.id, // Coffees
+      },
+      {
+        quantity: 0,
+        gameId: game4.id, // Game 4
+        resourceId: contracts.id, // Contracts
+      },
+      {
+        quantity: 0,
+        gameId: game4.id, // Game 4
+        resourceId: deliveryOrders.id, // Delivery orders
+      },
+      {
+        quantity: 1010,
+        gameId: game5.id, // Game 5
+        resourceId: devDollars.id, // DevDollars
+      },
+      {
+        quantity: 0,
+        gameId: game5.id, // Game 5
+        resourceId: energyDrinks.id, // Energy drinks
+      },
+      {
+        quantity: 0,
+        gameId: game5.id, // Game 5
+        resourceId: coffees.id, // Coffees
+      },
+      {
+        quantity: 0,
+        gameId: game5.id, // Game 5
+        resourceId: contracts.id, // Contracts
+      },
+      {
+        quantity: 0,
+        gameId: game5.id, // Game 5
+        resourceId: deliveryOrders.id, // Delivery orders
+      },
+    ];
+
+    const gameResourcesPromises = [];
+    for (const { quantity, gameId, resourceId } of gameResources) {
+      resourcesPromises.push(
+        this.gameResourcesRepository.save({
+          quantity,
+          game: { id: gameId },
+          resource: { id: resourceId },
+        }),
+      );
+    }
+
+    await Promise.all(gameResourcesPromises);
 
     // GAME ROOM
 
     const gameRooms = [
       {
-        gameId: game1.id,
-        roomId: room1.id,
+        gameId: game1.id, // Game 1
+        roomId: openSpace.id, // OpenSpace
         size: 0,
         totalSize: 110,
       },
       {
-        gameId: game1.id,
-        roomId: room2.id,
+        gameId: game1.id, // Game 1
+        roomId: offices.id, // Offices
         size: 0,
         totalSize: 60,
       },
       {
-        gameId: game1.id,
-        roomId: room3.id,
+        gameId: game1.id, // Game 1
+        roomId: breakRoom.id, // Break room
+        size: 0,
+        totalSize: 80,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: openSpace.id, // OpenSpace
+        size: 0,
+        totalSize: 110,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: offices.id, // Offices
+        size: 0,
+        totalSize: 60,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: breakRoom.id, // Break room
+        size: 0,
+        totalSize: 80,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: openSpace.id, // OpenSpace
+        size: 0,
+        totalSize: 110,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: offices.id, // Offices
+        size: 0,
+        totalSize: 60,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: breakRoom.id, // Break room
+        size: 0,
+        totalSize: 80,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: openSpace.id, // OpenSpace
+        size: 0,
+        totalSize: 110,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: offices.id, // Offices
+        size: 0,
+        totalSize: 60,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: breakRoom.id, // Break room
+        size: 0,
+        totalSize: 80,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: openSpace.id, // OpenSpace
+        size: 0,
+        totalSize: 110,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: offices.id, // Offices
+        size: 0,
+        totalSize: 60,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: breakRoom.id, // Break room
         size: 0,
         totalSize: 80,
       },
@@ -796,47 +969,189 @@ export class ForgeService {
       );
     }
 
-    const [gameRoom1, gameRoom2, gameRoom3] = await Promise.all(
-      gameRoomsPromises,
-    );
+    await Promise.all(gameRoomsPromises);
 
     // GAME CHARACTER
 
     const gameCharacters = [
       {
-        gameId: game1.id,
-        roomId: room1.id,
-        characterId: character1.id,
+        gameId: game1.id, // Game 1
+        roomId: openSpace.id, // OpenSpace
+        characterId: intern.id, // Interns
         quantity: 0,
       },
       {
-        gameId: game1.id,
-        roomId: room1.id,
-        characterId: character2.id,
+        gameId: game1.id, // Game 1
+        roomId: openSpace.id, // OpenSpace
+        characterId: developer.id, // Developers
         quantity: 0,
       },
       {
-        gameId: game1.id,
-        roomId: room1.id,
-        characterId: character3.id,
+        gameId: game1.id, // Game 1
+        roomId: openSpace.id, // OpenSpace
+        characterId: leadDeveloper.id, // Lead developers
         quantity: 0,
       },
       {
-        gameId: game1.id,
-        roomId: room2.id,
-        characterId: character4.id,
+        gameId: game1.id, // Game 1
+        roomId: offices.id, // Offices
+        characterId: recruiter.id, // Recruiters
         quantity: 0,
       },
       {
-        gameId: game1.id,
-        roomId: room1.id,
-        characterId: character5.id,
+        gameId: game1.id, // Game 1
+        roomId: offices.id, // Offices
+        characterId: salesman.id, // Salesman
         quantity: 0,
       },
       {
-        gameId: game1.id,
-        roomId: room1.id,
-        characterId: character6.id,
+        gameId: game1.id, // Game 1
+        roomId: offices.id, // Offices
+        characterId: deliveryMan.id, // Delivery man
+        quantity: 0,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: openSpace.id, // OpenSpace
+        characterId: intern.id, // Interns
+        quantity: 0,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: openSpace.id, // OpenSpace
+        characterId: developer.id, // Developers
+        quantity: 0,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: openSpace.id, // OpenSpace
+        characterId: leadDeveloper.id, // Lead developers
+        quantity: 0,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: offices.id, // Offices
+        characterId: recruiter.id, // Recruiters
+        quantity: 0,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: offices.id, // Offices
+        characterId: salesman.id, // Salesman
+        quantity: 0,
+      },
+      {
+        gameId: game2.id, // Game 2
+        roomId: offices.id, // Offices
+        characterId: deliveryMan.id, // Delivery man
+        quantity: 0,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: openSpace.id, // OpenSpace
+        characterId: intern.id, // Interns
+        quantity: 0,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: openSpace.id, // OpenSpace
+        characterId: developer.id, // Developers
+        quantity: 0,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: openSpace.id, // OpenSpace
+        characterId: leadDeveloper.id, // Lead developers
+        quantity: 0,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: offices.id, // Offices
+        characterId: recruiter.id, // Recruiters
+        quantity: 0,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: offices.id, // Offices
+        characterId: salesman.id, // Salesman
+        quantity: 0,
+      },
+      {
+        gameId: game3.id, // Game 3
+        roomId: offices.id, // Offices
+        characterId: deliveryMan.id, // Delivery man
+        quantity: 0,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: openSpace.id, // OpenSpace
+        characterId: intern.id, // Interns
+        quantity: 0,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: openSpace.id, // OpenSpace
+        characterId: developer.id, // Developers
+        quantity: 0,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: openSpace.id, // OpenSpace
+        characterId: leadDeveloper.id, // Lead developers
+        quantity: 0,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: offices.id, // Offices
+        characterId: recruiter.id, // Recruiters
+        quantity: 0,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: offices.id, // Offices
+        characterId: salesman.id, // Salesman
+        quantity: 0,
+      },
+      {
+        gameId: game4.id, // Game 4
+        roomId: offices.id, // Offices
+        characterId: deliveryMan.id, // Delivery man
+        quantity: 0,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: openSpace.id, // OpenSpace
+        characterId: intern.id, // Interns
+        quantity: 0,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: openSpace.id, // OpenSpace
+        characterId: developer.id, // Developers
+        quantity: 0,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: openSpace.id, // OpenSpace
+        characterId: leadDeveloper.id, // Lead developers
+        quantity: 0,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: offices.id, // Offices
+        characterId: recruiter.id, // Recruiters
+        quantity: 0,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: offices.id, // Offices
+        characterId: salesman.id, // Salesman
+        quantity: 0,
+      },
+      {
+        gameId: game5.id, // Game 5
+        roomId: offices.id, // Offices
+        characterId: deliveryMan.id, // Delivery man
         quantity: 0,
       },
     ];
@@ -853,14 +1168,7 @@ export class ForgeService {
       );
     }
 
-    const [
-      gameCharacter1,
-      gameCharacter2,
-      gameCharacter3,
-      gameCharacter4,
-      gameCharacter5,
-      gameCharacter6,
-    ] = await Promise.all(gameCharactersPromises);
+    await Promise.all(gameCharactersPromises);
 
     // GAME EVENT
 
@@ -868,38 +1176,92 @@ export class ForgeService {
       {
         startDate: '1970-01-01 00:00',
         endDate: '1970-01-01 00:00',
-        eventId: event1.id,
-        gameId: game1.id,
+        eventId: hackathon.id, // Hackathon
+        gameId: game1.id, // Game 1
       },
       {
         startDate: '1970-01-01 00:00',
         endDate: '1970-01-01 00:00',
-        eventId: event2.id,
-        gameId: game1.id,
+        eventId: talentWeek.id, // Talent week
+        gameId: game1.id, // Game 1
       },
       {
         startDate: '1970-01-01 00:00',
         endDate: '1970-01-01 00:00',
-        eventId: event3.id,
-        gameId: game1.id,
+        eventId: jobDating.id, // Job dating
+        gameId: game1.id, // Game 1
       },
       {
         startDate: '1970-01-01 00:00',
         endDate: '1970-01-01 00:00',
-        eventId: event1.id,
-        gameId: game2.id,
+        eventId: hackathon.id, // Hackathon
+        gameId: game2.id, // Game 2
       },
       {
         startDate: '1970-01-01 00:00',
         endDate: '1970-01-01 00:00',
-        eventId: event2.id,
-        gameId: game2.id,
+        eventId: talentWeek.id, // Talent week
+        gameId: game2.id, // Game 2
       },
       {
         startDate: '1970-01-01 00:00',
         endDate: '1970-01-01 00:00',
-        eventId: event3.id,
-        gameId: game2.id,
+        eventId: jobDating.id, // Job dating
+        gameId: game2.id, // Game 2
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: hackathon.id, // Hackathon
+        gameId: game3.id, // Game 3
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: talentWeek.id, // Talent week
+        gameId: game3.id, // Game 3
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: jobDating.id, // Job dating
+        gameId: game3.id, // Game 3
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: hackathon.id, // Hackathon
+        gameId: game4.id, // Game 4
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: talentWeek.id, // Talent week
+        gameId: game4.id, // Game 4
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: jobDating.id, // Job dating
+        gameId: game4.id, // Game 4
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: hackathon.id, // Hackathon
+        gameId: game5.id, // Game 5
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: talentWeek.id, // Talent week
+        gameId: game5.id, // Game 5
+      },
+      {
+        startDate: '1970-01-01 00:00',
+        endDate: '1970-01-01 00:00',
+        eventId: jobDating.id, // Job dating
+        gameId: game5.id, // Game 5
       },
     ];
 
@@ -915,14 +1277,7 @@ export class ForgeService {
       );
     }
 
-    const [
-      gameEvent1,
-      gameEvent2,
-      gameEvent3,
-      gameEvent4,
-      gameEvent5,
-      gameEvent6,
-    ] = await Promise.all(gameEventsPromises);
+    await Promise.all(gameEventsPromises);
 
     // BONUS MALUS
 
@@ -933,8 +1288,8 @@ export class ForgeService {
         label: 'interns_production_bonus',
         rate: 100,
         isBonus: true,
-        eventId: event1.id,
-        characterId: character1.id,
+        eventId: hackathon.id, // Hackathon
+        characterId: intern.id, // Interns
       },
       {
         name: 'Price -50%',
@@ -942,8 +1297,8 @@ export class ForgeService {
         label: 'interns_price_bonus',
         rate: -50,
         isBonus: true,
-        eventId: event2.id,
-        characterId: character1.id,
+        eventId: talentWeek.id, // Talent week
+        characterId: intern.id, // Interns
       },
       {
         name: 'Production -50%',
@@ -951,8 +1306,8 @@ export class ForgeService {
         label: 'developers_production_malus',
         rate: -50,
         isBonus: false,
-        eventId: event2.id,
-        characterId: character2.id,
+        eventId: talentWeek.id, // Talent week
+        characterId: developer.id, // Developers
       },
       {
         name: 'Price -50%',
@@ -960,8 +1315,8 @@ export class ForgeService {
         label: 'developers_price_bonus',
         rate: -50,
         isBonus: true,
-        eventId: event3.id,
-        characterId: character2.id,
+        eventId: jobDating.id, // Job dating
+        characterId: developer.id, // Developers
       },
       {
         name: 'Production -50%',
@@ -969,8 +1324,8 @@ export class ForgeService {
         label: 'lead_developers_production_malus',
         rate: -50,
         isBonus: false,
-        eventId: event3.id,
-        characterId: character3.id,
+        eventId: jobDating.id, // Job dating
+        characterId: leadDeveloper.id, // Lead developers
       },
     ];
 
@@ -997,8 +1352,7 @@ export class ForgeService {
       );
     }
 
-    const [bonusMalus1, bonusMalus2, bonusMalus3, bonusMalus4, bonusMalus5] =
-      await Promise.all(bonusMalusPromises);
+    await Promise.all(bonusMalusPromises);
 
     return 'OK';
   }
