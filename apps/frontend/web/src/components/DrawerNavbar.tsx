@@ -92,6 +92,19 @@ function DrawerNavbar({
                 </Link>
               </Box>
               <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
+                <Link to="/assistance">
+                  <HStack>
+                    <Image
+                      alt="Assistance"
+                      src="/assistance.png"
+                      h={iconsSize}
+                      w={iconsSize}
+                    />
+                    <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
+                  </HStack>
+                </Link>
+              </Box>
+              <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
                 <Link to="/about">
                   <HStack>
                     <Image
@@ -114,19 +127,6 @@ function DrawerNavbar({
                       w={iconsSize}
                     />
                     <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
-                  </HStack>
-                </Link>
-              </Box>
-              <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-                <Link to="/assistance">
-                  <HStack>
-                    <Image
-                      alt="Assistance"
-                      src="/assistance.png"
-                      h={iconsSize}
-                      w={iconsSize}
-                    />
-                    <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
                   </HStack>
                 </Link>
               </Box>
