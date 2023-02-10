@@ -10,6 +10,7 @@ import {
   Image,
   useDisclosure,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import {
   GameCharacter,
@@ -36,18 +37,40 @@ function CharacterCard({
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const addCharacters = async () => {
     try {
-      await fetch(`/api/game-characters/add-by-id/${gameCharacter.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantity: 1,
-        }),
-      });
+      const res = await fetch(
+        `/api/game-characters/add-by-id/${gameCharacter.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            quantity: 1,
+          }),
+        }
+      );
+      const jsonResponse = await res.json();
+      if (jsonResponse) {
+        toast({
+          title: `Hire ${gameCharacter.character.name}`,
+          description: `Congratulations, you hire : ${gameCharacter.character.name}!`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: 'Resource Used',
+          description: `You don't have any resources or space in your ${gameRoom.room.name} !`,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
     } catch {}
   };
 

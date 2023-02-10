@@ -133,9 +133,10 @@ export class GameCharactersService {
           gameChar.game.gameResources[0].id,
           { quantity: newQuantityDevDollars },
         );
-        return this.gameCharactersRepository.update(idGameCharacter, {
+        await this.gameCharactersRepository.update(idGameCharacter, {
           quantity: newQuantityGameCharacter,
         });
+        return true;
       }
     } else {
       return false;
