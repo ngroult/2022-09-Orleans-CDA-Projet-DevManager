@@ -55,6 +55,30 @@ export class GameResourcesService {
     });
   }
 
+  async findResourcesUserGame() {
+    return this.gameResourcesRepository
+      .createQueryBuilder('gameResource')
+      .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('game.image', 'gameImage')
+      .innerJoinAndSelect('game.user', 'user')
+      .innerJoinAndSelect('user.image', 'userImage')
+      .where('gameResource.resourceId = 1')
+      .orderBy('gameResource.quantity', 'DESC')
+      .limit(100)
+      .getMany();
+  }
+
+  async findByUserId(id: number) {
+    return this.gameResourcesRepository
+      .createQueryBuilder('gameResource')
+      .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('game.image', 'gameImage')
+      .innerJoinAndSelect('game.user', 'user')
+      .innerJoinAndSelect('user.image', 'userImage')
+      .where('user.id = :id', { id })
+      .getOne();
+  }
+
   async findOne(id: number): Promise<GameResource[]> {
     return this.gameResourcesRepository.find({
       select: ['quantity'],

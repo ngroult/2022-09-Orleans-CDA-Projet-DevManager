@@ -28,7 +28,7 @@ export class GamesController {
   @Get('id')
   async gameId(@Res({ passthrough: true }) response: Response, @Req() req) {
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
-    const game = await this.gamesService.findByUser(req.user.id);
+    const game = await this.gamesService.findOneByUser(req.user.id);
     response.cookie('game', game.id, {
       httpOnly: true,
       sameSite: true,
@@ -45,14 +45,17 @@ export class GamesController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  findAll(@Req() req) {
-    const gameId = req.signedCookies['game'];
-    return this.gamesService.findAll(gameId);
+  findAll() {
+    return this.gamesService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gamesService.findOne(+id);
+  }
+  @Get('/user/:id')
+  findOneByUser(@Param('id') id: string) {
+    return this.gamesService.findOneByUser(+id);
   }
 
   @Get('/verify/:id')

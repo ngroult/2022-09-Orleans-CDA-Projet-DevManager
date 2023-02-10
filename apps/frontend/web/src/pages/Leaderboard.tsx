@@ -14,32 +14,44 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import { Game, GameResource } from '@apps/backend-api';
+import { useState, useEffect, useContext } from 'react';
+import { GameResource } from '@apps/backend-api';
 import Navbar from '../components/Navbar';
+import AuthContext from '../contexts/AuthContext';
+import { DeepPartial } from '@libs/typings';
 
 const Leaderboard = () => {
-  const [leaderboard, setLeaderboard] = useState<Game[]>([]);
-  const [gameResource, setGameResource] = useState<GameResource[]>([]);
+  const { user } = useContext(AuthContext);
+
+  const [gamesResources, setGamesResources] = useState<
+    DeepPartial<GameResource[]>
+  >([]);
+  const [userGameResources, setUserGameResources] =
+    useState<DeepPartial<GameResource>>();
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch('/api/games', { method: 'GET', signal: abortController.signal })
+    fetch('/api/game-resources/all', {
+      method: 'GET',
+      signal: abortController.signal,
+    })
       .then((data) => data.json())
       .then((data) => {
-        setLeaderboard(data);
+        setGamesResources(data);
       });
-    fetch('/api/game-resources', { method: 'GET' })
-      .then((response) => response.json())
-      .then((response) => {
-        setGameResource(response);
+    fetch(`/api/game-resources/details/${user?.id}`, {
+      method: 'GET',
+      signal: abortController.signal,
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        setUserGameResources(data);
       });
-
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -65,14 +77,20 @@ const Leaderboard = () => {
                   >
                     <Flex>
                       <Image src="/badge.png" boxSize="10" mr="2" alt="Badge" />
-                      {'Your rank'}
+                      {user?.username}
+                      <Image
+                        src={`${userGameResources?.game?.user?.image?.name}.png`}
+                        boxSize="10"
+                        mr="2"
+                        alt="profil picture"
+                      />
                     </Flex>
                   </Heading>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
                     {'2500 / 1 500 000'}
                   </Text>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    {'$ 1 030 spent'}
+                    {userGameResources?.quantity}$$
                   </Text>
                 </Box>
               </Flex>
@@ -83,11 +101,11 @@ const Leaderboard = () => {
           <Divider mt="5" w="60"></Divider>
         </Center>
         <Center>
-          <Heading as="h2" size="l" mt="10">
+          <Heading as="h2" size="l" pt="10" pb="10">
             {'World ranking'}
           </Heading>
         </Center>
-        <TableContainer>
+        <TableContainer pb="10">
           <Center>
             <Box w={{ base: '100%', lg: '80%', md: '80%', sm: '80%' }}>
               <Table variant="striped" size="sm">
@@ -99,38 +117,61 @@ const Leaderboard = () => {
                     <Th>{'Point'}</Th>
                   </Tr>
                 </Thead>
-                {leaderboard.map((leaderboard) => (
-                  <Tbody key={leaderboard.id}>
-                    <Tr>
-                      <Td>
-                        {leaderboard.id === 1 ? (
-                          <Image
-                            src="/medal_gold.png"
-                            boxSize="7"
-                            alt="Medal gold"
-                          />
-                        ) : leaderboard.id === 2 ? (
-                          <Image
-                            src="/medal_silver.png"
-                            boxSize="7"
-                            alt="Medal silver"
-                          />
-                        ) : leaderboard.id === 3 ? (
-                          <Image
-                            src="/medal_bronze.png"
-                            boxSize="7"
-                            alt="Medal bronze"
-                          />
-                        ) : (
-                          `${leaderboard.id}`
-                        )}
-                      </Td>
-                      <Td>{leaderboard.user.username}</Td>
-                      <Td>{leaderboard.companyName}</Td>
-                      <Td>{`$${gameResource[0].quantity}`}</Td>
-                    </Tr>
-                  </Tbody>
-                ))}
+                {gamesResources?.map(
+                  (gameResources: DeepPartial<GameResource>, index: number) => (
+                    <Tbody key={gameResources.id}>
+                      <Tr>
+                        <Td>
+                          {index === 0 ? (
+                            <Image
+                              src="/medal_gold.png"
+                              boxSize="7"
+                              alt="gold Medal "
+                            />
+                          ) : index === 1 ? (
+                            <Image
+                              src="/medal_silver.png"
+                              boxSize="7"
+                              alt="silver Medal "
+                            />
+                          ) : index === 2 ? (
+                            <Image
+                              src="/medal_bronze.png"
+                              boxSize="7"
+                              alt="bronze Medal "
+                            />
+                          ) : (
+                            index + 1
+                          )}
+                        </Td>
+                        <Td>
+                          <Flex align={'center'}>
+                            {gameResources?.game?.user?.username}
+                            <Image
+                              src={`${gameResources?.game?.user?.image?.name}.png`}
+                              alt="Profile picture"
+                              w="8%"
+                              ml={'2rem'}
+                            />
+                          </Flex>
+                        </Td>
+                        <Td>
+                          <Flex align={'center'}>
+                            {gameResources?.game?.companyName}
+                            <Image
+                              src={`${gameResources?.game?.image?.name}.png`}
+                              alt="game picture"
+                              w="8%"
+                              ml={'2rem'}
+                            />
+                          </Flex>
+                        </Td>
+
+                        <Td>{`${gameResources.quantity}$$`}</Td>
+                      </Tr>
+                    </Tbody>
+                  )
+                )}
               </Table>
             </Box>
           </Center>
