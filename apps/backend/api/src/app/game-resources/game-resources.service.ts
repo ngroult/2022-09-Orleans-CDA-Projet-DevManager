@@ -49,7 +49,7 @@ export class GameResourcesService {
   }
 
   async findAll(gameId: number) {
-    return await this.gameResourcesRepository.find({
+    return this.gameResourcesRepository.find({
       where: { game: { id: gameId } },
       relations: { game: true, resource: true },
       order: { resource: { order: 'ASC' } },

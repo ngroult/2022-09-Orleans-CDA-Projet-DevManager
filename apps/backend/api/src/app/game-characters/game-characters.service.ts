@@ -63,7 +63,7 @@ export class GameCharactersService {
   }
 
   async findAll(gameId: number): Promise<GameCharacter[]> {
-    return await this.gameCharactersRepository
+    return this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
@@ -74,7 +74,7 @@ export class GameCharactersService {
   }
 
   async findOne(id: number, gameId: number): Promise<GameCharacter> {
-    return await this.gameCharactersRepository
+    return this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
