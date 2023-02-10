@@ -68,7 +68,7 @@ export class GameResourcesService {
       .getMany();
   }
 
-  async findResourcesUserGameByUserId(id: number) {
+  async findByUserId(id: number) {
     return this.gameResourcesRepository
       .createQueryBuilder('gameResource')
       .innerJoinAndSelect('gameResource.game', 'game')

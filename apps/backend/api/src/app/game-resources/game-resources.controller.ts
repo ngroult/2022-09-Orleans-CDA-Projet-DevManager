@@ -36,8 +36,8 @@ export class GameResourcesController {
   }
   @UseGuards(JwtAuthGuard)
   @Get('/details/:id')
-  findResourcesUserGameByUserId(@Param('id') id: string) {
-    return this.gameResourcesService.findResourcesUserGameByUserId(+id);
+  findByUserId(@Param('id') id: string) {
+    return this.gameResourcesService.findByUserId(+id);
   }
 
   @Get(':id')
