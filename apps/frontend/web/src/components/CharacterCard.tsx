@@ -57,7 +57,7 @@ function CharacterCard({
       if (jsonResponse) {
         toast({
           title: `Hire ${gameCharacter.character.name}`,
-          description: `Congratulations, you hire : ${gameCharacter.character.name}!`,
+          description: `Congratulations, you hired : ${gameCharacter.character.name}!`,
           status: 'success',
           duration: 9000,
           isClosable: true,
@@ -65,7 +65,7 @@ function CharacterCard({
       } else {
         toast({
           title: 'Resource Used',
-          description: `You don't have any resources or space in your ${gameRoom.room.name} !`,
+          description: `You don't have any resources or space in your ${gameRoom.room.name}!`,
           status: 'error',
           duration: 9000,
           isClosable: true,
