@@ -15,8 +15,9 @@ import {
 import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
 import ModalResources from './ModalResources';
-import { GameResource } from '@apps/backend-api';
+import { GameCharacter, GameResource, GameRoom } from '@apps/backend-api';
 import DrawerResources from './DrawerResources';
+import { useParams } from 'react-router-dom';
 
 const ResourcesBar = () => {
   const {
@@ -31,6 +32,29 @@ const ResourcesBar = () => {
   } = useDisclosure();
 
   const [resources, setResources] = useState<GameResource[]>([]);
+  const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
+  const [gameRoom, setGameRoom] = useState<GameRoom>();
+
+  const { label } = useParams();
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const handleRoom = async () => {
+      try {
+        const res = await fetch(`/api/game-rooms/by-label/${label}`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameRoom(jsonResponse);
+      } catch {}
+    };
+    handleRoom();
+
+    return () => {
+      abortController.abort();
+    };
+  }, [label]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -43,6 +67,18 @@ const ResourcesBar = () => {
       .then((data) => {
         setResources(data);
       });
+
+    const handleCharacters = async () => {
+      try {
+        const res = await fetch(`/api/game-characters`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameCharacters(jsonResponse);
+      } catch {}
+    };
+    handleCharacters();
     return () => {
       abortController.abort();
     };
@@ -58,24 +94,28 @@ const ResourcesBar = () => {
           <Box>{'My Company'}</Box>
         </HStack>
         <Spacer display={{ base: 'none', md: 'flex' }} />
-        <VStack display={{ base: 'none', md: 'flex' }}>
-          <Box>{'Remaining'}</Box>
-          <HStack>
-            <Box>{'50'}</Box>
-            <Box boxSize="30px">
-              <Image src="/area.png" />
-            </Box>
-          </HStack>
-        </VStack>
-        <VStack display={{ base: 'none', md: 'flex' }}>
-          <Box>{'Total'}</Box>
-          <HStack>
-            <Box>{'110'}</Box>
-            <Box boxSize="30px">
-              <Image src="/area.png" />
-            </Box>
-          </HStack>
-        </VStack>
+        {gameRoom && (
+          <>
+            <VStack display={{ base: 'none', md: 'flex' }}>
+              <Box>{'Remaining'}</Box>
+              <HStack>
+                <Box>{gameRoom.size}</Box>
+                <Box boxSize="30px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </VStack>
+            <VStack display={{ base: 'none', md: 'flex' }}>
+              <Box>{'Total'}</Box>
+              <HStack>
+                <Box>{gameRoom.totalSize}</Box>
+                <Box boxSize="30px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </VStack>
+          </>
+        )}
         <Spacer display={{ base: 'none', md: 'flex' }} />
         <HStack>
           <Box>

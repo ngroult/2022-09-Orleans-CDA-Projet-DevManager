@@ -10,12 +10,14 @@ import {
   Image,
   useDisclosure,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import {
   GameCharacter,
   GameRoom,
   ResourceUsed,
   ResourceProduced,
+  GameResource,
 } from '@apps/backend-api';
 import { useState, useEffect } from 'react';
 import CharacterModal from './popups/CharacterModal';
@@ -24,15 +26,53 @@ import BadgeResource from './BadgeResource';
 function CharacterCard({
   gameCharacter,
   gameRoom,
+  gameResources,
 }: {
   gameCharacter: GameCharacter;
   gameRoom: GameRoom;
+  gameResources: GameResource[];
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
   const [resourcesProduced, setResourcesProduced] = useState<
     ResourceProduced[]
   >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
+
+  const addCharacters = async () => {
+    try {
+      const res = await fetch(
+        `/api/game-characters/add-by-id/${gameCharacter.id}`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            quantity: 1,
+          }),
+        }
+      );
+      const jsonResponse = await res.json();
+      if (jsonResponse) {
+        toast({
+          title: `Hire ${gameCharacter.character.name}`,
+          description: `Congratulations, you hired: ${gameCharacter.character.name}!`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: 'Resource Used',
+          description: `You don't have any resources or space in your ${gameRoom.room.name}!`,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch {}
+  };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -92,10 +132,12 @@ function CharacterCard({
         <CardBody>
           <Flex alignItems="center" w="full" justifyContent="space-between">
             <Box>
-              <Heading size="md" mt="1">
-                {gameCharacter.character.name}
-              </Heading>
-
+              <HStack>
+                <Heading size="md" mt="1">
+                  {gameCharacter.character.name}
+                </Heading>
+                <Text>{gameCharacter.quantity}</Text>
+              </HStack>
               {resourcesUsed && resourcesProduced && (
                 <HStack>
                   {resourcesProduced
@@ -152,8 +194,9 @@ function CharacterCard({
                 size="lg"
                 color="white"
                 ml="5"
+                onClick={addCharacters}
               >
-                {'+ 1'}
+                {`+ 1`}
               </Button>
             </Box>
           </Flex>

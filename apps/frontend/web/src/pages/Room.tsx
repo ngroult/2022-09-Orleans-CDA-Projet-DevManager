@@ -3,7 +3,12 @@ import NavbarRooms from '../components/NavbarRooms';
 import ResourcesBar from '../components/ResourcesBar';
 import { Box, Flex, VStack, Image } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
-import { GameRoom, GameCharacter, GameEvent } from '@apps/backend-api';
+import {
+  GameRoom,
+  GameCharacter,
+  GameEvent,
+  GameResource,
+} from '@apps/backend-api';
 import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard';
 import EventCard from '../components/EventCard';
@@ -12,8 +17,8 @@ const RoomPage = () => {
   const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
   const [gameRoom, setGameRoom] = useState<GameRoom>();
   const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
-
   const { label } = useParams();
+  const [gameResources, setGameResources] = useState<GameResource[]>([]);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -61,25 +66,37 @@ const RoomPage = () => {
     };
     handleEvents();
 
+    const handleResources = async () => {
+      try {
+        const res = await fetch(`/api/game-resources`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameResources(jsonResponse);
+      } catch {}
+    };
+    handleResources();
+
     return () => {
       abortController.abort();
     };
   }, []);
 
   return (
-    <Box>
-      <ResourcesBar />
-      <Navbar />
-      <NavbarRooms />
-      <Flex pt="80px" px="80px" justifyContent="space-between">
-        <Box
-          boxSize="100%"
-          display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
-        >
-          <Image src="/overview.jpg" alt="overview" />
-        </Box>
-        {gameRoom && gameEvents && gameCharacters && (
-          <Box bgColor={`${gameRoom.room.color}.200`} p="50px">
+    <>
+      <Box>
+        <ResourcesBar />
+        <Navbar />
+        <NavbarRooms />
+        <Flex pt="80px" px="80px" justifyContent="space-between">
+          <Box
+            boxSize="100%"
+            display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
+          >
+            <Image src="/overview.jpg" alt="overview" />
+          </Box>
+          {gameRoom && gameEvents && gameCharacters && (
             <VStack>
               {gameCharacters
                 .filter(
@@ -91,6 +108,7 @@ const RoomPage = () => {
                     key={gameCharacter.character.id}
                     gameCharacter={gameCharacter}
                     gameRoom={gameRoom}
+                    gameResources={gameResources}
                   />
                 ))}
               {gameEvents
@@ -105,10 +123,10 @@ const RoomPage = () => {
                   />
                 ))}
             </VStack>
-          </Box>
-        )}
-      </Flex>
-    </Box>
+          )}
+        </Flex>
+      </Box>
+    </>
   );
 };
 

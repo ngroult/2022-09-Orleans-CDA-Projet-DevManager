@@ -3,7 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateGameCharacterDto } from './dto/create-game-character.dto';
 import { UpdateGameCharacterDto } from './dto/update-game-character.dto';
-import { GameCharacter, Game, Character } from '../../entities';
+import {
+  GameCharacter,
+  Game,
+  Character,
+  GameRoom,
+  GameResource,
+} from '../../entities';
+import { AddGameCharacterDto } from './dto/add-game-character.dto';
 
 @Injectable()
 export class GameCharactersService {
@@ -14,6 +21,10 @@ export class GameCharactersService {
     private gamesRepository: Repository<Game>,
     @InjectRepository(Character)
     private charactersRepository: Repository<Character>,
+    @InjectRepository(GameRoom)
+    private gameRoomsRepository: Repository<GameRoom>,
+    @InjectRepository(GameResource)
+    private gameResourcesRepository: Repository<GameResource>,
   ) {}
 
   async create(createGameCharacterDto: CreateGameCharacterDto) {
@@ -81,5 +92,61 @@ export class GameCharactersService {
 
   async remove(id: number): Promise<void> {
     await this.gameCharactersRepository.delete(id);
+  }
+
+  async addCharacter(
+    gameId,
+    idGameCharacter,
+    addGameCharacterDto: AddGameCharacterDto,
+  ) {
+    const gameChar = await this.gameCharactersRepository
+      .createQueryBuilder('gameCharacter')
+      .innerJoinAndSelect('gameCharacter.character', 'character')
+      .innerJoinAndSelect('character.room', 'room')
+      .innerJoinAndSelect('room.gameRooms', 'gameRooms')
+      .innerJoinAndSelect('gameCharacter.game', 'game')
+      .innerJoinAndSelect('game.gameResources', 'gameResources')
+      .innerJoinAndSelect('gameResources.resource', 'resource')
+      .where('gameCharacter.id = :idGameCharacter', { idGameCharacter })
+      .andWhere('gameRooms.gameId = gameCharacter.gameId')
+      .andWhere('resource.name = :name', { name: 'DevDollars' })
+      .andWhere('game.id = :gameId', { gameId })
+      .getOne();
+    const countSizeGameRoom =
+      gameChar.character.size * addGameCharacterDto.quantity +
+      gameChar.character.room.gameRooms[0].size;
+
+    const countQuantityDevDollars =
+      gameChar.character.price * addGameCharacterDto.quantity;
+
+    if (countSizeGameRoom <= gameChar.character.room.gameRooms[0].totalSize) {
+      if (countQuantityDevDollars <= gameChar.game.gameResources[0].quantity) {
+        const newQuantityGameCharacter =
+          gameChar.quantity + addGameCharacterDto.quantity;
+
+        const newQuantityDevDollars =
+          gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
+
+        await this.gameRoomsRepository.update(
+          gameChar.character.room.gameRooms[0].id,
+          {
+            size: countSizeGameRoom,
+          },
+        );
+
+        await this.gameResourcesRepository.update(
+          gameChar.game.gameResources[0].id,
+          { quantity: newQuantityDevDollars },
+        );
+
+        await this.gameCharactersRepository.update(idGameCharacter, {
+          quantity: newQuantityGameCharacter,
+        });
+
+        return true;
+      }
+    } else {
+      return false;
+    }
   }
 }

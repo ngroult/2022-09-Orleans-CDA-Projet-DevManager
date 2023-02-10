@@ -607,7 +607,7 @@ export class ForgeService {
 
     const gameResources = [
       {
-        quantity: 0,
+        quantity: 1010,
         gameId: game1.id,
         resourceId: resource1.id,
       },
