@@ -97,7 +97,7 @@ const RoomPage = () => {
             <Image src="/overview.jpg" alt="overview" />
           </Box>
           {gameRoom && gameEvents && gameCharacters && (
-            <VStack>
+            <VStack pt="100px">
               {gameCharacters
                 .filter(
                   (gameCharacter) =>

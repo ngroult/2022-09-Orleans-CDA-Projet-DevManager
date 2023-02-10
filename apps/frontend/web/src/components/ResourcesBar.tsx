@@ -11,6 +11,7 @@ import {
   IconButton,
   Grid,
   GridItem,
+  Divider,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
@@ -85,26 +86,35 @@ const ResourcesBar = () => {
   }, []);
 
   return (
-    <Box position="absolute" top="0">
+    <Box
+      position="absolute"
+      top="0"
+      py="12px"
+      borderBottom={'1px solid grey'}
+      width={'100%'}
+    >
       <Flex minWidth="max-content" gap="2" pl="80px">
         <HStack display={{ base: 'none', md: 'flex' }}>
-          <Box boxSize="30px">
+          <Box boxSize="40px">
             <Image src="/company4.png" placeholder="my_company" />
           </Box>
-          <Box>{'My Company'}</Box>
+          <Box pl="12px" fontSize={'35'}>
+            {'My Company Name'}
+          </Box>
         </HStack>
         <Spacer display={{ base: 'none', md: 'flex' }} />
         {gameRoom && (
           <>
-            <VStack display={{ base: 'none', md: 'flex' }}>
+            <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
               <Box>{'Remaining'}</Box>
-              <HStack>
+              <HStack color={'red'}>
                 <Box>{gameRoom.size}</Box>
                 <Box boxSize="30px">
                   <Image src="/area.png" />
                 </Box>
               </HStack>
             </VStack>
+            <Divider orientation="vertical" borderColor="black" height="65px" />
             <VStack display={{ base: 'none', md: 'flex' }}>
               <Box>{'Total'}</Box>
               <HStack>
@@ -151,6 +161,7 @@ const ResourcesBar = () => {
             display={{ base: 'none', md: 'flex' }}
             colorScheme="white"
             onClick={onOpenModalResources}
+            pr="100px"
           >
             <Image src="/more.png" boxSize="30px" />
           </Button>
