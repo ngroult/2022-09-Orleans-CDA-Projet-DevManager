@@ -89,8 +89,9 @@ const ResourcesBar = () => {
     <Box
       position="absolute"
       top="0"
-      py="12px"
+      py="7px"
       borderBottom={'1px solid grey'}
+      borderBottomWidth={'90%'}
       width={'100%'}
     >
       <Flex minWidth="max-content" gap="2" pl="80px">
