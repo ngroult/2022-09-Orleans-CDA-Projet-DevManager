@@ -17,17 +17,7 @@ const NavbarRooms = () => {
       signal: abortController.signal,
     })
       .then((data) => data.json())
-      .then((data) => {
-        data.sort((a: GameRoom, b: GameRoom): number => {
-          if (a.room.order < b.room.order) return -1;
-          else if (a.room.order === b.room.order) {
-            if (a.room.price < b.room.price) return -1;
-            else return 1;
-          } else return 1;
-        });
-
-        setGameRooms(data);
-      });
+      .then((data) => setGameRooms(data));
     return () => {
       abortController.abort();
     };

@@ -29,7 +29,6 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-
         setGameRoom(jsonResponse);
       } catch {}
     };
@@ -50,15 +49,6 @@ const RoomPage = () => {
           signal: abortController.signal,
         });
         const jsonResponse = await res.json();
-
-        jsonResponse.sort((a: GameCharacter, b: GameCharacter): number => {
-          if (a.character.order < b.character.order) return -1;
-          else if (a.character.order === b.character.order) {
-            if (a.character.price < b.character.price) return -1;
-            else return 1;
-          } else return 1;
-        });
-
         setGameCharacters(jsonResponse);
       } catch {}
     };

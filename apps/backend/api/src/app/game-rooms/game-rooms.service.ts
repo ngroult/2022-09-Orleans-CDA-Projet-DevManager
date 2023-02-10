@@ -49,9 +49,17 @@ export class GameRoomsService {
   }
 
   async findAll(gameId: number) {
-    return this.gameRoomsRepository.find({
+    const data = await this.gameRoomsRepository.find({
       where: { game: { id: gameId } },
       relations: { game: true, room: true },
+    });
+
+    return data.sort((a: GameRoom, b: GameRoom): number => {
+      if (a.room.order < b.room.order) return -1;
+      else if (a.room.order === b.room.order) {
+        if (a.room.price < b.room.price) return -1;
+        else return 1;
+      } else return 1;
     });
   }
 
