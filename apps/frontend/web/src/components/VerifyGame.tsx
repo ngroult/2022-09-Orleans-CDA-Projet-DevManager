@@ -9,7 +9,7 @@ const VerifyGame = ({
   children: ReactNode;
   gameRequired: boolean;
 }) => {
-  const { user, isLoadingUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   const [hasAGame, setHasAGame] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
