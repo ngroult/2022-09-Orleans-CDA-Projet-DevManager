@@ -56,9 +56,9 @@ BEGIN
             ge.id AS gameEventId
         FROM
             game_character gc
-            LEFT JOIN resource_used ru ON ru.characterId = gc.id AND ru.resourceId = resourceId
-            LEFT JOIN resource_produced rp ON rp.characterId = gc.id AND rp.resourceId = resourceId
-            LEFT JOIN bonus_malus bm ON bm.characterId = gc.id AND bm.type = "production"
+            LEFT JOIN resource_used ru ON ru.characterId = gc.characterId AND ru.resourceId = resourceId
+            LEFT JOIN resource_produced rp ON rp.characterId = gc.characterId AND rp.resourceId = resourceId
+            LEFT JOIN bonus_malus bm ON bm.characterId = gc.characterId AND bm.type = "production"
             LEFT JOIN game_event ge ON ge.eventId = bm.eventId AND ge.gameId = gameId AND NOW() BETWEEN ge.startDate AND ge.endDate
         WHERE gc.gameId = gameId;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET character_loop_done = TRUE;
@@ -88,9 +88,9 @@ BEGIN
 
         IF usedQuantity IS NOT NULL THEN
             IF gameEventId IS NOT NULL AND isBonus IS FALSE THEN
-                SET @newQuantity = @newQuantity + (characterQuantity * usedQuantity * (bonusRate / 100));
+                SET @newQuantity = @newQuantity - (characterQuantity * usedQuantity * (bonusRate / 100));
             ELSE 
-                SET @newQuantity = @newQuantity + characterQuantity * usedQuantity;
+                SET @newQuantity = @newQuantity - characterQuantity * usedQuantity;
             END IF;
         END IF;
 
