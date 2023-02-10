@@ -65,6 +65,14 @@ const ResourcesBar = () => {
     })
       .then((data) => data.json())
       .then((data) => {
+        data.sort((a: GameResource, b: GameResource): number => {
+          if (a.resource.order < b.resource.order) return -1;
+          else if (a.resource.order === b.resource.order) {
+            if (a.resource.name < b.resource.name) return -1;
+            else return 1;
+          } else return 1;
+        });
+
         setResources(data);
       });
 

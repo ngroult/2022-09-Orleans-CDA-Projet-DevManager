@@ -23,8 +23,11 @@ export class Room {
   @Column('varchar', { length: 15 })
   color: string;
 
-  @Column({ type: 'int', width: 200 })
+  @Column({ type: 'int', width: 12 })
   price: number;
+
+  @Column({ type: 'int', width: 3 })
+  order: number;
 
   @Column({ type: 'boolean' })
   isExpandable: boolean;

@@ -29,6 +29,9 @@ export class Event {
   @Column()
   price: number;
 
+  @Column({ type: 'int', width: 3 })
+  order: number;
+
   @Column()
   duration: number;
 
