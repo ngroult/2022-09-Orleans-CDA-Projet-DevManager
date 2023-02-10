@@ -37,32 +37,6 @@ const ResourcesBar = () => {
 
   const { label } = useParams();
 
-  const countSizeCharacters = () => {
-    let sizeAllCharacters = 0;
-    if (gameRoom && gameCharacters) {
-      for (let i = 0; i < gameCharacters.length; i++) {
-        if (gameRoom.id === gameCharacters[i].character.room.id) {
-          if (gameCharacters[i].quantity != 0) {
-            sizeAllCharacters +=
-              gameCharacters[i].quantity * gameCharacters[i].character.size;
-          }
-        }
-      }
-      if (sizeAllCharacters > gameRoom.size) {
-        fetch(`/api/game-rooms/${gameRoom.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            size: sizeAllCharacters,
-          }),
-        });
-      }
-    }
-    return sizeAllCharacters;
-  };
-
   useEffect(() => {
     const abortController = new AbortController();
     const handleRoom = async () => {
@@ -73,7 +47,6 @@ const ResourcesBar = () => {
         });
         const jsonResponse = await res.json();
         setGameRoom(jsonResponse);
-        countSizeCharacters();
       } catch {}
     };
     handleRoom();

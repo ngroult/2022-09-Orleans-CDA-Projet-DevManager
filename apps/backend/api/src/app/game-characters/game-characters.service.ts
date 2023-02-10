@@ -101,12 +101,12 @@ export class GameCharactersService {
   ) {
     const gameChar = await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
-      .leftJoinAndSelect('gameCharacter.character', 'character')
-      .leftJoinAndSelect('character.room', 'room')
-      .leftJoinAndSelect('room.gameRooms', 'gameRooms')
-      .leftJoinAndSelect('gameCharacter.game', 'game')
-      .leftJoinAndSelect('game.gameResources', 'gameResources')
-      .leftJoinAndSelect('gameResources.resource', 'resource')
+      .innerJoinAndSelect('gameCharacter.character', 'character')
+      .innerJoinAndSelect('character.room', 'room')
+      .innerJoinAndSelect('room.gameRooms', 'gameRooms')
+      .innerJoinAndSelect('gameCharacter.game', 'game')
+      .innerJoinAndSelect('game.gameResources', 'gameResources')
+      .innerJoinAndSelect('gameResources.resource', 'resource')
       .where('gameCharacter.id = :idGameCharacter', { idGameCharacter })
       .andWhere('gameRooms.gameId = gameCharacter.gameId')
       .andWhere('resource.name = :name', { name: 'DevDollars' })
@@ -115,27 +115,34 @@ export class GameCharactersService {
     const countSizeGameRoom =
       gameChar.character.size * addGameCharacterDto.quantity +
       gameChar.character.room.gameRooms[0].size;
+
     const countQuantityDevDollars =
       gameChar.character.price * addGameCharacterDto.quantity;
+
     if (countSizeGameRoom <= gameChar.character.room.gameRooms[0].totalSize) {
       if (countQuantityDevDollars <= gameChar.game.gameResources[0].quantity) {
         const newQuantityGameCharacter =
           gameChar.quantity + addGameCharacterDto.quantity;
+
         const newQuantityDevDollars =
           gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
+
         await this.gameRoomsRepository.update(
           gameChar.character.room.gameRooms[0].id,
           {
             size: countSizeGameRoom,
           },
         );
+
         await this.gameResourcesRepository.update(
           gameChar.game.gameResources[0].id,
           { quantity: newQuantityDevDollars },
         );
+
         await this.gameCharactersRepository.update(idGameCharacter, {
           quantity: newQuantityGameCharacter,
         });
+
         return true;
       }
     } else {
