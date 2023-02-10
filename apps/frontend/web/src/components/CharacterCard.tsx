@@ -57,7 +57,7 @@ function CharacterCard({
       if (jsonResponse) {
         toast({
           title: `Hire ${gameCharacter.character.name}`,
-          description: `Congratulations, you hired : ${gameCharacter.character.name}!`,
+          description: `Congratulations, you hired: ${gameCharacter.character.name}!`,
           status: 'success',
           duration: 9000,
           isClosable: true,
