@@ -12,6 +12,7 @@ import {
   ModalContent,
   Text,
   HStack,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import BadgeResource from '../BadgeResource';
 
@@ -29,6 +30,7 @@ function EventModal({
   return (
     <Box>
       <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+        <ModalOverlay />
         <ModalContent bg={`${gameEvent.event.room.color}.200`}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>
@@ -62,7 +64,7 @@ function EventModal({
                         p="1"
                       />
                       <Text fontSize={'lg'} as="b">
-                        {`$ ${gameEvent.event.price}`}
+                        {`${gameEvent.event.price}`}
                       </Text>
                     </Flex>
                   </Badge>

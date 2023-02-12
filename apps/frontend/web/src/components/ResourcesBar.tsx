@@ -11,6 +11,7 @@ import {
   IconButton,
   Grid,
   GridItem,
+  Divider,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
@@ -79,12 +80,19 @@ const ResourcesBar = () => {
   }, []);
 
   return (
-    <Box position="absolute" top="0">
+    <Box
+      position="absolute"
+      top="0"
+      py="7px"
+      borderBottom={'1px solid grey'}
+      borderBottomWidth={'90%'}
+      width={'100%'}
+    >
       <Flex minWidth="max-content" gap="2" pl="80px">
         {gameRoom ? (
           <>
             <HStack display={{ base: 'none', md: 'flex' }}>
-              <Box boxSize="30px">
+              <Box boxSize="40px">
                 <Image
                   src={gameRoom.room.image}
                   placeholder={gameRoom.room.label}
@@ -92,7 +100,7 @@ const ResourcesBar = () => {
               </Box>
               <Text
                 as="b"
-                fontSize={{ base: 'xl', xl: '2xl' }}
+                fontSize={{ base: 'xl', xl: '3xl' }}
                 fontFamily="heading"
                 color={`${gameRoom.room.color}.900`}
               >
@@ -102,15 +110,16 @@ const ResourcesBar = () => {
             <Spacer
               display={{ base: 'none', xl: 'flex', lg: 'flex', md: 'flex' }}
             />
-            <VStack display={{ base: 'none', md: 'flex' }}>
+            <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
               <Box>{'Remaining'}</Box>
-              <HStack>
+              <HStack color={'red'}>
                 <Box>{gameRoom.size}</Box>
                 <Box boxSize="30px">
                   <Image src="/area.png" />
                 </Box>
               </HStack>
             </VStack>
+            <Divider orientation="vertical" borderColor="black" height="65px" />
             <VStack display={{ base: 'none', md: 'flex' }}>
               <Box>{'Total'}</Box>
               <HStack>
@@ -164,6 +173,7 @@ const ResourcesBar = () => {
             display={{ base: 'none', md: 'flex' }}
             colorScheme="white"
             onClick={onOpenModalResources}
+            pr="100px"
           >
             <Image src="/more.png" boxSize="30px" />
           </Button>

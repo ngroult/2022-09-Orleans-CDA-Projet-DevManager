@@ -29,6 +29,16 @@ export class GameResourcesController {
     const gameId = req.signedCookies['game'];
     return this.gameResourcesService.findAll(gameId);
   }
+  @UseGuards(JwtAuthGuard)
+  @Get('/all')
+  findResourcesUserGame() {
+    return this.gameResourcesService.findResourcesUserGame();
+  }
+  @UseGuards(JwtAuthGuard)
+  @Get('/details/:id')
+  findByUserId(@Param('id') id: string) {
+    return this.gameResourcesService.findByUserId(+id);
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/with-resources-used-and-produced')

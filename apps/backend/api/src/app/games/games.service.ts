@@ -15,14 +15,16 @@ export class GamesService {
     return await this.gamesRepository.save(createGameDto);
   }
 
-  async findAll(gameId: number) {
-    return this.gamesRepository.find({
-      where: { id: gameId },
-      relations: {
-        user: true,
-        image: true,
-      },
-    });
+  async findAll() {
+    return this.gamesRepository.find();
+  }
+
+  async verifyGame(id: number) {
+    return this.gamesRepository
+      .createQueryBuilder('game')
+      .leftJoinAndSelect('game.user', 'user')
+      .where('user.id = :id', { id: id })
+      .getCount();
   }
 
   async findOne(id: number): Promise<Game[]> {
@@ -46,7 +48,7 @@ export class GamesService {
     await this.gamesRepository.softDelete(id);
   }
 
-  async findByUser(id: number) {
+  async findOneByUser(id: number) {
     return this.gamesRepository.findOne({
       select: ['id'],
       where: { user: { id } },
