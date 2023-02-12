@@ -16,11 +16,11 @@ import { GameResource } from '@apps/backend-api';
 function DrawerResources({
   isOpen,
   onClose,
-  resources,
+  gameResources,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  resources: GameResource[];
+  gameResources: GameResource[];
 }) {
   return (
     <>
@@ -31,11 +31,11 @@ function DrawerResources({
           <DrawerHeader borderBottomWidth="1px">{'Resources'}</DrawerHeader>
           <DrawerBody>
             <Wrap justifyContent="space-between">
-              {resources.map((resource) => (
+              {gameResources.map((gameResource) => (
                 <WrapItem
                   display={{}}
-                  key={resource.id}
-                  bg={resource.resource.color}
+                  key={gameResource.id}
+                  bg={gameResource.resource.color}
                   px="10px"
                   py="5px"
                   borderRadius="20px"
@@ -43,9 +43,9 @@ function DrawerResources({
                 >
                   <HStack>
                     <Box boxSize="30px">
-                      <Image src={resource.resource.image} />
+                      <Image src={gameResource.resource.image} />
                     </Box>
-                    <Box> {resource.quantity}</Box>
+                    <Box> {gameResource.quantity}</Box>
                   </HStack>
                 </WrapItem>
               ))}

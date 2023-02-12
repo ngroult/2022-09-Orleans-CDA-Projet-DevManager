@@ -30,6 +30,15 @@ export class GameResourcesController {
     return this.gameResourcesService.findAll(gameId);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get('/with-resources-used-and-produced')
+  findAllWithResourcesUsedAndProduced(@Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gameResourcesService.findAllWithResourcesUsedAndProduced(
+      gameId,
+    );
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.gameResourcesService.findOne(+id);

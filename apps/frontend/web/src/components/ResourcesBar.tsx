@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
 import ModalResources from './ModalResources';
-import { GameCharacter, GameResource, GameRoom } from '@apps/backend-api';
+import { GameResource, GameRoom } from '@apps/backend-api';
 import DrawerResources from './DrawerResources';
 import { useParams } from 'react-router-dom';
 
@@ -31,9 +31,8 @@ const ResourcesBar = () => {
     onClose: onCloseDrawerResources,
   } = useDisclosure();
 
-  const [resources, setResources] = useState<GameResource[]>([]);
-  const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
   const [gameRoom, setGameRoom] = useState<GameRoom>();
+  const [gameResources, setGameResources] = useState<GameResource[]>([]);
 
   const { label } = useParams();
 
@@ -59,26 +58,21 @@ const ResourcesBar = () => {
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch('/api/game-resources', {
-      method: 'GET',
-      signal: abortController.signal,
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        setResources(data);
-      });
-
-    const handleCharacters = async () => {
+    const handleGameResourcesAndCharacters = async () => {
       try {
-        const res = await fetch(`/api/game-characters`, {
-          method: 'GET',
-          signal: abortController.signal,
-        });
+        const res = await fetch(
+          `/api/game-resources/with-resources-used-and-produced`,
+          {
+            method: 'GET',
+            signal: abortController.signal,
+          }
+        );
         const jsonResponse = await res.json();
-        setGameCharacters(jsonResponse);
+        setGameResources(jsonResponse);
       } catch {}
     };
-    handleCharacters();
+    handleGameResourcesAndCharacters();
+
     return () => {
       abortController.abort();
     };
@@ -87,15 +81,27 @@ const ResourcesBar = () => {
   return (
     <Box position="absolute" top="0">
       <Flex minWidth="max-content" gap="2" pl="80px">
-        <HStack display={{ base: 'none', md: 'flex' }}>
-          <Box boxSize="30px">
-            <Image src="/company4.png" placeholder="my_company" />
-          </Box>
-          <Box>{'My Company'}</Box>
-        </HStack>
-        <Spacer display={{ base: 'none', md: 'flex' }} />
-        {gameRoom && (
+        {gameRoom ? (
           <>
+            <HStack display={{ base: 'none', md: 'flex' }}>
+              <Box boxSize="30px">
+                <Image
+                  src={gameRoom.room.image}
+                  placeholder={gameRoom.room.label}
+                />
+              </Box>
+              <Text
+                as="b"
+                fontSize={{ base: 'xl', xl: '2xl' }}
+                fontFamily="heading"
+                color={`${gameRoom.room.color}.900`}
+              >
+                {gameRoom.room.name}
+              </Text>
+            </HStack>
+            <Spacer
+              display={{ base: 'none', xl: 'flex', lg: 'flex', md: 'flex' }}
+            />
             <VStack display={{ base: 'none', md: 'flex' }}>
               <Box>{'Remaining'}</Box>
               <HStack>
@@ -115,6 +121,13 @@ const ResourcesBar = () => {
               </HStack>
             </VStack>
           </>
+        ) : (
+          <HStack display={{ base: 'none', md: 'flex' }}>
+            <Box boxSize="30px">
+              <Image src="/company4.png" placeholder="my_company" />
+            </Box>
+            <Box>{'My Company'}</Box>
+          </HStack>
         )}
         <Spacer display={{ base: 'none', md: 'flex' }} />
         <HStack>
@@ -127,10 +140,10 @@ const ResourcesBar = () => {
                 }}
                 gap={2}
               >
-                {resources.map((resource) => (
+                {gameResources.map((gameResource) => (
                   <GridItem
-                    key={resource.id}
-                    bg={resource.resource.color}
+                    key={gameResource.id}
+                    bg={gameResource.resource.color}
                     px="10px"
                     py="5px"
                     borderRadius="20px"
@@ -138,9 +151,9 @@ const ResourcesBar = () => {
                   >
                     <HStack>
                       <Box boxSize="30px">
-                        <Image src={resource.resource.image} />
+                        <Image src={gameResource.resource.image} />
                       </Box>
-                      <Box> {resource.quantity}</Box>
+                      <Box> {gameResource.quantity}</Box>
                     </HStack>
                   </GridItem>
                 ))}
@@ -155,7 +168,7 @@ const ResourcesBar = () => {
             <Image src="/more.png" boxSize="30px" />
           </Button>
           <IconButton
-            display={{ base: 'flex', md: 'none' }}
+            display={{ base: 'none', md: 'flex' }}
             size="md"
             aria-label="Resources"
             icon={<ArrowDownIcon />}
@@ -169,32 +182,78 @@ const ResourcesBar = () => {
         </HStack>
       </Flex>
       <Flex minWidth="max-content" alignItems="center" gap="2" pl="80px">
-        <HStack py="10px" display={{ base: 'flex', md: 'none', sm: 'flex' }}>
-          <Box boxSize="30px">
-            <Image src="/company4.png" placeholder="my_company" />
-          </Box>
-          <Box fontSize="xl">{'My Company'}</Box>
-          <Spacer />
-          <Box bgColor="gray.200" rounded="5px" p="5px">
-            <HStack>
+        {gameRoom ? (
+          <>
+            <HStack
+              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+            >
               <Box boxSize="30px">
-                <Image src="/area.png" />
+                <Image
+                  src={gameRoom.room.image}
+                  placeholder={gameRoom.room.label}
+                />
               </Box>
-              <Text>{'50'}</Text>
+              <Text
+                as="b"
+                fontSize={{ base: 'xl', xl: '2xl' }}
+                fontFamily="heading"
+                color={`${gameRoom.room.color}.900`}
+              >
+                {gameRoom.room.name}
+              </Text>
             </HStack>
-          </Box>
-        </HStack>
+            <Spacer
+              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+            />
+            <VStack
+              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+            >
+              <Box>{'Remaining'}</Box>
+              <HStack>
+                <Box>{gameRoom.size}</Box>
+                <Box boxSize="30px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </VStack>
+            <VStack
+              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+            >
+              <Box>{'Total'}</Box>
+              <HStack>
+                <Box>{gameRoom.totalSize}</Box>
+                <Box boxSize="30px">
+                  <Image src="/area.png" />
+                </Box>
+              </HStack>
+            </VStack>
+          </>
+        ) : (
+          <HStack py="10px" display={{ base: 'flex', md: 'none', sm: 'flex' }}>
+            <Box boxSize="30px">
+              <Image src="/company4.png" placeholder="my_company" />
+            </Box>
+            <Box fontSize="xl">{'My Company'}</Box>
+            <Spacer />
+          </HStack>
+        )}
       </Flex>
-      <ModalResources
-        isOpen={isOpenModalResources}
-        onClose={onCloseModalResources}
-        resources={resources}
-      />
-      <DrawerResources
-        isOpen={isOpenDrawerResources}
-        onClose={onCloseDrawerResources}
-        resources={resources}
-      />
+      {gameResources ? (
+        <>
+          <ModalResources
+            isOpen={isOpenModalResources}
+            onClose={onCloseModalResources}
+            gameResources={gameResources}
+          />
+          <DrawerResources
+            isOpen={isOpenDrawerResources}
+            onClose={onCloseDrawerResources}
+            gameResources={gameResources}
+          />
+        </>
+      ) : (
+        <></>
+      )}
     </Box>
   );
 };

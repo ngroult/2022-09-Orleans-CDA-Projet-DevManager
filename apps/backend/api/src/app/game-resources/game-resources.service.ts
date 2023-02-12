@@ -55,6 +55,23 @@ export class GameResourcesService {
     });
   }
 
+  async findAllWithResourcesUsedAndProduced(gameId: number) {
+    return this.gameResourcesRepository
+      .createQueryBuilder('gameResources')
+      .innerJoinAndSelect('gameResources.resource', 'resource')
+      .innerJoinAndSelect('resource.resourcesUsed', 'resourcesUsed')
+      .innerJoinAndSelect('resource.resourcesProduced', 'resourcesProduced')
+      .innerJoinAndSelect('resourcesUsed.character', 'character')
+      .innerJoinAndSelect('character.gameCharacters', 'gameCharacters')
+      .innerJoinAndSelect('resourcesProduced.character', 'character1')
+      .innerJoinAndSelect('character1.gameCharacters', 'gameCharacters1')
+      .where('gameResources.resourceId = resource.id')
+      .andWhere('gameResources.gameId = :gameId', { gameId })
+      .andWhere('resourcesUsed.characterId = gameCharacters.characterId')
+      .andWhere('resourcesProduced.characterId = gameCharacters1.characterId')
+      .getMany();
+  }
+
   async findOne(id: number): Promise<GameResource[]> {
     return this.gameResourcesRepository.find({
       select: ['quantity'],

@@ -21,11 +21,11 @@ import { ArrowUpIcon } from '@chakra-ui/icons';
 function ModalResources({
   isOpen,
   onClose,
-  resources,
+  gameResources,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  resources: GameResource[];
+  gameResources: GameResource[];
 }) {
   return (
     <>
@@ -36,22 +36,22 @@ function ModalResources({
           <ModalCloseButton />
           <ModalBody>
             <Wrap justifyContent="space-between">
-              {resources.map((resource) => (
-                <WrapItem key={resource.id}>
+              {gameResources.map((gameResource) => (
+                <WrapItem key={gameResource.id}>
                   <Box px="10px" py="5px">
                     <Flex>
                       <VStack>
                         <Box boxSize="60px">
-                          <Image src={resource.resource.image} />
+                          <Image src={gameResource.resource.image} />
                         </Box>
                         <Text fontSize="20px" fontWeight="bold">
-                          {resource.resource.name}
+                          {gameResource.resource.name}
                         </Text>
                         <HStack>
                           <Text>{'Production:'}</Text>
                           <Box
                             rounded="10px"
-                            bgColor={resource.resource.color}
+                            bgColor={gameResource.resource.color}
                             px="10px"
                             py="5px"
                             borderRadius="20px"
@@ -59,7 +59,7 @@ function ModalResources({
                           >
                             <HStack>
                               <Box boxSize="25px">
-                                <Image src={resource.resource.image} />
+                                <Image src={gameResource.resource.image} />
                               </Box>
                               <Text>{'11111'}</Text>
                               <Text>{'/min'}</Text>
@@ -75,7 +75,7 @@ function ModalResources({
                           <Text>{'Total:'}</Text>
                           <Box
                             rounded="10px"
-                            bgColor={resource.resource.color}
+                            bgColor={gameResource.resource.color}
                             px="10px"
                             py="5px"
                             borderRadius="20px"
@@ -83,31 +83,53 @@ function ModalResources({
                           >
                             <HStack>
                               <Box boxSize="25px">
-                                <Image src={resource.resource.image} />
+                                <Image src={gameResource.resource.image} />
                               </Box>
-                              <Text>{resource.quantity}</Text>
+                              <Text>{gameResource.quantity}</Text>
                             </HStack>
                           </Box>
                         </HStack>
                         <Text>{'Produced and used by:'}</Text>
                         <Box>
                           <HStack>
-                            <Box rounded="5px" bgColor="green.900" px="10px">
-                              <HStack>
-                                <Box boxSize="30px">
-                                  <Image />
+                            {gameResource.resource.resourcesUsed.map(
+                              (resourceUsed) => (
+                                <Box
+                                  rounded="5px"
+                                  bgColor="green.900"
+                                  px="10px"
+                                >
+                                  <HStack>
+                                    <Box boxSize="30px">
+                                      <Image
+                                        src={resourceUsed.character.image}
+                                        alt={resourceUsed.character.name}
+                                      />
+                                    </Box>
+                                    <Text>{resourceUsed.character.name}</Text>
+                                  </HStack>
                                 </Box>
-                                <Text>{'Name dev'}</Text>
-                              </HStack>
-                            </Box>
-                            <Box rounded="5px" bgColor="red.900" px="10px">
-                              <HStack>
-                                <Box boxSize="30px">
-                                  <Image />
+                              )
+                            )}
+                            ;
+                            {gameResource.resource.resourcesProduced.map(
+                              (resourceProduced) => (
+                                <Box rounded="5px" bgColor="red.900" px="10px">
+                                  <HStack>
+                                    <Box boxSize="30px">
+                                      <Image
+                                        src={resourceProduced.character.image}
+                                        alt={resourceProduced.character.name}
+                                      />
+                                    </Box>
+                                    <Text>
+                                      {resourceProduced.character.name}
+                                    </Text>
+                                  </HStack>
                                 </Box>
-                                <Text>{'Name dev'}</Text>
-                              </HStack>
-                            </Box>
+                              )
+                            )}
+                            ;
                           </HStack>
                         </Box>
                       </VStack>
