@@ -3,7 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateGameRoomDto } from './dto/create-game-room.dto';
 import { UpdateGameRoomDto } from './dto/update-game-room.dto';
-import { GameRoom, Room, Game } from '../../entities';
+import { UpdateTotalSizeGameRoomDto } from './dto/update-total-size-game-room.dto';
+import { GameRoom, Room, Game, GameResource } from '../../entities';
+import { count } from 'console';
 
 @Injectable()
 export class GameRoomsService {
@@ -14,6 +16,8 @@ export class GameRoomsService {
     private gamesRepository: Repository<Game>,
     @InjectRepository(Room)
     private roomsRepository: Repository<Room>,
+    @InjectRepository(GameResource)
+    private gameResourcesRepository: Repository<GameResource>,
   ) {}
 
   async create(createGameRoomDto: CreateGameRoomDto) {
@@ -79,6 +83,43 @@ export class GameRoomsService {
     updateGameRoomsDto: UpdateGameRoomDto,
   ): Promise<UpdateResult> {
     return this.gameRoomsRepository.update(id, updateGameRoomsDto);
+  }
+
+  async updateTotaleSize(
+    id: number,
+    updateTotaleSizeDto: UpdateTotalSizeGameRoomDto,
+    gameId: number,
+  ) {
+    const gameRoom = await this.gameRoomsRepository
+      .createQueryBuilder('gameRoom')
+      .leftJoinAndSelect('gameRoom.game', 'game')
+      .leftJoinAndSelect('gameRoom.room', 'room')
+      .innerJoinAndSelect('game.gameResources', 'gameResources')
+      .innerJoinAndSelect('gameResources.resource', 'resource')
+      .where('gameRoom.id = :id', { id })
+      .andWhere('gameRoom.roomId = room.id')
+
+      .andWhere('gameRoom.gameId = :gameId', { gameId })
+      .andWhere('resource.name = :name', { name: 'DevDollars' })
+      .getOne();
+
+    if (gameRoom.room.price > gameRoom.game.gameResources[0].quantity) {
+      return false;
+    }
+
+    const newQuantityDevDollars =
+      gameRoom.game.gameResources[0].quantity - gameRoom.room.price;
+
+    await this.gameResourcesRepository.update(
+      gameRoom.game.gameResources[0].id,
+      { quantity: newQuantityDevDollars },
+    );
+
+    const newTotalSize = gameRoom.totalSize + updateTotaleSizeDto.totalSize;
+
+    await this.gameRoomsRepository.update(id, { totalSize: newTotalSize });
+
+    return true;
   }
 
   async remove(id: number): Promise<void> {

@@ -12,6 +12,7 @@ import {
 import { useParams } from 'react-router-dom';
 import CharacterCard from '../components/CharacterCard';
 import EventCard from '../components/EventCard';
+import MoreAreaCard from '../components/MoreAreaCard';
 
 const RoomPage = () => {
   const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
@@ -108,7 +109,6 @@ const RoomPage = () => {
                     key={gameCharacter.character.id}
                     gameCharacter={gameCharacter}
                     gameRoom={gameRoom}
-                    gameResources={gameResources}
                   />
                 ))}
               {gameEvents
@@ -122,6 +122,9 @@ const RoomPage = () => {
                     gameRoom={gameRoom}
                   />
                 ))}
+              {gameRoom.room.name !== 'Break Room' && (
+                <MoreAreaCard gameRoom={gameRoom} />
+              )}
             </VStack>
           )}
         </Flex>
