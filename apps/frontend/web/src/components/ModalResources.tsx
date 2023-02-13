@@ -98,6 +98,7 @@ function ModalResources({
                                   rounded="5px"
                                   bgColor="green.900"
                                   px="10px"
+                                  key={resourceProduced.id}
                                 >
                                   <HStack>
                                     <Box boxSize="30px">
@@ -116,7 +117,12 @@ function ModalResources({
                             ;
                             {gameResource.resource.resourcesUsed.map(
                               (resourceUsed) => (
-                                <Box rounded="5px" bgColor="red.900" px="10px">
+                                <Box
+                                  rounded="5px"
+                                  bgColor="red.900"
+                                  px="10px"
+                                  key={resourceUsed.id}
+                                >
                                   <HStack>
                                     <Box boxSize="30px">
                                       <Image
