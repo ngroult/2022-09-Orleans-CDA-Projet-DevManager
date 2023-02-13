@@ -15,18 +15,19 @@ import {
   Flex,
   Icon,
 } from '@chakra-ui/react';
-import { GameResource } from '@apps/backend-api';
 import { ArrowUpIcon } from '@chakra-ui/icons';
+import GameContext from '../contexts/GameContext';
+import { useContext } from 'react';
 
 function ModalResources({
   isOpen,
   onClose,
-  gameResources,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  gameResources: GameResource[];
 }) {
+  const { gameResources } = useContext(GameContext);
+
   return (
     <>
       <Modal onClose={onClose} size="5xl" isOpen={isOpen}>

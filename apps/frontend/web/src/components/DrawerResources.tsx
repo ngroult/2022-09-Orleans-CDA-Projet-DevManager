@@ -11,17 +11,18 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
-import { GameResource } from '@apps/backend-api';
+import GameContext from '../contexts/GameContext';
+import { useContext } from 'react';
 
 function DrawerResources({
   isOpen,
   onClose,
-  gameResources,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  gameResources: GameResource[];
 }) {
+  const { gameResources } = useContext(GameContext);
+
   return (
     <>
       <Drawer placement={'bottom'} onClose={onClose} isOpen={isOpen}>

@@ -13,12 +13,12 @@ import {
   GridItem,
   Divider,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
 import ModalResources from './ModalResources';
-import { GameResource, GameRoom } from '@apps/backend-api';
 import DrawerResources from './DrawerResources';
 import { useParams } from 'react-router-dom';
+import GameContext from '../contexts/GameContext';
 
 const ResourcesBar = () => {
   const {
@@ -32,10 +32,9 @@ const ResourcesBar = () => {
     onClose: onCloseDrawerResources,
   } = useDisclosure();
 
-  const [gameRoom, setGameRoom] = useState<GameRoom>();
-  const [gameResources, setGameResources] = useState<GameResource[]>([]);
-
   const { label } = useParams();
+  const { gameResources, setGameResources, gameRoom, setGameRoom } =
+    useContext(GameContext);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -51,8 +50,13 @@ const ResourcesBar = () => {
     };
     handleRoom();
 
+    const interval = setInterval(() => {
+      handleRoom();
+    }, 3000);
+
     return () => {
       abortController.abort();
+      clearInterval(interval);
     };
   }, [label]);
 
@@ -74,8 +78,13 @@ const ResourcesBar = () => {
     };
     handleGameResourcesAndCharacters();
 
+    const interval = setInterval(() => {
+      handleGameResourcesAndCharacters();
+    }, 3000);
+
     return () => {
       abortController.abort();
+      clearInterval(interval);
     };
   }, []);
 
@@ -253,12 +262,10 @@ const ResourcesBar = () => {
           <ModalResources
             isOpen={isOpenModalResources}
             onClose={onCloseModalResources}
-            gameResources={gameResources}
           />
           <DrawerResources
             isOpen={isOpenDrawerResources}
             onClose={onCloseDrawerResources}
-            gameResources={gameResources}
           />
         </>
       ) : (
