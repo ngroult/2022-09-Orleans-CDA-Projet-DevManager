@@ -17,7 +17,6 @@ import {
   GameRoom,
   ResourceUsed,
   ResourceProduced,
-  GameResource,
 } from '@apps/backend-api';
 import { useState, useEffect } from 'react';
 import CharacterModal from './popups/CharacterModal';
@@ -26,11 +25,9 @@ import BadgeResource from './BadgeResource';
 function CharacterCard({
   gameCharacter,
   gameRoom,
-  gameResources,
 }: {
   gameCharacter: GameCharacter;
   gameRoom: GameRoom;
-  gameResources: GameResource[];
 }) {
   const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
   const [resourcesProduced, setResourcesProduced] = useState<
@@ -196,7 +193,7 @@ function CharacterCard({
                 ml="5"
                 onClick={addCharacters}
               >
-                {`+ 1`}
+                {'+ 1'}
               </Button>
             </Box>
           </Flex>
