@@ -15,8 +15,8 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
-import ModalResources from './ModalResources';
-import DrawerResources from './DrawerResources';
+import ModalResources from './popups/ModalResources';
+import DrawerResources from './popups/DrawerResources';
 import { useParams } from 'react-router-dom';
 import GameContext from '../contexts/GameContext';
 

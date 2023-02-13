@@ -16,7 +16,7 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { ArrowUpIcon } from '@chakra-ui/icons';
-import GameContext from '../contexts/GameContext';
+import GameContext from '../../contexts/GameContext';
 import { useContext } from 'react';
 
 function ModalResources({

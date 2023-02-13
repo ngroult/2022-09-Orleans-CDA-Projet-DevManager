@@ -11,7 +11,7 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
-import GameContext from '../contexts/GameContext';
+import GameContext from '../../contexts/GameContext';
 import { useContext } from 'react';
 
 function DrawerResources({
