@@ -92,29 +92,13 @@ function ModalResources({
                         <Text>{'Produced and used by:'}</Text>
                         <Box>
                           <HStack>
-                            {gameResource.resource.resourcesUsed.map(
-                              (resourceUsed) => (
+                            {gameResource.resource.resourcesProduced.map(
+                              (resourceProduced) => (
                                 <Box
                                   rounded="5px"
                                   bgColor="green.900"
                                   px="10px"
                                 >
-                                  <HStack>
-                                    <Box boxSize="30px">
-                                      <Image
-                                        src={resourceUsed.character.image}
-                                        alt={resourceUsed.character.name}
-                                      />
-                                    </Box>
-                                    <Text>{resourceUsed.character.name}</Text>
-                                  </HStack>
-                                </Box>
-                              )
-                            )}
-                            ;
-                            {gameResource.resource.resourcesProduced.map(
-                              (resourceProduced) => (
-                                <Box rounded="5px" bgColor="red.900" px="10px">
                                   <HStack>
                                     <Box boxSize="30px">
                                       <Image
@@ -125,6 +109,22 @@ function ModalResources({
                                     <Text>
                                       {resourceProduced.character.name}
                                     </Text>
+                                  </HStack>
+                                </Box>
+                              )
+                            )}
+                            ;
+                            {gameResource.resource.resourcesUsed.map(
+                              (resourceUsed) => (
+                                <Box rounded="5px" bgColor="red.900" px="10px">
+                                  <HStack>
+                                    <Box boxSize="30px">
+                                      <Image
+                                        src={resourceUsed.character.image}
+                                        alt={resourceUsed.character.name}
+                                      />
+                                    </Box>
+                                    <Text>{resourceUsed.character.name}</Text>
                                   </HStack>
                                 </Box>
                               )

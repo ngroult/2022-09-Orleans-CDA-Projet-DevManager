@@ -60,16 +60,14 @@ export class GameResourcesService {
     return this.gameResourcesRepository
       .createQueryBuilder('gameResources')
       .innerJoinAndSelect('gameResources.resource', 'resource')
-      .innerJoinAndSelect('resource.resourcesUsed', 'resourcesUsed')
-      .innerJoinAndSelect('resource.resourcesProduced', 'resourcesProduced')
-      .innerJoinAndSelect('resourcesUsed.character', 'character')
-      .innerJoinAndSelect('character.gameCharacters', 'gameCharacters')
-      .innerJoinAndSelect('resourcesProduced.character', 'character1')
-      .innerJoinAndSelect('character1.gameCharacters', 'gameCharacters1')
+      .leftJoinAndSelect('resource.resourcesUsed', 'resourcesUsed')
+      .leftJoinAndSelect('resource.resourcesProduced', 'resourcesProduced')
+      .leftJoinAndSelect('resourcesUsed.character', 'character')
+      .leftJoinAndSelect('character.gameCharacters', 'gameCharacters')
+      .leftJoinAndSelect('resourcesProduced.character', 'character1')
+      .leftJoinAndSelect('character1.gameCharacters', 'gameCharacters1')
       .where('gameResources.resourceId = resource.id')
       .andWhere('gameResources.gameId = :gameId', { gameId })
-      .andWhere('resourcesUsed.characterId = gameCharacters.characterId')
-      .andWhere('resourcesProduced.characterId = gameCharacters1.characterId')
       .getMany();
   }
 
