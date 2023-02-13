@@ -103,6 +103,7 @@ function EventCard({
                 boxShadow="2xl"
                 size="lg"
                 color="white"
+                ml="5"
               >
                 {'+ 1'}
               </Button>
