@@ -120,34 +120,35 @@ export class GameCharactersService {
     const countQuantityDevDollars =
       gameChar.character.price * addGameCharacterDto.quantity;
 
-    if (countSizeGameRoom <= gameChar.character.room.gameRooms[0].totalSize) {
-      if (countQuantityDevDollars <= gameChar.game.gameResources[0].quantity) {
-        const newQuantityGameCharacter =
-          gameChar.quantity + addGameCharacterDto.quantity;
-
-        const newQuantityDevDollars =
-          gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
-
-        await this.gameRoomsRepository.update(
-          gameChar.character.room.gameRooms[0].id,
-          {
-            size: countSizeGameRoom,
-          },
-        );
-
-        await this.gameResourcesRepository.update(
-          gameChar.game.gameResources[0].id,
-          { quantity: newQuantityDevDollars },
-        );
-
-        await this.gameCharactersRepository.update(idGameCharacter, {
-          quantity: newQuantityGameCharacter,
-        });
-
-        return true;
-      }
-    } else {
+    if (countSizeGameRoom > gameChar.character.room.gameRooms[0].totalSize) {
       return false;
     }
+    if (countQuantityDevDollars > gameChar.game.gameResources[0].quantity) {
+      return false;
+    }
+
+    const newQuantityGameCharacter =
+      gameChar.quantity + addGameCharacterDto.quantity;
+
+    const newQuantityDevDollars =
+      gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
+
+    await this.gameRoomsRepository.update(
+      gameChar.character.room.gameRooms[0].id,
+      {
+        size: countSizeGameRoom,
+      },
+    );
+
+    await this.gameResourcesRepository.update(
+      gameChar.game.gameResources[0].id,
+      { quantity: newQuantityDevDollars },
+    );
+
+    await this.gameCharactersRepository.update(idGameCharacter, {
+      quantity: newQuantityGameCharacter,
+    });
+
+    return true;
   }
 }
