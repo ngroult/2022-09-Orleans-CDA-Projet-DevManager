@@ -60,12 +60,20 @@ export class AuthController {
   async logout(@Res({ passthrough: true }) res: Response) {
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
 
+    res.clearCookie('game', {
+      httpOnly: true,
+      sameSite: true,
+      secure: NODE_ENV === 'production',
+      signed: true,
+    });
+
     res.clearCookie('jwt', {
       httpOnly: true,
       sameSite: true,
       secure: NODE_ENV === 'production',
       signed: true,
     });
+
     return { status: 'ok' };
   }
 }
