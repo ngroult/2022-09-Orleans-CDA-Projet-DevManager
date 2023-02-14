@@ -122,7 +122,7 @@ export class GameCharactersService {
       .andWhere('resource.name = :name', { name: 'DevDollars' })
       .andWhere('game.id = :gameId', { gameId })
       .getOne();
-    let responseJson = { success: false };
+    const responseJson = { success: false };
 
     const countSizeGameRoom =
       gameChar.character.size * addGameCharacterDto.quantity +
@@ -159,7 +159,7 @@ export class GameCharactersService {
     await this.gameCharactersRepository.update(idGameCharacter, {
       quantity: newQuantityGameCharacter,
     });
-    responseJson = { success: true };
+    responseJson.success = true;
     return responseJson;
   }
 }
