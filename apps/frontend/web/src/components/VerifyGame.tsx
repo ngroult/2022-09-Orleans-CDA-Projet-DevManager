@@ -1,6 +1,7 @@
 import { useContext, ReactNode, useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
+import GameContext from '../contexts/GameContext';
 
 const VerifyGame = ({
   children,
@@ -10,6 +11,7 @@ const VerifyGame = ({
   gameRequired: boolean;
 }) => {
   const { user } = useContext(AuthContext);
+  const { isNewGameCreated } = useContext(GameContext);
 
   const [hasAGame, setHasAGame] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -35,7 +37,7 @@ const VerifyGame = ({
     return () => {
       abortController.abort();
     };
-  }, [user]);
+  }, [user, isNewGameCreated]);
 
   if (isLoading) {
     return null;

@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import AuthContext from '../contexts/AuthContext';
+import GameContext from '../contexts/GameContext';
 import { Game } from '@apps/backend-api';
 import { DeepPartial } from '@libs/typings';
 import fetchImages from '../utils/fetchImage';
@@ -25,6 +26,7 @@ const NewGame = () => {
   const navigate = useNavigate();
   const { onOpen, isOpen, onClose } = useDisclosure();
   const { user } = useContext(AuthContext);
+  const { setIsNewGameCreated } = useContext(GameContext);
 
   const {
     register,
@@ -72,7 +74,7 @@ const NewGame = () => {
         const resGameCookie = await reqGameCookie.json();
 
         if ((resGameCookie.status = 'OK')) {
-          console.log(resGameCookie);
+          setIsNewGameCreated(true);
           navigate('/game/overview');
         }
       }
