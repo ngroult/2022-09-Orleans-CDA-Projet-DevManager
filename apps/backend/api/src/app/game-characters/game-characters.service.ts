@@ -68,6 +68,10 @@ export class GameCharactersService {
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
+      .leftJoinAndSelect('character.resourcesUsed', 'resourcesUsed')
+      .leftJoinAndSelect('resourcesUsed.resource', 'resource')
+      .leftJoinAndSelect('character.resourcesProduced', 'resourcesProduced')
+      .leftJoinAndSelect('resourcesProduced.resource', 'resource1')
       .where('game.id = :gameId', { gameId })
       .orderBy('character.order', 'ASC')
       .getMany();
@@ -79,6 +83,11 @@ export class GameCharactersService {
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
+
+      .leftJoinAndSelect('character.resourcesUsed', 'resourcesUsed')
+      .leftJoinAndSelect('resourcesUsed.resource', 'resource')
+      .leftJoinAndSelect('character.resourcesProduced', 'resourcesProduced')
+      .leftJoinAndSelect('resourcesProduced.resource', 'resource1')
       .where('gameCharacter.id = :id', { id })
       .andWhere('game.id = :gameId', { gameId })
       .getOne();
