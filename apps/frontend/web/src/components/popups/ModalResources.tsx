@@ -115,7 +115,6 @@ function ModalResources({
                                 </Box>
                               )
                             )}
-                            ;
                             {gameResource.resource.resourcesUsed.map(
                               (resourceUsed) => (
                                 <Box
@@ -136,7 +135,6 @@ function ModalResources({
                                 </Box>
                               )
                             )}
-                            ;
                           </HStack>
                         </Box>
                       </VStack>
