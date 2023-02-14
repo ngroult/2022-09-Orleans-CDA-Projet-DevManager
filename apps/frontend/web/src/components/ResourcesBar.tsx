@@ -257,7 +257,8 @@ const ResourcesBar = () => {
                     borderRadius="20px"
                     boxShadow="xl"
                     display={{
-                      base: resource.resource.order > 2 ? 'none' : 'inherit',
+                      base:
+                        gameResource.resource.order > 2 ? 'none' : 'inherit',
                       xl: 'inherit',
                     }}
                   >
