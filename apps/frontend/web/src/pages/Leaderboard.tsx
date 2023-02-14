@@ -112,8 +112,8 @@ const Leaderboard = () => {
                 <Thead>
                   <Tr>
                     <Th>{'N°'}</Th>
-                    <Th>{'Player'}</Th>
-                    <Th>{'Company'}</Th>
+                    <Th pl={{ base: '0', md: '3rem' }}>{'Player'}</Th>
+                    <Th pl={{ base: '0', md: '3rem' }}>{'Company'}</Th>
                     <Th>{'Point'}</Th>
                   </Tr>
                 </Thead>
@@ -146,27 +146,28 @@ const Leaderboard = () => {
                         </Td>
                         <Td>
                           <Flex align={'center'}>
-                            {gameResources?.game?.user?.username}
                             <Image
+                              display={{ base: 'none', md: 'block' }}
                               src={`${gameResources?.game?.user?.image?.name}.png`}
                               alt="Profile picture"
                               w="8%"
-                              ml={'2rem'}
+                              mx={'2rem'}
                             />
+                            {gameResources?.game?.user?.username}
                           </Flex>
                         </Td>
                         <Td>
                           <Flex align={'center'}>
-                            {gameResources?.game?.companyName}
                             <Image
+                              display={{ base: 'none', md: 'block' }}
                               src={`${gameResources?.game?.image?.name}.png`}
                               alt="game picture"
                               w="8%"
-                              ml={'2rem'}
+                              mx={'2rem'}
                             />
+                            {gameResources?.game?.companyName}
                           </Flex>
                         </Td>
-
                         <Td>{`${gameResources.quantity}$$`}</Td>
                       </Tr>
                     </Tbody>
