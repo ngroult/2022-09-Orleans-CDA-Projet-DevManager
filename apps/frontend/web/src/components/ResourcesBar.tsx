@@ -35,7 +35,6 @@ const ResourcesBar = () => {
   const [resources, setResources] = useState<GameResource[]>([]);
   const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
   const [gameRoom, setGameRoom] = useState<GameRoom>();
-
   const { label } = useParams();
 
   useEffect(() => {
@@ -108,7 +107,13 @@ const ResourcesBar = () => {
               <>
                 <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
                   <Box>{'Remaining'}</Box>
-                  <HStack color={'red'}>
+                  <HStack
+                    color={
+                      gameRoom.size / gameRoom.totalSize > 0.75
+                        ? 'red'
+                        : 'black'
+                    }
+                  >
                     <Box boxSize="30px">
                       <Image src="/area.png" />
                     </Box>
