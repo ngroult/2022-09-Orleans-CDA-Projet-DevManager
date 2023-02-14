@@ -104,25 +104,33 @@ const ResourcesBar = () => {
         <Spacer display={{ base: 'none', md: 'flex' }} />
         {gameRoom && (
           <>
-            <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
-              <Box>{'Remaining'}</Box>
-              <HStack color={'red'}>
-                <Box>{gameRoom.size}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
-            <Divider orientation="vertical" borderColor="black" height="65px" />
-            <VStack display={{ base: 'none', md: 'flex' }}>
-              <Box>{'Total'}</Box>
-              <HStack>
-                <Box>{gameRoom.totalSize}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
+            {gameRoom?.room.name !== 'Break Room' && (
+              <>
+                <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
+                  <Box>{'Remaining'}</Box>
+                  <HStack color={'red'}>
+                    <Box boxSize="30px">
+                      <Image src="/area.png" />
+                    </Box>
+                    <Text>{gameRoom.size}</Text>
+                  </HStack>
+                </VStack>
+                <Divider
+                  orientation="vertical"
+                  borderColor="black"
+                  height="65px"
+                />
+                <VStack display={{ base: 'none', md: 'flex' }}>
+                  <Box>{'Total'}</Box>
+                  <HStack>
+                    <Box boxSize="30px">
+                      <Image src="/area.png" />
+                    </Box>
+                    <Text>{gameRoom.totalSize}</Text>
+                  </HStack>
+                </VStack>
+              </>
+            )}
           </>
         )}
         <Spacer display={{ base: 'none', md: 'flex' }} />
@@ -185,14 +193,31 @@ const ResourcesBar = () => {
           </Box>
           <Box fontSize="xl">{'My Company'}</Box>
           <Spacer />
-          <Box bgColor="gray.200" rounded="5px" p="5px">
-            <HStack>
-              <Box boxSize="30px">
-                <Image src="/area.png" />
+          {gameRoom?.room.name !== 'Break Room' && (
+            <>
+              <Box>
+                <HStack>
+                  <Box boxSize="30px">
+                    <Image src="/area.png" />
+                  </Box>
+                  <Text>{gameRoom?.size}</Text>
+                </HStack>
               </Box>
-              <Text>{'50'}</Text>
-            </HStack>
-          </Box>
+              <Divider
+                orientation="vertical"
+                borderColor="black"
+                height="65px"
+              />
+              <Box>
+                <HStack>
+                  <Box boxSize="30px">
+                    <Image src="/area.png" />
+                  </Box>
+                  <Text>{gameRoom?.totalSize}</Text>
+                </HStack>
+              </Box>
+            </>
+          )}
         </HStack>
       </Flex>
       <ModalResources
