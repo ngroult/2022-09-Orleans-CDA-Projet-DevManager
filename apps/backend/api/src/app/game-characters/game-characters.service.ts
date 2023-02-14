@@ -122,12 +122,6 @@ export class GameCharactersService {
 
     if (countSizeGameRoom <= gameChar.character.room.gameRooms[0].totalSize) {
       if (countQuantityDevDollars <= gameChar.game.gameResources[0].quantity) {
-        const newQuantityGameCharacter =
-          gameChar.quantity + addGameCharacterDto.quantity;
-
-        const newQuantityDevDollars =
-          gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
-
         await this.gameRoomsRepository.update(
           gameChar.character.room.gameRooms[0].id,
           {
@@ -135,10 +129,22 @@ export class GameCharactersService {
           },
         );
 
+        const newQuantityDevDollars =
+          gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
+
         await this.gameResourcesRepository.update(
           gameChar.game.gameResources[0].id,
           { quantity: newQuantityDevDollars },
         );
+
+        const newCharacterPrice = Math.pow(gameChar.character.price, 1.1);
+
+        await this.charactersRepository.update(gameChar.character.id, {
+          price: newCharacterPrice,
+        });
+
+        const newQuantityGameCharacter =
+          gameChar.quantity + addGameCharacterDto.quantity;
 
         await this.gameCharactersRepository.update(idGameCharacter, {
           quantity: newQuantityGameCharacter,
