@@ -102,8 +102,10 @@ export class GameRoomsService {
       .andWhere('resource.name = :name', { name: 'DevDollars' })
       .getOne();
 
+    let responseJson = { success: false };
+
     if (gameRoom.room.price > gameRoom.game.gameResources[0].quantity) {
-      return false;
+      return responseJson;
     }
 
     const newQuantityDevDollars =
@@ -117,8 +119,8 @@ export class GameRoomsService {
     const newTotalSize = gameRoom.totalSize + updateTotaleSizeDto.totalSize;
 
     await this.gameRoomsRepository.update(id, { totalSize: newTotalSize });
-
-    return true;
+    responseJson = { success: true };
+    return responseJson;
   }
 
   async remove(id: number): Promise<void> {

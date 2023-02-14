@@ -28,7 +28,7 @@ function MoreAreaCard({ gameRoom }: { gameRoom: GameRoom }) {
         }),
       });
       const jsonResponse = await res.json();
-      if (jsonResponse) {
+      if (jsonResponse.success) {
         toast({
           title: `Up ${gameRoom.room.name} total size`,
           description: `Congratulations, your ${gameRoom.room.name} are grow up!`,

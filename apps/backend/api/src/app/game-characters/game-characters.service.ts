@@ -122,6 +122,8 @@ export class GameCharactersService {
       .andWhere('resource.name = :name', { name: 'DevDollars' })
       .andWhere('game.id = :gameId', { gameId })
       .getOne();
+    let responseJson = { success: false };
+
     const countSizeGameRoom =
       gameChar.character.size * addGameCharacterDto.quantity +
       gameChar.character.room.gameRooms[0].size;
@@ -130,10 +132,10 @@ export class GameCharactersService {
       gameChar.character.price * addGameCharacterDto.quantity;
 
     if (countSizeGameRoom > gameChar.character.room.gameRooms[0].totalSize) {
-      return false;
+      return responseJson;
     }
     if (countQuantityDevDollars > gameChar.game.gameResources[0].quantity) {
-      return false;
+      return responseJson;
     }
 
     const newQuantityGameCharacter =
@@ -157,7 +159,7 @@ export class GameCharactersService {
     await this.gameCharactersRepository.update(idGameCharacter, {
       quantity: newQuantityGameCharacter,
     });
-
-    return true;
+    responseJson = { success: true };
+    return responseJson;
   }
 }

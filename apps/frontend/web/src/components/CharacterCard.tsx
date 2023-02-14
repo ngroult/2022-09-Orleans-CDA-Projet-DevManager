@@ -41,7 +41,7 @@ function CharacterCard({
         }
       );
       const jsonResponse = await res.json();
-      if (jsonResponse) {
+      if (jsonResponse.success) {
         toast({
           title: `Hire ${gameCharacter.character.name}`,
           description: `Congratulations, you hired: ${gameCharacter.character.name}!`,
