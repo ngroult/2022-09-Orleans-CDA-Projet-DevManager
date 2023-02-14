@@ -68,7 +68,13 @@ const NewGame = () => {
       });
 
       if (req.ok) {
-        return navigate('/game/overview');
+        const reqGameCookie = await fetch('/api/games/id', { method: 'GET' });
+        const resGameCookie = await reqGameCookie.json();
+
+        if ((resGameCookie.status = 'OK')) {
+          console.log(resGameCookie);
+          navigate('/game/overview');
+        }
       }
     } catch {}
   };

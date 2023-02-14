@@ -3,16 +3,96 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGameDto } from './dto/create-game.dto';
 import { UpdateGameDto } from './dto/update-game.dto';
-import { Game } from '../../entities';
+import {
+  Character,
+  Event,
+  Game,
+  GameCharacter,
+  GameEvent,
+  GameResource,
+  GameRoom,
+  Resource,
+  Room,
+} from '../../entities';
 
 @Injectable()
 export class GamesService {
   constructor(
     @InjectRepository(Game) private gamesRepository: Repository<Game>,
+    @InjectRepository(Room) private roomsRepository: Repository<Room>,
+    @InjectRepository(GameRoom)
+    private gameRoomsRepository: Repository<GameRoom>,
+    @InjectRepository(Resource)
+    private resourcesRepository: Repository<Resource>,
+    @InjectRepository(GameResource)
+    private gameResourcesRepository: Repository<GameResource>,
+    @InjectRepository(Character)
+    private charactersRepository: Repository<Character>,
+    @InjectRepository(GameCharacter)
+    private gameCharactersRepository: Repository<GameCharacter>,
+    @InjectRepository(Event)
+    private eventsRepository: Repository<Event>,
+    @InjectRepository(GameEvent)
+    private gameEventsRepository: Repository<GameEvent>,
   ) {}
 
   async create(createGameDto: CreateGameDto) {
-    return await this.gamesRepository.save(createGameDto);
+    const game = await this.gamesRepository.save(createGameDto);
+    const rooms = await this.roomsRepository.find({ select: ['id'] });
+    const resources = await this.resourcesRepository.find({ select: ['id'] });
+    const characters = await this.charactersRepository.find({ select: ['id'] });
+    const events = await this.eventsRepository.find({ select: ['id'] });
+
+    const gameRoomsPromises = [];
+    for (const room of rooms) {
+      gameRoomsPromises.push(
+        this.gameRoomsRepository.save({
+          size: 0,
+          totalSize: 100,
+          game: { id: game.id },
+          room: { id: room.id },
+        }),
+      );
+    }
+
+    const gameResourcesPromises = [];
+    for (const resource of resources) {
+      gameResourcesPromises.push(
+        this.gameResourcesRepository.save({
+          quantity: 0,
+          game: { id: game.id },
+          resource: { id: resource.id },
+        }),
+      );
+    }
+
+    const gameCharactersPromises = [];
+    for (const character of characters) {
+      gameCharactersPromises.push(
+        this.gameCharactersRepository.save({
+          quantity: 0,
+          game: { id: game.id },
+          character: { id: character.id },
+        }),
+      );
+    }
+
+    const gameEventsPromises = [];
+    for (const event of events) {
+      gameEventsPromises.push(
+        this.gameEventsRepository.save({
+          startDate: '1970-01-01 00:00',
+          endDate: '1970-01-01 00:00',
+          game: { id: game.id },
+          event: { id: event.id },
+        }),
+      );
+    }
+
+    await Promise.all(gameRoomsPromises);
+    await Promise.all(gameResourcesPromises);
+    await Promise.all(gameCharactersPromises);
+    await Promise.all(gameEventsPromises);
   }
 
   async findAll() {

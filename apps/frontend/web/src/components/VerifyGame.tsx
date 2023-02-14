@@ -17,15 +17,21 @@ const VerifyGame = ({
   useEffect(() => {
     const abortController = new AbortController();
 
-    fetch(`/api/games/verify/${user?.id}`, {
-      method: 'GET',
-      signal: abortController.signal,
-    })
-      .then((data) => data.json())
-      .then((data) => {
-        setHasAGame(data.count);
-        setIsLoading(false);
-      });
+    const verify = () => {
+      setIsLoading(true);
+
+      fetch(`/api/games/verify/${user?.id}`, {
+        method: 'GET',
+        signal: abortController.signal,
+      })
+        .then((data) => data.json())
+        .then((data) => {
+          setHasAGame(data.count);
+          setIsLoading(false);
+        });
+    };
+    verify();
+
     return () => {
       abortController.abort();
     };
