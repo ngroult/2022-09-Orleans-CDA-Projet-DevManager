@@ -12,13 +12,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import {
-  GameCharacter,
-  GameRoom,
-  ResourceUsed,
-  ResourceProduced,
-} from '@apps/backend-api';
-import { useState, useEffect } from 'react';
+import { GameCharacter, GameRoom } from '@apps/backend-api';
 import CharacterModal from './popups/CharacterModal';
 import BadgeResource from './BadgeResource';
 
@@ -29,10 +23,6 @@ function CharacterCard({
   gameCharacter: GameCharacter;
   gameRoom: GameRoom;
 }) {
-  const [resourcesUsed, setResourcesUsed] = useState<ResourceUsed[]>([]);
-  const [resourcesProduced, setResourcesProduced] = useState<
-    ResourceProduced[]
-  >([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
@@ -71,38 +61,6 @@ function CharacterCard({
     } catch {}
   };
 
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const handleResourcesUsed = async () => {
-      try {
-        const res = await fetch(`/api/resources-used`, {
-          method: 'GET',
-          signal: abortController.signal,
-        });
-        const jsonResponse = await res.json();
-        setResourcesUsed(jsonResponse);
-      } catch {}
-    };
-    const handleResourcesProduced = async () => {
-      try {
-        const res = await fetch(`/api/resources-produced`, {
-          method: 'GET',
-          signal: abortController.signal,
-        });
-        const jsonResponse = await res.json();
-        setResourcesProduced(jsonResponse);
-      } catch {}
-    };
-
-    handleResourcesUsed();
-    handleResourcesProduced();
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
-
   return (
     <>
       <Card
@@ -135,40 +93,34 @@ function CharacterCard({
                 </Heading>
                 <Text>{gameCharacter.quantity}</Text>
               </HStack>
-              {resourcesUsed && resourcesProduced && (
-                <HStack>
-                  {resourcesProduced
-                    .filter(
-                      (resourceProduced) =>
-                        resourceProduced.character.id ===
-                        gameCharacter.character.id
-                    )
-                    .map((resourceProduced) => (
-                      <BadgeResource
-                        key={resourceProduced.id}
-                        color={'green.900'}
-                        image={resourceProduced.resource.image}
-                        alt={resourceProduced.resource.name}
-                        text={resourceProduced.quantity}
-                      />
-                    ))}
+              {gameCharacter.character.resourcesProduced &&
+                gameCharacter.character.resourcesUsed && (
+                  <HStack>
+                    {gameCharacter.character.resourcesProduced.map(
+                      (resourceProduced) => (
+                        <BadgeResource
+                          key={resourceProduced.id}
+                          color={'green.900'}
+                          image={resourceProduced.resource.image}
+                          alt={resourceProduced.resource.name}
+                          text={resourceProduced.quantity}
+                        />
+                      )
+                    )}
 
-                  {resourcesUsed
-                    .filter(
-                      (resourceUsed) =>
-                        resourceUsed.character.id === gameCharacter.character.id
-                    )
-                    .map((resourceUsed) => (
-                      <BadgeResource
-                        key={resourceUsed.id}
-                        color={'red.900'}
-                        image={resourceUsed.resource.image}
-                        alt={resourceUsed.resource.name}
-                        text={resourceUsed.quantity}
-                      />
-                    ))}
-                </HStack>
-              )}
+                    {gameCharacter.character.resourcesUsed.map(
+                      (resourceUsed) => (
+                        <BadgeResource
+                          key={resourceUsed.id}
+                          color={'red.900'}
+                          image={resourceUsed.resource.image}
+                          alt={resourceUsed.resource.name}
+                          text={resourceUsed.quantity}
+                        />
+                      )
+                    )}
+                  </HStack>
+                )}
             </Box>
             <Box>
               <HStack>
@@ -203,8 +155,8 @@ function CharacterCard({
         isOpen={isOpen}
         onClose={onClose}
         gameCharacter={gameCharacter}
-        resourcesUsed={resourcesUsed}
-        resourcesProduced={resourcesProduced}
+        resourcesUsed={gameCharacter.character.resourcesUsed}
+        resourcesProduced={gameCharacter.character.resourcesProduced}
       />
     </>
   );

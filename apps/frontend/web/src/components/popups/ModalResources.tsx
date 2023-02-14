@@ -26,7 +26,7 @@ function ModalResources({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  const { gameResources } = useContext(GameContext);
+  const { gameResourcesChar } = useContext(GameContext);
 
   return (
     <>
@@ -37,7 +37,7 @@ function ModalResources({
           <ModalCloseButton />
           <ModalBody>
             <Wrap justifyContent="space-between">
-              {gameResources.map((gameResource) => (
+              {gameResourcesChar.map((gameResource) => (
                 <WrapItem key={gameResource.id}>
                   <Box px="10px" py="5px">
                     <Flex>

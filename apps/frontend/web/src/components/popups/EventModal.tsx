@@ -80,19 +80,15 @@ function EventModal({
                 <Box mb="30%">
                   {bonusMalus && (
                     <HStack>
-                      {bonusMalus
-                        .filter(
-                          (bonMal) => bonMal.event.id === gameEvent.event.id
-                        )
-                        .map((bonMal) => (
-                          <BadgeResource
-                            key={bonMal.id}
-                            color={bonMal.isBonus ? `green.900` : `red.900`}
-                            image={bonMal.character.image}
-                            alt={bonMal.label}
-                            text={bonMal.name}
-                          />
-                        ))}
+                      {bonusMalus.map((bonMal) => (
+                        <BadgeResource
+                          key={bonMal.id}
+                          color={bonMal.isBonus ? `green.900` : `red.900`}
+                          image={bonMal.character.image}
+                          alt={bonMal.label}
+                          text={bonMal.name}
+                        />
+                      ))}
                     </HStack>
                   )}
                 </Box>

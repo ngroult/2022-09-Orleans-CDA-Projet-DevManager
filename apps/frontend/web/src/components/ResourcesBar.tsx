@@ -33,8 +33,18 @@ const ResourcesBar = () => {
   } = useDisclosure();
 
   const { label } = useParams();
-  const { gameResources, setGameResources, gameRoom, setGameRoom } =
-    useContext(GameContext);
+  const {
+    gameResourcesChar,
+    setGameResourcesChar,
+    gameRoom,
+    setGameRoom,
+    setGameCharacters,
+    setGameEvents,
+    setGameResources,
+    setResourcesUsed,
+    setResourcesProduced,
+    setGameRooms,
+  } = useContext(GameContext);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -63,6 +73,80 @@ const ResourcesBar = () => {
   useEffect(() => {
     const abortController = new AbortController();
 
+    const handleRooms = async () => {
+      try {
+        const res = await fetch('/api/game-rooms', {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameRooms(jsonResponse);
+      } catch {}
+    };
+    handleRooms();
+
+    const handleCharacters = async () => {
+      try {
+        const res = await fetch(`/api/game-characters`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameCharacters(jsonResponse);
+      } catch {}
+    };
+    handleCharacters();
+
+    const handleEvents = async () => {
+      try {
+        const res = await fetch(`/api/game-events`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameEvents(jsonResponse);
+      } catch {}
+    };
+    handleEvents();
+
+    const handleResources = async () => {
+      try {
+        const res = await fetch(`/api/game-resources`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setGameResources(jsonResponse);
+      } catch {}
+    };
+    handleResources();
+
+    const handleResourcesUsed = async () => {
+      try {
+        const res = await fetch(`/api/resources-used`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setResourcesUsed(jsonResponse);
+      } catch {}
+    };
+
+    handleResourcesUsed();
+
+    const handleResourcesProduced = async () => {
+      try {
+        const res = await fetch(`/api/resources-produced`, {
+          method: 'GET',
+          signal: abortController.signal,
+        });
+        const jsonResponse = await res.json();
+        setResourcesProduced(jsonResponse);
+      } catch {}
+    };
+
+    handleResourcesProduced();
+
     const handleGameResourcesAndCharacters = async () => {
       try {
         const res = await fetch(
@@ -73,13 +157,14 @@ const ResourcesBar = () => {
           }
         );
         const jsonResponse = await res.json();
-        setGameResources(jsonResponse);
+        setGameResourcesChar(jsonResponse);
       } catch {}
     };
     handleGameResourcesAndCharacters();
 
     const interval = setInterval(() => {
       handleGameResourcesAndCharacters();
+      handleCharacters();
     }, 3000);
 
     return () => {
@@ -158,7 +243,7 @@ const ResourcesBar = () => {
                 }}
                 gap={2}
               >
-                {gameResources.map((gameResource) => (
+                {gameResourcesChar.map((gameResource) => (
                   <GridItem
                     key={gameResource.id}
                     bg={gameResource.resource.color}
@@ -257,7 +342,7 @@ const ResourcesBar = () => {
           </HStack>
         )}
       </Flex>
-      {gameResources ? (
+      {gameResourcesChar ? (
         <>
           <ModalResources
             isOpen={isOpenModalResources}
