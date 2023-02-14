@@ -1,27 +1,13 @@
 import { Box, HStack, Image, Flex } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { GameRoom } from '@apps/backend-api';
+import GameContext from '../contexts/GameContext';
 
 const NavbarRooms = () => {
   const iconsSize: string = '30px';
   const paddingBetweenIcons: string = '15px';
   const paddingLeftIcons: string = '15px';
-  const [gameRooms, setGameRooms] = useState<GameRoom[]>([]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    fetch('/api/game-rooms', {
-      method: 'GET',
-      signal: abortController.signal,
-    })
-      .then((data) => data.json())
-      .then((data) => setGameRooms(data));
-    return () => {
-      abortController.abort();
-    };
-  }, []);
+  const { gameRooms } = useContext(GameContext);
 
   return (
     <>

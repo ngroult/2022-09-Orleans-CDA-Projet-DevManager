@@ -12,6 +12,8 @@ import {
 import { GameRoomsService } from './game-rooms.service';
 import { CreateGameRoomDto } from './dto/create-game-room.dto';
 import { UpdateGameRoomDto } from './dto/update-game-room.dto';
+import { UpdateTotalSizeGameRoomDto } from './dto/update-total-size-game-room.dto';
+
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('game-rooms')
@@ -48,6 +50,21 @@ export class GameRoomsController {
     @Body() updateGameRoomDto: UpdateGameRoomDto,
   ) {
     return this.gameRoomsService.update(+id, updateGameRoomDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('/up-total-size/:id')
+  updateTotaleSize(
+    @Param('id') id: string,
+    @Body() updateTotaleSizeDto: UpdateTotalSizeGameRoomDto,
+    @Req() req,
+  ) {
+    const gameId = req.signedCookies['game'];
+    return this.gameRoomsService.updateTotaleSize(
+      +id,
+      updateTotaleSizeDto,
+      gameId,
+    );
   }
 
   @Delete(':id')
