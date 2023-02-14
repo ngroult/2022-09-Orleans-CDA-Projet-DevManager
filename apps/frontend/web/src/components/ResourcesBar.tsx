@@ -62,7 +62,7 @@ const ResourcesBar = () => {
 
     const interval = setInterval(() => {
       handleRoom();
-    }, 3000);
+    }, 1000);
 
     return () => {
       abortController.abort();
@@ -201,9 +201,7 @@ const ResourcesBar = () => {
                 {gameRoom.room.name}
               </Text>
             </HStack>
-            <Spacer
-              display={{ base: 'none', xl: 'flex', lg: 'flex', md: 'flex' }}
-            />
+
             {gameRoom?.room.name !== 'Break Room' && (
               <>
                 <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
@@ -276,7 +274,7 @@ const ResourcesBar = () => {
                       <Box boxSize="30px">
                         <Image src={gameResource.resource.image} />
                       </Box>
-                      <Box> {gameResource.quantity}</Box>
+                      <Text> {gameResource.quantity}</Text>
                     </HStack>
                   </GridItem>
                 ))}
@@ -284,7 +282,13 @@ const ResourcesBar = () => {
             </HStack>
           </Box>
           <Button
-            display={{ base: 'none', md: 'flex' }}
+            display={{
+              base: 'none',
+              xl: 'flex',
+              lg: 'flex',
+              md: 'flex',
+              sm: 'none',
+            }}
             colorScheme="white"
             onClick={onOpenModalResources}
             pr="100px"
@@ -292,7 +296,13 @@ const ResourcesBar = () => {
             <Image src="/more.png" boxSize="30px" />
           </Button>
           <IconButton
-            display={{ base: 'none', md: 'flex' }}
+            display={{
+              base: 'flex',
+              xl: 'none',
+              lg: 'none',
+              md: 'none',
+              sm: 'flex',
+            }}
             size="md"
             aria-label="Resources"
             icon={<ArrowDownIcon />}
@@ -305,8 +315,8 @@ const ResourcesBar = () => {
           />
         </HStack>
       </Flex>
-      <Flex minWidth="max-content" alignItems="center" gap="2" pl="80px">
-        {gameRoom && gameRoom.room.name !== 'Break Room' ? (
+      <Flex minWidth="max-content" alignItems="center" gap="2" px="15">
+        {gameRoom ? (
           <>
             <HStack
               display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
@@ -326,37 +336,41 @@ const ResourcesBar = () => {
                 {gameRoom.room.name}
               </Text>
             </HStack>
-            <Spacer
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
-            />
-            <VStack
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
-            >
-              <Box>{'Remaining'}</Box>
-              <HStack>
-                <Box>{gameRoom.size}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
-            <Divider
-              orientation="vertical"
-              borderColor="black"
-              height="65px"
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
-            />
-            <VStack
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
-            >
-              <Box>{'Total'}</Box>
-              <HStack>
-                <Box>{gameRoom.totalSize}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
+            {gameRoom.room.name !== 'Break Room' && (
+              <>
+                <Spacer
+                  display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+                />
+                <VStack
+                  display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+                >
+                  <Box>{'Remaining'}</Box>
+                  <HStack>
+                    <Box boxSize="30px">
+                      <Image src="/area.png" />
+                    </Box>
+                    <Text>{gameRoom.size}</Text>
+                  </HStack>
+                </VStack>
+                <Divider
+                  orientation="vertical"
+                  borderColor="black"
+                  height="65px"
+                  display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+                />
+                <VStack
+                  display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+                >
+                  <Box>{'Total'}</Box>
+                  <HStack>
+                    <Box boxSize="30px">
+                      <Image src="/area.png" />
+                    </Box>
+                    <Text>{gameRoom.totalSize}</Text>
+                  </HStack>
+                </VStack>
+              </>
+            )}
           </>
         ) : (
           <HStack py="10px" display={{ base: 'flex', md: 'none', sm: 'flex' }}>
