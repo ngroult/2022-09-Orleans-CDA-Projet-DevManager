@@ -137,7 +137,13 @@ export class GameCharactersService {
           { quantity: newQuantityDevDollars },
         );
 
-        const newCharacterPrice = Math.pow(gameChar.character.price, 1.1);
+        let newCharacterPrice;
+
+        if (gameChar.character.price === 1) {
+          newCharacterPrice = 10;
+        } else {
+          newCharacterPrice = Math.pow(gameChar.character.price, 1.05);
+        }
 
         await this.charactersRepository.update(gameChar.character.id, {
           price: newCharacterPrice,
