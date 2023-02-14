@@ -86,37 +86,25 @@ function CharacterModal({
                 <Box mb="20%">
                   {resourcesUsed && resourcesProduced ? (
                     <HStack>
-                      {resourcesProduced
-                        .filter(
-                          (resourceProduced) =>
-                            resourceProduced.character.id ===
-                            gameCharacter.character.id
-                        )
-                        .map((resourceProduced) => (
-                          <BadgeResource
-                            key={resourceProduced.id}
-                            color={'green.900'}
-                            image={resourceProduced.resource.image}
-                            alt={resourceProduced.resource.name}
-                            text={resourceProduced.quantity}
-                          />
-                        ))}
+                      {resourcesProduced.map((resourceProduced) => (
+                        <BadgeResource
+                          key={resourceProduced.id}
+                          color={'green.900'}
+                          image={resourceProduced.resource.image}
+                          alt={resourceProduced.resource.name}
+                          text={resourceProduced.quantity}
+                        />
+                      ))}
 
-                      {resourcesUsed
-                        .filter(
-                          (resourceUsed) =>
-                            resourceUsed.character.id ===
-                            gameCharacter.character.id
-                        )
-                        .map((resourceUsed) => (
-                          <BadgeResource
-                            key={resourceUsed.id}
-                            color={'red.900'}
-                            image={resourceUsed.resource.image}
-                            alt={resourceUsed.resource.name}
-                            text={resourceUsed.quantity}
-                          />
-                        ))}
+                      {resourcesUsed.map((resourceUsed) => (
+                        <BadgeResource
+                          key={resourceUsed.id}
+                          color={'red.900'}
+                          image={resourceUsed.resource.image}
+                          alt={resourceUsed.resource.name}
+                          text={resourceUsed.quantity}
+                        />
+                      ))}
                     </HStack>
                   ) : (
                     <></>

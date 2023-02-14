@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from '@chakra-ui/icons';
 import AuthContext from '../contexts/AuthContext';
-import DrawerNavbar from './DrawerNavbar';
+import DrawerNavbar from './popups/DrawerNavbar';
 
 const iconsSize = '30px';
 const paddingBetweenIcons = '15px';

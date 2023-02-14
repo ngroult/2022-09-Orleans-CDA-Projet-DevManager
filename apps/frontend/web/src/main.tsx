@@ -7,14 +7,17 @@ import '@fontsource/orbitron/700.css';
 import theme from './theme';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
+import { GameProvider } from './contexts/GameContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <AuthProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <GameProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </GameProvider>
       </AuthProvider>
     </ChakraProvider>
   </StrictMode>

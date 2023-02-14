@@ -10,8 +10,7 @@ import {
   Image,
   useDisclosure,
 } from '@chakra-ui/react';
-import { GameRoom, GameEvent, BonusMalus } from '@apps/backend-api';
-import { useState, useEffect } from 'react';
+import { GameRoom, GameEvent } from '@apps/backend-api';
 import EventModal from './popups/EventModal';
 import BadgeResource from './BadgeResource';
 
@@ -22,28 +21,7 @@ function EventCard({
   gameRoom: GameRoom;
   gameEvent: GameEvent;
 }) {
-  const [bonusMalus, setBonusMalus] = useState<BonusMalus[]>([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    const handleBonusMalus = async () => {
-      try {
-        const res = await fetch(`/api/bonus-malus`, {
-          method: 'GET',
-          signal: abortController.signal,
-        });
-        const jsonResponse = await res.json();
-        setBonusMalus(jsonResponse);
-      } catch {}
-    };
-    handleBonusMalus();
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
 
   return (
     <>
@@ -75,19 +53,17 @@ function EventCard({
                 {gameEvent.event.name}
               </Heading>
 
-              {bonusMalus && (
+              {gameEvent.event.bonusMalus && (
                 <HStack>
-                  {bonusMalus
-                    .filter((bonMal) => bonMal.event.id === gameEvent.event.id)
-                    .map((bonMal) => (
-                      <BadgeResource
-                        key={bonMal.id}
-                        color={bonMal.isBonus ? `green.900` : `red.900`}
-                        image={bonMal.character.image}
-                        alt={bonMal.label}
-                        text={bonMal.name}
-                      />
-                    ))}
+                  {gameEvent.event.bonusMalus.map((bonMal) => (
+                    <BadgeResource
+                      key={bonMal.id}
+                      color={bonMal.isBonus ? `green.900` : `red.900`}
+                      image={bonMal.character.image}
+                      alt={bonMal.label}
+                      text={bonMal.name}
+                    />
+                  ))}
                 </HStack>
               )}
             </Box>
@@ -103,6 +79,7 @@ function EventCard({
                 boxShadow="2xl"
                 size="lg"
                 color="white"
+                ml="5"
               >
                 {'+ 1'}
               </Button>
@@ -114,7 +91,7 @@ function EventCard({
         isOpen={isOpen}
         onClose={onClose}
         gameEvent={gameEvent}
-        bonusMalus={bonusMalus}
+        bonusMalus={gameEvent.event.bonusMalus}
       />
     </>
   );
