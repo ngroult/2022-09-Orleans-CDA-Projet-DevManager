@@ -5,7 +5,6 @@ import { CreateGameRoomDto } from './dto/create-game-room.dto';
 import { UpdateGameRoomDto } from './dto/update-game-room.dto';
 import { UpdateTotalSizeGameRoomDto } from './dto/update-total-size-game-room.dto';
 import { GameRoom, Room, Game, GameResource } from '../../entities';
-import { count } from 'console';
 
 @Injectable()
 export class GameRoomsService {
