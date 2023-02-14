@@ -24,7 +24,7 @@ function DrawerResources({
 }) {
   return (
     <>
-      <Drawer placement={'bottom'} onClose={onClose} isOpen={isOpen}>
+      <Drawer placement={'top'} onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />

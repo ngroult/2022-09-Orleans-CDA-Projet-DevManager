@@ -113,7 +113,12 @@ const ResourcesBar = () => {
                 </Box>
               </HStack>
             </VStack>
-            <Divider orientation="vertical" borderColor="black" height="65px" />
+            <Divider
+              orientation="vertical"
+              borderColor="black"
+              height="65px"
+              display={{ base: 'none', md: 'flex' }}
+            />
             <VStack display={{ base: 'none', md: 'flex' }}>
               <Box>{'Total'}</Box>
               <HStack>
@@ -130,9 +135,9 @@ const ResourcesBar = () => {
           <Box>
             <HStack>
               <Grid
-                templateColumns={{
-                  base: 'repeat(3, 1fr)',
-                  lg: 'repeat(5, 1fr)',
+                gridTemplateColumns={{
+                  base: 'repeat(2, 1fr)',
+                  xl: 'repeat(5, 1fr)',
                 }}
                 gap={2}
               >
@@ -144,6 +149,10 @@ const ResourcesBar = () => {
                     py="5px"
                     borderRadius="20px"
                     boxShadow="xl"
+                    display={{
+                      base: resource.resource.order > 2 ? 'none' : 'inherit',
+                      xl: 'inherit',
+                    }}
                   >
                     <HStack>
                       <Box boxSize="30px">
