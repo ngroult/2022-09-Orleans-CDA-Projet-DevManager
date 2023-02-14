@@ -13,11 +13,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <AuthProvider>
-        <BrowserRouter>
-          <GameProvider>
+        <GameProvider>
+          <BrowserRouter>
             <App />
-          </GameProvider>
-        </BrowserRouter>
+          </BrowserRouter>
+        </GameProvider>
       </AuthProvider>
     </ChakraProvider>
   </StrictMode>
