@@ -7,14 +7,12 @@ import {
   ResourceProduced,
 } from '@apps/backend-api';
 import { createContext, useState, useMemo, ReactNode } from 'react';
-import { useParams } from 'react-router-dom';
 
 const GameContext = createContext<{
   gameResourcesChar: GameResource[];
   setGameResourcesChar: (gameResourcesChar: GameResource[]) => void;
   gameRoom: GameRoom | null;
   setGameRoom: (gameRoom: GameRoom | null) => void;
-  label: string | undefined;
   gameResources: GameResource[];
   setGameResources: (gameResourcesChar: GameResource[]) => void;
   gameCharacters: GameCharacter[];
@@ -32,7 +30,6 @@ const GameContext = createContext<{
   setGameResourcesChar: () => {},
   gameRoom: null,
   setGameRoom: () => {},
-  label: '',
   gameResources: [],
   setGameResources: () => {},
   gameCharacters: [],
@@ -52,7 +49,6 @@ const GameProvider = (props: { children: ReactNode }) => {
     []
   );
   const [gameRoom, setGameRoom] = useState<GameRoom | null>(null);
-  const { label } = useParams();
   const [gameResources, setGameResources] = useState<GameResource[]>([]);
   const [gameCharacters, setGameCharacters] = useState<GameCharacter[]>([]);
   const [gameEvents, setGameEvents] = useState<GameEvent[]>([]);
@@ -68,7 +64,6 @@ const GameProvider = (props: { children: ReactNode }) => {
       setGameResourcesChar,
       gameRoom,
       setGameRoom,
-      label,
       gameResources,
       setGameResources,
       gameCharacters,
@@ -87,7 +82,6 @@ const GameProvider = (props: { children: ReactNode }) => {
       setGameResourcesChar,
       gameRoom,
       setGameRoom,
-      label,
       gameResources,
       setGameResources,
       gameCharacters,
