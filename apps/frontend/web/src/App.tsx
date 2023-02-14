@@ -17,7 +17,7 @@ import Protected from './components/Protected';
 import { Box } from '@chakra-ui/react';
 
 const App = () => {
-  const { setUser, setIsLoadingUser } = useContext(AuthContext);
+  const { user, setUser, setIsLoadingUser } = useContext(AuthContext);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -32,20 +32,29 @@ const App = () => {
 
         if (jsonResponse.message !== 'Unauthorized') {
           setUser(jsonResponse);
-          await fetch('/api/games/id', {
-            method: 'GET',
-            signal: abortController.signal,
-          });
         } else {
           setIsLoadingUser(false);
         }
       } catch (err) {}
     };
+
     userLogin();
     return () => {
       abortController.abort();
     };
   }, []);
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    fetch('/api/games/id', {
+      method: 'GET',
+      signal: abortController.signal,
+    });
+
+    return () => {
+      abortController.abort();
+    };
+  }, [user]);
 
   return (
     <Box>
