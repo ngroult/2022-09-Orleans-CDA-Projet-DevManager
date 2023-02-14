@@ -79,9 +79,6 @@ const About = () => {
             {'Icons Flaticon : Icon reference on this link'}
           </a>
         </Center>
-        <Center mb="10" as="u">
-          <Link to="/admin">admin</Link>
-        </Center>
       </Box>
     </>
   );

@@ -54,6 +54,8 @@ export class GameEventsService {
       .leftJoinAndSelect('gameEvent.game', 'game')
       .leftJoinAndSelect('gameEvent.event', 'event')
       .leftJoinAndSelect('event.room', 'room')
+      .leftJoinAndSelect('event.bonusMalus', 'bonusMalus')
+      .leftJoinAndSelect('bonusMalus.character', 'character')
       .where('game.id = :gameId', { gameId })
       .orderBy('event.order', 'ASC')
       .getMany();
@@ -65,6 +67,8 @@ export class GameEventsService {
       .leftJoinAndSelect('gameEvent.game', 'game')
       .leftJoinAndSelect('gameEvent.event', 'event')
       .leftJoinAndSelect('event.room', 'room')
+      .leftJoinAndSelect('event.bonusMalus', 'bonusMalus')
+      .leftJoinAndSelect('bonusMalus.character', 'character')
       .where('gameEvent.id = :id', { id })
       .getOne();
   }

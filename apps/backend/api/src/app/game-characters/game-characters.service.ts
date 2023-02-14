@@ -68,6 +68,10 @@ export class GameCharactersService {
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
+      .leftJoinAndSelect('character.resourcesUsed', 'resourcesUsed')
+      .leftJoinAndSelect('resourcesUsed.resource', 'resource')
+      .leftJoinAndSelect('character.resourcesProduced', 'resourcesProduced')
+      .leftJoinAndSelect('resourcesProduced.resource', 'resource1')
       .where('game.id = :gameId', { gameId })
       .orderBy('character.order', 'ASC')
       .getMany();
@@ -79,6 +83,11 @@ export class GameCharactersService {
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
       .leftJoinAndSelect('character.room', 'room')
+
+      .leftJoinAndSelect('character.resourcesUsed', 'resourcesUsed')
+      .leftJoinAndSelect('resourcesUsed.resource', 'resource')
+      .leftJoinAndSelect('character.resourcesProduced', 'resourcesProduced')
+      .leftJoinAndSelect('resourcesProduced.resource', 'resource1')
       .where('gameCharacter.id = :id', { id })
       .andWhere('game.id = :gameId', { gameId })
       .getOne();
@@ -113,6 +122,8 @@ export class GameCharactersService {
       .andWhere('resource.name = :name', { name: 'DevDollars' })
       .andWhere('game.id = :gameId', { gameId })
       .getOne();
+    const responseJson = { success: false };
+
     const countSizeGameRoom =
       gameChar.character.size * addGameCharacterDto.quantity +
       gameChar.character.room.gameRooms[0].size;
@@ -120,46 +131,47 @@ export class GameCharactersService {
     const countQuantityDevDollars =
       gameChar.character.price * addGameCharacterDto.quantity;
 
-    if (countSizeGameRoom <= gameChar.character.room.gameRooms[0].totalSize) {
-      if (countQuantityDevDollars <= gameChar.game.gameResources[0].quantity) {
-        await this.gameRoomsRepository.update(
-          gameChar.character.room.gameRooms[0].id,
-          {
-            size: countSizeGameRoom,
-          },
-        );
-
-        const newQuantityDevDollars =
-          gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
-
-        await this.gameResourcesRepository.update(
-          gameChar.game.gameResources[0].id,
-          { quantity: newQuantityDevDollars },
-        );
-
-        let newCharacterPrice;
-
-        if (gameChar.character.price === 1) {
-          newCharacterPrice = 10;
-        } else {
-          newCharacterPrice = Math.pow(gameChar.character.price, 1.05);
-        }
-
-        await this.charactersRepository.update(gameChar.character.id, {
-          price: newCharacterPrice,
-        });
-
-        const newQuantityGameCharacter =
-          gameChar.quantity + addGameCharacterDto.quantity;
-
-        await this.gameCharactersRepository.update(idGameCharacter, {
-          quantity: newQuantityGameCharacter,
-        });
-
-        return true;
-      }
-    } else {
-      return false;
+    if (countSizeGameRoom > gameChar.character.room.gameRooms[0].totalSize) {
+      return responseJson;
     }
+    if (countQuantityDevDollars > gameChar.game.gameResources[0].quantity) {
+      return responseJson;
+    }
+
+    const newQuantityDevDollars =
+      gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
+
+    await this.gameRoomsRepository.update(
+      gameChar.character.room.gameRooms[0].id,
+      {
+        size: countSizeGameRoom,
+      },
+    );
+
+    await this.gameResourcesRepository.update(
+      gameChar.game.gameResources[0].id,
+      { quantity: newQuantityDevDollars },
+    );
+
+    let newCharacterPrice;
+
+    if (gameChar.character.price === 1) {
+      newCharacterPrice = 10;
+    } else {
+      newCharacterPrice = Math.pow(gameChar.character.price, 1.05);
+    }
+
+    await this.charactersRepository.update(gameChar.character.id, {
+      price: newCharacterPrice,
+    });
+
+    const newQuantityGameCharacter =
+      gameChar.quantity + addGameCharacterDto.quantity;
+
+    await this.gameCharactersRepository.update(idGameCharacter, {
+      quantity: newQuantityGameCharacter,
+    });
+    responseJson.success = true;
+    return responseJson;
   }
 }

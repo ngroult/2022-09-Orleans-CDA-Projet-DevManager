@@ -12,6 +12,7 @@ import {
   ModalContent,
   Text,
   HStack,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import BadgeResource from '../BadgeResource';
 
@@ -29,6 +30,7 @@ function EventModal({
   return (
     <Box>
       <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+        <ModalOverlay />
         <ModalContent bg={`${gameEvent.event.room.color}.200`}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>
@@ -62,7 +64,7 @@ function EventModal({
                         p="1"
                       />
                       <Text fontSize={'lg'} as="b">
-                        {`$ ${gameEvent.event.price}`}
+                        {`${gameEvent.event.price}`}
                       </Text>
                     </Flex>
                   </Badge>
@@ -78,19 +80,15 @@ function EventModal({
                 <Box mb="30%">
                   {bonusMalus && (
                     <HStack>
-                      {bonusMalus
-                        .filter(
-                          (bonMal) => bonMal.event.id === gameEvent.event.id
-                        )
-                        .map((bonMal) => (
-                          <BadgeResource
-                            key={bonMal.id}
-                            color={bonMal.isBonus ? `green.900` : `red.900`}
-                            image={bonMal.character.image}
-                            alt={bonMal.label}
-                            text={bonMal.name}
-                          />
-                        ))}
+                      {bonusMalus.map((bonMal) => (
+                        <BadgeResource
+                          key={bonMal.id}
+                          color={bonMal.isBonus ? `green.900` : `red.900`}
+                          image={bonMal.character.image}
+                          alt={bonMal.label}
+                          text={bonMal.name}
+                        />
+                      ))}
                     </HStack>
                   )}
                 </Box>
