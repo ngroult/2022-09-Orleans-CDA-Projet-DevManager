@@ -85,11 +85,15 @@ const RoomPage = () => {
 
   return (
     <>
-      <Box>
+      <Box height={'100vh'}>
         <ResourcesBar />
         <Navbar />
-        <NavbarRooms />
-        <Flex pt="80px" px="80px" justifyContent="space-between">
+        <Flex
+          pb="55px"
+          pt={{ base: '50px', sm: '80px' }}
+          px={{ base: '10px', sm: '80px' }}
+          justifyContent="space-between"
+        >
           <Box
             boxSize="100%"
             display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
@@ -125,6 +129,9 @@ const RoomPage = () => {
             </VStack>
           )}
         </Flex>
+        <Box>
+          <NavbarRooms />
+        </Box>
       </Box>
     </>
   );
