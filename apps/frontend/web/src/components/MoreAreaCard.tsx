@@ -31,15 +31,15 @@ function MoreAreaCard({ gameRoom }: { gameRoom: GameRoom }) {
       if (jsonResponse.success) {
         toast({
           title: `Up ${gameRoom.room.name} total size`,
-          description: `Congratulations, your ${gameRoom.room.name} are grow up!`,
+          description: `Congratulations, your ${gameRoom.room.name} is growing up!`,
           status: 'success',
           duration: 9000,
           isClosable: true,
         });
       } else {
         toast({
-          title: 'Up ${gameRoom.room.name} total size',
-          description: `You don't have any devDollars!`,
+          title: `Up ${gameRoom.room.name} total size`,
+          description: `You don't have enough devDollars!`,
           status: 'error',
           duration: 9000,
           isClosable: true,
