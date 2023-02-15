@@ -89,10 +89,7 @@ export class GamesService {
       );
     }
 
-    await Promise.all(gameRoomsPromises);
-    await Promise.all(gameResourcesPromises);
-    await Promise.all(gameCharactersPromises);
-    await Promise.all(gameEventsPromises);
+    await Promise.all([...gameRoomsPromises, ...gameResourcesPromises, ...gameCharactersPromises, ...gameEventsPromises]);
   }
 
   async findAll() {
