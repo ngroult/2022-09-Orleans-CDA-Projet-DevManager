@@ -25,6 +25,8 @@ const GameContext = createContext<{
   setResourcesProduced: (resourceProduced: ResourceProduced[]) => void;
   gameRooms: GameRoom[];
   setGameRooms: (gameRooms: GameRoom[]) => void;
+  isNewGameCreated: boolean;
+  setIsNewGameCreated: (value: boolean) => void;
 }>({
   gameResourcesChar: [],
   setGameResourcesChar: () => {},
@@ -42,6 +44,8 @@ const GameContext = createContext<{
   setResourcesProduced: () => [],
   gameRooms: [],
   setGameRooms: () => [],
+  isNewGameCreated: false,
+  setIsNewGameCreated: () => {},
 });
 
 const GameProvider = (props: { children: ReactNode }) => {
@@ -57,6 +61,7 @@ const GameProvider = (props: { children: ReactNode }) => {
     ResourceProduced[]
   >([]);
   const [gameRooms, setGameRooms] = useState<GameRoom[]>([]);
+  const [isNewGameCreated, setIsNewGameCreated] = useState<boolean>(false);
 
   const value = useMemo(
     () => ({
@@ -76,6 +81,8 @@ const GameProvider = (props: { children: ReactNode }) => {
       setResourcesProduced,
       gameRooms,
       setGameRooms,
+      isNewGameCreated,
+      setIsNewGameCreated,
     }),
     [
       gameResourcesChar,
@@ -94,6 +101,8 @@ const GameProvider = (props: { children: ReactNode }) => {
       setResourcesProduced,
       gameRooms,
       setGameRooms,
+      isNewGameCreated,
+      setIsNewGameCreated,
     ]
   );
 
