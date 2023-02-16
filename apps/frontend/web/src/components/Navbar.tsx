@@ -5,19 +5,15 @@ import {
   Heading,
   Center,
   IconButton,
-  useDisclosure,
   Flex,
   Divider,
 } from '@chakra-ui/react';
-import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import AuthContext from '../contexts/AuthContext';
-import DrawerNavbar from './popups/DrawerNavbar';
 import NavbarTab from './NavbarTab';
 
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-  const [isNavOpen, setIsNavOpen] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
 
@@ -46,25 +42,6 @@ const Navbar = () => {
         h="100vh"
         overflow="hidden"
       >
-        <Box
-          display={{ base: 'inline-block', sm: 'none' }}
-          w="60px"
-          h="80px"
-          left="0"
-          top="0"
-        >
-          <Center>
-            <IconButton
-              aria-label="Hamburger button"
-              icon={<HamburgerIcon />}
-              colorScheme="white"
-              color="black"
-              onClick={onOpen}
-              size="lg"
-            />
-          </Center>
-        </Box>
-
         <Box
           display={{ base: 'none', sm: 'block' }}
           boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
@@ -172,8 +149,6 @@ const Navbar = () => {
         transition="background-color 2s"
         onClick={() => setIsNavbarOpen(false)}
       />
-
-      <DrawerNavbar isOpen={isOpen} onClose={onClose} />
     </>
   );
 };

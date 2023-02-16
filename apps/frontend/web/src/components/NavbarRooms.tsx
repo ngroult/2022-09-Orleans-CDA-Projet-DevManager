@@ -10,53 +10,6 @@ const NavbarRooms = () => {
 
   return (
     <>
-      {/* <Box
-        boxShadow="rgb(0 0 0) 5px 1px 15px -10px inset"
-        bg="blue.200"
-        w={{ base: '100%', sm: '5rem' }}
-        h={{ base: '60px', sm: '100vh' }}
-        position="absolute"
-        top={{ sm: '0' }}
-        bottom={{ base: '0', sm: 'initial' }}
-        right={{ sm: '0' }}
-        left={{ base: '0', sm: 'initial' }}
-      >
-        <Box
-          boxShadow="rgb(0 0 0) 5px 1px 15px -10px inset"
-          bg="blue.500"
-          h={{ base: '0px', sm: '5rem' }}
-        />
-        <Flex
-          flexDir={{ base: 'row', sm: 'column' }}
-          justifyContent="space-around"
-        >
-          <Box pl={paddingLeftIcons} pt={paddingBetweenIcons}>
-            <Link to="/game/overview">
-              <HStack>
-                <Image src="/overview.png" h={iconsSize} w={iconsSize} />
-              </HStack>
-            </Link>
-          </Box>
-          {gameRooms.map((gameRoom) => (
-            <Box
-              key={gameRoom.id}
-              pl={paddingLeftIcons}
-              pt={paddingBetweenIcons}
-            >
-              <Link to={`/game/${gameRoom.room.label}`} state={{ gameRoom }}>
-                <HStack>
-                  <Image
-                    src={gameRoom.room.image}
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                </HStack>
-              </Link>
-            </Box>
-          ))}
-        </Flex>
-      </Box> */}
-
       <Box
         display={{ base: 'none', sm: 'block' }}
         w={isNavbarOpen ? '20rem' : '5rem'}

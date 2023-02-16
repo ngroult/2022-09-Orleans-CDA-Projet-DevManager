@@ -13,19 +13,16 @@ const NavbarTab = ({
   path: string;
   text: string;
   src: string;
-  setIsNavbarOpen: (value: boolean) => void;
+  setIsNavbarOpen?: (value: boolean) => void;
   logout?: () => void;
 }) => {
   const { pathname } = useLocation();
-
-  if (type === 'left-navbar') {
-  }
 
   return (
     <Link
       to={path}
       onClick={() => {
-        setIsNavbarOpen(false);
+        if (setIsNavbarOpen) setIsNavbarOpen(false);
         if (logout) logout();
       }}
       style={{
@@ -40,7 +37,7 @@ const NavbarTab = ({
       }}
     >
       <Flex
-        flexDir="row"
+        flexDir={type === 'bottom-navbar' ? 'column' : 'row'}
         justifyContent="center"
         alignItems="center"
         w="100%"
@@ -60,7 +57,7 @@ const NavbarTab = ({
               {text}
             </Text>
           </>
-        ) : (
+        ) : type === 'right-navbar' ? (
           <>
             <Text
               mr="1.25rem"
@@ -71,6 +68,13 @@ const NavbarTab = ({
               {text}
             </Text>
             <Image alt={text} src={src} h="2.5rem" w="2.5rem" />
+          </>
+        ) : (
+          <>
+            <Image alt={text} src={src} h="2.5rem" w="2.5rem" />
+            <Text fontSize="0.8rem" whiteSpace="nowrap">
+              {text}
+            </Text>
           </>
         )}
       </Flex>
