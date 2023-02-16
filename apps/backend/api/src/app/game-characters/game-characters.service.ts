@@ -79,7 +79,7 @@ export class GameCharactersService {
     gameChars.map((gameChar) => {
       if (gameChar.quantity > 0) {
         const newCharacterPrice = Math.ceil(
-          gameChar.character.price * Math.pow(1.55, gameChar.quantity),
+          gameChar.character.price * Math.pow(1.25, gameChar.quantity),
         );
         gameChar.character.price = newCharacterPrice;
       }
@@ -136,7 +136,7 @@ export class GameCharactersService {
     const responseJson = { success: false };
 
     const newCharacterPrice = Math.round(
-      gameChar.character.price * Math.pow(1.05, gameChar.quantity),
+      gameChar.character.price * Math.pow(1.25, gameChar.quantity),
     );
 
     const countSizeGameRoom =
