@@ -63,7 +63,7 @@ export class GameCharactersService {
   }
 
   async findAll(gameId: number): Promise<GameCharacter[]> {
-    return this.gameCharactersRepository
+    const gameChars = await this.gameCharactersRepository
       .createQueryBuilder('gameCharacter')
       .leftJoinAndSelect('gameCharacter.game', 'game')
       .leftJoinAndSelect('gameCharacter.character', 'character')
@@ -75,6 +75,17 @@ export class GameCharactersService {
       .where('game.id = :gameId', { gameId })
       .orderBy('character.order', 'ASC')
       .getMany();
+
+    gameChars.map((gameChar) => {
+      if (gameChar.quantity > 0) {
+        const newCharacterPrice = Math.ceil(
+          gameChar.character.price * Math.pow(1.25, gameChar.quantity),
+        );
+        gameChar.character.price = newCharacterPrice;
+      }
+    });
+
+    return gameChars;
   }
 
   async findOne(id: number, gameId: number): Promise<GameCharacter> {
@@ -124,25 +135,23 @@ export class GameCharactersService {
       .getOne();
     const responseJson = { success: false };
 
+    const newCharacterPrice = Math.ceil(
+      gameChar.character.price * Math.pow(1.25, gameChar.quantity),
+    );
+
     const countSizeGameRoom =
       gameChar.character.size * addGameCharacterDto.quantity +
       gameChar.character.room.gameRooms[0].size;
 
-    const countQuantityDevDollars =
-      gameChar.character.price * addGameCharacterDto.quantity;
-
     if (countSizeGameRoom > gameChar.character.room.gameRooms[0].totalSize) {
       return responseJson;
     }
-    if (countQuantityDevDollars > gameChar.game.gameResources[0].quantity) {
+    if (newCharacterPrice > gameChar.game.gameResources[0].quantity) {
       return responseJson;
     }
 
-    const newQuantityGameCharacter =
-      gameChar.quantity + addGameCharacterDto.quantity;
-
     const newQuantityDevDollars =
-      gameChar.game.gameResources[0].quantity - countQuantityDevDollars;
+      gameChar.game.gameResources[0].quantity - newCharacterPrice;
 
     await this.gameRoomsRepository.update(
       gameChar.character.room.gameRooms[0].id,
@@ -155,6 +164,9 @@ export class GameCharactersService {
       gameChar.game.gameResources[0].id,
       { quantity: newQuantityDevDollars },
     );
+
+    const newQuantityGameCharacter =
+      gameChar.quantity + addGameCharacterDto.quantity;
 
     await this.gameCharactersRepository.update(idGameCharacter, {
       quantity: newQuantityGameCharacter,
