@@ -5,6 +5,12 @@ services:
     container_name: back
     restart: always
     image: codelande/devmanager_prod_back:latest
+    command:
+      - /bin/sh
+      - -c
+      - |
+        npx typeorm migration:run -d /app/apps/backend/api/dist/src/config/migration.config.js
+        node /app/apps/backend/api/dist/src/main.js
     depends_on:
       - mysql
     environment:
