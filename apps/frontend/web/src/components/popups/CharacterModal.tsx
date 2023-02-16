@@ -11,6 +11,7 @@ import {
   ModalContent,
   Text,
   HStack,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import {
   GameCharacter,
@@ -35,6 +36,7 @@ function CharacterModal({
   return (
     <Box>
       <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+        <ModalOverlay />
         <ModalContent bg={`${gameCharacter.character.room.color}.200`}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>

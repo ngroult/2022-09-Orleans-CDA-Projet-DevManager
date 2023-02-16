@@ -59,13 +59,12 @@ export class GameResourcesService {
   async findAllWithResourcesUsedAndProduced(gameId: number) {
     return this.gameResourcesRepository
       .createQueryBuilder('gameResources')
+      .orderBy('resource.order', 'ASC')
       .innerJoinAndSelect('gameResources.resource', 'resource')
       .leftJoinAndSelect('resource.resourcesUsed', 'resourcesUsed')
       .leftJoinAndSelect('resource.resourcesProduced', 'resourcesProduced')
       .leftJoinAndSelect('resourcesUsed.character', 'character')
-      .leftJoinAndSelect('character.gameCharacters', 'gameCharacters')
       .leftJoinAndSelect('resourcesProduced.character', 'character1')
-      .leftJoinAndSelect('character1.gameCharacters', 'gameCharacters1')
       .where('gameResources.resourceId = resource.id')
       .andWhere('gameResources.gameId = :gameId', { gameId })
       .getMany();

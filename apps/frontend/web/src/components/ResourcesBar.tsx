@@ -44,6 +44,7 @@ const ResourcesBar = () => {
     setResourcesUsed,
     setResourcesProduced,
     setGameRooms,
+    gameResources,
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -382,20 +383,16 @@ const ResourcesBar = () => {
           </HStack>
         )}
       </Flex>
-      {gameResourcesChar ? (
-        <>
-          <ModalResources
-            isOpen={isOpenModalResources}
-            onClose={onCloseModalResources}
-          />
-          <DrawerResources
-            isOpen={isOpenDrawerResources}
-            onClose={onCloseDrawerResources}
-          />
-        </>
-      ) : (
-        <></>
-      )}
+      <>
+        <ModalResources
+          isOpen={isOpenModalResources}
+          onClose={onCloseModalResources}
+        />
+        <DrawerResources
+          isOpen={isOpenDrawerResources}
+          onClose={onCloseDrawerResources}
+        />
+      </>
     </Box>
   );
 };

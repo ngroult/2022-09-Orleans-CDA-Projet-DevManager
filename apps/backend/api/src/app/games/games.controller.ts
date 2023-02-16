@@ -29,6 +29,7 @@ export class GamesController {
   async gameId(@Res({ passthrough: true }) response: Response, @Req() req) {
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
     const game = await this.gamesService.findOneByUser(req.user.id);
+
     response.cookie('game', game.id, {
       httpOnly: true,
       sameSite: true,
