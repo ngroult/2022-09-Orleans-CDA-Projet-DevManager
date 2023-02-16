@@ -88,7 +88,7 @@ const Leaderboard = () => {
                     </Flex>
                   </Heading>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    Your Point {userGameResources?.quantity}$
+                    {`Your Point ${userGameResources?.quantity}$`}
                   </Text>
                 </Box>
               </Flex>
