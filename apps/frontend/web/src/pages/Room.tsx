@@ -1,8 +1,5 @@
-import { Box, Flex, VStack } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useContext } from 'react';
-import CharacterCard from '../components/RoomElementCard';
-import EventCard from '../components/EventCard';
-import MoreAreaCard from '../components/MoreAreaCard';
 import GameContext from '../contexts/GameContext';
 import RoomElementCard from '../components/RoomElementCard';
 
@@ -29,6 +26,8 @@ const RoomPage = () => {
           py="1rem"
           px={{ base: '0', sm: '1rem' }}
           bgColor={`${gameRoom.room.color}.200`}
+          w="100%"
+          maxW="40rem"
         >
           {gameCharacters
             .filter(
@@ -39,21 +38,14 @@ const RoomPage = () => {
               <RoomElementCard
                 key={gameCharacter.character.id}
                 gameCharacter={gameCharacter}
-                gameRoom={gameRoom}
               />
             ))}
           {gameEvents
             .filter((gameEvent) => gameRoom.room.id === gameEvent.event.room.id)
             .map((gameEvent) => (
-              <RoomElementCard
-                key={gameEvent.id}
-                gameEvent={gameEvent}
-                gameRoom={gameRoom}
-              />
+              <RoomElementCard key={gameEvent.id} gameEvent={gameEvent} />
             ))}
-          {gameRoom.room.name !== 'Break Room' && (
-            <MoreAreaCard gameRoom={gameRoom} />
-          )}
+          {gameRoom.room.name !== 'Break Room' && <RoomElementCard />}
         </Flex>
       )}
     </Flex>

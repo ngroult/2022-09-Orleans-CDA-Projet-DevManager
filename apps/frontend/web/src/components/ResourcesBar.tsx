@@ -35,7 +35,6 @@ const ResourcesBar = () => {
     setResourcesUsed,
     setResourcesProduced,
     setGameRooms,
-    gameResources,
   } = useContext(GameContext);
   const { pathname } = useLocation();
 
@@ -211,39 +210,41 @@ const ResourcesBar = () => {
               </Text>
             </HStack>
 
-            <Flex flexDir="row" mx="2rem" h="100%">
-              <Flex
-                flexDir="column"
-                justifyContent="center"
-                alignItems="flex-start"
-              >
-                <Text mb="-0.2rem">{'Occupied'}</Text>
-                <Text
-                  fontSize="1.5rem"
-                  color={`${gameRoom?.room.color}.900`}
-                  whiteSpace="nowrap"
-                >{`${gameRoom?.size} m²`}</Text>
+            {gameRoom?.room.isExpandable ? (
+              <Flex flexDir="row" mx="2rem" h="100%">
+                <Flex
+                  flexDir="column"
+                  justifyContent="center"
+                  alignItems="flex-start"
+                >
+                  <Text mb="-0.2rem">{'Occupied'}</Text>
+                  <Text
+                    fontSize="1.5rem"
+                    color={`${gameRoom?.room.color}.900`}
+                    whiteSpace="nowrap"
+                  >{`${gameRoom?.size} m²`}</Text>
+                </Flex>
+                <Divider
+                  orientation="vertical"
+                  borderWidth="0.5px"
+                  borderColor="#ddd"
+                  height="50%"
+                  mx="1rem"
+                  my="auto"
+                />
+                <Flex
+                  flexDir="column"
+                  justifyContent="center"
+                  alignItems="flex-start"
+                >
+                  <Text mb="-0.2rem">{'Total'}</Text>
+                  <Text
+                    fontSize="1.5rem"
+                    whiteSpace="nowrap"
+                  >{`${gameRoom?.totalSize} m²`}</Text>
+                </Flex>
               </Flex>
-              <Divider
-                orientation="vertical"
-                borderWidth="0.5px"
-                borderColor="#ddd"
-                height="50%"
-                mx="1rem"
-                my="auto"
-              />
-              <Flex
-                flexDir="column"
-                justifyContent="center"
-                alignItems="flex-start"
-              >
-                <Text mb="-0.2rem">{'Total'}</Text>
-                <Text
-                  fontSize="1.5rem"
-                  whiteSpace="nowrap"
-                >{`${gameRoom?.totalSize} m²`}</Text>
-              </Flex>
-            </Flex>
+            ) : null}
           </>
         )}
 
@@ -401,66 +402,68 @@ const ResourcesBar = () => {
               </Text>
             </Flex>
 
-            {isShrinkedArea ? (
-              <Flex flexDir="row" mx="2rem" h="100%">
+            {gameRoom?.room.isExpandable ? (
+              isShrinkedArea ? (
+                <Flex flexDir="row" mx="2rem" h="100%">
+                  <Flex
+                    flexDir="column"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                  >
+                    <Text mb="-0.2rem">{'Occupied'}</Text>
+                    <Text
+                      fontSize="1rem"
+                      color={`${gameRoom?.room.color}.900`}
+                      whiteSpace="nowrap"
+                    >{`${gameRoom?.size} m²`}</Text>
+                  </Flex>
+                  <Divider
+                    orientation="vertical"
+                    borderWidth="0.5px"
+                    borderColor="#ddd"
+                    height="50%"
+                    mx="1rem"
+                    my="auto"
+                  />
+                  <Flex
+                    flexDir="column"
+                    justifyContent="center"
+                    alignItems="flex-start"
+                  >
+                    <Text mb="-0.2rem">{'Total'}</Text>
+                    <Text
+                      fontSize="1rem"
+                      whiteSpace="nowrap"
+                    >{`${gameRoom?.totalSize} m²`}</Text>
+                  </Flex>
+                </Flex>
+              ) : (
                 <Flex
                   flexDir="column"
+                  alignItems="center"
                   justifyContent="center"
-                  alignItems="flex-start"
+                  mx="2rem"
+                  h="100%"
                 >
-                  <Text mb="-0.2rem">{'Occupied'}</Text>
                   <Text
                     fontSize="1rem"
                     color={`${gameRoom?.room.color}.900`}
                     whiteSpace="nowrap"
                   >{`${gameRoom?.size} m²`}</Text>
-                </Flex>
-                <Divider
-                  orientation="vertical"
-                  borderWidth="0.5px"
-                  borderColor="#ddd"
-                  height="50%"
-                  mx="1rem"
-                  my="auto"
-                />
-                <Flex
-                  flexDir="column"
-                  justifyContent="center"
-                  alignItems="flex-start"
-                >
-                  <Text mb="-0.2rem">{'Total'}</Text>
+                  <Divider
+                    orientation="horizontal"
+                    borderWidth="0.5px"
+                    borderColor="#ddd"
+                    width="75%"
+                    mx="auto"
+                  />
                   <Text
-                    fontSize="1rem"
+                    fontSize="0.8rem"
                     whiteSpace="nowrap"
                   >{`${gameRoom?.totalSize} m²`}</Text>
                 </Flex>
-              </Flex>
-            ) : (
-              <Flex
-                flexDir="column"
-                alignItems="center"
-                justifyContent="center"
-                mx="2rem"
-                h="100%"
-              >
-                <Text
-                  fontSize="1rem"
-                  color={`${gameRoom?.room.color}.900`}
-                  whiteSpace="nowrap"
-                >{`${gameRoom?.size} m²`}</Text>
-                <Divider
-                  orientation="horizontal"
-                  borderWidth="0.5px"
-                  borderColor="#ddd"
-                  width="75%"
-                  mx="auto"
-                />
-                <Text
-                  fontSize="0.8rem"
-                  whiteSpace="nowrap"
-                >{`${gameRoom?.totalSize} m²`}</Text>
-              </Flex>
-            )}
+              )
+            ) : null}
           </Flex>
         )}
       </Flex>
