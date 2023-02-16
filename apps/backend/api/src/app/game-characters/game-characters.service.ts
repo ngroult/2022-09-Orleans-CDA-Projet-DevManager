@@ -135,7 +135,7 @@ export class GameCharactersService {
       .getOne();
     const responseJson = { success: false };
 
-    const newCharacterPrice = Math.round(
+    const newCharacterPrice = Math.ceil(
       gameChar.character.price * Math.pow(1.25, gameChar.quantity),
     );
 
