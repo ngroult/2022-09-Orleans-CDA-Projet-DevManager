@@ -3,9 +3,6 @@ import {
   Flex,
   HStack,
   Image,
-  Spacer,
-  VStack,
-  Button,
   useDisclosure,
   Text,
   IconButton,
@@ -15,17 +12,11 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 import { ArrowDownIcon } from '@chakra-ui/icons';
-import ModalResources from './popups/ModalResources';
 import DrawerResources from './popups/DrawerResources';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import GameContext from '../contexts/GameContext';
 
 const ResourcesBar = () => {
-  const {
-    isOpen: isOpenModalResources,
-    onOpen: onOpenModalResources,
-    onClose: onCloseModalResources,
-  } = useDisclosure();
   const {
     isOpen: isOpenDrawerResources,
     onOpen: onOpenDrawerResources,
@@ -46,6 +37,7 @@ const ResourcesBar = () => {
     setGameRooms,
     gameResources,
   } = useContext(GameContext);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -175,195 +167,144 @@ const ResourcesBar = () => {
   }, []);
 
   return (
-    <Box
-      position="absolute"
-      top="0"
-      py="7px"
-      borderBottom={'1px solid grey'}
-      borderBottomWidth={'90%'}
-      width={'100%'}
+    <Flex
+      position="fixed"
+      mx="5rem"
+      h="5rem"
+      w="calc(100% - 10rem)"
+      justifyContent="space-between"
+      alignItems="center"
+      px="2rem"
     >
-      <Flex minWidth="max-content" gap="2" pl="80px">
-        {gameRoom ? (
-          <>
-            <HStack display={{ base: 'none', md: 'flex' }}>
-              <Box boxSize="40px">
-                <Image
-                  src={gameRoom.room.image}
-                  placeholder={gameRoom.room.label}
-                />
-              </Box>
-              <Text
-                as="b"
-                fontSize={{ base: 'xl', xl: '3xl' }}
-                fontFamily="heading"
-                color={`${gameRoom.room.color}.900`}
-              >
-                {gameRoom.room.name}
-              </Text>
-            </HStack>
-            <Spacer
-              display={{ base: 'none', xl: 'flex', lg: 'flex', md: 'flex' }}
+      {pathname === '/game/overview' ? (
+        <HStack>
+          <Image
+            w="3rem"
+            h="3rem"
+            src={gameRoom?.room.image}
+            placeholder={gameRoom?.room.label}
+          />
+          <Text
+            whiteSpace="nowrap"
+            ml="1rem"
+            fontSize="3xl"
+            fontFamily="body"
+            color="#000"
+          >
+            {'Overview'}
+          </Text>
+        </HStack>
+      ) : (
+        <>
+          <HStack>
+            <Image
+              w="3rem"
+              h="3rem"
+              src={gameRoom?.room.image}
+              placeholder={gameRoom?.room.label}
             />
-            <VStack display={{ base: 'none', md: 'flex' }} pr="2px">
-              <Box>{'Remaining'}</Box>
-              <HStack color={'red'}>
-                <Box>{gameRoom.size}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
+            <Text
+              whiteSpace="nowrap"
+              ml="1rem"
+              fontSize="3xl"
+              fontFamily="body"
+              color={`${gameRoom?.room.color}.900`}
+            >
+              {gameRoom?.room.name}
+            </Text>
+          </HStack>
+
+          <Flex flexDir="row" mx="2rem" h="100%">
+            <Flex
+              flexDir="column"
+              justifyContent="center"
+              alignItems="flex-start"
+            >
+              <Text mb="-0.2rem">{'Occupied'}</Text>
+              <Text
+                fontSize="1.5rem"
+                color={`${gameRoom?.room.color}.900`}
+                whiteSpace="nowrap"
+              >{`${gameRoom?.size} m²`}</Text>
+            </Flex>
             <Divider
               orientation="vertical"
-              borderColor="black"
-              height="65px"
-              display={{ base: 'none', md: 'flex' }}
+              borderWidth="0.5px"
+              borderColor="#ddd"
+              height="50%"
+              mx="1rem"
+              my="auto"
             />
-            <VStack display={{ base: 'none', md: 'flex' }}>
-              <Box>{'Total'}</Box>
-              <HStack>
-                <Box>{gameRoom.totalSize}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
-          </>
-        ) : (
-          <HStack display={{ base: 'none', md: 'flex' }}>
-            <Box boxSize="30px">
-              <Image src="/company4.png" placeholder="my_company" />
-            </Box>
-            <Box>{'My Company'}</Box>
-          </HStack>
-        )}
-        <Spacer display={{ base: 'none', md: 'flex' }} />
-        <HStack>
-          <Box>
-            <HStack>
-              <Grid
-                gridTemplateColumns={{
-                  base: 'repeat(2, 1fr)',
-                  xl: 'repeat(5, 1fr)',
-                }}
-                gap={2}
-              >
-                {gameResourcesChar.map((gameResource) => (
-                  <GridItem
-                    key={gameResource.id}
-                    bg={gameResource.resource.color}
-                    px="10px"
-                    py="5px"
-                    borderRadius="20px"
-                    boxShadow="xl"
-                    display={{
-                      base:
-                        gameResource.resource.order > 2 ? 'none' : 'inherit',
-                      xl: 'inherit',
-                    }}
-                  >
-                    <HStack>
-                      <Box boxSize="30px">
-                        <Image src={gameResource.resource.image} />
-                      </Box>
-                      <Box> {gameResource.quantity}</Box>
-                    </HStack>
-                  </GridItem>
-                ))}
-              </Grid>
-            </HStack>
-          </Box>
-          <Button
-            display={{ base: 'none', md: 'flex' }}
-            colorScheme="white"
-            onClick={onOpenModalResources}
-            pr="100px"
-          >
-            <Image src="/more.png" boxSize="30px" />
-          </Button>
-          <IconButton
-            display={{ base: 'none', md: 'flex' }}
-            size="md"
-            aria-label="Resources"
-            icon={<ArrowDownIcon />}
-            rounded="100px"
-            bg="white"
-            border="1px"
-            borderColor="black"
-            boxShadow="inner"
-            onClick={onOpenDrawerResources}
-          />
-        </HStack>
-      </Flex>
-      <Flex minWidth="max-content" alignItems="center" gap="2" pl="80px">
-        {gameRoom ? (
-          <>
-            <HStack
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+            <Flex
+              flexDir="column"
+              justifyContent="center"
+              alignItems="flex-start"
             >
-              <Box boxSize="30px">
-                <Image
-                  src={gameRoom.room.image}
-                  placeholder={gameRoom.room.label}
-                />
-              </Box>
+              <Text mb="-0.2rem">{'Total'}</Text>
               <Text
-                as="b"
-                fontSize={{ base: 'xl', xl: '2xl' }}
-                fontFamily="heading"
-                color={`${gameRoom.room.color}.900`}
-              >
-                {gameRoom.room.name}
-              </Text>
-            </HStack>
-            <Spacer
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
-            />
-            <VStack
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
+                fontSize="1.5rem"
+                whiteSpace="nowrap"
+              >{`${gameRoom?.totalSize} m²`}</Text>
+            </Flex>
+          </Flex>
+        </>
+      )}
+
+      <HStack>
+        <Box>
+          <HStack>
+            <Grid
+              gridTemplateColumns={{
+                base: 'repeat(2, 1fr)',
+                lg: 'repeat(4, 1fr)',
+                xl: 'repeat(5, 1fr)',
+              }}
+              gap={2}
             >
-              <Box>{'Remaining'}</Box>
-              <HStack>
-                <Box>{gameRoom.size}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
-            <VStack
-              display={{ base: 'flex', xl: 'none', lg: 'none', md: 'none' }}
-            >
-              <Box>{'Total'}</Box>
-              <HStack>
-                <Box>{gameRoom.totalSize}</Box>
-                <Box boxSize="30px">
-                  <Image src="/area.png" />
-                </Box>
-              </HStack>
-            </VStack>
-          </>
-        ) : (
-          <HStack py="10px" display={{ base: 'flex', md: 'none', sm: 'flex' }}>
-            <Box boxSize="30px">
-              <Image src="/company4.png" placeholder="my_company" />
-            </Box>
-            <Box fontSize="xl">{'My Company'}</Box>
-            <Spacer />
+              {gameResourcesChar.map((gameResource) => (
+                <GridItem
+                  key={gameResource.id}
+                  bg={gameResource.resource.color}
+                  px="10px"
+                  py="5px"
+                  borderRadius="20px"
+                  boxShadow="xl"
+                  display={{
+                    base: gameResource.resource.order > 2 ? 'none' : 'inherit',
+                    xl: 'inherit',
+                  }}
+                >
+                  <HStack>
+                    <Box boxSize="30px">
+                      <Image src={gameResource.resource.image} />
+                    </Box>
+                    <Box> {gameResource.quantity}</Box>
+                  </HStack>
+                </GridItem>
+              ))}
+            </Grid>
           </HStack>
-        )}
-      </Flex>
-      <>
-        <ModalResources
-          isOpen={isOpenModalResources}
-          onClose={onCloseModalResources}
+        </Box>
+
+        <IconButton
+          display={{ base: 'none', md: 'flex' }}
+          size="md"
+          aria-label="Resources"
+          icon={<ArrowDownIcon />}
+          rounded="100px"
+          bg="white"
+          border="1px"
+          borderColor="black"
+          boxShadow="inner"
+          onClick={onOpenDrawerResources}
         />
-        <DrawerResources
-          isOpen={isOpenDrawerResources}
-          onClose={onCloseDrawerResources}
-        />
-      </>
-    </Box>
+      </HStack>
+
+      <DrawerResources
+        isOpen={isOpenDrawerResources}
+        onClose={onCloseDrawerResources}
+      />
+    </Flex>
   );
 };
 
