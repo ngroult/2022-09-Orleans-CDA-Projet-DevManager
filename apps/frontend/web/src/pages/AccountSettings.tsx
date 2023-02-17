@@ -173,7 +173,7 @@ const AccountSettings = () => {
                 fontWeight="normal"
                 boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
               >
-                {'Modify'}
+                {'Edit'}
               </Button>
 
               <Grid templateColumns="repeat(1, 1fr)">
@@ -261,7 +261,7 @@ const AccountSettings = () => {
                     updateUserSettings();
                   }}
                 >
-                  {'Modify'}
+                  {'Edit'}
                 </Button>
               </VStack>
             </Box>

@@ -10,6 +10,7 @@ import {
   Heading,
   Grid,
   GridItem,
+  useToast,
 } from '@chakra-ui/react';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
@@ -17,7 +18,6 @@ import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
-import { useToast } from '@chakra-ui/react';
 import { Game } from '@apps/backend-api';
 import { DeepPartial } from '@libs/typings';
 
@@ -170,12 +170,12 @@ const GameSettings = () => {
                 fontWeight="normal"
                 boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
               >
-                {'Modify'}
+                {'Edit'}
               </Button>
 
               <Grid templateColumns="repeat(1, 1fr)">
                 <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Company name :'}</Text>
+                  <Text as="b">{'Company name:'}</Text>
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -183,7 +183,7 @@ const GameSettings = () => {
                   </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
-                  <Text as="b">{'CEO name :'}</Text>
+                  <Text as="b">{'CEO name:'}</Text>
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -191,7 +191,7 @@ const GameSettings = () => {
                   </Text>
                 </GridItem>
                 <GridItem mt={marginTopButton}>
-                  <Text as="b">{'Location :'}</Text>
+                  <Text as="b">{'Location:'}</Text>
                 </GridItem>
                 <GridItem>
                   <Text bgColor="white" rounded="5px" py="1" px="4">

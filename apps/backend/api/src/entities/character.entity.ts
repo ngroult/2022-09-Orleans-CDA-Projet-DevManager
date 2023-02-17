@@ -20,8 +20,7 @@ export class Character {
   @Column()
   name: string;
 
-  @Column()
-  @Length(2, 500)
+  @Column('varchar', { length: 500 })
   description: string;
 
   @Column()

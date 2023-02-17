@@ -14,8 +14,7 @@ export class BonusMalus {
   @Column()
   type: string;
 
-  @Column()
-  @Length(30)
+  @Column('varchar', { length: 30 })
   label: string;
 
   @Column()

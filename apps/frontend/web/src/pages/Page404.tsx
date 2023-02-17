@@ -14,7 +14,7 @@ const Page404 = () => {
       </Center>
       <Center>
         <Text fontSize="3xl" mt="20" p="5">
-          {"Oups, this is room 404! It's nothing, it's just the trainee!"}
+          {"Oups, this is room 404! It's nothing, it's just the intern!"}
         </Text>
       </Center>
     </Box>

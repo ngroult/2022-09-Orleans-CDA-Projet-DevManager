@@ -87,9 +87,6 @@ const Leaderboard = () => {
                     </Flex>
                   </Heading>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    {'2500 / 1 500 000'}
-                  </Text>
-                  <Text fontSize={{ base: 'l', md: 'xl' }}>
                     {userGameResources?.quantity}$$
                   </Text>
                 </Box>
