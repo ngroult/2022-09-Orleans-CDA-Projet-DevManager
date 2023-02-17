@@ -14,7 +14,13 @@ import Leaderboard from './pages/Leaderboard';
 import AuthContext from './contexts/AuthContext';
 import { useContext, useEffect } from 'react';
 import Protected from './components/Protected';
-import { Box } from '@chakra-ui/react';
+import { Box, useDisclosure } from '@chakra-ui/react';
+import Navbar from './components/Navbar';
+import MobileNavbar from './components/MobileNavbar';
+import DrawerNavbar from './components/popups/DrawerNavbar';
+import ResourcesBar from './components/ResourcesBar';
+import NavbarRooms from './components/NavbarRooms';
+import MobileNavbarRooms from './components/MobileNavbarRooms';
 
 const App = () => {
   const { user, setUser, setIsLoadingUser } = useContext(AuthContext);
@@ -57,16 +63,27 @@ const App = () => {
   }, [user]);
 
   return (
-    <Box>
+    <Box h="100vh">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <Leaderboard />
+            </>
+          }
+        />
         <Route
           path="/new-game"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <NewGame />
             </Protected>
           }
@@ -75,7 +92,10 @@ const App = () => {
           path="/game/overview"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <Overview />
+              <MobileNavbarRooms />
             </Protected>
           }
         />
@@ -83,7 +103,12 @@ const App = () => {
           path="/game/:label"
           element={
             <Protected>
+              <Navbar />
+              <ResourcesBar />
+              <MobileNavbar />
               <Room />
+              <NavbarRooms />
+              <MobileNavbarRooms />
             </Protected>
           }
         />
@@ -91,6 +116,8 @@ const App = () => {
           path="/game-settings"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <GameSettings />
             </Protected>
           }
@@ -99,14 +126,42 @@ const App = () => {
           path="/account-settings"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <AccountSettings />
             </Protected>
           }
         />
-
-        <Route path="/about" element={<About />} />
-        <Route path="/assistance" element={<Assistance />} />
-        <Route path="*" element={<Page404 />} />
+        <Route
+          path="/about"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <About />
+            </>
+          }
+        />
+        <Route
+          path="/assistance"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <Assistance />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <Page404 />
+            </>
+          }
+        />
       </Routes>
     </Box>
   );
