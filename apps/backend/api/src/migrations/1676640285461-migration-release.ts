@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class releasev1 implements MigrationInterface {
-  name = 'releasev1';
+export class migrationRelease1676640285461 implements MigrationInterface {
+  name = 'migrationRelease1676640285461';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -23,16 +23,16 @@ export class releasev1 implements MigrationInterface {
       `CREATE TABLE \`room\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(200) NOT NULL, \`description\` varchar(2000) NOT NULL, \`image\` varchar(200) NOT NULL, \`label\` varchar(200) NOT NULL, \`color\` varchar(15) NOT NULL, \`price\` int(12) NOT NULL, \`order\` int(3) NOT NULL, \`isExpandable\` tinyint NOT NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
-      `CREATE TABLE \`event\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`label\` varchar(255) NOT NULL, \`image\` varchar(255) NOT NULL, \`price\` int NOT NULL, \`order\` int(3) NOT NULL, \`duration\` int NOT NULL, \`roomId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`event\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`label\` varchar(30) NOT NULL, \`image\` varchar(255) NOT NULL, \`price\` int NOT NULL, \`order\` int(3) NOT NULL, \`duration\` int NOT NULL, \`roomId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
-      `CREATE TABLE \`bonus_malus\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`type\` varchar(255) NOT NULL, \`label\` varchar(255) NOT NULL, \`rate\` int NOT NULL, \`isBonus\` tinyint NOT NULL, \`eventId\` int NULL, \`characterId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`bonus_malus\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`type\` varchar(255) NOT NULL, \`label\` varchar(30) NOT NULL, \`rate\` int NOT NULL, \`isBonus\` tinyint NOT NULL, \`eventId\` int NULL, \`characterId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `CREATE TABLE \`resource_produced\` (\`id\` int UNSIGNED NOT NULL AUTO_INCREMENT, \`quantity\` int NOT NULL, \`resourceId\` int UNSIGNED NULL, \`characterId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
-      `CREATE TABLE \`character\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`description\` varchar(255) NOT NULL, \`image\` varchar(255) NOT NULL, \`price\` int NOT NULL, \`order\` int(3) NOT NULL, \`size\` int NOT NULL, \`roomId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`character\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`description\` varchar(500) NOT NULL, \`image\` varchar(255) NOT NULL, \`price\` int NOT NULL, \`order\` int(3) NOT NULL, \`size\` int NOT NULL, \`roomId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
       `CREATE TABLE \`resource_used\` (\`id\` int UNSIGNED NOT NULL AUTO_INCREMENT, \`quantity\` int NOT NULL, \`resourceId\` int UNSIGNED NULL, \`characterId\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
