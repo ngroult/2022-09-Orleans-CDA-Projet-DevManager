@@ -24,7 +24,7 @@ const UserContactFiller = ({
         maxW="400px"
         m="0"
       >
-        {'Username :'}
+        {'Username:'}
       </FormLabel>
       <Input
         id="username"
@@ -47,7 +47,7 @@ const UserContactFiller = ({
         maxW="400px"
         m="0.5rem 0 0"
       >
-        {'E-mail :'}
+        {'E-mail:'}
       </FormLabel>
       <Input
         id="email"

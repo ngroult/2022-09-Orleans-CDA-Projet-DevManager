@@ -24,11 +24,10 @@ export class GameEventsController {
     return this.gameEventsService.create(createGameEventDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Req() req) {
     const gameId = req.signedCookies['game'];
-    return this.gameEventsService.findAll(gameId);
+    return this.gameEventsService.findAll(+gameId);
   }
 
   @Get(':id')

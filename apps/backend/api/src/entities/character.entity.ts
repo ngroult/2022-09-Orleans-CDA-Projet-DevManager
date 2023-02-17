@@ -10,6 +10,7 @@ import { BonusMalus } from './bonus-malus.entity';
 import { ResourceUsed } from './resource-used.entity';
 import { ResourceProduced } from './resource-produced.entity';
 import { Room } from './room.entity';
+import { Length } from 'class-validator';
 
 @Entity()
 export class Character {
@@ -20,6 +21,7 @@ export class Character {
   name: string;
 
   @Column()
+  @Length(2, 500)
   description: string;
 
   @Column()

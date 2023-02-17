@@ -84,9 +84,9 @@ export class GameRoomsService {
     return this.gameRoomsRepository.update(id, updateGameRoomsDto);
   }
 
-  async updateTotaleSize(
+  async updateTotalSize(
     id: number,
-    updateTotaleSizeDto: UpdateTotalSizeGameRoomDto,
+    updateTotalSizeDto: UpdateTotalSizeGameRoomDto,
     gameId: number,
   ) {
     const gameRoom = await this.gameRoomsRepository
@@ -114,7 +114,7 @@ export class GameRoomsService {
       { quantity: newQuantityDevDollars },
     );
 
-    const newTotalSize = gameRoom.totalSize + updateTotaleSizeDto.totalSize;
+    const newTotalSize = gameRoom.totalSize + updateTotalSizeDto.totalSize;
 
     await this.gameRoomsRepository.update(id, { totalSize: newTotalSize });
     return { success: true };

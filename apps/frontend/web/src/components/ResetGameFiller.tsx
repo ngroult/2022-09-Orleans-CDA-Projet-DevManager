@@ -16,7 +16,7 @@ const ResetGameFiller = () => {
         maxW="400px"
         m="0.5rem 0 0"
       >
-        {'Password :'}
+        {'Password:'}
       </FormLabel>
       <Input
         id="password"

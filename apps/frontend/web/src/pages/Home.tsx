@@ -28,7 +28,7 @@ const Home = () => {
         </Heading>
       </Center>
       <Center>
-        <Box w="500px" display="flex" align="center" mt="5rem" mb="5rem">
+        <Box w="500px" display="flex" alignItems="center" mt="5rem" mb="5rem">
           <Text color="black" m="5px">
             {
               'Welcome to DevManager! The first game where you can manage a full crew of a dev company! With a 2D style , and a simple and intuitive gameplay'

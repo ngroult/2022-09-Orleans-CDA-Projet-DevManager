@@ -22,7 +22,7 @@ const UserPasswordFiller = ({
         maxW="400px"
         m="0"
       >
-        {'Old password :'}
+        {'Old password:'}
       </FormLabel>
       <Input
         id="password"
@@ -38,7 +38,7 @@ const UserPasswordFiller = ({
         maxW="400px"
         m="0.5rem 0 0"
       >
-        {'New password :'}
+        {'New password:'}
       </FormLabel>
       <Input
         id="password"
