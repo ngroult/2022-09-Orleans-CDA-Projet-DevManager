@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: mysql-devmanager
+    image: mysql:8.0.31
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=devmanager
+    ports:
+      - 3306:3306
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - ./db:/var/lib/mysql
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.23.2-alpine
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro

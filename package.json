@@ -5,32 +5,45 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
+    "format": "npx prettier --write . !./deployment/db",
+    "format:check": "npx prettier --check . !./deployment/db",
     "env:cp": "cp ./.env ./apps/frontend/web/.env && cp ./.env ./apps/frontend/mobile/.env && cp ./.env ./apps/backend/api/.env",
     "watch:env": "nodemon --watch ./.env --exec \"npm run env:cp\"",
-    "build:frontend:web": "npm run build --workspace=apps/frontend/web",
-    "build:backend:api": "docker build -f ./apps/backend/api/Dockerfile -t backend-api .",
-    "build": "concurrently -c \"auto\" \"npm:build:*\"",
     "dev:frontend:web": "npm run dev --workspace=apps/frontend/web",
     "dev:frontend:mobile": "npm run dev --workspace=apps/frontend/mobile",
+    "dev:tunnel": "npm run tunnel --workspace=apps/frontend/mobile",
     "dev:backend:api": "npm run dev --workspace=apps/backend/api",
     "dev:mobile": "npm run dev:frontend:mobile",
     "dev:m": "npm run dev:mobile",
     "d:m": "npm run dev:mobile",
     "dev": "concurrently -c \"auto\" \"npm:watch:*\" \"npm:dev:backend:*\" \"npm:dev:frontend:*(!mobile)\"",
-    "d": "npm run dev"
+    "d": "npm run dev",
+    "dc:up": "docker compose -f ./deployment/docker-compose.dev.yml up -d",
+    "dc:down": "docker compose -f ./deployment/docker-compose.dev.yml down -v",
+    "dc:reset": "npm run dc:down && rm -rf deployment/db && npm run dc:up",
+    "dcp:up": "docker compose -f ./deployment/docker-compose.prod.yml up -d --build",
+    "dcp:down": "docker compose -f ./deployment/docker-compose.prod.yml down -v",
+    "forge": "npm run start --workspace=apps/tools/forge",
+    "i:reset": "rm -rf node_modules apps/backend/api/node_modules apps/frontend/web/node_modules apps/frontend/mobile/node_modules apps/frontend/admin/node_modules apps/tools/forge/node_modules && npm i"
   },
   "workspaces": [
     "libs/typings",
     "apps/backend/api",
     "apps/frontend/web",
-    "apps/frontend/mobile"
+    "apps/frontend/mobile",
+    "apps/tools/forge"
   ],
   "devDependencies": {
     "@types/node": "^18.11.9",
     "concurrently": "^7.5.0",
+    "husky": "^8.0.2",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
     "dotenv": "^16.0.3"
+  },
+  "optionalDependencies": {
+    "esbuild-linux-64": "^0.15.18"
   }
 }

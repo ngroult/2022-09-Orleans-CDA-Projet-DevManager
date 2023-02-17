@@ -1,11 +1,24 @@
-import React from 'react';
+import { StrictMode } from 'react';
+import { ChakraProvider } from '@chakra-ui/react';
+import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
-import App from './App'
+import '@fontsource/chakra-petch/400.css';
+import '@fontsource/orbitron/700.css';
+import theme from './theme';
 import App from './App';
-import './index.css';
+import { AuthProvider } from './contexts/AuthContext';
+import { GameProvider } from './contexts/GameContext';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-)
+  <StrictMode>
+    <ChakraProvider theme={theme}>
+      <AuthProvider>
+        <GameProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </GameProvider>
+      </AuthProvider>
+    </ChakraProvider>
+  </StrictMode>
+);
