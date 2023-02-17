@@ -9,8 +9,8 @@ import {
 export class CreateUserDto {
   @IsNotEmpty()
   @IsString()
-  @Length(3, 30, {
-    message: 'Your username must be between 3 and 30 characters length',
+  @Length(2, 30, {
+    message: 'Your username must be between 2 and 30 characters length',
   })
   username: string;
 

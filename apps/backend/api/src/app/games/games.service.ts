@@ -12,7 +12,7 @@ export class GamesService {
   ) {}
 
   async create(createGameDto: CreateGameDto) {
-    return await this.gamesRepository.save(createGameDto);
+    return this.gamesRepository.save(createGameDto);
   }
 
   async findAll() {

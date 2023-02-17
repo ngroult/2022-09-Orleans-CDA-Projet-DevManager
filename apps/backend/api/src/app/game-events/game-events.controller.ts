@@ -14,6 +14,7 @@ import { CreateGameEventDto } from './dto/create-game-event.dto';
 import { UpdateGameEventDto } from './dto/update-game-event.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('game-events')
 export class GameEventsController {
   constructor(private readonly gameEventsService: GameEventsService) {}

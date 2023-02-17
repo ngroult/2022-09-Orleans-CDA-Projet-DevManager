@@ -17,6 +17,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 
+@UseGuards(JwtAuthGuard)
 @Controller('games')
 export class GamesController {
   constructor(
@@ -24,7 +25,6 @@ export class GamesController {
     private readonly configService: ConfigService,
   ) {}
 
-  @UseGuards(JwtAuthGuard)
   @Get('id')
   async gameId(@Res({ passthrough: true }) response: Response, @Req() req) {
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
@@ -43,7 +43,6 @@ export class GamesController {
     return this.gamesService.create(createGameDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.gamesService.findAll();

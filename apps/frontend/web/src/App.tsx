@@ -61,8 +61,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/leaderboard"
+          element={
+            <Protected>
+              <Leaderboard />
+            </Protected>
+          }
+        />
         <Route
           path="/new-game"
           element={
