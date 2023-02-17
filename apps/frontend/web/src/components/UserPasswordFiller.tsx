@@ -1,11 +1,12 @@
 import { User } from '@apps/backend-api';
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 import { Dispatch, SetStateAction } from 'react';
 
 const UserPasswordFiller = ({
   setPendingUserData,
 }: {
-  setPendingUserData: Dispatch<SetStateAction<Partial<User>>>;
+  setPendingUserData: Dispatch<SetStateAction<DeepPartial<User>>>;
 }) => {
   return (
     <InputGroup
