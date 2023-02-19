@@ -21,6 +21,7 @@ import DrawerNavbar from './components/popups/DrawerNavbar';
 import ResourcesBar from './components/ResourcesBar';
 import NavbarRooms from './components/NavbarRooms';
 import MobileNavbarRooms from './components/MobileNavbarRooms';
+import GameFrame from './components/GameFrame';
 
 const App = () => {
   const { user, setUser, setIsLoadingUser } = useContext(AuthContext);
@@ -162,6 +163,7 @@ const App = () => {
             </>
           }
         />
+        <Route path="/game-frame" element={<GameFrame />} />
       </Routes>
     </Box>
   );

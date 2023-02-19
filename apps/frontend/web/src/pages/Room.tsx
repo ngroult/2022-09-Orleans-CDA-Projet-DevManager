@@ -1,7 +1,8 @@
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Center, Flex } from '@chakra-ui/react';
 import { useContext } from 'react';
 import GameContext from '../contexts/GameContext';
 import RoomElementCard from '../components/RoomElementCard';
+import GameFrame from '../components/GameFrame';
 
 const RoomPage = () => {
   const { gameRoom, gameEvents, gameCharacters } = useContext(GameContext);
@@ -16,10 +17,14 @@ const RoomPage = () => {
       <Box
         boxSize="100%"
         display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
-        bgImage="/placeholder.png"
         bgPosition="top center"
         bgSize="cover"
-      />
+      >
+        <Center pl={'70px'}>
+          <GameFrame />
+        </Center>
+      </Box>
+
       {gameRoom && gameEvents && gameCharacters && (
         <Flex
           flexDir="column"
