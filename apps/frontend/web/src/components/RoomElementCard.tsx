@@ -23,7 +23,16 @@ function RoomElementCard({
   gameEvent?: GameEvent;
 }) {
   const { gameRoom } = useContext(GameContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenCharacterModal,
+    onOpen: onOpenCharacterModal,
+    onClose: onCloseCharacterModal,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenEventModal,
+    onOpen: onOpenEventModal,
+    onClose: onCloseEventModal,
+  } = useDisclosure();
   const toast = useToast();
 
   const addCharacters = async () => {
@@ -133,7 +142,13 @@ function RoomElementCard({
           w="5rem"
           borderRadius="0 0.5rem 0.5rem 0"
           bgColor={`${gameRoom?.room.color}.900`}
-          onClick={onOpen}
+          onClick={
+            gameCharacter
+              ? onOpenCharacterModal
+              : gameEvent
+              ? onOpenEventModal
+              : undefined
+          }
           cursor="pointer"
         >
           <Image w="3.5rem" src={image} alt={name} />
@@ -232,16 +247,16 @@ function RoomElementCard({
       </Flex>
 
       <CharacterModal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenCharacterModal}
+        onClose={onCloseCharacterModal}
         gameCharacter={gameCharacter}
         resourcesUsed={resourcesUsed}
         resourcesProduced={resourcesProduced}
       />
 
       <EventModal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenEventModal}
+        onClose={onCloseEventModal}
         gameEvent={gameEvent}
         bonusMalus={bonusMalus}
       />
