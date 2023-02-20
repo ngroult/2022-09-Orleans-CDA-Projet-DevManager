@@ -1,68 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Box, Image, Text, Button, Flex } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import NavbarRooms from '../components/NavbarRooms';
 import ResourcesBar from '../components/ResourcesBar';
+import GameContext from '../contexts/GameContext';
 
 const Overview = () => {
-  const [shouldShowCheck, setShouldShowCheck] = useState(true);
+  const { gameResources, gameRooms } = useContext(GameContext);
+  const [shouldShowCheck, setShouldShowCheck] = useState(false);
+
+  useEffect(() => {
+    if (gameRooms.length && gameResources.length) {
+      const [firstRoom] = gameRooms.filter(
+        (gameRoom) => gameRoom.room.order === 1
+      );
+      const [devDollars] = gameResources.filter(
+        (gameResource) => gameResource.resource.name === 'DevDollars'
+      );
+
+      if (firstRoom.totalSize === 0 && devDollars.quantity === 0)
+        setShouldShowCheck(true);
+    }
+  }, [gameRooms, gameResources]);
 
   const handleGetCheck = async () => {
-    const data = {
-      gameId: 1,
-      resourceId: 1,
-    };
-
     try {
-      const rawResponse = await fetch('/api/game-resources', {
+      const req = await fetch('/api/games/take-check', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
       });
-      const jsonResponse = await rawResponse.json();
+      const res = await req.json();
 
-      if (rawResponse.ok) {
-        if (jsonResponse.status === 'ok') {
+      if (req.ok) {
+        if (res.status === 'ok') {
           setShouldShowCheck(false);
-        } else {
-          if (jsonResponse.errorResource) {
-            console.error(jsonResponse.errorResource);
-          }
-          if (jsonResponse.errorGame) {
-            console.error(jsonResponse.errorGame);
-          }
         }
       }
-    } catch (err) {
-      console.error(err);
-    }
+    } catch {}
   };
 
   return (
-    <Box h="100vh">
+    <Box h={{ base: 'calc(100vh - 5rem)', sm: '100vh' }}>
       <ResourcesBar />
       <NavbarRooms />
-      <Flex
-        flexDir="column"
-        alignItems="center"
-        justifyContent="center"
-        pt="80px"
-        px="80px"
-        h="calc(100vh - 80px)"
-      >
-        <Text textAlign="center" fontSize="2rem" mb="2rem">
-          {'Welcome to our wonderful city!'}
-        </Text>
+      {shouldShowCheck ? (
         <Flex
-          flexDir="row"
-          alignItems="stretch"
+          flexDir="column"
+          h={{ base: 'calc(100vh - 5rem)', sm: '100vh' }}
+          pt={{ base: '6rem', sm: '5rem' }}
+          mx={{ base: '0', sm: '5rem' }}
           justifyContent="center"
-          w="100%"
         >
-          <Image src="/mayor.svg" w="15rem" mr="-1.5rem" zIndex="2" />
-          {shouldShowCheck ? (
+          <Text
+            textAlign="center"
+            fontSize={{ base: '1.5rem', sm: '2rem' }}
+            mt={{ base: '1rem', sm: '0' }}
+            mb="2rem"
+          >
+            {'Welcome to our wonderful city!'}
+          </Text>
+          <Flex
+            flexDir="row"
+            alignItems="stretch"
+            justifyContent="center"
+            w="100%"
+          >
+            <Image
+              display={{ base: 'none', sm: 'block' }}
+              src="/mayor.svg"
+              w="15rem"
+              mr="-1.5rem"
+              zIndex="2"
+            />
             <Flex flexDir="column" alignItems="center" maxW="30rem">
               <Text
                 textAlign="center"
@@ -72,7 +83,7 @@ const Overview = () => {
                 mx="0.5rem"
               >
                 {
-                  'Cheer! You have just launched your digital services business! As mayor of the city I offer you 1,000 devDollars aid to set up in my municipality. Accept the money and start the adventure!'
+                  'Cheer! You have just launched your digital services business! As mayor of the city I offer you 5,000 devDollars aid to set up in my municipality. Accept the money and start the adventure!'
                 }
               </Text>
               <Button
@@ -104,18 +115,33 @@ const Overview = () => {
                     alignItems="center"
                   >
                     <Image w="25px" src="/dollar.png" />
-                    <Text ml="0.25rem" color="black" fontWeight="normal">
-                      {'1000'}
+                    <Text ml="0.25rem" color="black" fontWeight="bold">
+                      {'5000'}
                     </Text>
                   </Flex>
                 </Flex>
               </Button>
             </Flex>
-          ) : (
-            <Image src="/overview.jpg" />
-          )}
+          </Flex>
         </Flex>
-      </Flex>
+      ) : (
+        <Flex
+          flexDir="column"
+          h={{ base: 'calc(100vh - 5rem)', sm: '100vh' }}
+          pt={{ base: '6rem', sm: '5rem' }}
+          mx={{ base: '0', sm: '5rem' }}
+          justifyContent="center"
+        >
+          <Box
+            w="100%"
+            h="100%"
+            bgImage="/placeholder.png"
+            bgPosition="center"
+            bgRepeat="no-repeat"
+            bgSize="cover"
+          />
+        </Flex>
+      )}
     </Box>
   );
 };

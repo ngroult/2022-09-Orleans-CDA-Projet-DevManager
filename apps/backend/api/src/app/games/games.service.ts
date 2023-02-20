@@ -48,7 +48,7 @@ export class GamesService {
       gameRoomsPromises.push(
         this.gameRoomsRepository.save({
           size: 0,
-          totalSize: 100,
+          totalSize: 0,
           game: { id: game.id },
           room: { id: room.id },
         }),
@@ -124,6 +124,23 @@ export class GamesService {
     });
 
     return game;
+  }
+
+  async takeCheck(gameId: number) {
+    const devDollars = await this.resourcesRepository.findOne({
+      where: { name: 'DevDollars' },
+    });
+
+    const update = await this.gameResourcesRepository.update(
+      { game: { id: gameId }, resource: { id: devDollars.id } },
+      { quantity: 5000 },
+    );
+
+    if (update.affected) {
+      return { status: 'ok' };
+    } else {
+      return { status: 'ko' };
+    }
   }
 
   async remove(id: number): Promise<void> {

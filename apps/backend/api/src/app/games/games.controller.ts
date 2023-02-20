@@ -70,6 +70,13 @@ export class GamesController {
     return this.gamesService.update(+id, updateGameDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('take-check')
+  takeCheck(@Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gamesService.takeCheck(gameId);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.gamesService.remove(+id);
