@@ -10,6 +10,7 @@ import {
   Heading,
   Grid,
   GridItem,
+  useToast,
 } from '@chakra-ui/react';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
@@ -17,7 +18,6 @@ import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
 import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
-import { useToast } from '@chakra-ui/react';
 import { Game } from '@apps/backend-api';
 import { DeepPartial } from '@libs/typings';
 import MobileNavbar from '../components/MobileNavbar';
@@ -251,7 +251,7 @@ const GameSettings = () => {
                 boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
                 onClick={() => updateGameSettings()}
               >
-                {'Modify'}
+                {'Edit'}
               </Button>
             </VStack>
           </Box>

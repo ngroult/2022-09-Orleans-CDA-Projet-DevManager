@@ -7,12 +7,13 @@ import {
   InputRightElement,
   Button,
 } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 const UserPasswordFiller = ({
   setPendingUserData,
 }: {
-  setPendingUserData: Dispatch<SetStateAction<Partial<User>>>;
+  setPendingUserData: Dispatch<SetStateAction<DeepPartial<User>>>;
 }) => {
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
 
@@ -31,7 +32,7 @@ const UserPasswordFiller = ({
         maxW="400px"
         m="0"
       >
-        {'Old password :'}
+        {'Old password:'}
       </FormLabel>
       <Input
         id="password"
@@ -47,7 +48,7 @@ const UserPasswordFiller = ({
         maxW="400px"
         m="0.5rem 0 0"
       >
-        {'New password :'}
+        {'New password:'}
       </FormLabel>
       <InputGroup size="md" maxW="400px">
         <Input
@@ -58,7 +59,7 @@ const UserPasswordFiller = ({
           bgColor="#fff"
           _placeholder={{ opacity: 0.3 }}
           onChange={(e) =>
-            setPendingUserData((prev: Partial<User>) => ({
+            setPendingUserData((prev: DeepPartial<User>) => ({
               ...prev,
               password: e.target.value,
             }))

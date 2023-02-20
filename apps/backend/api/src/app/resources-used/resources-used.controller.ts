@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ResourcesUsedService } from './resources-used.service';
 import { CreateResourceUsedDto } from './dto/create-resource-used.dto';
 import { UpdateResourceUsedDto } from './dto/update-resource-used.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('resources-used')
 export class ResourcesUsedController {
   constructor(private readonly resourcesUsedService: ResourcesUsedService) {}
