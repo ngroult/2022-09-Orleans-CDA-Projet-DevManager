@@ -36,10 +36,10 @@ function DrawerResources({
           </DrawerHeader>
           <DrawerBody
             display="flex"
-            flexDir="column"
-            justifyContent="flex-start"
+            flexDir={{ base: 'column', sm: 'row' }}
+            flexWrap={{ base: 'unset', sm: 'wrap' }}
+            justifyContent={{ base: 'flex-start', sm: 'center' }}
             alignItems="center"
-            mt="-2rem"
             zIndex="9"
           >
             {gameResourcesChar.map((gameResource) => (
@@ -48,15 +48,19 @@ function DrawerResources({
                 flexDir="column"
                 alignItems="center"
                 justifyContent="center"
+                border="1px solid black"
+                borderRadius="0.5rem"
+                m="1rem"
+                p="1rem"
                 key={gameResource.id}
               >
                 <Box boxSize="60px">
                   <Image src={gameResource.resource.image} />
                 </Box>
-                <Text fontSize="20px" fontWeight="bold">
+                <Text fontSize="20px" fontWeight="bold" mb="1rem">
                   {gameResource.resource.name}
                 </Text>
-                <HStack>
+                <HStack mb="0.5rem">
                   <Text>{'Production:'}</Text>
                   <Box
                     rounded="10px"
@@ -80,7 +84,7 @@ function DrawerResources({
                     </HStack>
                   </Box>
                 </HStack>
-                <HStack>
+                <HStack mb="0.5rem">
                   <Text>{'Total:'}</Text>
                   <Box
                     rounded="10px"
@@ -110,6 +114,7 @@ function DrawerResources({
                       <Box
                         rounded="5px"
                         bgColor="green.900"
+                        m="0.25rem"
                         px="10px"
                         key={resourceProduced.character.id}
                       >
@@ -134,6 +139,7 @@ function DrawerResources({
                       rounded="5px"
                       bgColor="red.900"
                       px="10px"
+                      m="0.25rem"
                       key={resourceUsed.character.id}
                     >
                       <Flex
