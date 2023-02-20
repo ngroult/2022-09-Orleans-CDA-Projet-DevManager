@@ -1,8 +1,6 @@
 import { Container, render, Sprite, Stage, useTick } from '@pixi/react';
 import { useState } from 'react';
 
-let i = 0;
-
 const MovingSprite = (props) => {
   // states
   const [x, setX] = useState(0);

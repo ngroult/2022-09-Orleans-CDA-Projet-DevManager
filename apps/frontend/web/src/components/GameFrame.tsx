@@ -31,8 +31,6 @@ const GameFrame = () => {
     }
   }, [gameRoom]);
 
-  console.log(roomOptions.color);
-
   if (roomOptions.color !== undefined) {
     return (
       <Box display={{ base: 'none', xl: 'block' }}>{roomOptions.component}</Box>
