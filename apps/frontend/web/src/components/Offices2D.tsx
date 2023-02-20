@@ -1,9 +1,15 @@
-import { Container, Sprite } from '@pixi/react';
+import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
+import * as PIXI from 'pixi.js';
 
-function Offices2D() {
+function Offices2D(props) {
   return (
-    <>
+    <Stage
+      width={900}
+      height={700}
+      color={props.color}
+      options={(PIXI.autoDetectRenderer, { backgroundColor: props.color })}
+    >
       <Sprite
         image="/bureau.png"
         width={100}
@@ -72,7 +78,7 @@ function Offices2D() {
         image="/distributeur-automatique.png"
         width={150}
         height={150}
-        x={85}
+        x={600}
         y={85}
         anchor={0.5}
       />
@@ -80,7 +86,7 @@ function Offices2D() {
         image="/distributeur-automatique(1).png"
         width={150}
         height={150}
-        x={250}
+        x={750}
         y={85}
         anchor={0.5}
       />
@@ -88,7 +94,7 @@ function Offices2D() {
         image="/salle-a-manger.png"
         width={200}
         height={200}
-        x={750}
+        x={200}
         y={85}
         anchor={0.5}
       />
@@ -101,13 +107,13 @@ function Offices2D() {
         anchor={0.5}
       />
       <Container>
-        <MovingSprite />
-        <MovingSprite />
-        <MovingSprite />
-        <MovingSprite />
-        <MovingSprite />
+        <MovingSprite character="/woman8.png" />
+        <MovingSprite character="/woman8.png" />
+        <MovingSprite character="/woman8.png" />
+        <MovingSprite character="/woman8.png" />
+        <MovingSprite character="/woman8.png" />
       </Container>
-    </>
+    </Stage>
   );
 }
 

@@ -1,9 +1,15 @@
-import { Container, Sprite } from '@pixi/react';
+import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
+import * as PIXI from 'pixi.js';
 
-function OpenSpace2D() {
+function OpenSpace2D(props) {
   return (
-    <>
+    <Stage
+      width={900}
+      height={700}
+      color={props.color}
+      options={(PIXI.autoDetectRenderer, { backgroundColor: props.color })}
+    >
       <Sprite
         image="/table-de-bureau.png"
         width={100}
@@ -101,13 +107,13 @@ function OpenSpace2D() {
         anchor={0.5}
       />
       <Container>
-        <MovingSprite />
-        <MovingSprite />
-        <MovingSprite />
-        <MovingSprite />
-        <MovingSprite />
+        <MovingSprite character="/man4.png" />
+        <MovingSprite character="/man4.png" />
+        <MovingSprite character="/man4.png" />
+        <MovingSprite character="/man4.png" />
+        <MovingSprite character="/man4.png" />
       </Container>
-    </>
+    </Stage>
   );
 }
 

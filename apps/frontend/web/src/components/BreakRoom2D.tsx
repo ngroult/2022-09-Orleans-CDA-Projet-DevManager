@@ -1,9 +1,15 @@
-import { Container, Sprite } from '@pixi/react';
+import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
+import * as PIXI from 'pixi.js';
 
-function BreakRoom2D() {
+function BreakRoom2D(props) {
   return (
-    <>
+    <Stage
+      width={900}
+      height={700}
+      color={props.color}
+      options={(PIXI.autoDetectRenderer, { backgroundColor: props.color })}
+    >
       <Sprite
         image="/nouvelles.png"
         width={100}
@@ -28,7 +34,6 @@ function BreakRoom2D() {
         y={500}
         anchor={0.5}
       />
-
       <Sprite
         image="/distributeur-automatique.png"
         width={150}
@@ -77,7 +82,14 @@ function BreakRoom2D() {
         y={670}
         anchor={0.5}
       />
-    </>
+      <Container>
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+      </Container>
+    </Stage>
   );
 }
 

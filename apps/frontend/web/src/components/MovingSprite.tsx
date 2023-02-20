@@ -3,12 +3,15 @@ import { useState } from 'react';
 
 let i = 0;
 
-const MovingSprite = () => {
+const MovingSprite = (props) => {
   // states
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [speed, setSpeed] = useState(0.01);
-  const [target, setTarget] = useState({ x: 500, y: 400 });
+  const [target, setTarget] = useState({
+    x: Math.random() * 800,
+    y: Math.random() * 600,
+  });
   const [targetLocked, setTargetLocked] = useState(false);
 
   // tick
@@ -22,14 +25,14 @@ const MovingSprite = () => {
         setTimeout(() => {
           setTarget({ x: Math.random() * 900, y: Math.random() * 700 });
           setTargetLocked(false);
-        }, 30000);
+        }, Math.random() * 10000);
       }
     }
   });
 
   return (
     <Sprite
-      image="/man1.png"
+      image={props.character}
       anchor={0.5}
       x={x}
       y={y}

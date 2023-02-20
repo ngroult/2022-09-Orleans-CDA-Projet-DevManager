@@ -1,30 +1,43 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Stage } from '@pixi/react';
 import * as PIXI from 'pixi.js';
 import OpenSpace2D from './OpenSpace2D';
 import Offices2D from './Offices2D';
 import BreakRoom2D from './BreakRoom2D';
+import GameContext from '../contexts/GameContext';
+import { background, Box } from '@chakra-ui/react';
 
 const GameFrame = () => {
-  const [stageWidth, setStageWidth] = useState(900);
-  const [stageHeight, setStageHeight] = useState(700);
+  const [roomOptions, setRoomOptions] = useState({});
 
-  function handleResize() {
-    setStageWidth(window.innerWidth);
-    setStageHeight(window.innerHeight);
+  const { gameRoom } = useContext(GameContext);
+
+  useEffect(() => {
+    if (gameRoom?.room.label === 'open-space') {
+      setRoomOptions({
+        component: <OpenSpace2D color={0xefd8eb} />,
+        color: 0xefd8eb,
+      });
+    } else if (gameRoom?.room.label === 'offices') {
+      setRoomOptions({
+        component: <Offices2D color={0xd9f1f0} />,
+        color: 0xd9f1f0,
+      });
+    } else if (gameRoom?.room.label === 'break-room') {
+      setRoomOptions({
+        component: <BreakRoom2D color={0xf7f0d0} />,
+        color: 0xf7f0d0,
+      });
+    }
+  }, [gameRoom]);
+
+  console.log(roomOptions.color);
+
+  if (roomOptions.color !== undefined) {
+    return (
+      <Box display={{ base: 'none', xl: 'block' }}>{roomOptions.component}</Box>
+    );
   }
-
-  return (
-    <div onResize={handleResize}>
-      <Stage
-        width={stageWidth}
-        height={stageHeight}
-        options={(PIXI.autoDetectRenderer, { backgroundColor: 0xefd8eb })}
-      >
-        <BreakRoom2D />
-      </Stage>
-    </div>
-  );
 };
 
 export default GameFrame;
