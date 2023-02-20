@@ -250,41 +250,39 @@ const ResourcesBar = () => {
         )}
 
         <HStack>
-          <Box>
-            <HStack>
-              <Grid
-                gridTemplateColumns={{
-                  base: 'repeat(2, 1fr)',
-                  lg: 'repeat(4, 1fr)',
-                  xl: 'repeat(5, 1fr)',
-                }}
-                gap={2}
+          <Grid
+            gridTemplateColumns={{
+              base: 'repeat(2, 1fr)',
+              md: 'repeat(3, auto)',
+              lg: 'repeat(4, auto)',
+              xl: 'repeat(5, auto)',
+            }}
+            gridAutoFlow="column"
+            gap={2}
+          >
+            {gameResourcesChar.map((gameResource) => (
+              <Flex
+                key={gameResource.id}
+                flexDir="row"
+                justifyContent="flex-start"
+                alignItems="center"
+                py="0.3rem"
+                px="0.3rem"
+                bg={gameResource.resource.color}
+                borderRadius="1rem"
+                boxShadow="xl"
               >
-                {gameResourcesChar.map((gameResource) => (
-                  <GridItem
-                    key={gameResource.id}
-                    bg={gameResource.resource.color}
-                    px="10px"
-                    py="5px"
-                    borderRadius="20px"
-                    boxShadow="xl"
-                    display={{
-                      base:
-                        gameResource.resource.order > 2 ? 'none' : 'inherit',
-                      xl: 'inherit',
-                    }}
-                  >
-                    <HStack>
-                      <Box boxSize="30px">
-                        <Image src={gameResource.resource.image} />
-                      </Box>
-                      <Text fontWeight="bold">{gameResource.quantity}</Text>
-                    </HStack>
-                  </GridItem>
-                ))}
-              </Grid>
-            </HStack>
-          </Box>
+                <Image
+                  w="1.7rem"
+                  h="1.7rem"
+                  src={gameResource.resource.image}
+                />
+                <Text fontWeight="bold" mx="0.5rem">
+                  {gameResource.quantity}
+                </Text>
+              </Flex>
+            ))}
+          </Grid>
           <IconButton
             display={{ base: 'none', md: 'flex' }}
             size="md"
@@ -345,7 +343,9 @@ const ResourcesBar = () => {
                 }}
               >
                 <Image h="1.5rem" src={gameResource.resource.image} />
-                <Text ml="0.3rem">{gameResource.quantity}</Text>
+                <Text ml="0.3rem" fontWeight="bold">
+                  {gameResource.quantity}
+                </Text>
               </GridItem>
             ))}
           </Grid>
