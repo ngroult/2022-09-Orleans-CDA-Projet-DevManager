@@ -24,14 +24,14 @@ function EventModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  gameEvent: GameEvent;
-  bonusMalus: BonusMalus[];
+  gameEvent: GameEvent | undefined;
+  bonusMalus: BonusMalus[] | undefined;
 }) {
   return (
     <Box>
       <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
         <ModalOverlay />
-        <ModalContent bg={`${gameEvent.event.room.color}.200`}>
+        <ModalContent bg={`${gameEvent?.event.room.color}.200`}>
           <ModalCloseButton />
           <ModalBody pt={'10'} px={'0'}>
             <Box h={'calc(100vh-7rem)'}>
@@ -40,16 +40,16 @@ function EventModal({
                   boxSize="20%"
                   m="auto"
                   mt="2.5"
-                  src={gameEvent.event.image}
-                  alt={gameEvent.event.label}
+                  src={gameEvent?.event.image}
+                  alt={gameEvent?.event.label}
                 />
               </Center>
               <Center>
                 <Heading size="md" py={'10'}>
-                  {gameEvent.event.name}
+                  {gameEvent?.event.name}
                 </Heading>
               </Center>
-              <Text textAlign={'center'}>{gameEvent.event.description}</Text>
+              <Text textAlign={'center'}>{gameEvent?.event.description}</Text>
               <Center>
                 <Flex py={'10'}>
                   <Text mr={'3'} fontSize={'lg'} as="b">
@@ -64,7 +64,7 @@ function EventModal({
                         p="1"
                       />
                       <Text fontSize={'lg'} as="b">
-                        {`${gameEvent.event.price}`}
+                        {`${gameEvent?.event.price}`}
                       </Text>
                     </Flex>
                   </Badge>
@@ -95,9 +95,9 @@ function EventModal({
               </Center>
             </Box>
             <Box pos={'absolute'} bottom={'0'} w={'100%'}>
-              <Box h={'4rem'} bg={`${gameEvent.event.room.color}.300`}></Box>
-              <Box h={'2rem'} bg={`${gameEvent.event.room.color}.500`}></Box>
-              <Box h={'1rem'} bg={`${gameEvent.event.room.color}.900`}></Box>
+              <Box h={'4rem'} bg={`${gameEvent?.event.room.color}.300`}></Box>
+              <Box h={'2rem'} bg={`${gameEvent?.event.room.color}.500`}></Box>
+              <Box h={'1rem'} bg={`${gameEvent?.event.room.color}.900`}></Box>
             </Box>
           </ModalBody>
         </ModalContent>

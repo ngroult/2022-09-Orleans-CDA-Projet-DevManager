@@ -4,6 +4,7 @@ import {
   Divider,
   Flex,
   Heading,
+  HStack,
   Image,
   Table,
   TableContainer,
@@ -55,7 +56,6 @@ const Leaderboard = () => {
 
   return (
     <>
-      <Navbar />
       <Box position="absolute" top="0" margin="auto" w="100%" zIndex="-1">
         <Center>
           <Heading as="h1" size="2xl" m="20" color="#797AA6">
@@ -81,13 +81,13 @@ const Leaderboard = () => {
                       <Image
                         src={`${userGameResources?.game?.user?.image?.name}.png`}
                         boxSize="10"
-                        mr="2"
+                        ml="5"
                         alt="profil picture"
                       />
                     </Flex>
                   </Heading>
                   <Text fontSize={{ base: 'l', md: 'xl' }}>
-                    {userGameResources?.quantity}$$
+                    {`Your Point ${userGameResources?.quantity}$`}
                   </Text>
                 </Box>
               </Flex>
@@ -165,7 +165,13 @@ const Leaderboard = () => {
                             {gameResources?.game?.companyName}
                           </Flex>
                         </Td>
-                        <Td>{`${gameResources.quantity}$$`}</Td>
+
+                        <Td>
+                          <Flex align="center">
+                            <Image boxSize="2rem" mr="1" src="dollar.png" />
+                            {`${gameResources.quantity}`}
+                          </Flex>
+                        </Td>
                       </Tr>
                     </Tbody>
                   )

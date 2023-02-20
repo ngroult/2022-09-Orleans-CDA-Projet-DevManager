@@ -29,6 +29,7 @@ export class GamesController {
   async gameId(@Res({ passthrough: true }) response: Response, @Req() req) {
     const NODE_ENV = this.configService.get('NODE_ENV') || 'development';
     const game = await this.gamesService.findOneByUser(req.user.id);
+
     response.cookie('game', game.id, {
       httpOnly: true,
       sameSite: true,
@@ -66,6 +67,13 @@ export class GamesController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGameDto: UpdateGameDto) {
     return this.gamesService.update(+id, updateGameDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('take-check')
+  takeCheck(@Req() req) {
+    const gameId = req.signedCookies['game'];
+    return this.gamesService.takeCheck(gameId);
   }
 
   @Delete(':id')

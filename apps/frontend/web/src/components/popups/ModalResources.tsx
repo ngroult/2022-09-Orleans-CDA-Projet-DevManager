@@ -99,7 +99,7 @@ function ModalResources({
                                   rounded="5px"
                                   bgColor="green.900"
                                   px="10px"
-                                  key={resourceProduced.id}
+                                  key={resourceProduced.character.id}
                                 >
                                   <HStack>
                                     <Box boxSize="30px">
@@ -121,7 +121,7 @@ function ModalResources({
                                   rounded="5px"
                                   bgColor="red.900"
                                   px="10px"
-                                  key={resourceUsed.id}
+                                  key={resourceUsed.character.id}
                                 >
                                   <HStack>
                                     <Box boxSize="30px">
