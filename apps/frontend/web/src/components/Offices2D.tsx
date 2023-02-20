@@ -43,7 +43,7 @@ function Offices2D(props: { color: string }) {
         anchor={0.5}
       />
       <Sprite
-        image="/desk(1).png"
+        image="/zen_desk.png"
         width={100}
         height={100}
         x={500}
@@ -51,7 +51,7 @@ function Offices2D(props: { color: string }) {
         anchor={0.5}
       />
       <Sprite
-        image="/desk(1).png"
+        image="/zen_desk.png"
         width={100}
         height={100}
         x={100}
@@ -59,7 +59,7 @@ function Offices2D(props: { color: string }) {
         anchor={0.5}
       />
       <Sprite
-        image="/desk(1).png"
+        image="/zen_desk.png"
         width={100}
         height={100}
         x={300}
@@ -67,7 +67,7 @@ function Offices2D(props: { color: string }) {
         anchor={0.5}
       />
       <Sprite
-        image="/desk(1).png"
+        image="/zen_desk.png"
         width={100}
         height={100}
         x={700}

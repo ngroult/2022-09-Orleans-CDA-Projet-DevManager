@@ -163,7 +163,6 @@ const App = () => {
             </>
           }
         />
-        <Route path="/game-frame" element={<GameFrame />} />
       </Routes>
     </Box>
   );

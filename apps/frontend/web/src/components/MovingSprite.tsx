@@ -28,9 +28,9 @@ const MovingSprite = (props: { character: string }) => {
       if (!targetLocked) {
         setTargetLocked(true);
         setTimeout(() => {
-          setTarget({ x: Math.random() * 900, y: Math.random() * 700 });
+          setTarget({ x: Math.random() * 850, y: Math.random() * 650 });
           setTargetLocked(false);
-        }, Math.random() * 15000);
+        }, Math.random() * 25000);
       }
     }
   });
