@@ -9,6 +9,7 @@ import { GamesModule } from './games/games.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { CharactersModule } from './characters/character.module';
 import { ForgeModule } from './forge/forge.module';
+import { ForgeProdModule } from './forge-prod/forge-prod.module';
 import { ResourcesModule } from './resources/resources.module';
 import { GameResourcesModule } from './game-resources/game-resources.module';
 import { ResourcesUsedModule } from './resources-used/resources-used.module';
@@ -45,6 +46,7 @@ import { GameRoomsModule } from './game-rooms/game-rooms.module';
     RoomsModule,
     CharactersModule,
     ForgeModule,
+    ForgeProdModule,
     AuthModule,
     ResourcesModule,
     GameResourcesModule,

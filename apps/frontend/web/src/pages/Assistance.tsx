@@ -41,7 +41,6 @@ const Assistance = () => {
 
   return (
     <>
-      <Navbar />
       <Flex
         flexDir="column"
         bgColor={{

@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 const About = () => {
   return (
     <>
-      <Navbar />
       <Box
         bgColor="#E4E4ED"
         minH="100vh"
