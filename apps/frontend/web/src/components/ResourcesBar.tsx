@@ -22,6 +22,7 @@ const ResourcesBar = () => {
     onOpen: onOpenDrawerResources,
     onClose: onCloseDrawerResources,
   } = useDisclosure();
+
   const [isShrinkedArea, setIsShrinkedArea] = useState(false);
   const { label } = useParams();
   const {
@@ -277,14 +278,13 @@ const ResourcesBar = () => {
                       <Box boxSize="30px">
                         <Image src={gameResource.resource.image} />
                       </Box>
-                      <Box> {gameResource.quantity}</Box>
+                      <Text fontWeight="bold">{gameResource.quantity}</Text>
                     </HStack>
                   </GridItem>
                 ))}
               </Grid>
             </HStack>
           </Box>
-
           <IconButton
             display={{ base: 'none', md: 'flex' }}
             size="md"
