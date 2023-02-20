@@ -365,7 +365,7 @@ export class ForgeService {
         image: '/open_space.png',
         label: 'open-space',
         color: 'purple',
-        price: 5000,
+        price: 4500,
         order: 1,
         isExpandable: true,
       },
@@ -723,7 +723,7 @@ export class ForgeService {
 
     const gameResources = [
       {
-        quantity: 1010,
+        quantity: 0,
         gameId: game1.id, // Game 1
         resourceId: devDollars.id, // DevDollars
       },
@@ -748,7 +748,7 @@ export class ForgeService {
         resourceId: deliveryOrders.id, // Delivery orders
       },
       {
-        quantity: 1010,
+        quantity: 0,
         gameId: game2.id, // Game 2
         resourceId: devDollars.id, // DevDollars
       },
@@ -773,7 +773,7 @@ export class ForgeService {
         resourceId: deliveryOrders.id, // Delivery orders
       },
       {
-        quantity: 1010,
+        quantity: 0,
         gameId: game3.id, // Game 3
         resourceId: devDollars.id, // DevDollars
       },
@@ -798,7 +798,7 @@ export class ForgeService {
         resourceId: deliveryOrders.id, // Delivery orders
       },
       {
-        quantity: 1010,
+        quantity: 0,
         gameId: game4.id, // Game 4
         resourceId: devDollars.id, // DevDollars
       },
@@ -823,7 +823,7 @@ export class ForgeService {
         resourceId: deliveryOrders.id, // Delivery orders
       },
       {
-        quantity: 1010,
+        quantity: 0,
         gameId: game5.id, // Game 5
         resourceId: devDollars.id, // DevDollars
       },
@@ -869,91 +869,91 @@ export class ForgeService {
         gameId: game1.id, // Game 1
         roomId: openSpace.id, // OpenSpace
         size: 0,
-        totalSize: 110,
+        totalSize: 0,
       },
       {
         gameId: game1.id, // Game 1
         roomId: offices.id, // Offices
         size: 0,
-        totalSize: 60,
+        totalSize: 0,
       },
       {
         gameId: game1.id, // Game 1
         roomId: breakRoom.id, // Break room
         size: 0,
-        totalSize: 80,
+        totalSize: 0,
       },
       {
         gameId: game2.id, // Game 2
         roomId: openSpace.id, // OpenSpace
         size: 0,
-        totalSize: 110,
+        totalSize: 0,
       },
       {
         gameId: game2.id, // Game 2
         roomId: offices.id, // Offices
         size: 0,
-        totalSize: 60,
+        totalSize: 0,
       },
       {
         gameId: game2.id, // Game 2
         roomId: breakRoom.id, // Break room
         size: 0,
-        totalSize: 80,
+        totalSize: 0,
       },
       {
         gameId: game3.id, // Game 3
         roomId: openSpace.id, // OpenSpace
         size: 0,
-        totalSize: 110,
+        totalSize: 0,
       },
       {
         gameId: game3.id, // Game 3
         roomId: offices.id, // Offices
         size: 0,
-        totalSize: 60,
+        totalSize: 0,
       },
       {
         gameId: game3.id, // Game 3
         roomId: breakRoom.id, // Break room
         size: 0,
-        totalSize: 80,
+        totalSize: 0,
       },
       {
         gameId: game4.id, // Game 4
         roomId: openSpace.id, // OpenSpace
         size: 0,
-        totalSize: 110,
+        totalSize: 0,
       },
       {
         gameId: game4.id, // Game 4
         roomId: offices.id, // Offices
         size: 0,
-        totalSize: 60,
+        totalSize: 0,
       },
       {
         gameId: game4.id, // Game 4
         roomId: breakRoom.id, // Break room
         size: 0,
-        totalSize: 80,
+        totalSize: 0,
       },
       {
         gameId: game5.id, // Game 5
         roomId: openSpace.id, // OpenSpace
         size: 0,
-        totalSize: 110,
+        totalSize: 0,
       },
       {
         gameId: game5.id, // Game 5
         roomId: offices.id, // Offices
         size: 0,
-        totalSize: 60,
+        totalSize: 0,
       },
       {
         gameId: game5.id, // Game 5
         roomId: breakRoom.id, // Break room
         size: 0,
-        totalSize: 80,
+        totalSize: 0,
       },
     ];
 

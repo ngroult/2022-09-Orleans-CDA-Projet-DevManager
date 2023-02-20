@@ -209,15 +209,24 @@ function RoomElementCard({
             </Flex>
           </Flex>
           <Button
-            bgColor={`${gameRoom?.room.color}.900`}
+            bgColor={
+              gameRoom?.totalSize === 0
+                ? '#cbd5e0'
+                : `${gameRoom?.room.color}.900`
+            }
             boxShadow="2xl"
             w="3rem"
             h="100%"
             color="white"
             ml="0.5rem"
-            onClick={action}
+            onClick={gameRoom?.totalSize === 0 ? undefined : action}
+            cursor={gameRoom?.totalSize === 0 ? 'not-allowed' : 'pointer'}
           >
-            {`+ ${unit}`}
+            {gameRoom?.totalSize === 0 ? (
+              <Image src="/lock.svg" />
+            ) : (
+              `+ ${unit}`
+            )}
           </Button>
         </Flex>
       </Flex>
