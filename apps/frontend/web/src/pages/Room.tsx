@@ -48,7 +48,7 @@ const RoomPage = () => {
     >
       <Box
         boxSize="100%"
-        display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
+        display={{ base: 'none', sm: 'none', md: 'flex' }}
         bgImage="/placeholder.png"
         bgPosition="top center"
         bgSize="cover"

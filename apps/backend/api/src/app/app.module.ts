@@ -45,7 +45,7 @@ import { GameRoomsModule } from './game-rooms/game-rooms.module';
     UsersModule,
     RoomsModule,
     CharactersModule,
-    ForgeModule,
+    // ForgeModule,
     ForgeProdModule,
     AuthModule,
     ResourcesModule,

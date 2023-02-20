@@ -13,9 +13,9 @@ import { GameRoomsService } from './game-rooms.service';
 import { CreateGameRoomDto } from './dto/create-game-room.dto';
 import { UpdateGameRoomDto } from './dto/update-game-room.dto';
 import { UpdateTotalSizeGameRoomDto } from './dto/update-total-size-game-room.dto';
-
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('game-rooms')
 export class GameRoomsController {
   constructor(private readonly gameRoomsService: GameRoomsService) {}
@@ -25,7 +25,6 @@ export class GameRoomsController {
     return this.gameRoomsService.create(createGameRoomDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Req() req) {
     const gameId = req.signedCookies['game'];
@@ -37,7 +36,6 @@ export class GameRoomsController {
     return this.gameRoomsService.findOne(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('by-label/:label')
   findOneByLabel(@Param('label') label: string, @Req() req) {
     const gameId = req.signedCookies['game'];
@@ -52,7 +50,6 @@ export class GameRoomsController {
     return this.gameRoomsService.update(+id, updateGameRoomDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Patch('/up-total-size/:id')
   updateTotalSize(
     @Param('id') id: string,

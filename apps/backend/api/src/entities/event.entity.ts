@@ -8,6 +8,7 @@ import {
 import { GameEvent } from './game-event.entity';
 import { BonusMalus } from './bonus-malus.entity';
 import { Room } from './room.entity';
+import { Length } from 'class-validator';
 
 @Entity()
 export class Event {
@@ -20,7 +21,7 @@ export class Event {
   @Column()
   description: string;
 
-  @Column()
+  @Column('varchar', { length: 30 })
   label: string;
 
   @Column()

@@ -124,7 +124,6 @@ export default function App() {
 
         await new Promise((resolve) => setTimeout(resolve, 2000));
       } catch (e) {
-        console.warn(e);
       } finally {
         setAppIsReady(true);
       }

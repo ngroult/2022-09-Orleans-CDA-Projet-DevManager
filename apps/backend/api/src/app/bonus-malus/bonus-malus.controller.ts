@@ -6,11 +6,14 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateBonusMalusDto } from './dto/create-bonus-malus.dto';
 import { UpdateBonusMalusDto } from './dto/update-bonus-malus.dto';
 import { BonusMalusService } from './bonus-malus.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('bonus-malus')
 export class BonusMalusController {
   constructor(private readonly bonusMalusService: BonusMalusService) {}

@@ -20,6 +20,8 @@ import UserImageFiller from '../components/UserImageFiller';
 import UserContactFiller from '../components/UserContactFiller';
 import UserPasswordFiller from '../components/UserPasswordFiller';
 import DeleteAccountFiller from '../components/DeleteAccountFiller';
+import Navbar from '../components/Navbar';
+import { DeepPartial } from '@libs/typings';
 
 const pageColor = 'turquoise';
 const marginTopButton = '1rem';
@@ -40,8 +42,8 @@ const displayMobile = {
 
 const AccountSettings = () => {
   const { user } = useContext(AuthContext);
-  const [userData, setUserData] = useState<Partial<User>>({});
-  const [pendingUserData, setPendingUserData] = useState<Partial<User>>({});
+  const [userData, setUserData] = useState<DeepPartial<User>>({});
+  const [pendingUserData, setPendingUserData] = useState<DeepPartial<User>>({});
 
   const userImage = useDisclosure();
   const userContact = useDisclosure();
@@ -259,7 +261,7 @@ const AccountSettings = () => {
                   updateUserSettings();
                 }}
               >
-                {'Modify'}
+                {'Edit'}
               </Button>
             </VStack>
           </Box>
