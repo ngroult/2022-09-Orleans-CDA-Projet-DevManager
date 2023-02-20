@@ -43,7 +43,6 @@ const Overview = () => {
   return (
     <Box h="100vh">
       <ResourcesBar />
-      <Navbar />
       <NavbarRooms />
       <Flex
         flexDir="column"
