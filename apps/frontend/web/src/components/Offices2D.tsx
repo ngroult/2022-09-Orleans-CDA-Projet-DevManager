@@ -2,7 +2,7 @@ import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
 import * as PIXI from 'pixi.js';
 
-function Offices2D(props) {
+function Offices2D(props: { color: string }) {
   return (
     <Stage
       width={900}
@@ -11,7 +11,7 @@ function Offices2D(props) {
       options={(PIXI.autoDetectRenderer, { backgroundColor: props.color })}
     >
       <Sprite
-        image="/bureau.png"
+        image="/desk.png"
         width={100}
         height={100}
         x={500}
@@ -19,7 +19,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau.png"
+        image="/desk.png"
         width={100}
         height={100}
         x={100}
@@ -27,7 +27,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau.png"
+        image="/desk.png"
         width={100}
         height={100}
         x={300}
@@ -35,7 +35,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau.png"
+        image="/desk.png"
         width={100}
         height={100}
         x={700}
@@ -43,7 +43,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau(1).png"
+        image="/desk(1).png"
         width={100}
         height={100}
         x={500}
@@ -51,7 +51,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau(1).png"
+        image="/desk(1).png"
         width={100}
         height={100}
         x={100}
@@ -59,7 +59,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau(1).png"
+        image="/desk(1).png"
         width={100}
         height={100}
         x={300}
@@ -67,7 +67,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/bureau(1).png"
+        image="/desk(1).png"
         width={100}
         height={100}
         x={700}
@@ -75,7 +75,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/distributeur-automatique.png"
+        image="/chocolate.png"
         width={150}
         height={150}
         x={600}
@@ -83,7 +83,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/distributeur-automatique(1).png"
+        image="/drink.png"
         width={150}
         height={150}
         x={750}
@@ -91,7 +91,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/salle-a-manger.png"
+        image="/lunch.png"
         width={200}
         height={200}
         x={200}
@@ -99,7 +99,7 @@ function Offices2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/tapis.png"
+        image="/carpet.png"
         width={160}
         height={160}
         x={450}

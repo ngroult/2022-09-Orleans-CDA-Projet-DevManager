@@ -2,7 +2,7 @@ import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
 import * as PIXI from 'pixi.js';
 
-function BreakRoom2D(props) {
+function BreakRoom2D(props: { color: string }) {
   return (
     <Stage
       width={900}
@@ -11,7 +11,7 @@ function BreakRoom2D(props) {
       options={(PIXI.autoDetectRenderer, { backgroundColor: props.color })}
     >
       <Sprite
-        image="/nouvelles.png"
+        image="/news.png"
         width={100}
         height={100}
         x={150}
@@ -19,7 +19,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/canape.png"
+        image="/sofa.png"
         width={200}
         height={200}
         x={150}
@@ -27,7 +27,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/salle-a-manger.png"
+        image="/lunch.png"
         width={200}
         height={200}
         x={150}
@@ -35,7 +35,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/distributeur-automatique.png"
+        image="/chocolate.png"
         width={150}
         height={150}
         x={380}
@@ -43,7 +43,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/distributeur-automatique(1).png"
+        image="/drink.png"
         width={150}
         height={150}
         x={520}
@@ -51,7 +51,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/salle-a-manger.png"
+        image="/lunch.png"
         width={200}
         height={200}
         x={750}
@@ -59,7 +59,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/soccer-de-table.png"
+        image="/soccer.png"
         width={175}
         height={175}
         x={750}
@@ -75,7 +75,7 @@ function BreakRoom2D(props) {
         anchor={0.5}
       />
       <Sprite
-        image="/tapis.png"
+        image="/carpet.png"
         width={160}
         height={160}
         x={450}

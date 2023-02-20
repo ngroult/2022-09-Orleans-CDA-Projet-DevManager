@@ -1,7 +1,14 @@
-import { Container, render, Sprite, Stage, useTick } from '@pixi/react';
+import {
+  Container,
+  render,
+  Sprite,
+  Stage,
+  useTick,
+  _ReactPixi,
+} from '@pixi/react';
 import { useState } from 'react';
 
-const MovingSprite = (props) => {
+const MovingSprite = (props: { character: string }) => {
   // states
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
@@ -23,7 +30,7 @@ const MovingSprite = (props) => {
         setTimeout(() => {
           setTarget({ x: Math.random() * 900, y: Math.random() * 700 });
           setTargetLocked(false);
-        }, Math.random() * 10000);
+        }, Math.random() * 15000);
       }
     }
   });
