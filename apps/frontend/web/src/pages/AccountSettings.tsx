@@ -110,7 +110,6 @@ const AccountSettings = () => {
 
   return (
     <>
-      <Navbar />
       <Flex
         flexDir="column"
         bgColor={{
