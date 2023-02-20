@@ -10,6 +10,7 @@ import { BonusMalus } from './bonus-malus.entity';
 import { ResourceUsed } from './resource-used.entity';
 import { ResourceProduced } from './resource-produced.entity';
 import { Room } from './room.entity';
+import { Length } from 'class-validator';
 
 @Entity()
 export class Character {
@@ -19,7 +20,7 @@ export class Character {
   @Column()
   name: string;
 
-  @Column()
+  @Column('varchar', { length: 500 })
   description: string;
 
   @Column()

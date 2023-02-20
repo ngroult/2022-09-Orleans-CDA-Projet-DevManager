@@ -19,7 +19,7 @@ const About = () => {
         </Center>
         <Box
           display="flex"
-          align="center"
+          alignItems="center"
           flexDir={{ base: 'column', md: 'row' }}
           mt={{ base: '5', md: '20' }}
           ml={{ base: '0', md: '20' }}

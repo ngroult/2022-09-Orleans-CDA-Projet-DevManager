@@ -71,11 +71,11 @@ const App = () => {
         <Route
           path="/leaderboard"
           element={
-            <>
+            <Protected>
               <Navbar />
               <MobileNavbar />
               <Leaderboard />
-            </>
+            </Protected>
           }
         />
         <Route

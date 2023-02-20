@@ -14,6 +14,7 @@ import { CreateGameResourceDto } from './dto/create-game-resource.dto';
 import { UpdateGameResourceDto } from './dto/update-game-resource.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('game-resources')
 export class GameResourcesController {
   constructor(private readonly gameResourcesService: GameResourcesService) {}
@@ -23,26 +24,22 @@ export class GameResourcesController {
     return this.gameResourcesService.create(createGameResourceDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get()
   findAll(@Req() req) {
     const gameId = req.signedCookies['game'];
     return this.gameResourcesService.findAll(gameId);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/all')
   findResourcesUserGame() {
     return this.gameResourcesService.findResourcesUserGame();
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/details/:id')
   findByUserId(@Param('id') id: string) {
     return this.gameResourcesService.findByUserId(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('/with-resources-used-and-produced')
   findAllWithResourcesUsedAndProduced(@Req() req) {
     const gameId = req.signedCookies['game'];

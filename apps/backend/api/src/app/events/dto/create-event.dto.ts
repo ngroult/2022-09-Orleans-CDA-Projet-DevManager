@@ -1,7 +1,7 @@
 import { IsNumber, IsString } from 'class-validator';
 
 export class CreateEventDto {
-  @IsNumber()
+  @IsString()
   name: string;
 
   @IsString()
