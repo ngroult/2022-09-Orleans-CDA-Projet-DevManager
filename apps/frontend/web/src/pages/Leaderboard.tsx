@@ -56,7 +56,6 @@ const Leaderboard = () => {
 
   return (
     <>
-      <Navbar />
       <Box position="absolute" top="0" margin="auto" w="100%" zIndex="-1">
         <Center>
           <Heading as="h1" size="2xl" m="20" color="#797AA6">

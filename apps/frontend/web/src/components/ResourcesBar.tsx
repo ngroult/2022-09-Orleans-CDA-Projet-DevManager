@@ -365,17 +365,17 @@ const ResourcesBar = () => {
         </Flex>
 
         {pathname === '/game/overview' ? (
-          <HStack>
+          <HStack mx="0.5rem">
             <Image
-              w="3rem"
-              h="3rem"
-              src={gameRoom?.room.image}
-              placeholder={gameRoom?.room.label}
+              w="2rem"
+              h="2rem"
+              src="/overview.png"
+              placeholder="Overview"
             />
             <Text
               whiteSpace="nowrap"
-              ml="1rem"
-              fontSize="3xl"
+              ml="0.5rem"
+              fontSize="xl"
               fontFamily="body"
               color="#000"
             >

@@ -54,15 +54,15 @@ export class GameRoomsController {
 
   @UseGuards(JwtAuthGuard)
   @Patch('/up-total-size/:id')
-  updateTotaleSize(
+  updateTotalSize(
     @Param('id') id: string,
-    @Body() updateTotaleSizeDto: UpdateTotalSizeGameRoomDto,
+    @Body() updateTotalSizeDto: UpdateTotalSizeGameRoomDto,
     @Req() req,
   ) {
     const gameId = req.signedCookies['game'];
-    return this.gameRoomsService.updateTotaleSize(
+    return this.gameRoomsService.updateTotalSize(
       +id,
-      updateTotaleSizeDto,
+      updateTotalSizeDto,
       gameId,
     );
   }
