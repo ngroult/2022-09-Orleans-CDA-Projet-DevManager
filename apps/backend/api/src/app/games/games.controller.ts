@@ -69,7 +69,6 @@ export class GamesController {
     return this.gamesService.update(+id, updateGameDto);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post('take-check')
   takeCheck(@Req() req) {
     const gameId = req.signedCookies['game'];

@@ -311,7 +311,7 @@ export class ForgeProdService {
         image: '/developer.png',
         price: 100,
         order: 2,
-        size: 5,
+        size: 2,
         roomId: openSpace.id, // OpenSpace
       },
       {
@@ -320,7 +320,7 @@ export class ForgeProdService {
         image: '/lead_dev.png',
         price: 1000,
         order: 3,
-        size: 15,
+        size: 5,
         roomId: openSpace.id, // OpenSpace
       },
       {
@@ -555,7 +555,7 @@ export class ForgeProdService {
         characterId: developer.id, // Developers
       },
       {
-        quantity: 150,
+        quantity: 500,
         resourceId: devDollars.id, // DevDollars
         characterId: leadDeveloper.id, // Lead developers
       },

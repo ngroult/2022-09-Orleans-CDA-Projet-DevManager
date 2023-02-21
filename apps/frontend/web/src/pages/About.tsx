@@ -95,7 +95,7 @@ const About = () => {
           </Text>
         </Flex>
       </Flex>
-      <Center mt={{ base: '10', md: '40' }} mb="10" as="u">
+      <Center mt={{ base: '10', md: '40' }} mb="10" textDecoration="underline">
         <a href="https://www.flaticon.com/fr/" target="_blank">
           {'Icons Flaticon : Icon reference on this link'}
         </a>

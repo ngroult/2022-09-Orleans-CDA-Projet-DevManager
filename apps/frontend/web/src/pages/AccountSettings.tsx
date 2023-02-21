@@ -116,9 +116,6 @@ const AccountSettings = () => {
       bgColor={{
         base: `${pageColor}.200`,
         xl: 'white',
-        lg: `${pageColor}.200`,
-        md: `${pageColor}.200`,
-        sm: `${pageColor}.200`,
       }}
       minH="100vh"
       alignItems="center"
@@ -138,9 +135,6 @@ const AccountSettings = () => {
           bgColor={{
             base: `${pageColor}.200`,
             xl: 'white',
-            lg: `${pageColor}.200`,
-            md: `${pageColor}.200`,
-            sm: `${pageColor}.200`,
           }}
           flexGrow="1"
         >
@@ -178,7 +172,7 @@ const AccountSettings = () => {
 
             <Grid templateColumns="repeat(1, 1fr)">
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'Username:'}</Text>
+                <Text fontWeight="bold">{'Username:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -186,7 +180,7 @@ const AccountSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'E-mail:'}</Text>
+                <Text fontWeight="bold">{'E-mail:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
