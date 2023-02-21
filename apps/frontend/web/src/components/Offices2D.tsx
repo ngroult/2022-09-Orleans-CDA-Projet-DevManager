@@ -7,7 +7,6 @@ function Offices2D(props: { color: string }) {
     <Stage
       width={900}
       height={700}
-      color={props.color}
       options={(PIXI.autoDetectRenderer, { backgroundColor: props.color })}
     >
       <Sprite

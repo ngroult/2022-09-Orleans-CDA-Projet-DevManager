@@ -3,7 +3,7 @@ import OpenSpace2D from './OpenSpace2D';
 import Offices2D from './Offices2D';
 import BreakRoom2D from './BreakRoom2D';
 import GameContext from '../contexts/GameContext';
-import { Box } from '@chakra-ui/react';
+import { Box, Center, Image } from '@chakra-ui/react';
 
 const GameFrame = () => {
   const [roomOptions, setRoomOptions] = useState({ component: <></> });
@@ -27,8 +27,18 @@ const GameFrame = () => {
   }, [gameRoom]);
 
   return (
-    <Box display={{ base: 'none', '2xl': 'block' }}>
-      {roomOptions.component}
+    <Box>
+      <Box display={{ base: 'none', '2xl': 'block' }}>
+        {roomOptions.component}
+      </Box>
+      <Box
+        boxSize="2xl"
+        display={{ base: 'none', xl: 'block', lg: 'block', '2xl': 'none' }}
+        backgroundRepeat="no-repeat"
+        backgroundImage={'/skyscraper.png'}
+        backgroundSize="contain"
+        maxWidth={'380px'}
+      ></Box>
     </Box>
   );
 };

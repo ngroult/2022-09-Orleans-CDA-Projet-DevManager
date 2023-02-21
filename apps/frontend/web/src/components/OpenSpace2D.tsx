@@ -106,11 +106,11 @@ function OpenSpace2D(props: { color: string }) {
         anchor={0.5}
       />
       <Container>
-        <MovingSprite character="/man4.png" />
-        <MovingSprite character="/man4.png" />
-        <MovingSprite character="/man4.png" />
-        <MovingSprite character="/man4.png" />
-        <MovingSprite character="/man4.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man1.png" />
       </Container>
     </Stage>
   );

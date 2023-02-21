@@ -1,4 +1,12 @@
-import { Badge, Box, Flex, Image, Text, useToast, Center } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Flex,
+  Image,
+  Text,
+  useToast,
+  Center,
+} from '@chakra-ui/react';
 import { useContext } from 'react';
 import GameContext from '../contexts/GameContext';
 import RoomElementCard from '../components/RoomElementCard';

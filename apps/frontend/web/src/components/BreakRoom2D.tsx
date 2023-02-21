@@ -84,10 +84,10 @@ function BreakRoom2D(props: { color: string }) {
       />
       <Container>
         <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
+        <MovingSprite character="/man5.png" />
+        <MovingSprite character="/man4.png" />
+        <MovingSprite character="/woman8.png" />
+        <MovingSprite character="/woman9.png" />
       </Container>
     </Stage>
   );
