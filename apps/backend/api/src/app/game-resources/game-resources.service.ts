@@ -74,10 +74,11 @@ export class GameResourcesService {
     return this.gameResourcesRepository
       .createQueryBuilder('gameResource')
       .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('gameResource.resource', 'resource')
       .innerJoinAndSelect('game.image', 'gameImage')
       .innerJoinAndSelect('game.user', 'user')
       .innerJoinAndSelect('user.image', 'userImage')
-      .where('gameResource.resourceId = 3')
+      .where('resource.order = 1')
       .orderBy('gameResource.quantity', 'DESC')
       .limit(100)
       .getMany();
