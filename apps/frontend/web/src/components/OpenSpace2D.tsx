@@ -1,8 +1,19 @@
 import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
 import * as PIXI from 'pixi.js';
+import { useContext, useEffect } from 'react';
+import GameContext from '../contexts/GameContext';
 
 function OpenSpace2D(props: { color: string }) {
+  const { gameCharacters } = useContext(GameContext);
+
+  const internQuantity =
+    gameCharacters?.filter((gc) => gc.character?.name === 'Intern')[0]
+      ?.quantity || 0;
+  const devQuantity =
+    gameCharacters?.filter((gc) => gc.character?.name === 'Developer')[0]
+      ?.quantity || 0;
+
   return (
     <Stage
       width={900}
@@ -106,11 +117,12 @@ function OpenSpace2D(props: { color: string }) {
         anchor={0.5}
       />
       <Container>
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
-        <MovingSprite character="/man1.png" />
+        {[...Array(Math.round(devQuantity / 10))].map((x, i) => (
+          <MovingSprite character="/developer.png" key={i} />
+        ))}
+        {[...Array(Math.round(internQuantity / 5))].map((x, i) => (
+          <MovingSprite character="/intern.png" key={i} />
+        ))}
       </Container>
     </Stage>
   );

@@ -1,8 +1,19 @@
 import { Container, Sprite, Stage } from '@pixi/react';
 import MovingSprite from './MovingSprite';
 import * as PIXI from 'pixi.js';
+import { useContext, useEffect } from 'react';
+import GameContext from '../contexts/GameContext';
 
 function Offices2D(props: { color: string }) {
+  const { gameCharacters } = useContext(GameContext);
+
+  const recruiterQuantity =
+    gameCharacters?.filter((gc) => gc.character?.name === 'Recruiter')[0]
+      ?.quantity || 0;
+  const deliveryManQuantity =
+    gameCharacters?.filter((gc) => gc.character?.name === 'Delivery man')[0]
+      ?.quantity || 0;
+
   return (
     <Stage
       width={900}
@@ -106,11 +117,12 @@ function Offices2D(props: { color: string }) {
         anchor={0.5}
       />
       <Container>
-        <MovingSprite character="/woman8.png" />
-        <MovingSprite character="/woman8.png" />
-        <MovingSprite character="/woman8.png" />
-        <MovingSprite character="/woman8.png" />
-        <MovingSprite character="/woman8.png" />
+        {[...Array(Math.round(recruiterQuantity / 5))].map((x, i) => (
+          <MovingSprite character="/recruiter.png" key={i} />
+        ))}
+        {[...Array(Math.round(deliveryManQuantity / 5))].map((x, i) => (
+          <MovingSprite character="/delivery_man.png" key={i} />
+        ))}
       </Container>
     </Stage>
   );
