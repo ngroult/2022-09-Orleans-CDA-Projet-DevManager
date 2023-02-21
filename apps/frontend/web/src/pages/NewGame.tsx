@@ -73,7 +73,7 @@ const NewGame = () => {
         const reqGameCookie = await fetch('/api/games/id', { method: 'GET' });
         const resGameCookie = await reqGameCookie.json();
 
-        if ((resGameCookie.status = 'OK')) {
+        if (resGameCookie.status === 'OK') {
           setIsNewGameCreated(true);
           navigate('/game/overview');
         }
