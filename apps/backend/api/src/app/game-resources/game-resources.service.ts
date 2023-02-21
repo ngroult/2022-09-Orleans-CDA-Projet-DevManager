@@ -74,10 +74,11 @@ export class GameResourcesService {
     return this.gameResourcesRepository
       .createQueryBuilder('gameResource')
       .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('gameResource.resource', 'resource')
       .innerJoinAndSelect('game.image', 'gameImage')
       .innerJoinAndSelect('game.user', 'user')
       .innerJoinAndSelect('user.image', 'userImage')
-      .where('gameResource.resourceId = 1')
+      .where('resource.name = :name', { name: 'DevDollars' })
       .orderBy('gameResource.quantity', 'DESC')
       .limit(100)
       .getMany();
@@ -87,10 +88,12 @@ export class GameResourcesService {
     return this.gameResourcesRepository
       .createQueryBuilder('gameResource')
       .innerJoinAndSelect('gameResource.game', 'game')
+      .innerJoinAndSelect('gameResource.resource', 'resource')
       .innerJoinAndSelect('game.image', 'gameImage')
       .innerJoinAndSelect('game.user', 'user')
       .innerJoinAndSelect('user.image', 'userImage')
       .where('user.id = :id', { id })
+      .andWhere('resource.name = :name', { name: 'DevDollars' })
       .getOne();
   }
 
