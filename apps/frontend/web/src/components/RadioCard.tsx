@@ -1,4 +1,4 @@
-import { Box, Image, useRadio } from '@chakra-ui/react';
+import { Box, Center, Flex, Image, useRadio } from '@chakra-ui/react';
 
 function RadioCard({
   imgPath,
@@ -12,18 +12,19 @@ function RadioCard({
   const input = getInputProps();
 
   return (
-    <Box as="label">
+    <Flex as="label" alignContent="center" justifyContent="center">
       <input {...input} hidden />
       <Box
         {...getCheckboxProps()}
-        w="4.7rem"
+        w="calc(4.7rem - 0.8rem)"
+        m="0.4rem"
         opacity="0.2"
         _checked={{ opacity: '1' }}
         cursor="pointer"
       >
         <Image src={`/${imgPath}.png`} alt={`Image of ${imgAlt}`} />
       </Box>
-    </Box>
+    </Flex>
   );
 }
 

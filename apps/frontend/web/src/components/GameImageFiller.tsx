@@ -1,5 +1,5 @@
 import { Game, Image } from '@apps/backend-api';
-import { Grid, useRadioGroup } from '@chakra-ui/react';
+import { Center, Grid, useRadioGroup } from '@chakra-ui/react';
 import { DeepPartial } from '@libs/typings';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
@@ -53,8 +53,9 @@ const GameImageFiller = ({
       {...getRootProps()}
       templateColumns="repeat(3, 1fr)"
       m="2rem auto"
-      gap="1rem"
       maxW="400px"
+      alignItems="center"
+      justifyContent="center"
     >
       {images.map((image, index) => {
         const radioProps = getRadioProps({ value: image.id.toString() });
