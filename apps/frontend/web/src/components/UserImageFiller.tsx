@@ -41,7 +41,6 @@ const UserImageFiller = ({
         md: 'repeat(5, 1fr)',
       }}
       m="2rem auto"
-      gap="1rem"
       maxW="400px"
     >
       {images.map(

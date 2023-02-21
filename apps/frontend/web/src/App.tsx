@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -11,10 +12,14 @@ import About from './pages/About';
 import Assistance from './pages/Assistance';
 import Page404 from './pages/Page404';
 import Leaderboard from './pages/Leaderboard';
-import AuthContext from './contexts/AuthContext';
-import { useContext, useEffect } from 'react';
 import Protected from './components/Protected';
+import Navbar from './components/Navbar';
+import MobileNavbar from './components/MobileNavbar';
+import ResourcesBar from './components/ResourcesBar';
+import NavbarRooms from './components/NavbarRooms';
+import MobileNavbarRooms from './components/MobileNavbarRooms';
 import { Box } from '@chakra-ui/react';
+import AuthContext from './contexts/AuthContext';
 
 const App = () => {
   const { user, setUser, setIsLoadingUser } = useContext(AuthContext);
@@ -57,7 +62,7 @@ const App = () => {
   }, [user]);
 
   return (
-    <Box>
+    <Box h="100vh">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
@@ -66,6 +71,8 @@ const App = () => {
           path="/leaderboard"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <Leaderboard />
             </Protected>
           }
@@ -74,6 +81,8 @@ const App = () => {
           path="/new-game"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <NewGame />
             </Protected>
           }
@@ -82,7 +91,12 @@ const App = () => {
           path="/game/overview"
           element={
             <Protected>
+              <Navbar />
+              <ResourcesBar />
+              <MobileNavbar />
               <Overview />
+              <NavbarRooms />
+              <MobileNavbarRooms />
             </Protected>
           }
         />
@@ -90,7 +104,12 @@ const App = () => {
           path="/game/:label"
           element={
             <Protected>
+              <Navbar />
+              <ResourcesBar />
+              <MobileNavbar />
               <Room />
+              <NavbarRooms />
+              <MobileNavbarRooms />
             </Protected>
           }
         />
@@ -98,6 +117,8 @@ const App = () => {
           path="/game-settings"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <GameSettings />
             </Protected>
           }
@@ -106,14 +127,42 @@ const App = () => {
           path="/account-settings"
           element={
             <Protected>
+              <Navbar />
+              <MobileNavbar />
               <AccountSettings />
             </Protected>
           }
         />
-
-        <Route path="/about" element={<About />} />
-        <Route path="/assistance" element={<Assistance />} />
-        <Route path="*" element={<Page404 />} />
+        <Route
+          path="/about"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <About />
+            </>
+          }
+        />
+        <Route
+          path="/assistance"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <Assistance />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <>
+              <Navbar />
+              <MobileNavbar />
+              <Page404 />
+            </>
+          }
+        />
       </Routes>
     </Box>
   );

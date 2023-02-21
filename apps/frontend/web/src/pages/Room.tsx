@@ -1,69 +1,117 @@
-import Navbar from '../components/Navbar';
-import NavbarRooms from '../components/NavbarRooms';
-import ResourcesBar from '../components/ResourcesBar';
-import { Box, Flex, VStack, Image } from '@chakra-ui/react';
+import { Badge, Box, Flex, Image, Text, useToast } from '@chakra-ui/react';
 import { useContext } from 'react';
-import CharacterCard from '../components/CharacterCard';
-import EventCard from '../components/EventCard';
-import MoreAreaCard from '../components/MoreAreaCard';
 import GameContext from '../contexts/GameContext';
+import RoomElementCard from '../components/RoomElementCard';
 
 const RoomPage = () => {
   const { gameRoom, gameEvents, gameCharacters } = useContext(GameContext);
+  const toast = useToast();
+
+  const buyRoom = async () => {
+    try {
+      const res = await fetch(`/api/game-rooms/up-total-size/${gameRoom?.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          totalSize: 100,
+        }),
+      });
+      const jsonResponse = await res.json();
+      if (jsonResponse.success) {
+        toast({
+          title: `Up ${gameRoom?.room.name} total size`,
+          description: `Congratulations, your ${gameRoom?.room.name} is growing up!`,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: `Up ${gameRoom?.room.name} total size`,
+          description: `You don't have enough devDollars!`,
+          status: 'error',
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+    } catch {}
+  };
 
   return (
-    <>
-      <Box height={'100vh'}>
-        <ResourcesBar />
-        <Navbar />
+    <Flex
+      h={{ base: 'calc(100vh - 5rem)', sm: '100vh' }}
+      pt={{ base: '6rem', sm: '5rem' }}
+      mx={{ base: '0', sm: '5rem' }}
+      justifyContent="space-between"
+    >
+      <Box
+        boxSize="100%"
+        display={{ base: 'none', sm: 'none', md: 'flex' }}
+        bgImage="/placeholder.png"
+        bgPosition="top center"
+        bgSize="cover"
+      />
+      {gameRoom && gameEvents && gameCharacters && (
         <Flex
-          pb="55px"
-          pt={{ base: '50px', sm: '80px' }}
-          px={{ base: '10px', sm: '80px' }}
-          justifyContent="space-between"
+          flexDir="column"
+          py="1rem"
+          px={{ base: '0', sm: '1rem' }}
+          bgColor={`${gameRoom.room.color}.200`}
+          w="100%"
+          maxW="40rem"
         >
-          <Box
-            boxSize="100%"
-            display={{ base: 'none', lg: 'flex', md: 'column', sm: 'none' }}
-          >
-            <Image src="/overview.jpg" alt="overview" />
-          </Box>
-          {gameRoom && gameEvents && gameCharacters && (
-            <VStack pt="100px">
-              {gameCharacters
-                .filter(
-                  (gameCharacter) =>
-                    gameRoom.room.id === gameCharacter.character.room.id
-                )
-                .map((gameCharacter) => (
-                  <CharacterCard
-                    key={gameCharacter.character.id}
-                    gameCharacter={gameCharacter}
-                    gameRoom={gameRoom}
-                  />
-                ))}
-              {gameEvents
-                .filter(
-                  (gameEvent) => gameRoom.room.id === gameEvent.event.room.id
-                )
-                .map((gameEvent) => (
-                  <EventCard
-                    key={gameEvent.id}
-                    gameEvent={gameEvent}
-                    gameRoom={gameRoom}
-                  />
-                ))}
-              {gameRoom.room.name !== 'Break Room' && (
-                <MoreAreaCard gameRoom={gameRoom} />
-              )}
-            </VStack>
-          )}
+          {gameRoom.totalSize === 0 ? (
+            <Flex
+              flexDir="column"
+              alignItems="center"
+              justifyContent="center"
+              bgColor={`${gameRoom.room.color}.900`}
+              borderRadius="10rem"
+              py="0.5rem"
+              cursor="pointer"
+              w="fit-content"
+              minW="15rem"
+              mx="auto"
+              onClick={buyRoom}
+            >
+              <Text color="#fff" fontSize="1.1rem" fontWeight="bold">
+                {'Buy this room for'}
+              </Text>
+              <Badge
+                fontSize="xl"
+                borderRadius="full"
+                bgColor="gold.200"
+                display="flex"
+                flexDir="row"
+              >
+                <Image src="/dollar.png" alt="dollar" boxSize="30px" p="1" />
+                <Text>{gameRoom.room.price}</Text>
+              </Badge>
+            </Flex>
+          ) : null}
+
+          {gameCharacters
+            .filter(
+              (gameCharacter) =>
+                gameRoom.room.id === gameCharacter.character.room.id
+            )
+            .map((gameCharacter) => (
+              <RoomElementCard
+                key={gameCharacter.character.id}
+                gameCharacter={gameCharacter}
+              />
+            ))}
+          {gameEvents
+            .filter((gameEvent) => gameRoom.room.id === gameEvent.event.room.id)
+            .map((gameEvent) => (
+              <RoomElementCard key={gameEvent.id} gameEvent={gameEvent} />
+            ))}
+          {gameRoom.room.name !== 'Break Room' && <RoomElementCard />}
         </Flex>
-        <Box>
-          <NavbarRooms />
-        </Box>
-      </Box>
-    </>
+      )}
+    </Flex>
   );
 };
 

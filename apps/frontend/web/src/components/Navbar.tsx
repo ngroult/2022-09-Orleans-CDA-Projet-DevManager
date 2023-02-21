@@ -1,27 +1,19 @@
 import { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
-  HStack,
   Heading,
   Center,
-  Image,
   IconButton,
-  Text,
-  Grid,
-  useDisclosure,
+  Flex,
+  Divider,
 } from '@chakra-ui/react';
-import { ArrowRightIcon, ArrowLeftIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons';
 import AuthContext from '../contexts/AuthContext';
-import DrawerNavbar from './popups/DrawerNavbar';
-
-const iconsSize = '30px';
-const paddingBetweenIcons = '15px';
+import NavbarTab from './NavbarTab';
 
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
-  const [isNavOpen, setIsNavOpen] = useState(false);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
   const { setUser } = useContext(AuthContext);
 
@@ -39,167 +31,124 @@ const Navbar = () => {
 
   return (
     <>
-      <Box w={isNavbarOpen ? '220px' : '60px'} position="fixed" zIndex="999">
-        <Box w="60px" h="80px" left="0" top="0">
-          <Center>
-            <IconButton
-              aria-label="Hamburger button"
-              icon={<HamburgerIcon />}
-              colorScheme="white"
-              color="black"
-              onClick={onOpen}
-              size="lg"
-            />
-          </Center>
+      <Box
+        display={{ base: 'none', sm: 'block' }}
+        w={isNavbarOpen ? '20rem' : '5rem'}
+        transition="width 0.5s"
+        position="fixed"
+        zIndex="100"
+        boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
+        bg="blue.200"
+        h="100vh"
+        overflow="hidden"
+      >
+        <Box
+          display={{ base: 'none', sm: 'block' }}
+          boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
+          bg="blue.500"
+          w="100%"
+          h="5rem"
+        >
+          {isNavbarOpen && (
+            <Center>
+              <Heading fontSize="xl" pt="25px">
+                {'DevManager'}
+              </Heading>
+            </Center>
+          )}
         </Box>
 
-        <Box
-          display={{ base: 'none', sm: 'inline-block' }}
-          boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
-          bg="blue.200"
-          h="100vh"
-          position="absolute"
-          top="0"
-          left="0"
+        <Flex
+          flexDir="column"
+          justifyContent="center"
+          alignItems="flex-start"
+          py="1rem"
         >
-          <Box
-            boxShadow="rgb(0 0 0) -5px 0px 15px -10px inset"
-            bg="blue.500"
-            w={isNavbarOpen ? '220px' : '60px'}
-            h="80px"
-          >
-            {isNavbarOpen && (
-              <Center>
-                <Heading fontSize="xl" pt="25px">
-                  {'DevManager'}
-                </Heading>
-              </Center>
-            )}
-          </Box>
-          <Grid>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/game/overview" onClick={() => setIsNavOpen(false)}>
-                <HStack>
-                  <Image
-                    alt="Resume Game"
-                    src="/resume_game.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Resume Game'}</Text>
-                  )}
-                </HStack>
-              </Link>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/leaderboard">
-                <HStack>
-                  <Image
-                    alt="Leaderboard"
-                    src="/leaderboard.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Leaderboard'}</Text>
-                  )}
-                </HStack>
-              </Link>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/game-settings">
-                <HStack>
-                  <Image
-                    alt="Game Settings"
-                    src="/game_settings.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Game Settings'}</Text>
-                  )}
-                </HStack>
-              </Link>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/account-settings">
-                <HStack>
-                  <Image
-                    alt="Account Settings"
-                    src="/account_settings.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Account Settings'}</Text>
-                  )}
-                </HStack>
-              </Link>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/assistance">
-                <HStack>
-                  <Image
-                    alt="Assistance"
-                    src="/assistance.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'Assistance'}</Text>
-                  )}
-                </HStack>
-              </Link>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <Link to="/about">
-                <HStack>
-                  <Image
-                    alt="About"
-                    src="/about.png"
-                    h={iconsSize}
-                    w={iconsSize}
-                  />
-                  {isNavbarOpen && (
-                    <Text pl={paddingBetweenIcons}>{'About'}</Text>
-                  )}
-                </HStack>
-              </Link>
-            </Box>
-            <Box pl={paddingBetweenIcons} pt={paddingBetweenIcons}>
-              <HStack style={{ cursor: 'pointer' }} onClick={() => logout()}>
-                <Image
-                  alt="Logout"
-                  src="/logout.png"
-                  h={iconsSize}
-                  w={iconsSize}
-                />
-                {isNavbarOpen && (
-                  <Text pl={paddingBetweenIcons}>{'Logout'}</Text>
-                )}
-              </HStack>
-            </Box>
-          </Grid>
-        </Box>
-        <Center
-          display={{ base: 'none', sm: 'flex' }}
-          pl={isNavbarOpen ? '220px' : '60px'}
-          pt="50vh"
-        >
-          <IconButton
-            size="xs"
-            aria-label="Search database"
-            icon={isNavbarOpen ? <ArrowLeftIcon /> : <ArrowRightIcon />}
-            rounded="100px"
-            bg="blue.500"
-            boxShadow="inner"
-            onClick={() => setIsNavbarOpen((prev) => !prev)}
-            pos="absolute"
+          <NavbarTab
+            type="left-navbar"
+            path="/game/overview"
+            text="Resume Game"
+            src="/resume_game.png"
+            setIsNavbarOpen={setIsNavbarOpen}
           />
-        </Center>
+          <NavbarTab
+            type="left-navbar"
+            path="/leaderboard"
+            text="Leaderboard"
+            src="/leaderboard.png"
+            setIsNavbarOpen={setIsNavbarOpen}
+          />
+          <Divider mx="auto" my="1rem" borderColor="grey" width="50%" />
+          <NavbarTab
+            type="left-navbar"
+            path="/game-settings"
+            text="Game Settings"
+            src="/game_settings.png"
+            setIsNavbarOpen={setIsNavbarOpen}
+          />
+          <NavbarTab
+            type="left-navbar"
+            path="/account-settings"
+            text="Account Settings"
+            src="/account_settings.png"
+            setIsNavbarOpen={setIsNavbarOpen}
+          />
+          <Divider mx="auto" my="1rem" borderColor="grey" width="50%" />
+          <NavbarTab
+            type="left-navbar"
+            path="/assistance"
+            text="Assistance"
+            src="/assistance.png"
+            setIsNavbarOpen={setIsNavbarOpen}
+          />
+          <NavbarTab
+            type="left-navbar"
+            path="/about"
+            text="About"
+            src="/about.png"
+            setIsNavbarOpen={setIsNavbarOpen}
+          />
+          <NavbarTab
+            type="left-navbar"
+            path=""
+            text="Logout"
+            src="/logout.png"
+            setIsNavbarOpen={setIsNavbarOpen}
+            logout={logout}
+          />
+        </Flex>
       </Box>
-      <DrawerNavbar isOpen={isOpen} onClose={onClose} />
+
+      <IconButton
+        display={{ base: 'none', sm: 'flex' }}
+        icon={isNavbarOpen ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+        position="fixed"
+        zIndex="101"
+        top="50vh"
+        left={isNavbarOpen ? 'calc(20rem - 1rem)' : 'calc(5rem - 1rem)'}
+        transition="left 0.5s"
+        w="2rem"
+        h="2rem"
+        size="xs"
+        rounded="100%"
+        bg="blue.500"
+        _hover={{ bgColor: 'blue.500' }}
+        onClick={() => setIsNavbarOpen((prev) => !prev)}
+        aria-label="Toggle navbar"
+      />
+
+      <Box
+        display={isNavbarOpen ? 'block' : 'none'}
+        position="absolute"
+        zIndex="99"
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        bgColor={isNavbarOpen ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)'}
+        transition="background-color 2s"
+        onClick={() => setIsNavbarOpen(false)}
+      />
     </>
   );
 };

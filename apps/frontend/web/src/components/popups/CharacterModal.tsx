@@ -11,6 +11,7 @@ import {
   ModalContent,
   Text,
   HStack,
+  ModalOverlay,
 } from '@chakra-ui/react';
 import {
   GameCharacter,
@@ -28,37 +29,38 @@ function CharacterModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  gameCharacter: GameCharacter;
-  resourcesUsed: ResourceUsed[];
-  resourcesProduced: ResourceProduced[];
+  gameCharacter: GameCharacter | undefined;
+  resourcesUsed: ResourceUsed[] | undefined;
+  resourcesProduced: ResourceProduced[] | undefined;
 }) {
   return (
     <Box>
-      <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
-        <ModalContent bg={`${gameCharacter.character.room.color}.200`}>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent bg={`${gameCharacter?.character.room.color}.200`}>
           <ModalCloseButton />
-          <ModalBody pt={'10'} px={'0'}>
-            <Box h={'calc(100vh-7rem)'}>
+          <ModalBody pt="10" px="0">
+            <Box h="calc(100vh - 7rem)">
               <Center>
                 <Image
                   boxSize="20%"
                   m="auto"
                   mt="2.5"
-                  src={gameCharacter.character.image}
-                  alt={gameCharacter.character.name}
+                  src={gameCharacter?.character.image}
+                  alt={gameCharacter?.character.name}
                 />
               </Center>
               <Center>
-                <Heading size="md" py={'10'}>
-                  {gameCharacter.character.name}
+                <Heading size="md" py="10">
+                  {gameCharacter?.character.name}
                 </Heading>
               </Center>
-              <Text textAlign={'center'}>
-                {gameCharacter.character.description}
+              <Text textAlign="center">
+                {gameCharacter?.character.description}
               </Text>
               <Center>
-                <Flex py={'10'}>
-                  <Text mr={'3'} fontSize={'lg'} as="b">
+                <Flex py="10">
+                  <Text mr="3" fontSize="lg" fontWeight="bold">
                     {'Current price:'}
                   </Text>
                   <Badge borderRadius="full" bgColor="gold.200">
@@ -69,8 +71,8 @@ function CharacterModal({
                         boxSize="30px"
                         p="1"
                       />
-                      <Text fontSize={'lg'} as="b">
-                        {`$ ${gameCharacter.character.price}`}
+                      <Text fontSize="lg" fontWeight="bold">
+                        {`${gameCharacter?.character.price}`}
                       </Text>
                     </Flex>
                   </Badge>
@@ -78,7 +80,7 @@ function CharacterModal({
                 </Flex>
               </Center>
               <Center>
-                <Text fontSize={'lg'} as="b">
+                <Text fontSize="lg" fontWeight="bold">
                   {'Ressource produced and used:'}
                 </Text>
               </Center>
@@ -89,7 +91,7 @@ function CharacterModal({
                       {resourcesProduced.map((resourceProduced) => (
                         <BadgeResource
                           key={resourceProduced.id}
-                          color={'green.900'}
+                          color="green.900"
                           image={resourceProduced.resource.image}
                           alt={resourceProduced.resource.name}
                           text={resourceProduced.quantity}
@@ -99,7 +101,7 @@ function CharacterModal({
                       {resourcesUsed.map((resourceUsed) => (
                         <BadgeResource
                           key={resourceUsed.id}
-                          color={'red.900'}
+                          color="red.900"
                           image={resourceUsed.resource.image}
                           alt={resourceUsed.resource.name}
                           text={resourceUsed.quantity}
@@ -112,18 +114,18 @@ function CharacterModal({
                 </Box>
               </Center>
             </Box>
-            <Box pos={'absolute'} bottom={'0'} w={'100%'}>
+            <Box pos="absolute" bottom="0" w="100%">
               <Box
-                h={'4rem'}
-                bg={`${gameCharacter.character.room.color}.300`}
+                h="4rem"
+                bg={`${gameCharacter?.character.room.color}.300`}
               ></Box>
               <Box
-                h={'2rem'}
-                bg={`${gameCharacter.character.room.color}.500`}
+                h="2rem"
+                bg={`${gameCharacter?.character.room.color}.500`}
               ></Box>
               <Box
-                h={'1rem'}
-                bg={`${gameCharacter.character.room.color}.900`}
+                h="1rem"
+                bg={`${gameCharacter?.character.room.color}.900`}
               ></Box>
             </Box>
           </ModalBody>
