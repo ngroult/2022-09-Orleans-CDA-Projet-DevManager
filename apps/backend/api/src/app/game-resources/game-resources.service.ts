@@ -77,7 +77,7 @@ export class GameResourcesService {
       .innerJoinAndSelect('game.image', 'gameImage')
       .innerJoinAndSelect('game.user', 'user')
       .innerJoinAndSelect('user.image', 'userImage')
-      .where('gameResource.resourceId = 1')
+      .where('gameResource.resourceId = 3')
       .orderBy('gameResource.quantity', 'DESC')
       .limit(100)
       .getMany();
@@ -91,6 +91,7 @@ export class GameResourcesService {
       .innerJoinAndSelect('game.user', 'user')
       .innerJoinAndSelect('user.image', 'userImage')
       .where('user.id = :id', { id })
+      .andWhere('gameResource.resourceId = 3')
       .getOne();
   }
 
