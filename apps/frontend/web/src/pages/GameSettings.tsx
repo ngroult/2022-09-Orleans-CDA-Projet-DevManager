@@ -16,11 +16,9 @@ import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
-import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
 import { Game } from '@apps/backend-api';
 import { DeepPartial } from '@libs/typings';
-import MobileNavbar from '../components/MobileNavbar';
 
 const pageColor = 'gold';
 const marginTopButton = '1rem';
@@ -118,6 +116,7 @@ const GameSettings = () => {
       }}
       minH="100vh"
       alignItems="center"
+      ml={{ base: 0, sm: '5rem' }}
     >
       <Flex
         flexDir="column"

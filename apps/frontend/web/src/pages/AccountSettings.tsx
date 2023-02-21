@@ -111,6 +111,7 @@ const AccountSettings = () => {
 
   return (
     <Flex
+      ml={{ base: 0, sm: '5rem' }}
       flexDir="column"
       bgColor={{
         base: `${pageColor}.200`,
