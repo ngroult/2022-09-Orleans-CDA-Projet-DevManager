@@ -585,8 +585,8 @@ export class ForgeService {
         order: 2,
       },
       {
-        name: 'Energic drinks',
-        description: 'Energic drinks Description',
+        name: 'Energy drinks',
+        description: 'Energy drinks Description',
         image: '/soda.png',
         color: 'turquoise.200',
         order: 3,
