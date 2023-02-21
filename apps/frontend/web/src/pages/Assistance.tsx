@@ -45,9 +45,6 @@ const Assistance = () => {
       bgColor={{
         base: `${pageColor}.200`,
         xl: 'white',
-        lg: `${pageColor}.200`,
-        md: `${pageColor}.200`,
-        sm: `${pageColor}.200`,
       }}
       minH="100vh"
       alignItems="center"

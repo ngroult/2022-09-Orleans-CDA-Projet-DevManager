@@ -29,12 +29,12 @@ function EventModal({
 }) {
   return (
     <Box>
-      <Modal isOpen={isOpen} onClose={onClose} size={'xl'}>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent bg={`${gameEvent?.event.room.color}.200`}>
           <ModalCloseButton />
-          <ModalBody pt={'10'} px={'0'}>
-            <Box h={'calc(100vh-7rem)'}>
+          <ModalBody pt="10" px="0">
+            <Box h="calc(100vh - 7rem)">
               <Center>
                 <Image
                   boxSize="20%"
@@ -45,14 +45,14 @@ function EventModal({
                 />
               </Center>
               <Center>
-                <Heading size="md" py={'10'}>
+                <Heading size="md" py="10">
                   {gameEvent?.event.name}
                 </Heading>
               </Center>
-              <Text textAlign={'center'}>{gameEvent?.event.description}</Text>
+              <Text textAlign="center">{gameEvent?.event.description}</Text>
               <Center>
-                <Flex py={'10'}>
-                  <Text mr={'3'} fontSize={'lg'} as="b">
+                <Flex py="10">
+                  <Text mr="3" fontSize="lg" fontWeight="bold">
                     {'Current price:'}
                   </Text>
                   <Badge borderRadius="full" bgColor="gold.200">
@@ -63,7 +63,7 @@ function EventModal({
                         boxSize="30px"
                         p="1"
                       />
-                      <Text fontSize={'lg'} as="b">
+                      <Text fontSize="lg" fontWeight="bold">
                         {`${gameEvent?.event.price}`}
                       </Text>
                     </Flex>
@@ -72,7 +72,7 @@ function EventModal({
                 </Flex>
               </Center>
               <Center>
-                <Text fontSize={'lg'} as="b">
+                <Text fontSize="lg" fontWeight="bold">
                   {'Ressource produced and used:'}
                 </Text>
               </Center>
@@ -83,7 +83,7 @@ function EventModal({
                       {bonusMalus.map((bonMal) => (
                         <BadgeResource
                           key={bonMal.id}
-                          color={bonMal.isBonus ? `green.900` : `red.900`}
+                          color={bonMal.isBonus ? 'green.900' : 'red.900'}
                           image={bonMal.character.image}
                           alt={bonMal.label}
                           text={bonMal.name}
@@ -94,10 +94,10 @@ function EventModal({
                 </Box>
               </Center>
             </Box>
-            <Box pos={'absolute'} bottom={'0'} w={'100%'}>
-              <Box h={'4rem'} bg={`${gameEvent?.event.room.color}.300`}></Box>
-              <Box h={'2rem'} bg={`${gameEvent?.event.room.color}.500`}></Box>
-              <Box h={'1rem'} bg={`${gameEvent?.event.room.color}.900`}></Box>
+            <Box pos="absolute" bottom="0" w="100%">
+              <Box h="4rem" bg={`${gameEvent?.event.room.color}.300`}></Box>
+              <Box h="2rem" bg={`${gameEvent?.event.room.color}.500`}></Box>
+              <Box h="1rem" bg={`${gameEvent?.event.room.color}.900`}></Box>
             </Box>
           </ModalBody>
         </ModalContent>

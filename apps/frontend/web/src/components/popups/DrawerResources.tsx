@@ -14,7 +14,12 @@ import {
 } from '@chakra-ui/react';
 import GameContext from '../../contexts/GameContext';
 import { useContext } from 'react';
-import { ArrowUpDownIcon } from '@chakra-ui/icons';
+import {
+  ArrowDownIcon,
+  ArrowUpDownIcon,
+  ArrowUpIcon,
+  MinusIcon,
+} from '@chakra-ui/icons';
 
 function DrawerResources({
   isOpen,
@@ -23,26 +28,49 @@ function DrawerResources({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  const { gameResourcesChar } = useContext(GameContext);
+  const { gameResourcesChar, gameCharacters } = useContext(GameContext);
 
   return (
-    <>
-      <Drawer placement={'top'} onClose={onClose} isOpen={isOpen}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton zIndex="11" />
-          <DrawerHeader borderBottomWidth="1px" zIndex="10" bgColor="#fff">
-            {'Resources'}
-          </DrawerHeader>
-          <DrawerBody
-            display="flex"
-            flexDir={{ base: 'column', sm: 'row' }}
-            flexWrap={{ base: 'unset', sm: 'wrap' }}
-            justifyContent={{ base: 'flex-start', sm: 'center' }}
-            alignItems="center"
-            zIndex="9"
-          >
-            {gameResourcesChar.map((gameResource) => (
+    <Drawer placement={'top'} onClose={onClose} isOpen={isOpen}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton zIndex="11" />
+        <DrawerHeader borderBottomWidth="1px" zIndex="10" bgColor="#fff">
+          {'Resources'}
+        </DrawerHeader>
+        <DrawerBody
+          display="flex"
+          flexDir={{ base: 'column', sm: 'row' }}
+          flexWrap={{ base: 'unset', sm: 'wrap' }}
+          justifyContent={{ base: 'flex-start', sm: 'center' }}
+          alignItems="center"
+          zIndex="9"
+        >
+          {gameResourcesChar.map((gameResource) => {
+            const used = gameResource.resource.resourcesUsed.reduce(
+              (acc, resourceUsed) => {
+                const character = gameCharacters.find(
+                  (gc) => gc.character.id === resourceUsed.character.id
+                );
+                const quantity = character ? character.quantity : 0;
+                return acc + resourceUsed.quantity * quantity;
+              },
+              0
+            );
+
+            const produced = gameResource.resource.resourcesProduced.reduce(
+              (acc, resourceProduced) => {
+                const character = gameCharacters.find(
+                  (gc) => gc.character.id === resourceProduced.character.id
+                );
+                const quantity = character ? character.quantity : 0;
+                return acc + resourceProduced.quantity * quantity;
+              },
+              0
+            );
+            const income = produced - used;
+
+            return (
               <Flex
                 my="3rem"
                 flexDir="column"
@@ -74,12 +102,24 @@ function DrawerResources({
                       <Box boxSize="25px">
                         <Image src={gameResource.resource.image} />
                       </Box>
-                      <Text>{'11111'}</Text>
+                      <Text>{income}</Text>
                       <Text>{'/min'}</Text>
                       <Icon
-                        as={ArrowUpDownIcon}
-                        color="green.900"
-                        boxSize={6}
+                        as={
+                          income > 0
+                            ? ArrowUpIcon
+                            : income < 0
+                            ? ArrowDownIcon
+                            : MinusIcon
+                        }
+                        color={
+                          income > 0
+                            ? 'green.900'
+                            : income < 0
+                            ? 'red.900'
+                            : 'blue.900'
+                        }
+                        boxSize={income > 0 ? 6 : income < 0 ? 6 : 4}
                       />
                     </HStack>
                   </Box>
@@ -159,11 +199,11 @@ function DrawerResources({
                   ))}
                 </Flex>
               </Flex>
-            ))}
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </>
+            );
+          })}
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   );
 }
 

@@ -110,9 +110,6 @@ const GameSettings = () => {
       bgColor={{
         base: `${pageColor}.200`,
         xl: 'white',
-        lg: `${pageColor}.200`,
-        md: `${pageColor}.200`,
-        sm: `${pageColor}.200`,
       }}
       minH="100vh"
       alignItems="center"
@@ -133,9 +130,6 @@ const GameSettings = () => {
           bgColor={{
             base: `${pageColor}.200`,
             xl: 'white',
-            lg: `${pageColor}.200`,
-            md: `${pageColor}.200`,
-            sm: `${pageColor}.200`,
           }}
           flexGrow="1"
         >
@@ -146,7 +140,12 @@ const GameSettings = () => {
             h="auto"
             p="10"
           >
-            <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
+            <Text
+              display={displayDesktop}
+              fontWeight="bold"
+              fontSize="xl"
+              mb="5"
+            >
               {`Change your informations`}
             </Text>
 
@@ -173,7 +172,7 @@ const GameSettings = () => {
 
             <Grid templateColumns="repeat(1, 1fr)">
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'Company name :'}</Text>
+                <Text fontWeight="bold">{'Company name:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -181,7 +180,7 @@ const GameSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'CEO name :'}</Text>
+                <Text fontWeight="bold">{'CEO name:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -189,7 +188,7 @@ const GameSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'Location :'}</Text>
+                <Text fontWeight="bold">{'Location:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">

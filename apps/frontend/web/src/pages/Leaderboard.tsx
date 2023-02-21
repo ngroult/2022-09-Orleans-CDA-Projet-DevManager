@@ -101,7 +101,7 @@ const Leaderboard = () => {
       </Center>
       <TableContainer pb="10">
         <Center>
-          <Box w={{ base: '100%', lg: '80%', md: '80%', sm: '80%' }}>
+          <Box w={{ base: '100%', sm: '80%' }}>
             <Table variant="striped" size="sm">
               <Thead>
                 <Tr>

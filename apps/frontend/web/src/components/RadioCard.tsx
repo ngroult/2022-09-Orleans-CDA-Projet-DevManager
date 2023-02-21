@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Image, useRadio } from '@chakra-ui/react';
+import { Box, Flex, Image, useRadio } from '@chakra-ui/react';
 
 function RadioCard({
   imgPath,

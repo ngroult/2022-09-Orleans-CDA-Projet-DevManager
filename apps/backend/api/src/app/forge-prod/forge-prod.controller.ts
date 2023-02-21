@@ -3,10 +3,10 @@ import { ForgeProdService } from './forge-prod.service';
 
 @Controller('forge/prod')
 export class ForgeProdController {
-  constructor(private readonly forgeService: ForgeProdService) {}
+  constructor(private readonly forgeProdService: ForgeProdService) {}
 
   @Post()
   create() {
-    return this.forgeService.create();
+    return this.forgeProdService.create();
   }
 }
