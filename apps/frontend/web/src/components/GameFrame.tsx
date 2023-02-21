@@ -35,7 +35,7 @@ const GameFrame = () => {
         boxSize="2xl"
         display={{ base: 'none', xl: 'block', lg: 'block', '2xl': 'none' }}
         backgroundRepeat="no-repeat"
-        backgroundImage={'/skyscraper.png'}
+        backgroundImage={'/placeholder.png'}
         backgroundSize="contain"
         maxWidth={'380px'}
       ></Box>
