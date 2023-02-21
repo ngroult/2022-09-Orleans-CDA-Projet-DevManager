@@ -172,7 +172,7 @@ const GameSettings = () => {
 
             <Grid templateColumns="repeat(1, 1fr)">
               <GridItem mt={marginTopButton}>
-                <Text fontWeight="bold">{'Company name :'}</Text>
+                <Text fontWeight="bold">{'Company name:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -180,7 +180,7 @@ const GameSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text fontWeight="bold">{'CEO name :'}</Text>
+                <Text fontWeight="bold">{'CEO name:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -188,7 +188,7 @@ const GameSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text fontWeight="bold">{'Location :'}</Text>
+                <Text fontWeight="bold">{'Location:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">

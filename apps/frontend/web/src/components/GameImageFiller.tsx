@@ -1,5 +1,5 @@
 import { Game, Image } from '@apps/backend-api';
-import { Center, Grid, useRadioGroup } from '@chakra-ui/react';
+import { Grid, useRadioGroup } from '@chakra-ui/react';
 import { DeepPartial } from '@libs/typings';
 import { useEffect, useState, Dispatch, SetStateAction } from 'react';
 import fetchImages from '../utils/fetchImage';
