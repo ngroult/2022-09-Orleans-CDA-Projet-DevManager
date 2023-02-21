@@ -13,7 +13,7 @@ export class BonusMalus {
   @Column()
   type: string;
 
-  @Column()
+  @Column('varchar', { length: 200 })
   label: string;
 
   @Column()

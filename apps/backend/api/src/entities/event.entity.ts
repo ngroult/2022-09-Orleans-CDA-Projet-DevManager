@@ -20,7 +20,7 @@ export class Event {
   @Column()
   description: string;
 
-  @Column()
+  @Column('varchar', { length: 200 })
   label: string;
 
   @Column()

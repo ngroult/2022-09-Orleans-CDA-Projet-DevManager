@@ -10,17 +10,15 @@ import {
   Heading,
   Grid,
   GridItem,
+  useToast,
 } from '@chakra-ui/react';
 import SlideUpModal from '../components/popups/SlideUpModal';
 import GameImageFiller from '../components/GameImageFiller';
 import GameDetailsFiller from '../components/GameDetailsFiller';
 import ResetGameFiller from '../components/ResetGameFiller';
-import Navbar from '../components/Navbar';
 import AuthContext from '../contexts/AuthContext';
-import { useToast } from '@chakra-ui/react';
 import { Game } from '@apps/backend-api';
 import { DeepPartial } from '@libs/typings';
-import MobileNavbar from '../components/MobileNavbar';
 
 const pageColor = 'gold';
 const marginTopButton = '1rem';
@@ -112,12 +110,10 @@ const GameSettings = () => {
       bgColor={{
         base: `${pageColor}.200`,
         xl: 'white',
-        lg: `${pageColor}.200`,
-        md: `${pageColor}.200`,
-        sm: `${pageColor}.200`,
       }}
       minH="100vh"
       alignItems="center"
+      ml={{ base: 0, sm: '5rem' }}
     >
       <Flex
         flexDir="column"
@@ -134,9 +130,6 @@ const GameSettings = () => {
           bgColor={{
             base: `${pageColor}.200`,
             xl: 'white',
-            lg: `${pageColor}.200`,
-            md: `${pageColor}.200`,
-            sm: `${pageColor}.200`,
           }}
           flexGrow="1"
         >
@@ -147,7 +140,12 @@ const GameSettings = () => {
             h="auto"
             p="10"
           >
-            <Text display={displayDesktop} as="b" fontSize="xl" mb="5">
+            <Text
+              display={displayDesktop}
+              fontWeight="bold"
+              fontSize="xl"
+              mb="5"
+            >
               {`Change your informations`}
             </Text>
 
@@ -174,7 +172,7 @@ const GameSettings = () => {
 
             <Grid templateColumns="repeat(1, 1fr)">
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'Company name :'}</Text>
+                <Text fontWeight="bold">{'Company name:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -182,7 +180,7 @@ const GameSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'CEO name :'}</Text>
+                <Text fontWeight="bold">{'CEO name:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -190,7 +188,7 @@ const GameSettings = () => {
                 </Text>
               </GridItem>
               <GridItem mt={marginTopButton}>
-                <Text as="b">{'Location :'}</Text>
+                <Text fontWeight="bold">{'Location:'}</Text>
               </GridItem>
               <GridItem>
                 <Text bgColor="white" rounded="5px" py="1" px="4">
@@ -251,7 +249,7 @@ const GameSettings = () => {
                 boxShadow="rgb(0 0 0 / 40%) 0px 3px 5px"
                 onClick={() => updateGameSettings()}
               >
-                {'Modify'}
+                {'Edit'}
               </Button>
             </VStack>
           </Box>

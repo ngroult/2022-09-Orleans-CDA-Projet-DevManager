@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import {
   Badge,
   Button,
@@ -8,6 +8,7 @@ import {
   useDisclosure,
   Text,
   useToast,
+  ToastId,
 } from '@chakra-ui/react';
 import { GameCharacter, GameEvent } from '@apps/backend-api';
 import CharacterModal from './popups/CharacterModal';
@@ -34,6 +35,7 @@ function RoomElementCard({
     onClose: onCloseEventModal,
   } = useDisclosure();
   const toast = useToast();
+  const toastIdRef = useRef<ToastId>();
 
   const addCharacters = async () => {
     try {
@@ -50,20 +52,23 @@ function RoomElementCard({
         }
       );
       const jsonResponse = await res.json();
+      if (toastIdRef.current) {
+        toast.close(toastIdRef.current);
+      }
       if (jsonResponse.success) {
-        toast({
+        toastIdRef.current = toast({
           title: `Hire ${gameCharacter?.character.name}`,
           description: `Congratulations, you hired: ${gameCharacter?.character.name}!`,
           status: 'success',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       } else {
-        toast({
+        toastIdRef.current = toast({
           title: 'Resource Used',
           description: `You don't have any resources or space in your ${gameRoom?.room.name}!`,
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       }
@@ -82,20 +87,23 @@ function RoomElementCard({
         }),
       });
       const jsonResponse = await res.json();
+      if (toastIdRef.current) {
+        toast.close(toastIdRef.current);
+      }
       if (jsonResponse.success) {
-        toast({
+        toastIdRef.current = toast({
           title: `Up ${gameRoom?.room.name} total size`,
           description: `Congratulations, your ${gameRoom?.room.name} is growing up!`,
           status: 'success',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       } else {
-        toast({
+        toastIdRef.current = toast({
           title: `Up ${gameRoom?.room.name} total size`,
           description: `You don't have enough devDollars!`,
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       }

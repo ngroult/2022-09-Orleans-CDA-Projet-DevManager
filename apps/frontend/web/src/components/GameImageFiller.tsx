@@ -53,8 +53,9 @@ const GameImageFiller = ({
       {...getRootProps()}
       templateColumns="repeat(3, 1fr)"
       m="2rem auto"
-      gap="1rem"
       maxW="400px"
+      alignItems="center"
+      justifyContent="center"
     >
       {images.map((image, index) => {
         const radioProps = getRadioProps({ value: image.id.toString() });

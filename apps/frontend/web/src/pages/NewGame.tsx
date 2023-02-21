@@ -73,7 +73,7 @@ const NewGame = () => {
         const reqGameCookie = await fetch('/api/games/id', { method: 'GET' });
         const resGameCookie = await reqGameCookie.json();
 
-        if ((resGameCookie.status = 'OK')) {
+        if (resGameCookie.status === 'OK') {
           setIsNewGameCreated(true);
           navigate('/game/overview');
         }
@@ -137,7 +137,7 @@ const NewGame = () => {
               maxW="400px"
               m="1.5rem 0 0"
             >
-              {'Name of your company :'}
+              {'Name of your company:'}
             </FormLabel>
             <Input
               id="companyName"
@@ -187,7 +187,7 @@ const NewGame = () => {
               w="100%"
               maxW="400px"
             >
-              {'CEO of your company :'}
+              {'CEO of your company:'}
             </FormLabel>
             <Input
               id="ceo"
@@ -237,7 +237,7 @@ const NewGame = () => {
               w="100%"
               maxW="400px"
             >
-              {'Location of your company :'}
+              {'Location of your company:'}
             </FormLabel>
             <Input
               maxW="400px"

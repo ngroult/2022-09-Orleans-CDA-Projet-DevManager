@@ -1,13 +1,14 @@
 import { User } from '@apps/backend-api';
 import { Dispatch, SetStateAction } from 'react';
 import { Input, InputGroup, FormLabel } from '@chakra-ui/react';
+import { DeepPartial } from '@libs/typings';
 
 const UserContactFiller = ({
   pendingUserData,
   setPendingUserData,
 }: {
-  pendingUserData: Partial<User>;
-  setPendingUserData: Dispatch<SetStateAction<Partial<User>>>;
+  pendingUserData: DeepPartial<User>;
+  setPendingUserData: Dispatch<SetStateAction<DeepPartial<User>>>;
 }) => {
   return (
     <InputGroup
@@ -24,7 +25,7 @@ const UserContactFiller = ({
         maxW="400px"
         m="0"
       >
-        {'Username :'}
+        {'Username:'}
       </FormLabel>
       <Input
         id="username"
@@ -34,7 +35,7 @@ const UserContactFiller = ({
         _placeholder={{ opacity: 0.3 }}
         value={pendingUserData.username}
         onChange={(e) =>
-          setPendingUserData((prev: Partial<User>) => ({
+          setPendingUserData((prev: DeepPartial<User>) => ({
             ...prev,
             username: e.target.value,
           }))
@@ -47,7 +48,7 @@ const UserContactFiller = ({
         maxW="400px"
         m="0.5rem 0 0"
       >
-        {'E-mail :'}
+        {'E-mail:'}
       </FormLabel>
       <Input
         id="email"
@@ -57,7 +58,7 @@ const UserContactFiller = ({
         _placeholder={{ opacity: 0.3 }}
         value={pendingUserData.email}
         onChange={(e) =>
-          setPendingUserData((prev: Partial<User>) => ({
+          setPendingUserData((prev: DeepPartial<User>) => ({
             ...prev,
             email: e.target.value,
           }))

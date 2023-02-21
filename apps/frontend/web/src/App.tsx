@@ -1,3 +1,4 @@
+import { useContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Register from './pages/Register';
@@ -11,17 +12,14 @@ import About from './pages/About';
 import Assistance from './pages/Assistance';
 import Page404 from './pages/Page404';
 import Leaderboard from './pages/Leaderboard';
-import AuthContext from './contexts/AuthContext';
-import { useContext, useEffect } from 'react';
 import Protected from './components/Protected';
-import { Box, useDisclosure } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import MobileNavbar from './components/MobileNavbar';
-import DrawerNavbar from './components/popups/DrawerNavbar';
 import ResourcesBar from './components/ResourcesBar';
 import NavbarRooms from './components/NavbarRooms';
 import MobileNavbarRooms from './components/MobileNavbarRooms';
-import GameFrame from './components/GameFrame';
+import { Box } from '@chakra-ui/react';
+import AuthContext from './contexts/AuthContext';
 
 const App = () => {
   const { user, setUser, setIsLoadingUser } = useContext(AuthContext);
@@ -72,11 +70,11 @@ const App = () => {
         <Route
           path="/leaderboard"
           element={
-            <>
+            <Protected>
               <Navbar />
               <MobileNavbar />
               <Leaderboard />
-            </>
+            </Protected>
           }
         />
         <Route
@@ -94,8 +92,10 @@ const App = () => {
           element={
             <Protected>
               <Navbar />
+              <ResourcesBar />
               <MobileNavbar />
               <Overview />
+              <NavbarRooms />
               <MobileNavbarRooms />
             </Protected>
           }

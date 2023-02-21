@@ -33,7 +33,7 @@ const RoomPage = () => {
           title: `Up ${gameRoom?.room.name} total size`,
           description: `Congratulations, your ${gameRoom?.room.name} is growing up!`,
           status: 'success',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       } else {
@@ -41,7 +41,7 @@ const RoomPage = () => {
           title: `Up ${gameRoom?.room.name} total size`,
           description: `You don't have enough devDollars!`,
           status: 'error',
-          duration: 9000,
+          duration: 3000,
           isClosable: true,
         });
       }
