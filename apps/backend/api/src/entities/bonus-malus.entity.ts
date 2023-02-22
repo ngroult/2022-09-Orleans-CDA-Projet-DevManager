@@ -1,4 +1,3 @@
-import { Length } from 'class-validator';
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Character } from './character.entity';
 import { Event } from './event.entity';
@@ -14,7 +13,7 @@ export class BonusMalus {
   @Column()
   type: string;
 
-  @Column('varchar', { length: 30 })
+  @Column('varchar', { length: 200 })
   label: string;
 
   @Column()

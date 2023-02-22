@@ -83,9 +83,15 @@ const Leaderboard = () => {
                     />
                   </Flex>
                 </Heading>
-                <Text fontSize={{ base: 'l', md: 'xl' }}>
-                  {`Your Point ${userGameResources?.quantity}$`}
-                </Text>
+                <Flex>
+                  <Text fontSize={{ base: 'l', md: 'xl' }} mr="2">
+                    {'Your Points:'}
+                  </Text>
+                  <Image boxSize="2rem" mr="1" src="/dollar.png" />
+                  <Text fontSize={{ base: 'l', md: 'xl' }}>
+                    {` ${userGameResources?.quantity}`}
+                  </Text>
+                </Flex>
               </Box>
             </Flex>
           </Flex>

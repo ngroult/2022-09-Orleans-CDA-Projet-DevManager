@@ -298,7 +298,8 @@ export class ForgeProdService {
     const characters = [
       {
         name: 'Intern',
-        description: 'Intern description',
+        description:
+          'The interns are there to make you coffee. No need to give them anything, they just make coffee... for free of course.',
         image: '/intern.png',
         price: 1,
         order: 1,
@@ -307,7 +308,8 @@ export class ForgeProdService {
       },
       {
         name: 'Developer',
-        description: 'Developer description',
+        description:
+          "Developers are the heart of your company. It's the little hands that help you get rich, very rich. Do not hesitate to hire them, we can never have enough.",
         image: '/developer.png',
         price: 100,
         order: 2,
@@ -316,7 +318,8 @@ export class ForgeProdService {
       },
       {
         name: 'Lead developer',
-        description: 'Lead developer description',
+        description:
+          'You can take care of one, two or even ten developers. But what to do when there are tens, hundreds, even thousands? This is where lead developers will come in handy.',
         image: '/lead_dev.png',
         price: 1000,
         order: 3,
@@ -325,7 +328,8 @@ export class ForgeProdService {
       },
       {
         name: 'Recruiter',
-        description: 'Recruiter description',
+        description:
+          'The recruiter is in charge of for the search and selection of personnel. This includes managing the entire recruitment process, from creating job advertisements to hiring the best candidate.',
         image: '/recruiter.png',
         price: 5000,
         size: 5,
@@ -334,7 +338,8 @@ export class ForgeProdService {
       },
       {
         name: 'Salesman',
-        description: 'Salesman description',
+        description:
+          'The salesman intervenes on the sale of a product or service rather than on its design. He must therefore find customers, convince them to buy a product and secure the sale.',
         image: '/salesman.png',
         price: 5000,
         size: 5,
@@ -343,7 +348,8 @@ export class ForgeProdService {
       },
       {
         name: 'Delivery man',
-        description: 'Delivery man description',
+        description:
+          'The delivery man spends his time on the road transporting packages and goods to deliver them. Unlike the truck driver, he only makes short trips using a light vehicle.',
         image: '/delivery_man.png',
         price: 7500,
         size: 5,
@@ -383,7 +389,8 @@ export class ForgeProdService {
     const events = [
       {
         name: 'Hackathon',
-        description: 'Hackathon description',
+        description:
+          'Nothing better than unachievable goals to boost developer productivity! By organizing a hackathon they will even work outside working hours to succeed in their missions.',
         label: 'hackathon',
         image: '/hackathon.png',
         price: 1000,
@@ -393,7 +400,8 @@ export class ForgeProdService {
       },
       {
         name: 'Talent Week',
-        description: 'Talent Week description',
+        description:
+          'Sometimes you have to use your employees to recruit others. During the talent week, mobilize your developers and they will find you trainees even cheaper than usual.',
         label: 'talent_week',
         image: '/talent_week.png',
         price: 10000,
@@ -403,7 +411,8 @@ export class ForgeProdService {
       },
       {
         name: 'Job Dating',
-        description: 'Job Dating description',
+        description:
+          "Are you struggling to recruit new developers? It's time to do a job dating! By inviting a lot of developers, they will lower all their prices, it's the law of supply and demand!",
         label: 'job_dating',
         image: '/job_dating.png',
         price: 20000,
@@ -460,8 +469,8 @@ export class ForgeProdService {
         order: 2,
       },
       {
-        name: 'Energic drinks',
-        description: 'Energic drinks Description',
+        name: 'Energy drinks',
+        description: 'Energy drinks Description',
         image: '/soda.png',
         color: 'turquoise.200',
         order: 3,
