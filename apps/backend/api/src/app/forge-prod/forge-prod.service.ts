@@ -349,7 +349,7 @@ export class ForgeProdService {
       {
         name: 'Delivery man',
         description:
-          'The delivery man spends his time on the road transporting packages and goods to deliver them. Unlike the truck driver, he only makes short trips using a light vehicle',
+          'The delivery man spends his time on the road transporting packages and goods to deliver them. Unlike the truck driver, he only makes short trips using a light vehicle.',
         image: '/delivery_man.png',
         price: 7500,
         size: 5,
