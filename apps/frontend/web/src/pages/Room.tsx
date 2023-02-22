@@ -1,7 +1,16 @@
-import { Badge, Box, Flex, Image, Text, useToast } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Flex,
+  Image,
+  Text,
+  useToast,
+  Center,
+} from '@chakra-ui/react';
 import { useContext } from 'react';
 import GameContext from '../contexts/GameContext';
 import RoomElementCard from '../components/RoomElementCard';
+import GameFrame from '../components/GameFrame';
 
 const RoomPage = () => {
   const { gameRoom, gameEvents, gameCharacters } = useContext(GameContext);
@@ -48,11 +57,35 @@ const RoomPage = () => {
     >
       <Box
         boxSize="100%"
-        display={{ base: 'none', sm: 'none', md: 'flex' }}
+        display={{
+          base: 'flex',
+          sm: 'flex',
+          md: 'flex',
+          lg: 'flex',
+          '2xl': 'none',
+        }}
         bgImage="/placeholder.png"
         bgPosition="top center"
         bgSize="cover"
+        w="100%"
       />
+      <Box
+        boxSize="100%"
+        display={{
+          base: 'none',
+          sm: 'none',
+          md: 'none',
+          lg: 'none',
+          '2xl': 'flex',
+        }}
+        bgPosition="top center"
+        bgSize="cover"
+      >
+        <Center pl={'70px'}>
+          <GameFrame />
+        </Center>
+      </Box>
+
       {gameRoom && gameEvents && gameCharacters && (
         <Flex
           flexDir="column"
