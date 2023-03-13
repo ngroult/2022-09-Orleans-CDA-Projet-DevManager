@@ -125,14 +125,30 @@ export class GameCharactersService {
       .innerJoinAndSelect('gameCharacter.character', 'character')
       .innerJoinAndSelect('character.room', 'room')
       .innerJoinAndSelect('room.gameRooms', 'gameRooms')
+      .leftJoinAndSelect('character.resourcesUsed', 'resourcesUsed')
+      .leftJoinAndSelect('resourcesUsed.resource', 'resource')
+      .leftJoinAndSelect('character.resourcesProduced', 'resourcesProduced')
+      .leftJoinAndSelect('resourcesProduced.resource', 'resource1')
       .innerJoinAndSelect('gameCharacter.game', 'game')
-      .innerJoinAndSelect('game.gameResources', 'gameResources')
-      .innerJoinAndSelect('gameResources.resource', 'resource')
+      .innerJoinAndSelect(
+        'game.gameResources',
+        'gameResources',
+        'gameResources.gameId = :gameId',
+        { gameId },
+      )
+      .innerJoinAndSelect('gameResources.resource', 'resource2')
       .where('gameCharacter.id = :idGameCharacter', { idGameCharacter })
       .andWhere('gameRooms.gameId = gameCharacter.gameId')
-      .andWhere('resource.name = :name', { name: 'DevDollars' })
       .andWhere('game.id = :gameId', { gameId })
+      .andWhere('resource2.name = :name', { name: 'DevDollars' })
       .getOne();
+
+    const gameResources = await this.gameResourcesRepository
+      .createQueryBuilder('gameResources')
+      .innerJoinAndSelect('gameResources.resource', 'resource')
+      .where('gameResources.gameId = :gameId', { gameId })
+      .andWhere('resource.id = gameResources.resourceId')
+      .getMany();
     const responseJson = { success: false };
 
     const newCharacterPrice = Math.ceil(
@@ -149,6 +165,15 @@ export class GameCharactersService {
     if (newCharacterPrice > gameChar.game.gameResources[0].quantity) {
       return responseJson;
     }
+    gameChar.character.resourcesUsed.map((resourceUsed) => {
+      gameResources
+        .filter((gameResource) => gameResource.resource.id === resourceUsed.id)
+        .map((gameResource) => {
+          if (gameResource.quantity < resourceUsed.quantity) {
+            return responseJson;
+          }
+        });
+    });
 
     const newQuantityDevDollars =
       gameChar.game.gameResources[0].quantity - newCharacterPrice;
